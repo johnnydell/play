@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>主页面</title>
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/index.css"/>
+	</head>
+	<body>
+		<div class="box">
+		    <!-- left menu -->
+			<div class="left fl"></div>
+			<div class="right">
+				<!-- right header -->
+				<header></header>
+				<div class="container">
+				    <!-- main template -->
+				</div>
+				<!-- right footer -->
+				<footer></footer>
+			</div>
+		</div>
+	</body>
+	<script src="../js/lib/jquery-1.10.1.min.js"></script>
+	<script src="../js/lib/ractive-legacy.js"></script>
+	<script src="../js/lib/jquery.i18n.properties-1.0.9.js"></script>
+	<script src="../js/lib/manager.js"></script>
+	<script src="../js/index.js"></script>
+	<script id="main-template" type="text/active">
+	<div class="position _clear title">
+		<h3>{{i18n_index_title}}</h3>
+		<div class="fr">
+			<p>
+				<i class="icon icon-home"></i>
+				<span>{{i18n_index_nav1}}</span>
+			</p>
+		</div>
+	</div>
+	<div class="content">
+	    <div class="check">
+			<label for="zh">中文</label><div class="check-box"><input type="radio" name="language" value="zh" id="zh" checked="checked" /><i></i></div>
+		</div>
+		<div class="check">
+			<label for="en">英文</label><div class="check-box"><input type="radio" name="language" value="en" id="en" /><i></i></div>
+		</div>
+		<div class="content-box">
+			<ul>
+				<li class="bg-b8d9fb"><a href="#">MOE1信息板</a></li>
+				<li class="bg-72b3f6"><a href="lines.html">MOE2晨会区</a></li>
+				<li class="bg-e1f8c9"><a href="#">TQS<br>培训和技能管理系统</a></li>
+				<li class="bg-c2f094"><a href="#">OES在线考试系统</a></li>
+			</ul>
+		</div>
+	</div>
+	</script>
+</html>

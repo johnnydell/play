@@ -1,0 +1,238 @@
+html, body{
+	height: 100%;
+	background: #fff;
+	overflow: hidden;
+}
+.wrap{
+	margin: auto;
+	width: 1200px;
+}
+.box{
+	padding-top: 10px;
+	height: 100%;
+	background: url(../images/top_bg.png) no-repeat left top;
+	background-size: 100% 10px;
+}
+.fl{
+	float: left;
+}
+.fr{
+	float: right;
+}
+.fr span {
+	padding-left:5px;
+}
+._clear:after{
+	content: "";
+	display: block;
+	height: 0px;
+	visibility: hidden;
+	clear: both;
+}
+.mr-10{
+	margin-right: 10px;
+}
+.mb-10{
+	margin-bottom: 10px;
+}
+.text-r{
+	text-align: right;
+}
+
+.bg-b8d9fb{
+	background: #b8d9fb !important;
+}
+
+.bg-72b3f6{
+	background: #72b3f6 !important;
+}
+
+.bg-e1f8c9{
+	background: #e1f8c9 !important;
+}
+
+.bg-c2f094{
+	background: #c2f094 !important;
+}
+
+.bg-92d050{
+	background: #92d050;!important;
+}
+
+.bg-ffc000{
+	background: #ffc000;!important;
+}
+
+.bg-f4b183{
+	background: #f4b183;!important;
+}
+
+.left{
+	padding-top: 60px;
+	padding-bottom: 10px;
+	width: 50px;
+	text-align: center;
+	overflow: hidden;
+}
+
+.icon{
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	background-repeat: no-repeat;
+	background-position: center;
+	vertical-align: middle;
+}
+.icon-cd{
+	background-image: url(../images/icon-cd.png);
+}
+.icon-gj{
+	background-image: url(../images/icon-gj.png);
+}
+.icon-xf{
+	background-image: url(../images/icon-xf.png);
+}
+.icon-menu{
+	width: 16px;
+	height: 16px;
+	background-image: url(../images/icon-menu.png);
+	cursor: pointer;
+}
+.icon-home{
+	width: 16px;
+	height: 16px;
+	background-size: auto; 
+	background-image: url(../images/icon-home.png);
+}
+.icon-yq{
+	width: 20px;
+	height: 20px;
+	background-size: auto; 
+	background-image: url(../images/icon-sq.png);
+}
+.icon-cl{
+	width: 20px;
+	height: 20px;
+	background-size: auto; 
+	background-image: url(../images/icon-cl.png);
+}
+
+.left li{
+	display: block;
+	width: 100%;
+	padding: 9px 0px;
+	box-shadow: 0px -1px 1px #ccc;
+}
+.left li:hover{
+	background: #ebeff4;
+}
+.left ul{
+	box-shadow: 0px 1px 1px #ccc;
+}
+.left li img{
+	border-radius: 50%;
+}
+.right{
+	position: relative;
+	padding: 2px;
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+.right header{
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	padding: 8px 30px 10px 20px;
+	box-shadow: 0px 1px 1px #ccc;
+	background: #fff;
+}
+.right header *{
+	vertical-align: middle;
+}
+
+.container{
+	padding: 70px 35px 40px 35px;
+	box-shadow: -1px 0px 1px #ccc;
+	background: #ebeff4;
+	min-height: 100%;
+}
+.position{
+	padding-bottom: 10px;
+}
+.position h3{
+	display: inline-block;
+	font-size: 18px;
+	line-height: 2;
+	vertical-align: middle;
+}
+.position a{
+	padding: 0px 5px;
+}
+.position-gj{
+	padding: 10px 0px;
+	text-align: right;
+}
+.content{
+	margin-bottom: 30px;
+	padding: 20px;
+	box-shadow: 0px 0px 1px #ccc;
+	background: #f7f9fb;
+}
+.check{
+	text-align: right;
+}
+.check label{
+	cursor: pointer;
+}
+.check-box{
+	position: relative;
+	margin-left: 5px;
+	display: inline-block;
+	height: 20px;
+	line-height: 20px;
+}
+.check-box input{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+	opacity: 0;
+}
+.check-box i{
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	border: solid 1px #ccc;
+	vertical-align: middle;
+}
+.check-box input:checked + i{
+	background: url(../images/icon-d.png) no-repeat;
+	background-size: 100%;
+}
+.content-box{
+	margin-top: 15px;
+}
+
+footer{
+	position: fixed;
+	width: 100%;
+	bottom: 0px;
+	padding: 15px 10px;
+	box-shadow: -1px -1px 1px #ccc;
+	background-color: #fff;
+}
+
+footer p{
+	display: inline-block;
+	font-weight: bold;
+}
+
+footer .rt {
+	float: right;
+    padding-right: 80px;
+}
+    
+    

@@ -1,0 +1,42 @@
+.content-box ul{
+	text-align: center;
+}
+.content-box li{
+	margin: 20px;
+	display: inline-block;
+	padding: 40px 30px;
+	width: 45%;
+	height: 265px;
+	font-size: 20px;
+	text-align: center;
+	vertical-align: middle;
+	border:solid 3px #ececec;
+}
+.content-box li.active,
+.content-box li:hover{
+	border-color: #ff0000;
+}
+.content-box li a{
+	display: block;
+	height: 100%;
+}
+
+/*mblockquote-scl*/
+.kpi-scl-box ul{
+	padding: 3px;
+	font-size: 0px;
+	background: #b8d9fb;
+	text-align: left;
+}
+.kpi-scl-box ul li{
+	margin: 0px;
+	padding: 0px;
+	width: 25%;
+	height: 180px;
+	border-color: #B8D9FB;
+	
+}
+.kpi-scl-box ul li img{
+	width: 100%;
+	height: 100%;
+}

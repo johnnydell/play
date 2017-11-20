@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>KIP排列</title>
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/kpi.css"/>
+	</head>
+	<body>
+		<div class="box">
+		    <!-- left menu -->
+			<div class="left fl"></div>
+			<div class="right">
+				<!-- right header -->
+				<header></header>
+				<div class="container">
+				    <!-- main template -->
+				</div>
+				<!-- right footer -->
+				<footer></footer>
+			</div>
+		</div>
+	</body>
+	<script src="../js/lib/jquery-1.10.1.min.js"></script>
+	<script src="../js/lib/ractive-legacy.js"></script>
+	<script src="../js/lib/jquery.i18n.properties-1.0.9.js"></script>
+	<script src="../js/lib/manager.js"></script>
+	<script src="../js/kpi.js"></script>	
+	<script id="main-template" type="text/active">
+	<div class="position _clear title">
+		<h3>工厂信息展示屏</h3>
+		<div class="fr">
+			<p>
+				<i class="icon icon-home"></i>
+				<a href="index.html">首页</a>
+				<font color="#ccc">></font>
+				<a href="index.html">首页</a>
+				<font color="#ccc">></font>
+				<span>{{sec_nav_title}}</span>
+			</p>
+		</div>
+	</div>
+	<div class="content">
+	    <div class="check">
+			<label for="cppl">产品排列</label><div class="check-box"><input type="radio" name="plfs" value="cppl" id="cppl" on-click="cpplEvt" /><i></i></div>
+		</div>
+		<div class="check">
+			<label for="kpipl">KPI排列</label><div class="check-box"><input type="radio" name="plfs" value="kpipl" id="kpipl" checked="checked" /><i></i></div>
+		</div>
+		<div class="content-box kpi-box">
+			<ul>
+				<li class="bg-b8d9fb"><a href="#">安全</a></li>
+				<li class="bg-b8d9fb"><a href="#">内部抱怨</a></li>
+				<li class="bg-b8d9fb"><a href="#">外部抱怨</a></li>
+				<li class="bg-b8d9fb"><a href="#">报废</a></li>
+				<li class="bg-b8d9fb"><a href="#">交付</a></li>
+				<li class="bg-b8d9fb active"><a href="scl.html">生产力</a></li>
+			</ul>
+		</div>
+	</div>	
+	</script>
+</html>

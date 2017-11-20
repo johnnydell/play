@@ -1,0 +1,27 @@
+.content-box ul{
+	text-align: center;
+}
+.content-box li{
+	margin: 20px;
+	display: inline-block;
+	padding: 40px 30px;
+	width: 45%;
+	height: 265px;
+	font-size: 20px;
+	text-align: center;
+	vertical-align: middle;
+	border:solid 3px #ececec;
+}
+.content-box li.active,
+.content-box li:hover{
+	border-color: #ff0000;
+}
+.content-box li a{
+	display: block;
+	height: 100%;
+}
+
+.kpi-box ul li{
+	padding-top: 50px;
+	width: 28%;
+}
