@@ -62,6 +62,26 @@ var manager = function() {
 	          },
 	          toOthers:function(){
 	              location.href = "others.html";
+	          },
+	          toLogin:function(){
+	        	  $(".popup").show();
+	        	    $.get("tpl/common/login.html", function (data) {
+	        	        var ractive2 = new Ractive({
+	        	            el: ".popup",
+	        	            template: data,
+	        	            oncomplete: function () {
+
+	        	            }
+	        	        });
+
+	        	        ractive2.on("login", function () {
+	        	            console.log("login");
+	        	        });
+	        	        
+	        	        ractive2.on("close", function () {
+	        	            $(".popup").hide().html("");
+	        	        });
+	        	    });
 	          }
 	        })
 	        

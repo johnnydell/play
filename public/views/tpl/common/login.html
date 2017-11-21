@@ -1,0 +1,31 @@
+<link rel="stylesheet" type="text/css" href="../css/login.css"/>
+<div class="model">
+	<div class="modal-header">
+		<button type="button" class="close" on-click="close">×</button>
+		<h4>Login</h4>
+	</div>
+	<div class="modal-body">
+		<form role="form" class="ng-pristine ng-valid">
+		<div class="form-group">
+		<table id="doLogin" class="table">
+			<tbody><tr>
+				<td>
+				    <label><strong>User Name:</strong></label> 
+				    <input type="text" id="doLogin_username" class="form-control">
+			     </td>
+			</tr>
+			<tr>
+				<td>
+				   <label><strong>Password: </strong></label>
+				   <input type="password" id="doLogin_passwd" class="form-control"> 
+				</td>
+			</tr>
+		</tbody></table>
+		</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn" on-click="close">Close</button>
+		<button type="button" class="btn" on-click="login">Login</button>
+	</div>
+</div>

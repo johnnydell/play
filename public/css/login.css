@@ -1,113 +1,130 @@
-@charset "utf-8";
-*{
-	font-family: "微软雅黑";
-	font-size: 14px;
-	outline: none;
-    margin:0;
-    padding: 0;
-    border-collapse: collapse;    
-    border-spacing: 0px;
-    box-sizing: border-box;
-}
-img{border:0;}
-html, body{
-	height: 100%;
-	/* overflow: hidden; */
-  	/* overflow-y: scroll; */
-	/* background-color: #fff; */
-}
-html,body,ul,li,p,h1,h2,h3,h4,h5{
-	margin: 0;
-	padding: 0;
-}
-a{
-	text-decoration: none;
-}
-em,i{
-	font-style: normal;
-}
-li{
-	list-style: none;
-}
-img{
-	border-style: none;
-}
-*{border:0;margin:0;padding:0;outline: none;}
-body{font-family:'微软雅黑'; margin:0 auto; /* background-color: #fefefe; */}
-ul{display:block;margin:0;padding:0;list-style:none;}
-li{display:block;margin:0;padding:0;list-style: none;}
-img{border:0;}
-dl,dt,dd,span{margin:0;padding:0;display:/* inline-block;*/}
-a,a:focus{text-decoration:none;color:#000;outline:none;blr:expression(this.onFocus=this.blur());}
-a:hover{text-decoration:none;}
-table{border-collapse:collapse;border-spacing: 0;}
-cite{font-style:normal;}
-h2{font-weight:normal;}
-input{vertical-align: middle;}
-
-
-button,
-input[type="button"] {
-	cursor: pointer;
+/*** 弹出框样式 ***/
+.popup {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
 }
 
-.hp-login{
-	width: 100%;
-	height: 100%;
-	background: url(../images/login_bg.jpg) no-repeat;
-	background-size: cover;
+.model{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 600px;
+    height: 320px;
+    margin-left: -350px;
+    margin-top: -300px;
+    background: #fff;    
+    text-align: left;
 }
-.hp-login-box{
-	position: fixed;
-	top: 50%;
-	margin-top: -216px;
-	right: 350px;
-	padding: 40px 30px 0px;
-	/*width: 370px;*/
-	height: 435px;
-	border: solid 3px rgba(255, 255, 255, .6);
-	background: rgba(255, 255, 255, .3);
-	background-size: cover;
-	border-radius: 10px;
-	text-align: center;
+
+.modal-header {
+    border-bottom: 1px solid #e5e5e5;
 }
-.hp-login-box h1{
-	padding-bottom: 40px;
-	color: #fff;
-	font-size: 60px;
-	text-align: center;
-	font-weight: normal;
+
+.modal-header .close {
+    margin-right: 10px;
+    float: right;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 0;
+    margin-top: 10px;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=20);
+    opacity: .2;
 }
-.hp-login-input{
-	padding: 10px 0px;
-	background: #fff;
-	border-radius: 5px;
-	text-align: left;
+
+.modal-header h4 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    font-weight: lighter;
 }
-.hp-login-input input{
-	width: 100%;
-	height: 40px;
-	padding: 5px 5px 5px 55px;
-	font-size: 16px;
-	color: #6f7278;
+
+.modal-body {
+    position: relative;
+    padding: 20px;
 }
-.hp-login-input input.hp-login-user{
-	margin-bottom: 10px;
-	height: 50px;
-	background: url(../images/user.png) 5px center no-repeat !important;
-	border-bottom: solid 1px #cccccc;
+
+.modal-body form {
+    display: block;
+    margin-top: 0em;
 }
-.hp-login-input input.hp-login-password{
-	margin-bottom: 5px;
-	background: url(../images/password.png) 15px center no-repeat !important;
+
+.modal-body .table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    background-color: transparent;
+    border-spacing: 0;
+    border-collapse: collapse;
 }
-.hp-login-btn{
-	margin: 40px auto 0px;
-	width: 297px;
-	height: 63px;
-	background: url(../images/login_btn_bg.png) no-repeat;
-	color: #fff;
-	font-size: 32px;
-	letter-spacing: 5px;
-	text-shadow: 1px 1px 1px #666;
+
+.modal-body .table tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+.modal-body .table>tbody>tr>td {
+	padding:8px;
+}
+
+.modal-body .table .form-control {
+	border-radius: 0px !important;
+    box-shadow: none;
+    border-color: #d2d6de;
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.modal-footer {
+    padding: 15px;
+    text-align: right;
+    border-top: 1px solid #e5e5e5;
+}
+
+.modal-footer .btn {
+    box-shadow: none;
+    background: #DADADA;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
 }

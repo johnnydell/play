@@ -4,6 +4,6 @@ public class Constants {
 	
 	public static String CTX_PATH = "";
 	
-	public static String LOGIN_PATH = CTX_PATH+ "/edashboard/views/login.html";
+	public static String INDEX_PATH = CTX_PATH+ "/edashboard/views/index.html";
 
 }
