@@ -5,7 +5,7 @@ var settings = function(){
 			template: "#main-template",
 			data: {},
 			onrender: function(){
-				//manager.loadProperties(this, "index", "../");
+				manager.loadProperties(this, "settings", "../");
 			},
 			oncomplete: function(){
 				console.log("sdfsdf");
