@@ -76,7 +76,7 @@ var manager = function() {
 	        
 	        ractive.on({
 	           toggleLeft:function(){
-	             $(".left").toggle(1000);
+	             $(".left").toggle(900);
 	           }
 	        })
 	    });
@@ -87,36 +87,7 @@ var manager = function() {
 	            el: '.right footer',
 	            template: template
 	        });   
-	    });
-	    
-	   //渲染container-title部分
-	  // $.get("tpl/common/container-title.html", function (template) {
-	   	 	//var path = location.pathname;
-//	        var dirArr = path.split('/');
-//	        var dir = dirArr[dirArr.length-1].split('.')[0];
-//	        var sec_nav_title = '工厂信息展示屏';
-//	        switch(dir){
-//				case 'moe2':
-//				  sec_nav_title = 'MOE2 晨会区';
-//				  break;
-//				case 'fag2':
-//				  sec_nav_title = 'FAG2 SMC展示';
-//				  break;
-//				case 'moe2-kpi':
-//				  sec_nav_title = 'FAG2 SMC展示';
-//				  break;
-//				case 'moe2-scl':
-//				  sec_nav_title = 'MOE2 生产力展示';
-//				  break;
-//				case 'moe2-scl2':
-//				  sec_nav_title = 'FAG2 生产力展示';
-//				  break;
-//			}
-	      //  var ractive = new Ractive({
-	    //        el: '.container .title',
-	   //         template: template
-	    //    });   
-	   // });	    
+	    });   
 	}
 
     function test2(){

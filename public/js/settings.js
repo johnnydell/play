@@ -8,7 +8,6 @@ var settings = function(){
 				manager.loadProperties(this, "settings", "../");
 			},
 			oncomplete: function(){
-				console.log("sdfsdf");
 			}
 		});
 		
