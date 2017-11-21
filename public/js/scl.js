@@ -1,11 +1,11 @@
-var moe2SCL = function(){
+var scl = function(){
 	function init(){
 		var ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
 			data: {},
 			onrender: function(){
-				//manager.loadProperties(this, "index", "../");
+				manager.loadProperties(this, "index", "../");
 			},
 			oncomplete: function(){
 				console.log("sdfsdf");
@@ -23,4 +23,4 @@ var moe2SCL = function(){
 		init:init
 	}
 }();
-$(document).ready(moe2SCL.init);
+$(document).ready(scl.init);

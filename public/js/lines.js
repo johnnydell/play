@@ -1,4 +1,4 @@
-var moe2 = function(){
+var lines = function(){
 	function init(){
 		var ractive = new Ractive({
 			el: ".container",
@@ -23,4 +23,4 @@ var moe2 = function(){
 		init:init
 	}
 }();
-$(document).ready(moe2.init);
+$(document).ready(lines.init);

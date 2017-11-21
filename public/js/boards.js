@@ -1,4 +1,4 @@
-var fag2 = function(){
+var boards = function(){
 	function init(){
 		var ractive = new Ractive({
 			el: ".container",
@@ -17,4 +17,4 @@ var fag2 = function(){
 		init:init
 	}
 }();
-$(document).ready(fag2.init);
+$(document).ready(boards.init);

@@ -1,11 +1,11 @@
-var moe2KPI = function(){
+var kpi = function(){
 	function init(){
 		var ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
 			data: {},
 			onrender: function(){
-				//manager.loadProperties(this, "index", "../");
+				manager.loadProperties(this, "kpi", "../");
 			},
 			oncomplete: function(){
 				console.log("sdfsdf");
@@ -23,4 +23,4 @@ var moe2KPI = function(){
 		init:init
 	}
 }();
-$(document).ready(moe2KPI.init);
+$(document).ready(kpi.init);
