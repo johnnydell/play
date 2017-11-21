@@ -5,7 +5,7 @@ var scl = function(){
 			template: "#main-template",
 			data: {},
 			onrender: function(){
-				manager.loadProperties(this, "index", "../");
+				manager.loadProperties(this, "scl", "../");
 			},
 			oncomplete: function(){
 				console.log("sdfsdf");
