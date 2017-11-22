@@ -17,4 +17,4 @@ var meetAttd = function(){
 		init:init
 	}
 }();
-$(document).ready(meetAttd.init);
+//$(document).ready(meetAttd.init);
