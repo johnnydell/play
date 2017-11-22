@@ -1,13 +1,14 @@
-var others = function(){
+var meetAttd = function(){
 	function init(){
 		var ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
-			data:{root:manager.root},
+			data: {},
 			onrender: function(){
-				manager.loadProperties(this, "others", "../");
+				manager.loadProperties(this, "meetAttd", "../../");
 			},
 			oncomplete: function(){
+				console.log("sdfsdf");
 			}
 		});
 	}
@@ -16,4 +17,4 @@ var others = function(){
 		init:init
 	}
 }();
-$(document).ready(others.init);
+$(document).ready(meetAttd.init);

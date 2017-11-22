@@ -3,6 +3,10 @@ var manager = function() {
     
     var cookieDomain = "";
     
+    var context = "edashboard"; //上下文
+    var origin = location.origin//地址
+    var root = origin+"/"+context;
+    
     //TODO 初始化语言环境
 	var language = getCookie("language");
 	if(language == "undefined" || language == undefined){
@@ -47,28 +51,30 @@ var manager = function() {
 	//渲染整体布局
 	function renderLayout(){	
 	   //渲染left部分
-	   $.get("tpl/common/left.html", function (template) {
+	   $.get(root+"/views/tpl/common/left.html", function (template) {
 	        var ractive = new Ractive({
 	            el: '.left',
+	            data:{root:root},
 	            template: template
 	        });   
 	        
 	        ractive.on({
 	          toDashboard:function(){
-	              location.href = "index.html";
+	              location.href = root+"/views/index.html";
 	          },
 	          toSettings:function(){
-	              location.href = "settings.html";
+	              location.href = root+"/views/settings.html";
 	          },
 	          toOthers:function(){
-	              location.href = "others.html";
+	              location.href = root+"/views/board1/meetAttd.html";
 	          },
 	          toLogin:function(){
 	        	  $(".popup").show();
-	        	    $.get("tpl/common/login.html", function (data) {
+	        	    $.get(root+"/views/tpl/common/login.html", function (data) {
 	        	        var ractive2 = new Ractive({
 	        	            el: ".popup",
 	        	            template: data,
+	        	            data:{root:root},
 	        	            oncomplete: function () {
 
 	        	            }
@@ -88,9 +94,10 @@ var manager = function() {
 	    });
 	    
 	   //渲染right-header部分
-	   $.get("tpl/common/right-header.html", function (template) {
+	   $.get(root+"/views/tpl/common/right-header.html", function (template) {
 	        var ractive = new Ractive({
 	            el: '.right header',
+	            data:{root:root},
 	            template: template
 	        }); 
 	        
@@ -102,29 +109,19 @@ var manager = function() {
 	    });
 	    
 	   //渲染right-footer部分
-	   $.get("tpl/common/right-footer.html", function (template) {
+	   $.get(root+"/views/tpl/common/right-footer.html", function (template) {
 	        var ractive = new Ractive({
 	            el: '.right footer',
+	            data:{root:root},
 	            template: template
 	        });   
 	    });   
 	}
 
-    function test2(){
-       console.log("test2");
-    }
-
 	return {
-		init: function() {
-			//初始化公共部分逻辑或者模板
-			renderLayout();
-		},
+		init: renderLayout,
 		loadProperties:loadProperties,
-		test:function(){
-		  console.log("test");
-		},
-		test2:test2
- 
+		root:root 
  }
 
 }();

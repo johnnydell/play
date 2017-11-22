@@ -6,9 +6,9 @@
 GET     /                           controllers.Application.index()
 
 # City page
-GET     /city/show      controllers.CityController.show()
-GET     /city/allCities   controllers.CityController.allCities()
-GET     /city/addCity   controllers.CityController.addCity()
+GET     /edashboard/city/show      controllers.CityController.show()
+GET     /edashboard/city/allCities   controllers.CityController.allCities()
+GET     /edashboard/city/addCity   controllers.CityController.addCity()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /edashboard/*file               controllers.Assets.at(path="/public", file)
