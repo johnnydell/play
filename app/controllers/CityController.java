@@ -12,21 +12,21 @@ public class CityController extends Controller {
 
    @Transactional
    public static Result addCity() {
-    	City  c1 = new City();
-    	c1.ID = 14;
-    	c1.Name = "dell";
-    	c1.District = "1";
-    	c1.Population = 1;
-    	c1.countrycode = "12";
-    	City  c2 = new City();
-    	c2.ID = 14;
-    	c2.Name = "vicky";
-    	c2.District = "1";
-    	c2.Population = 1;
-    	c2.countrycode = "12";
-    	c1.save();
-    	c2.save();
-    	return ok("saved");
+		City  c1 = new City();
+		c1.ID = 14;
+		c1.Name = "dell";
+		c1.District = "1";
+		c1.Population = 1;
+		c1.countrycode = "12";
+		City  c2 = new City();
+		c2.ID = 14;
+		c2.Name = "vicky";
+		c2.District = "1";
+		c2.Population = 1;
+		c2.countrycode = "12";
+		c1.save();
+		c2.save();
+		return ok("saved");
     	
     }
     

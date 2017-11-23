@@ -68,9 +68,9 @@ var manager = function() {
 	          toOthers:function(){
 	              location.href = root+"/views/board1/meetAttd.html";
 	          },
-	          toLogin:function(){
-	        	  $(".popup").show();
-	        	    $.get(root+"/views/tpl/common/login.html", function (data) {
+	          toLogin:function(){	     
+      	    	  $(".popup").show();  
+      	    	  $.get(root+"/views/tpl/common/login.html", function (data) {
 	        	        var ractive2 = new Ractive({
 	        	            el: ".popup",
 	        	            template: data,
@@ -87,7 +87,7 @@ var manager = function() {
 	        	        ractive2.on("close", function () {
 	        	            $(".popup").hide().html("");
 	        	        });
-	        	    });
+	        	    });      	
 	          }
 	        })
 	        
