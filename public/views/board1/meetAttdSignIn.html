@@ -6,7 +6,7 @@
 		<link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
 		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
 		<link rel="stylesheet" type="text/css" href="../../css/login.css"/>
-		<link rel="stylesheet" type="text/css" href="../../css/meetAttd.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/meetAttdSignIn.css"/>
 		
 	</head>
 	<body>
@@ -28,38 +28,37 @@
 	<script src="../../js/lib/ractive-legacy.js"></script>
 	<script src="../../js/lib/jquery.i18n.properties-1.0.9.js"></script>
 	<script src="../../js/lib/manager.js"></script>
-	<script src="../../js/meetAttd.js"></script>
+	<script src="../../js/meetAttdSignIn.js"></script>
 	<script id="main-template" type="text/active">
 	<div class="position _clear title">
-		<h3>{{i18n_meetAttd_title}}</h3>
+		<h3>{{i18n_meetAttdSignIn_title}}</h3>
 		<div class="fr">
 			<p>
 				<i class="icon icon-home"></i>
-				<a href="../index.html">{{i18n_meetAttd_nav1}}</a>
+				<a href="../index.html">{{i18n_meetAttdSignIn_nav1}}</a>
 				<font color="#ccc">></font>
-				<a href="../lines.html">{{i18n_meetAttd_nav2}}</a>
+				<a href="../lines.html">{{i18n_meetAttdSignIn_nav2}}</a>
 				<font color="#ccc">></font>
-				<a href="../boards.html">{{i18n_meetAttd_nav3}}</a>
+				<a href="../boards.html">{{i18n_meetAttdSignIn_nav3}}</a>
 				<font color="#ccc">></font>
-				<span>{{i18n_meetAttd_title}}</span>
+				<span>{{i18n_meetAttdSignIn_title}}</span>
 			</p>
 		</div>
 	</div>
 	<div class="content">
 		<div class="content-box">
-            <div class="toolbar">
-				<button type="button" class="btn" on-click="toSignIn">Sign In</button>
-            </div>
 			<div class="header">
 				<div class="title"><span>Meeting Attendance 晨会</span></div>
 				<div class="info">
 					 <div class="lb">
 					   <span>Line生产线:</span>
 					   <span>Month月份:</span>
+                       <span>Day天:</span>
 					 </div>
 					 <div class="val">
 						 <span class="fst">ARS1</span>
 						 <span>2月</span>
+						 <span>13</span>
 					 </div>
 					 <div></div>
 				</div>

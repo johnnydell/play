@@ -1,14 +1,13 @@
-var meetAttd = function(){
+var meetAttdSignIn = function(){
 	function init(){
 		var ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
 			data: {},
 			onrender: function(){
-				manager.loadProperties(this, "meetAttd", "../../");
+				manager.loadProperties(this, "meetAttdSignIn", "../../");
 			},
 			oncomplete: function(){
-				console.log("sdfsdf");
 			}
 		});
 		
@@ -23,4 +22,4 @@ var meetAttd = function(){
 		init:init
 	}
 }();
-$(document).ready(meetAttd.init);
+$(document).ready(meetAttdSignIn.init);
