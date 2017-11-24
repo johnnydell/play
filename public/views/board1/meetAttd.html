@@ -20,7 +20,7 @@
 				    <!-- main template -->				    
 				</div>
 				<!-- right footer -->
-				<footer></footer>
+				<footer></footer>		
 			</div>
 		</div>
 	</body>
@@ -48,7 +48,8 @@
 	<div class="content">
 		<div class="content-box">
             <div class="toolbar">
-				<button type="button" class="btn" on-click="toSignIn">Sign In</button>
+                <button type="button" class="btn" on-click="test">测试</button>
+				<button type="button" class="btn" on-click="addAttendee">增加出席人员</button>
             </div>
 			<div class="header">
 				<div class="title"><span>Meeting Attendance 晨会</span></div>
@@ -59,16 +60,44 @@
 					 </div>
 					 <div class="val">
 						 <span class="fst">ARS1</span>
-						 <span>2月</span>
+						 <span id="monthSelect" on-click="toShowMonthSelect">
+                             <label>2月</label>
+                             <select style="display:none" on-blur="toHideMonthSelect">
+				               <option value="1">1月</option>
+             				   <option value="2">2月</option>
+	             			   <option value="3">3月</option>
+             				   <option value="4">4月</option>
+	             			   <option value="5">5月</option>
+	             			   <option value="6">6月</option>
+	             			   <option value="7">7月</option>
+	             			   <option value="8">8月</option>
+	             			   <option value="9">9月</option>
+	             			   <option value="10">10月</option>
+	             			   <option value="11">11月</option>
+	             			   <option value="12">12月</option>
+	             			</select>
+                         </span>
 					 </div>
 					 <div></div>
 				</div>
 			</div>
-			<table>
+			<table id="attendeeList">
 				<tr>
-					<td colspan="5">会议时间/Meeting Time: 10:00-10:15</td>
-					<td colspan="14">会议地点/Meeting Spot:Team board/班组信息板</td>
-					<td colspan="15">Host/主持人: Team Leader/班长</td>
+					<td colspan="5" id="meetingTimeTd">
+                                                                                    会议时间/Meeting Time: 
+                        <label on-click="toShowMeetingTimeText">10:00-10:15</label>
+                        <input type="text" style="display:none" on-blur="toHideMeetingTimeText" value="10:00-10:15" />
+                    </td>
+					<td colspan="14" id="meetingSpotTd">
+                                                                                    会议地点/Meeting Spot:
+                        <label on-click="toShowMeetingSpotText">Team board/班组信息板</label>
+						<input type="text" style="display:none" on-blur="toHideMeetingSpotText" value="Team board/班组信息板" />
+                    </td>
+					<td colspan="15" id="meetingHostTd">
+                        Host/主持人:
+                    	<label on-click="toShowMeetingHostText">Team Leader/班长</label>
+						<input type="text" style="display:none" on-blur="toHideMeetingHostText" value="Team Leader/班长" />
+                    </td>
 				</tr>
 				<tr>
 					<th width="12%">Name姓名</th>
@@ -106,294 +135,44 @@
 					<th width="2%">30</th>
 					<th width="2%">31</th>
 				</tr>
-				<tr>
-					<td>张三</td>
-					<td>R</td>
-					<td>SG/XXX</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td></td>
-					<td></td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>李四</td>
-					<td>R</td>
-					<td>SG/XXX</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td></td>
-					<td></td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>王五</td>
-					<td>R</td>
-					<td>SG/XXX</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td></td>
-					<td></td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>王五</td>
-					<td>R</td>
-					<td>SG/XXX</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td></td>
-					<td></td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>王五</td>
-					<td>R</td>
-					<td>SG/XXX</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td></td>
-					<td></td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>王五</td>
-					<td>R</td>
-					<td>SG/XXX</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td></td>
-					<td></td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>王五</td>
-					<td>R</td>
-					<td>SG/XXX</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td></td>
-					<td></td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>王五</td>
-					<td>R</td>
-					<td>SG/XXX</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td></td>
-					<td></td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
+                {{#each attendees}}
+                <tr>
+	               <td on-click="toShowNameInput"><label>{{name}}</label><input type="text" style="display:none" value="{{name}}" /></td>
+	               <td><label>{{type}}</label></td>
+	               <td><label>{{dept}}</label></td>
+	               <td><label>{{days.d1}}</label></td>
+	               <td><label>{{days.d2}}</label></td>
+	               <td><label>{{days.d3}}</label></td>
+	               <td><label>{{days.d4}}</label></td>
+	               <td><label>{{days.d5}}</label></td>
+	               <td><label>{{days.d6}}</label></td>
+	               <td><label>{{days.d7}}</label></td>
+	               <td><label>{{days.d8}}</label></td>
+	               <td><label>{{days.d9}}</label></td>
+	               <td><label>{{days.d10}}</label></td>
+	               <td><label>{{days.d11}}</label></td>
+	               <td><label>{{days.d12}}</label></td>
+	               <td><label>{{days.d13}}</label></td>
+	               <td><label>{{days.d14}}</label></td>
+	               <td><label>{{days.d15}}</label></td>
+	               <td><label>{{days.d16}}</label></td>
+	               <td><label>{{days.d17}}</label></td>
+	               <td><label>{{days.d18}}</label></td>
+	               <td><label>{{days.d19}}</label></td>
+	               <td><label>{{days.d20}}</label></td>
+	               <td><label>{{days.d21}}</label></td>
+	               <td><label>{{days.d22}}</label></td>
+	               <td><label>{{days.d23}}</label></td>
+	               <td><label>{{days.d24}}</label></td>
+	               <td><label>{{days.d25}}</label></td>
+	               <td><label>{{days.d26}}</label></td>
+	               <td><label>{{days.d27}}</label></td>
+	               <td><label>{{days.d28}}</label></td>
+	               <td><label>{{days.d29}}</label></td>
+	               <td><label>{{days.d30}}</label></td>
+	               <td><label>{{days.d31}}</label></td>
+                </tr>
+                {{/each}}				
 				<tr>
 					<td class="des" colspan="34" style="text-align: left;color: #000;font-weight: bold;font-size: 16px;">
 						<span style="margin-left: 0px;">[X] 出席Attend</span>
