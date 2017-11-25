@@ -1,20 +1,17 @@
-var meetAttdSignIn = function(){
+var meetAttdRep = function(){
 	function init(){
 		var ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
 			data: {},
 			onrender: function(){
-				manager.loadProperties(this, "meetAttdSignIn", "../../");
+				manager.loadProperties(this, "meetAttdRep", "../../");
 			},
 			oncomplete: function(){
 			}
 		});
 		
 		ractive.on({
-			toSignIn:function(){
-				location.href = "meetAttdSignIn.html";
-			}
 		})
 	}
 	
@@ -22,4 +19,4 @@ var meetAttdSignIn = function(){
 		init:init
 	}
 }();
-$(document).ready(meetAttdSignIn.init);
+$(document).ready(meetAttdRep.init);
