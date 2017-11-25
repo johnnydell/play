@@ -1,39 +1,39 @@
 var meetAttd = function(){
 	function init(){
 		var attendees = [];
-		var days = {
-				d1:"X",
-				d2:"X",
-				d3:"X",
-				d4:"X",
-				d5:"X",
-				d6:"X",
-				d7:"X",
-				d8:"X",
-				d9:"X",
-				d10:"X",
-				d11:"X",
-				d12:"X",
-				d13:"X",
-				d14:"X",
-				d15:"X",
-				d16:"X",
-				d17:"X",
-				d18:"X",
-				d19:"X",
-				d20:"X",
-				d21:"X",
-				d22:"X",
-				d23:"X",
-				d24:"X",
-				d25:"X",
-				d26:"X",
-				d27:"X",
-				d28:"X",
-				d29:"X",
-				d30:"X",
-				d31:"X"
-		}
+		var days = [
+			{d:1,v:"X"},
+			{d:2,v:"E"},
+			{d:3,v:"E"},
+			{d:4,v:"E"},
+			{d:5,v:"E"},
+			{d:6,v:"E"},
+			{d:7,v:"E"},
+			{d:8,v:"E"},
+			{d:9,v:"E"},
+			{d:10,v:"E"},
+			{d:11,v:"E"},
+			{d:12,v:"E"},
+			{d:13,v:"E"},
+			{d:14,v:"E"},
+			{d:15,v:"E"},
+			{d:16,v:"E"},
+			{d:17,v:"E"},
+			{d:18,v:"E"},
+			{d:19,v:"E"},
+			{d:20,v:"E"},
+			{d:21,v:"E"},
+			{d:22,v:"E"},
+			{d:23,v:"E"},
+			{d:24,v:"E"},
+			{d:25,v:"E"},
+			{d:26,v:"E"},
+			{d:27,v:"E"},
+			{d:28,v:"E"},
+			{d:29,v:"E"},
+			{d:30,v:"E"},
+			{d:31,v:"E"}
+		];
 		
 		var ractive = new Ractive({
 			el: ".container",
@@ -43,10 +43,6 @@ var meetAttd = function(){
 				manager.loadProperties(this, "meetAttd", "../../");
 			},
 			oncomplete: function(){
-				
-				/*var attendee = {name:"zzj",type:"R",dept:"SG/XXX",days:days};
-				var attendees = [attendee];
-				ractive.set("attendees",attendees);*/
 			}
 		});
 		
@@ -83,16 +79,42 @@ var meetAttd = function(){
 				_$txt.hide().prev().show().text(_$txt.val());
 			},
 			addAttendee:function(){				
-				var attendee = {id:(attendees.length),name:"Newer",type:"R",dept:"",days:days};
+				var attendee = {name:"Newer",type:"R",dept:"",days:days};
 				attendees.push(attendee);
 				ractive.set("attendees",attendees);
 			},
 			test:function(){
-				console.log(attendees[0].name);
+				console.log(attendees[0].days[0].v);
 			},
-			toShowNameInput:function(){
-				console.log(event.context);
+			toShowNameInput:function(e){
+				$(e.node).find("label").hide().next().show().focus();
+			},
+			toHideNameInput:function(e){
+				var _$input = $(e.node);
+				_$input.hide().prev().text(_$input.val()).show();
+			},
+			toShowTypeSelect:function(e){
+				$(e.node).find("label").hide().next().show().focus();
+			},
+			toHideTypeSelect:function(e){
+				var _$select = $(e.node);
+				_$select.hide().prev().text(_$select.find("option:selected").val()).show();
+			},
+			toShowDeptSelect:function(e){
+				$(e.node).find("label").hide().next().show().focus();
+			},
+			toHideDeptInput:function(e){
+				var _$input = $(e.node);
+				_$input.hide().prev().text(_$input.val()).show();
+			},
+			toShowDaySelect:function(e){
+				$(e.node).find("label").hide().next().show().focus();
+			},
+			toHideDaySelect:function(e){
+				var _$select = $(e.node);
+				_$select.hide().prev().text(_$select.find("option:selected").val()).show();
 			}
+			
 		})
 	}
 	

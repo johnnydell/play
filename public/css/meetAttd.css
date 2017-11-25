@@ -12,7 +12,7 @@
     padding: 5px;
     line-height: 26px;
     -webkit-appearance: none;
-    background: url(../images/select-bg.png) no-repeat right;
+   /** background: url(../images/select-bg.png) no-repeat right;**/
     background-color: #f7f7f7;
     padding-right: 30px;
 }
@@ -21,6 +21,7 @@
     border: 1px solid #0080ff;
     padding: 3px;
     height: 30px;
+    width: 100%;
 }
 
 .content-box .header .title {
@@ -110,6 +111,7 @@
 	line-height: 30px;
 	text-align: center;
 	border: 1px solid #000;
+	cursor: pointer;
 }
 
 .content-box table td:nth-child(2) {

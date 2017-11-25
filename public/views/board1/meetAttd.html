@@ -137,40 +137,34 @@
 				</tr>
                 {{#each attendees}}
                 <tr>
-	               <td on-click="toShowNameInput"><label>{{name}}</label><input type="text" style="display:none" value="{{name}}" /></td>
-	               <td><label>{{type}}</label></td>
-	               <td><label>{{dept}}</label></td>
-	               <td><label>{{days.d1}}</label></td>
-	               <td><label>{{days.d2}}</label></td>
-	               <td><label>{{days.d3}}</label></td>
-	               <td><label>{{days.d4}}</label></td>
-	               <td><label>{{days.d5}}</label></td>
-	               <td><label>{{days.d6}}</label></td>
-	               <td><label>{{days.d7}}</label></td>
-	               <td><label>{{days.d8}}</label></td>
-	               <td><label>{{days.d9}}</label></td>
-	               <td><label>{{days.d10}}</label></td>
-	               <td><label>{{days.d11}}</label></td>
-	               <td><label>{{days.d12}}</label></td>
-	               <td><label>{{days.d13}}</label></td>
-	               <td><label>{{days.d14}}</label></td>
-	               <td><label>{{days.d15}}</label></td>
-	               <td><label>{{days.d16}}</label></td>
-	               <td><label>{{days.d17}}</label></td>
-	               <td><label>{{days.d18}}</label></td>
-	               <td><label>{{days.d19}}</label></td>
-	               <td><label>{{days.d20}}</label></td>
-	               <td><label>{{days.d21}}</label></td>
-	               <td><label>{{days.d22}}</label></td>
-	               <td><label>{{days.d23}}</label></td>
-	               <td><label>{{days.d24}}</label></td>
-	               <td><label>{{days.d25}}</label></td>
-	               <td><label>{{days.d26}}</label></td>
-	               <td><label>{{days.d27}}</label></td>
-	               <td><label>{{days.d28}}</label></td>
-	               <td><label>{{days.d29}}</label></td>
-	               <td><label>{{days.d30}}</label></td>
-	               <td><label>{{days.d31}}</label></td>
+	               <td on-click="toShowNameInput">
+	               		<label>{{name}}</label>
+	               		<input type="text" on-blur="toHideNameInput" style="display:none" value="{{name}}" />
+	               </td>
+	               <td on-click="toShowTypeSelect">
+	                    <label>{{type}}</label>
+	                    <select style="display:none" value="{{type}}" on-blur="toHideTypeSelect">
+			               <option value="R">R</option>
+         				   <option value="O">O</option>
+             			</select>
+	               </td>
+	               <td on-click="toShowDeptSelect">
+	               		<label>{{dept}}</label>
+	               		<input type="text" on-blur="toHideDeptInput" style="display:none" value="{{dept}}" />
+	               </td>
+	               {{#each days}}
+	               <td on-click="toShowDaySelect">
+	               		<label>{{v}}</label>
+	               		<select style="display:none" value="{{v}}" on-blur="toHideDaySelect">
+			               <option value="X">X</option>
+         				   <option value="E">E</option>
+         				   <option value="A">A</option>
+         				   <option value="D">D</option>
+         				   <option value="\">\</option>
+         				   <option value="L">L</option>
+             			</select>
+	               </td>
+	               {{/each}}
                 </tr>
                 {{/each}}				
 				<tr>
@@ -202,7 +196,7 @@
 					<p>Bearbeitung, Weitergabe sowie für den Fall von Schutzrechtsanmeldungen.</p>
 				</div>
 				<div class="rt">
-				   <img src="http://localhost:8081/edashboard/images/logo2.png" class="fr">
+				   <img src="{{root}}/images/logo2.png" class="fr">
 				</div>
 			</div>
 		</div>
