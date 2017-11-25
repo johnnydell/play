@@ -1,6 +1,7 @@
 var meetAttd = function(){
 	function init(){
 		var attendees = [];
+		var deletedAttendees =[];
 		var days = [
 			{d:1,v:"X"},
 			{d:2,v:"E"},
@@ -79,12 +80,27 @@ var meetAttd = function(){
 				_$txt.hide().prev().show().text(_$txt.val());
 			},
 			addAttendee:function(){				
-				var attendee = {name:"Newer",type:"R",dept:"",days:days};
+				var attendee = {id:"0",checked:false,name:"Newer",type:"R",dept:"",days:days};
 				attendees.push(attendee);
 				ractive.set("attendees",attendees);
 			},
+			deleteAttendee:function(){
+			      var i = attendees.length-1;
+			      while (i >= 0){
+			        var temp = attendees[i];
+			        if(temp.checked){
+			            console.log(temp);
+			            if(temp.id != '0'){
+			            	deletedAttendees.push(temp);
+			            }
+			        	attendees.splice(i,1);	
+			        }
+				  	i--;
+				  }		      
+			},
 			test:function(){
-				console.log(attendees[0].days[0].v);
+				console.log(attendees);
+				console.log(deletedAttendees);
 			},
 			toShowNameInput:function(e){
 				$(e.node).find("label").hide().next().show().focus();

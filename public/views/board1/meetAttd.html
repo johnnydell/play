@@ -50,6 +50,7 @@
             <div class="toolbar">
                 <button type="button" class="btn" on-click="test">测试</button>
 				<button type="button" class="btn" on-click="addAttendee">增加出席人员</button>
+				<button type="button" class="btn" on-click="deleteAttendee">删除出席人员</button>
             </div>
 			<div class="header">
 				<div class="title"><span>Meeting Attendance 晨会</span></div>
@@ -83,7 +84,7 @@
 			</div>
 			<table id="attendeeList">
 				<tr>
-					<td colspan="5" id="meetingTimeTd">
+					<td colspan="6" id="meetingTimeTd">
                                                                                     会议时间/Meeting Time: 
                         <label on-click="toShowMeetingTimeText">10:00-10:15</label>
                         <input type="text" style="display:none" on-blur="toHideMeetingTimeText" value="10:00-10:15" />
@@ -100,9 +101,10 @@
                     </td>
 				</tr>
 				<tr>
+				    <th width="2%"><input type="checkbox" /></th>
 					<th width="12%">Name姓名</th>
 					<th width="12%">Required/optional<br>必需(R)或可选(O)</th>
-					<th width="14%">Dept.部门</th>
+					<th width="12%">Dept.部门</th>
 					<th width="2%">1</th>
 					<th width="2%">2</th>
 					<th width="2%">3</th>
@@ -136,7 +138,8 @@
 					<th width="2%">31</th>
 				</tr>
                 {{#each attendees}}
-                <tr>
+                <tr class="attendeeTr">
+                   <td><input class="opt" type="checkbox" checked="{{checked}}" /></td>
 	               <td on-click="toShowNameInput">
 	               		<label>{{name}}</label>
 	               		<input type="text" on-blur="toHideNameInput" style="display:none" value="{{name}}" />
@@ -168,7 +171,7 @@
                 </tr>
                 {{/each}}				
 				<tr>
-					<td class="des" colspan="34" style="text-align: left;color: #000;font-weight: bold;font-size: 16px;">
+					<td class="des" colspan="35" style="text-align: left;color: #000;font-weight: bold;font-size: 16px;">
 						<span style="margin-left: 0px;">[X] 出席Attend</span>
 						<span>[E] 请假Excused</span>
 						<span>[A] 未到Absent</span>
@@ -178,7 +181,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="34" style="text-align: left;color: #000;">
+					<td colspan="35" style="text-align: left;color: #000;">
 						<p>议程/Agenda：1.会议开始前记录到会人员 --1分钟,Record attending person(1 min);</p>
 			
 						<p style="padding-left: 114px">2.主要监控指标回顾 --3分钟,KPI review(3 min);</p>
