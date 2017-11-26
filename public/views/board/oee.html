@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Board - OEE</title>
+		<link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/login.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/oee.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/oeeChart1.css"/>
+		
+	</head>
+	<body>
+		<div class="box">
+		    <!-- left menu -->
+			<div class="left fl"></div>
+			<div class="right">
+				<!-- right header -->
+				<header></header>
+				<div class="container">
+				    <!-- main template -->				    
+				</div>
+				<!-- right footer -->
+				<footer></footer>
+			</div>
+		</div>
+	</body>
+	<script src="../../js/lib/jquery-1.10.1.min.js"></script>
+	<script src="../../js/lib/ractive-legacy.js"></script>
+	<script src="../../js/lib/jquery.i18n.properties-1.0.9.js"></script>
+	<script src="../../js/lib/highcharts.js"></script>
+	<script src="../../js/lib/grid-light.js"></script>
+	<script src="../../js/lib/manager.js"></script>
+	<script src="../../js/oee.js"></script>
+	<script src="../../js/oeeChart1.js"></script>
+	<script id="main-template" type="text/active">
+	<div class="position _clear title">
+		<h3>{{i18n_oee_title}}</h3>
+		<div class="fr">
+			<p>
+				<i class="icon icon-home"></i>
+				<a href="../index.html">{{i18n_oee_nav1}}</a>
+				<font color="#ccc">></font>
+				<a href="../lines.html">{{i18n_oee_nav2}}</a>
+				<font color="#ccc">></font>
+				<a href="../boards.html">{{i18n_oee_nav3}}</a>
+				<font color="#ccc">></font>
+				<span>{{i18n_oee_title}}</span>
+			</p>
+		</div>
+	</div>
+	<div class="content">
+		<div class="content-box">
+			<div class="header">
+				<div class="title"><span>OEE</span></div>
+				<div class="info">
+					 <div class="lb">
+					   <span>Line生产线:</span>
+					   <span>Month月份:</span>
+					 </div>
+					 <div class="val">
+						 <span class="fst">ARS1</span>
+						 <span>2月</span>
+					 </div>
+					 <div></div>
+				</div>
+			</div>	
+			<div class="cxt">
+			   <div class="top">
+			      <div class="lft">
+			      </div>
+			      <div class="rgt">
+			      </div>
+			   </div>
+			   <div class="bt"></div>
+			</div>	
+			<div class="footer">
+				<div class="lf">
+					<p  class="title">Starter Motors and Generators</p>
+					<p>SG/BPS-CN | 07.03.2014 | V1.0 | © Robert Bosch GmbH 2014. Alle Rechte vorbehalten, auch bzgl. jeder Verfügung, Verwertung, Reproduktion,</p>
+					<p>Bearbeitung, Weitergabe sowie für den Fall von Schutzrechtsanmeldungen.</p>
+				</div>
+				<div class="rt">
+				   <img src="{{root}}/images/logo2.png" class="fr">
+				</div>
+			</div>
+		</div>
+	</div>
+    </script>
+</html>

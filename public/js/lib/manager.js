@@ -66,7 +66,7 @@ var manager = function() {
 	              location.href = root+"/views/settings.html";
 	          },
 	          toOthers:function(){
-	              location.href = root+"/views/board1/meetAttd.html";
+	              location.href = root+"/views/board/oee.html";
 	          },
 	          toLogin:function(){	     
       	    	  $(".popup").show();  
