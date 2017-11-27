@@ -15,14 +15,14 @@ var oeeChart2 = function(){
 	
 	function bindChart(){
 		$('.top .rgt .chart').highcharts({
-		    title: {
+			title: {
 	            text: ''
 	        },
 	        legend: {
 	            enabled: false
 	        },
 	        xAxis: {
-	            categories: ['1', ' 2', '3', '4', '5', '6', ' 7', '8', '9', '10', '11', '12']
+	            categories: ['1', '2', '3', '4', '5','6', '7', '8', '9', '10','11','12']
 	        },
 	        yAxis: {
 	            title: {
@@ -35,15 +35,40 @@ var oeeChart2 = function(){
 	                },
 	            }	
 	        },
+	        plotOptions: {
+	            series: {
+	                stacking: 'normal'
+	            }
+	        },
 	        series: [{
 	            type: 'column',
-	            name: 'OEE - actual',
-	            data: [10, 20, 30, 40, 50]
+	            name: '小张',
+	            data: [10, 5, 10, 10, 5,0,0,0,0,0,0,0]
 	        }, {
+	            type: 'column',
+	            name: '小潘',
+	            data: [10, 5, 10, 5, 5,0,0,0,0,0,0,0]
+	        }, {
+	            type: 'column',
+	            name: '小王',
+	            data: [10, 10, 15, 10, 5,0,0,0,0,0,0,0]
+	        }, {
+	            type: 'column',
+	            name: '小张',
+	            data: [10, 10, 15, 10, 5,0,0,0,0,0,0,0]
+	        }, {
+	            type: 'column',
+	            name: '小潘',
+	            data: [10, 10, 10, 10, 20,0,0,0,0,0,0,0]
+	        }, {
+	            type: 'column',
+	            name: '小王',
+	            data: [50, 60, 40, 55, 60,0,0,0,0,0,0,0]
+	        },{
 	            type: 'spline',
 	            name: 'OEE - target',
 	            color:'red',
-	            data: [20, 20, 20, 20, 20],
+	            data: [70, 70, 70, 70, 70],
 	            marker: {
 	                enabled: false
 	            }
