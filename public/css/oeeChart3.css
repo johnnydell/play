@@ -1,21 +1,20 @@
-.top .rgt .chart2{
-	height:150px;
+.bt .chart3{
 }
 
-.top .rgt .icon {
-    width: 10%;
+.bt .icon {
+    width: 15%;
 	float: left;
 	height:100%;
     text-align: center;
 }
 
-.top .rgt .chart {
-	width: 90%;
+.bt .chart {
+	width: 85%;
 	float: left;
 	height:100%;
 }
 
-.chart2 table {
+.chart3 table {
 	width: 100%;
 	border-collapse: collapse;
 	border: 1px solid #000;
@@ -23,8 +22,8 @@
 	margin-right:10px;
 }
 
-.chart2 table td {
-	line-height: 15px;
+.chart3 table td {
+	line-height: 20px;
 	text-align: center;
 	border: 1px solid #000;
 	color: #000;

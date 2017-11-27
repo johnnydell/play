@@ -10,6 +10,7 @@ var oee = function(){
 			oncomplete: function(){	
 				oeeChart1.init();
 				oeeChart2.init();
+				oeeChart3.init();
 			}
 		});
 	}

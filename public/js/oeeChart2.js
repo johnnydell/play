@@ -15,7 +15,7 @@ var oeeChart2 = function(){
 	
 	function bindChart(){
 		$('.top .rgt .chart').highcharts({
-			title: {
+			 title: {
 	            text: ''
 	        },
 	        legend: {
@@ -42,35 +42,48 @@ var oeeChart2 = function(){
 	        },
 	        series: [{
 	            type: 'column',
-	            name: '小张',
+	            name: 'Performance/Undefined losses',
 	            data: [10, 5, 10, 10, 5,0,0,0,0,0,0,0]
 	        }, {
 	            type: 'column',
-	            name: '小潘',
-	            data: [10, 5, 10, 5, 5,0,0,0,0,0,0,0]
+	            name: 'Quality losses',
+	            data: [10, 5, 10, 5, 5,0,0,0,0,0,0,0],
+	            color:'#D6A40E'
 	        }, {
 	            type: 'column',
-	            name: '小王',
-	            data: [10, 10, 15, 10, 5,0,0,0,0,0,0,0]
+	            name: 'Organizational losses',
+	            data: [10, 10, 15, 10, 5,0,0,0,0,0,0,0],
+	            color:'#037C5E'
 	        }, {
 	            type: 'column',
-	            name: '小张',
-	            data: [10, 10, 15, 10, 5,0,0,0,0,0,0,0]
+	            name: 'Technical losses',
+	            data: [10, 10, 15, 10, 5,0,0,0,0,0,0,0],
+	            color:'#1D0E5C'
 	        }, {
 	            type: 'column',
-	            name: '小潘',
-	            data: [10, 10, 10, 10, 20,0,0,0,0,0,0,0]
+	            name: 'Changeover losses',
+	            data: [10, 10, 10, 10, 20,0,0,0,0,0,0,0],
+	            color:'#98A398'
 	        }, {
 	            type: 'column',
-	            name: '小王',
-	            data: [50, 60, 40, 55, 60,0,0,0,0,0,0,0]
+	            name: 'OEE-actual',
+	            data: [50, 60, 40, 55, 60,0,0,0,0,0,0,0],
+	            color:'#41FB4A'
 	        },{
 	            type: 'spline',
-	            name: 'OEE - target',
+	            name: 'OEE-target',
 	            color:'red',
 	            data: [70, 70, 70, 70, 70],
 	            marker: {
 	                enabled: false
+	            }
+	        }, {
+	            name: '降雨误差',
+	            type: 'errorbar',
+	            yAxis: 0,
+	            data: [[65, 70], [65, 73], [68, 75], [66, 80], [60, 71]],
+	            tooltip: {
+	                pointFormat: '(误差范围: {point.low}-{point.high} mm)<br/>'
 	            }
 	        }],
 	        credits:{

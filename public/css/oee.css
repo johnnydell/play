@@ -101,31 +101,25 @@
 	margin-bottom: 3px;
 }
 
-.content-box .cxt {
-	border:1px solid green;
-}
-
 .content-box .cxt .top {
-	border:1px solid red;
 	height:300px;
 }
 
 .content-box .cxt .bt {
-	border:1px solid red;
-	height:700px;
+	height:480px;
+	padding: 20px;
 }
 
 .top .lft, .top .rgt {
 	float: left;
-	border:1px solid red;
 	height:100%;
 	padding: 20px;	
 }
 
 .top .lft {
-	width:30%;
+	width:40%;
 }
 
 .top .rgt {
-	width:70%;
+	width:60%;
 }

@@ -38,7 +38,8 @@ var oeeChart1 = function(){
 	        series: [{
 	            type: 'column',
 	            name: 'OEE - actual',
-	            data: [10, 20, 30, 40, 50]
+	            data: [10, 20, 30, 40, 50],
+	            color:'#3C3C4D'
 	        }, {
 	            type: 'spline',
 	            name: 'OEE - target',
