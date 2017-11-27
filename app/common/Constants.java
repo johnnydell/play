@@ -2,8 +2,8 @@ package common;
 
 public class Constants {
 	
-	public static String CTX_PATH = "2334";
+	public static String CTX_PATH = "edashboard";
 	
-	public static String INDEX_PATH = CTX_PATH+ "/edashboard/views/index.html";
+	public static String INDEX_PATH = CTX_PATH+ "/views/index.html";
 
 }
