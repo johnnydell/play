@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/login.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/boards.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/uploader.css"/>
+	</head>
+	<body>
+		<div class="box">
+		    <!-- left menu -->
+			<div class="left fl"></div>
+			<div class="right">
+				<!-- right header -->
+				<header></header>
+				<div class="container">
+				    <!-- main template -->
+				</div>
+				<!-- right footer -->
+				<footer></footer>
+			</div>
+		</div>
+	</body>
+	<script src="../../js/lib/jquery-1.10.1.min.js"></script>
+	<script src="../../js/lib/ractive-legacy.js"></script>
+	<script src="../../js/lib/jquery.i18n.properties-1.0.9.js"></script>
+	<script src="../../js/lib/manager.js"></script>
+	<script src="../../js/uploader.js"></script>
+	<script id="main-template" type="text/active">
+	<div class="position _clear title">
+		<h3>{{i18n_uploader_title}}</h3>
+		<div class="fr">
+			<p>
+				<i class="icon icon-home"></i>
+				<a href="index.html">{{i18n_uploader_nav1}}</a>
+				<font color="#ccc">></font>
+				<a href="lines.html">{{i18n_uploader_nav2}}</a>
+				
+			</p>
+		</div>
+	</div>
+	<div class="content">
+	    
+		<div class="content-box">
+			<table id="tbl_upload">
+				<tr>
+					<td>{{i18n_uploader_index}}</td>
+					<td>{{i18n_uploader_name}}</td>
+					
+					<td>{{i18n_uploader_action}}</td>
+					<td>{{i18n_uploader_result}}</td>
+					<td>{{i18n_uploader_time}}</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>{{i18n_uploader_name_layout}}</td>
+					<td >
+						
+						<form id="form_layout_upload" enctype="multipart/form-data" action="uploadFile/layout" method="POST">
+							<input type="text" id="avatval" placeholder="请选择文件···" readonly="readonly" style="vertical-align: middle; width:60%"/>
+							<a href="javascript:;" class="divupload" on-change="testtest">选择文件<input type="file" name="layout" value="" id="layout_upload" class="btnBrowser"/></a>
+							<input type="submit" name="btnUploadLayout" value="{{i18n_uploader_name_upload}}" class="divupload"/>
+						</form>
+						
+					</td>
+					
+					<td>
+						
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>{{i18n_uploader_name_balance}}</td>
+					<td >
+						
+						<form id="form_layout_upload" enctype="multipart/form-data" action="uploadFile/balance" method="POST">
+							<input type="text" id="avatval" placeholder="请选择文件···" readonly="readonly" style="vertical-align: middle; width:60%"/>
+							<a href="javascript:;" class="divupload" on-change="testtest">选择文件<input type="file" name="balance" value="" id="balance_upload" class="btnBrowser"/></a>
+							<input type="submit" name="btnUploadBalance" value="{{i18n_uploader_name_upload}}" class="divupload"/>
+						</form>
+						
+					</td>
+					
+					<td>
+						
+					</td>
+					<td></td>
+				</tr>
+
+			</table>
+			<ul>
+				<li>
+
+					
+				</li>
+			</ul>
+		</div>
+	</div>
+	</script>
+</html>

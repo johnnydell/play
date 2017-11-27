@@ -12,4 +12,6 @@ GET     /edashboard/city/addCity   controllers.CityController.addCity()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /edashboard/*file               controllers.Assets.at(path="/public", file)
+
+POST /edashboard/views/upload/uploadFile/:fileType 	controllers.UploaderController.uploadFile(fileType : String)
 	
