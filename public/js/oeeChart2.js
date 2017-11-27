@@ -1,9 +1,9 @@
-var oeeChart1 = function(){
+var oeeChart2 = function(){
 	function init(){
 	   //渲染chart1部分
-	   $.get(manager.root+"/views/tpl/board/oeeChart1.html", function (template) {
+	   $.get(manager.root+"/views/tpl/board/oeeChart2.html", function (template) {
 	        var ractive = new Ractive({
-	            el: '.cxt .top .lft',
+	            el: '.cxt .top .rgt',
 	            data:{root:manager.root},
 	            template: template,
 	            oncomplete: function(){
@@ -14,7 +14,7 @@ var oeeChart1 = function(){
 	}
 	
 	function bindChart(){
-		$('.top .lft .chart').highcharts({
+		$('.top .rgt .chart').highcharts({
 		    title: {
 	            text: ''
 	        },
@@ -22,13 +22,13 @@ var oeeChart1 = function(){
 	            enabled: false
 	        },
 	        xAxis: {
-	            categories: ['2012', ' 2013', '2014', '2015', '2015']
+	            categories: ['1', ' 2', '3', '4', '5', '6', ' 7', '8', '9', '10', '11', '12']
 	        },
 	        yAxis: {
 	            title: {
 	                text: ''
 	            },
-	            tickPositions: [0, 10, 20, 30,40,50,60,70,80,90,100], // 指定竖轴坐标点的值
+	            tickPositions: [0,20,40,60,80,100], // 指定竖轴坐标点的值
 	            labels: {
 	                formatter: function() {
 	                    return this.value + '%';

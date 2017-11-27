@@ -7,8 +7,9 @@ var oee = function(){
 			onrender: function(){
 				manager.loadProperties(this, "oee", "../../");
 			},
-			oncomplete: function(){					    
+			oncomplete: function(){	
 				oeeChart1.init();
+				oeeChart2.init();
 			}
 		});
 	}
