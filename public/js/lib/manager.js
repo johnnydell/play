@@ -6,7 +6,13 @@ var manager = function() {
     var context = "edashboard"; //上下文
     var origin = location.origin//地址
     var root = origin+"/"+context;
-    
+    var params = [];//参数数组
+    if(location.search !=''){
+    	var pA = location.search.split('?')[1].split('&');
+    	for(i = 0; i < pA.length;i++){
+    		params.push({k:pA[i].split('=')[0],v:pA[i].split('=')[1]});    		
+    	}
+    }
     //TODO 初始化语言环境
 	var language = getCookie("language");
 	if(language == "undefined" || language == undefined){
@@ -30,6 +36,16 @@ var manager = function() {
 				return unescape(temp[1]);
 			}
 		}
+	}
+	
+	//获取当前地址的参数
+	function getPV(key){
+		for(i = params.length-1; i >= 0; i--){
+			if(params[i].k == key){
+				return params[i].v;
+			}   		
+    	}
+		return '';
 	}
 	
 	// 国际化共通方法,dir表示当前的位置上级目录级位，../../两级，../一级
@@ -121,7 +137,8 @@ var manager = function() {
 	return {
 		init: renderLayout,
 		loadProperties:loadProperties,
-		root:root 
+		root:root,
+		getPV:getPV
  }
 
 }();
