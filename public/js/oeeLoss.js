@@ -1,23 +1,22 @@
-var boards = function(){
+var oee = function(){
 	function init(){
 		var ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
 			data: {root:manager.root},
 			onrender: function(){
-				manager.loadProperties(this, "boards", "../");
+				manager.loadProperties(this, "oee", "../../");
 			},
-			oncomplete: function(){						
+			oncomplete: function(){	
+				oeeChart1.init();
+				oeeChart2.init();
+				oeeChart3.init();
 			}
 		});
-		
-		
-		ractive.on({			
-		})
 	}
 	
 	return {
 		init:init
 	}
 }();
-$(document).ready(boards.init);
+$(document).ready(oee.init);
