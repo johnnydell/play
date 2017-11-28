@@ -97,6 +97,9 @@ var meetAttd = function(){
 				  	i--;
 				  }		      
 			},
+			saveAttendee:function(){
+				console.log("prepare to save");
+			},
 			test:function(){
 				console.log(attendees[0].days[3]);
 				console.log(deletedAttendees);
