@@ -1,9 +1,9 @@
-var oeeChart1 = function(){
+var oeeLossChart1 = function(){
 	function init(){
 	   //渲染chart1部分
-	   $.get(manager.root+"/views/tpl/board/oeeChart1.html", function (template) {
+	   $.get(manager.root+"/views/tpl/board/oeeLossChart1.html", function (template) {
 	        var ractive = new Ractive({
-	            el: '.cxt .top .lft',
+	            el: '.cxt .top .lft .tloss',
 	            data:{root:manager.root},
 	            template: template,
 	            oncomplete: function(){
@@ -14,40 +14,66 @@ var oeeChart1 = function(){
 	}
 	
 	function bindChart(){
-		$('.top .lft .chart').highcharts({
-		    title: {
-	            text: ''
+		$('.top .lft .tloss .chart').highcharts({
+		    chart: {
+	            type: 'bar'
 	        },
-	        legend: {
-	            enabled: false
+	        title: {
+	            text: '技术损失'
 	        },
 	        xAxis: {
-	            categories: ['2012', ' 2013', '2014', '2015', '2015']
+	            categories: ['Jan','Feb','Mar','Apr','May', 'Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+	            reversed: false,
+	            labels: {
+	                formatter: function() {
+	                    var ret = this.value;
+	                    switch(ret){
+	                        case 'Feb':
+	                        	ret = '';
+	                        	break;
+	                        case 'Apr':
+	                        	ret = '';
+	                        	break;
+	                        case 'Jun':
+	                        	ret = '';
+	                        	break;
+	                        case 'Aug':
+	                        	ret = '';
+	                        	break;
+	                        case 'Oct':
+	                        	ret = '';
+	                        	break;
+	                        case 'Dec':
+	                        	ret = '';
+	                        	break;
+	                    }
+	                    return ret;
+	                },
+	            }
 	        },
 	        yAxis: {
 	            title: {
 	                text: ''
 	            },
-	            tickPositions: [0, 10, 20, 30,40,50,60,70,80,90,100], // 指定竖轴坐标点的值
-	            labels: {
-	                formatter: function() {
-	                    return this.value + '%';
-	                },
-	            }	
+	            min: 0,
+	            tickPositions: [0, 500, 1000, 1500,2000,2500,3000,3500]// 指定竖轴坐标点的值
+	        },
+	        legend: {
+	            enabled: false
+	        },
+	        plotOptions: {
+	            series: {
+	                stacking: 'normal'
+	            }
 	        },
 	        series: [{
-	            type: 'column',
-	            name: 'OEE - actual',
-	            data: [10, 20, 30, 40, 50],
-	            color:'#3C3C4D'
+	            name: '调试损失',
+	            data: [900, 500, 850, 250, 0,0,0,0,0,0,0,0],
+	            color:'blue'
 	        }, {
-	            type: 'spline',
-	            name: 'OEE - target',
-	            color:'red',
-	            data: [20, 20, 20, 20, 20],
-	            marker: {
-	                enabled: false
-	            }
+	            name: '设备停机损失',
+	            data: [2000, 1400, 1950, 400, 0,0,0,0,0,0,0,0],
+	            color:'red'
 	        }],
 	        credits:{
 	            enabled:false

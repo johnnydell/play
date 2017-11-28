@@ -82,7 +82,7 @@ var manager = function() {
 	              location.href = root+"/views/settings.html";
 	          },
 	          toOthers:function(){
-	              location.href = root+"/views/board/oee.html";
+	              location.href = root+"/views/board/oeeLoss.html";
 	          },
 	          toLogin:function(){	     
       	    	  $(".popup").show();  

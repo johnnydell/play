@@ -1,16 +1,18 @@
-var oee = function(){
+var oeeLoss = function(){
 	function init(){
 		var ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
 			data: {root:manager.root},
 			onrender: function(){
-				manager.loadProperties(this, "oee", "../../");
+				manager.loadProperties(this, "oeeLoss", "../../");
 			},
 			oncomplete: function(){	
-				oeeChart1.init();
-				oeeChart2.init();
-				oeeChart3.init();
+				oeeLossChart1.init();
+				oeeLossChart2.init();
+				oeeLossChart3.init();
+				oeeLossChart4.init();
+				oeeLossChart5.init();
 			}
 		});
 	}
@@ -19,4 +21,4 @@ var oee = function(){
 		init:init
 	}
 }();
-$(document).ready(oee.init);
+$(document).ready(oeeLoss.init);
