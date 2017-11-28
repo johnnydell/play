@@ -89,7 +89,6 @@ var meetAttd = function(){
 			      while (i >= 0){
 			        var temp = attendees[i];
 			        if(temp.checked){
-			            console.log(temp);
 			            if(temp.id != '0'){
 			            	deletedAttendees.push(temp);
 			            }
