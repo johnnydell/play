@@ -26,7 +26,7 @@ public class UploaderController extends Controller {
 	public static Result uploadFile(String fileType) {
 		MultipartFormData body = request().body().asMultipartFormData();
 		FilePart filePart = body.getFile(fileType);
-
+		Date now = new Date();
 		if (filePart != null) {
 			String fileName = filePart.getFilename();
 			String contentType = filePart.getContentType();
@@ -36,26 +36,26 @@ public class UploaderController extends Controller {
 			if ( extension.equalsIgnoreCase(".xls") || extension.equalsIgnoreCase(".xlsx") || extension.equalsIgnoreCase(".pdf") )
 			{
 				// try to save to server directory
-				String filePath = prepareFilePath(fileType, extension);
+				String filePath = prepareFilePath(now, fileType, extension);
 				boolean saveResult = false;
 				if (!"".equals(filePath))
 					saveResult = FileUtil.saveFileToSpecificPath(filePath, file);
 				
 				if (saveResult) {
-					Date now = new Date();
+					
 					//try save data into DB
 					UploadFile uploadFile = UploadFile.findByName(fileType);
 					if (uploadFile == null)
 						uploadFile = new UploadFile();
 					//save
 					uploadFile.fileName = fileType;
-					uploadFile.fileNameLast = prepareFileName(fileType, extension);
+					uploadFile.fileNameLast = prepareFileName(now, fileType, extension);
 					uploadFile.lastUploadTime = now;
 					uploadFile.active = true;
 					UploadFile.save(uploadFile);
 					
 					UploadFileHistory fileHistory = new UploadFileHistory();
-					fileHistory.fileName = prepareFileName(fileType, extension);
+					fileHistory.fileName = uploadFile.fileNameLast;
 					fileHistory.uploadFile = uploadFile;
 					fileHistory.uploadTime = now;
 					UploadFileHistory.save(fileHistory);
@@ -101,7 +101,7 @@ public class UploaderController extends Controller {
 		
 	}
 
-	private static String prepareFilePath(String fileName, String extension) {
+	private static String prepareFilePath(Date now, String fileName, String extension) {
 		String result = "";
 		StringBuffer buffer = new StringBuffer();
 		buffer.append(Constants.STATIC_FILE_SAVE_PATH);
@@ -120,7 +120,7 @@ public class UploaderController extends Controller {
 			}
 			
 			buffer.append(File.separator);
-			buffer.append(prepareFileName(fileName, extension));
+			buffer.append(prepareFileName(now, fileName, extension));
 			
 			result = buffer.toString() ;
 		}
@@ -128,9 +128,8 @@ public class UploaderController extends Controller {
 		return result;
 	}
 	
-	private static String prepareFileName(String fileName, String extension){
+	private static String prepareFileName(Date now, String fileName, String extension){
 		String result = "";
-		Date now = new Date();
 		StringBuffer buffer = new StringBuffer();
 		buffer.append(fileName);
 		buffer.append("_");

@@ -3,15 +3,17 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
+GET     /                           					controllers.Application.index()
 
 # City page
-GET     /edashboard/city/show      controllers.CityController.show()
-GET     /edashboard/city/allCities   controllers.CityController.allCities()
-GET     /edashboard/city/addCity   controllers.CityController.addCity()
+GET     /edashboard/city/show      						controllers.CityController.show()
+GET     /edashboard/city/allCities   					controllers.CityController.allCities()
+GET     /edashboard/city/addCity   						controllers.CityController.addCity()
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /edashboard/*file               controllers.Assets.at(path="/public", file)
+GET     /edashboard/*file               				controllers.Assets.at(path="/public", file)
 
-POST /edashboard/views/upload/uploadFile/:fileType 	controllers.UploaderController.uploadFile(fileType : String)
+POST /edashboard/views/upload/uploadFile/:fileType 		controllers.UploaderController.uploadFile(fileType : String)
+
+POST /edashboard/views/staticpage/viewdoc/:fileName 	controllers.StaticPageController.viewFileByName(fileName : String)
 	

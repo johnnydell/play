@@ -13,7 +13,7 @@ public class OfficeConverter {
 	
 	private static final Integer EXCEL_TO_HTML_OPERAND = 44;
 	
-	public static void doc2pdf(String srcFilePath, String pdfFilePath) throws Exception {
+	public static void docTopdf(String srcFilePath, String pdfFilePath) throws Exception {
 				ActiveXComponent app = null;
 				Dispatch doc = null;
 				try {
@@ -42,7 +42,7 @@ public class OfficeConverter {
 				}
 			}
 		
-			public static void ppt2pdf(String srcFilePath, String pdfFilePath) throws Exception {
+			public static void pptTopdf(String srcFilePath, String pdfFilePath) throws Exception {
 				ActiveXComponent app = null;
 				Dispatch ppt = null;
 				try {
@@ -71,7 +71,7 @@ public class OfficeConverter {
 				}
 			}
 		
-			public static void excel2Pdf(String inFilePath, String outFilePath) throws Exception {
+			public static void excelToPdf(String inFilePath, String outFilePath) throws Exception {
 				ActiveXComponent ax = null;
 				Dispatch excel = null;
 				try {
