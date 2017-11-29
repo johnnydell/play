@@ -54,111 +54,83 @@
 				<button type="button" class="btn" on-click="deleteAttendee">删除出席人员</button>
             </div>
 			<div class="header">
-				<div class="title"><span>Open Point List  问题清单</span></div>
-				<div class="info">
-					 <div class="lb">
-					   <span>Line生产线:</span>
-					   <span>Month月份:</span>
-					 </div>
-					 <div class="val">
-						 <span class="fst">ARS1</span>
-						 <span id="monthSelect" on-click="toShowMonthSelect">
-                             <label>2月</label>
-                             <select style="display:none" on-blur="toHideMonthSelect">
-				               <option value="1">1月</option>
-             				   <option value="2">2月</option>
-	             			   <option value="3">3月</option>
-             				   <option value="4">4月</option>
-	             			   <option value="5">5月</option>
-	             			   <option value="6">6月</option>
-	             			   <option value="7">7月</option>
-	             			   <option value="8">8月</option>
-	             			   <option value="9">9月</option>
-	             			   <option value="10">10月</option>
-	             			   <option value="11">11月</option>
-	             			   <option value="12">12月</option>
-	             			</select>
-                         </span>
-					 </div>
-					 <div></div>
-				</div>
-			</div>
-			<table id="attendeeList">
-				<tr>
-				    <th width="2%"><input type="checkbox" /></th>
-					<th width="12%">Date<br>日期</th>
-					<th width="12%">Ref No<br>编号</th>
-					<th width="12%">Person Found<br>问题提出人</th>
-					<th width="2%">Station<br>工位号</th>
-					<th width="2%">2</th>
-					<th width="2%">3</th>
-					<th width="2%">4</th>
-					<th width="2%">5</th>
-					<th width="2%">6</th>
-					<th width="2%">7</th>
-					<th width="2%">8</th>
-					<th width="2%">9</th>
-					<th width="2%">10</th>
-					<th width="2%">11</th>
-					<th width="2%">12</th>
-					<th width="2%">13</th>
-					<th width="2%">14</th>
-					<th width="2%">15</th>
-					<th width="2%">16</th>
-					<th width="2%">17</th>
-					<th width="2%">18</th>
-					<th width="2%">19</th>
-					<th width="2%">20</th>
-					<th width="2%">21</th>
-					<th width="2%">22</th>
-					<th width="2%">23</th>
-					<th width="2%">24</th>
-					<th width="2%">25</th>
-					<th width="2%">26</th>
-					<th width="2%">27</th>
-					<th width="2%">28</th>
-					<th width="2%">29</th>
-					<th width="2%">30</th>
-					<th width="2%">31</th>
+				<table>
+			    <tr>
+					<th class="title" rowspan="2" colspan="9" style="text-align:left">Open Point List  问题清单</th>
+					<th colspan="2" style="font-size: 20px;font-weight: bold;text-align:right;">Line生产线：</th>
+					<th style="background-color:white;color: #000;border: 1px solid #000;">FAG2</th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
 				</tr>
 				<tr>
-				    <th width="2%"><input type="checkbox" /></th>
-					<th width="12%">Date<br>日期</th>
-					<th width="12%">Ref No<br>编号</th>
-					<th width="12%">Person Found<br>问题提出人</th>
-					<th width="2%">Station<br>工位号</th>
-					<th width="2%">2</th>
-					<th width="2%">3</th>
-					<th width="2%">4</th>
-					<th width="2%">5</th>
-					<th width="2%">6</th>
-					<th width="2%">7</th>
-					<th width="2%">8</th>
-					<th width="2%">9</th>
-					<th width="2%">10</th>
-					<th width="2%">11</th>
-					<th width="2%">12</th>
-					<th width="2%">13</th>
-					<th width="2%">14</th>
-					<th width="2%">15</th>
-					<th width="2%">16</th>
-					<th width="2%">17</th>
-					<th width="2%">18</th>
-					<th width="2%">19</th>
-					<th width="2%">20</th>
-					<th width="2%">21</th>
-					<th width="2%">22</th>
-					<th width="2%">23</th>
-					<th width="2%">24</th>
-					<th width="2%">25</th>
-					<th width="2%">26</th>
-					<th width="2%">27</th>
-					<th width="2%">28</th>
-					<th width="2%">29</th>
-					<th width="2%">30</th>
-					<th width="2%">31</th>
+					<th colspan="2" style="font-size: 20px;font-weight: bold;text-align:right;">Month月份：</th>
+					<th width="8%" style="background-color:white;color: #000;border: 1px solid #000;"> 2017 8 月</th>
+					<th style="background-color:white;color: #000;border: 1px solid #000;">第          页</th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
 				</tr>
+			    <tr>
+				    <th width="2%" rowspan="2"><input type="checkbox" /></th>
+			        <th width="7%" rowspan="2">Date<br>日期</th>
+			        <th width="4%" rowspan="2">Ref No<br>编号</th>
+			        <th width="5%" rowspan="2">Person Found<br>问题提出人</th>
+			        <th width="4%" rowspan="2">Station<br>工位号</th>
+			        <th colspan="7">Deviation / Problem 偏差/问题</th>
+			        <th colspan="6">Corrective Action行动方案</th>
+			    </tr>
+			    <tr>
+			        <th width="11%">Description<br>偏差或问题描述</th>
+			        <th width="4%">From<br>问题起始时间</th>
+			        <th width="4%">To<br>问题结束时间</th>
+			        <th width="4%">timing<br>持续时间(分钟)</th>
+			        <th width="4%">Amount<br>缺陷数量</th>
+			        <th width="14%" colspan="2">Root Cause<br>根本原因</th>
+			        <th width="9%">Immediate<br>临时措施</th>
+			        <th width="12%">Long Term<br>永久措施<br>(在关闭阶段需要同步更新FMEA,CP,WI,PRR,SP、STAB、5M1E等相关工艺文件及标准)</th>
+			        <th width="4%">Problem solving sheet(Y/N)<br>问题解决表</th>
+			        <th width="4%">Person Responsible<br>责任人</th>
+			        <th width="5%">Deadline<br>截止日期</th>
+			        <th width="3%">Status<br>状态</th>        
+			    </tr>
+			    <tr>
+				    <td><input type="checkbox" checked="true" /></td>
+			        <td>张三</td>
+			        <td>R</td>
+			        <td>SG/XXX</td>
+			        <td>X</td>
+			        <td>X</td>
+			        <td>X</td>
+			        <td>X</td>
+			        <td>X</td>
+					<td>X</td>
+			        <td colspan="2"></td>
+			        <td>X</td>
+			        <td>X</td>
+			        <td>X</td>
+			        <td>X</td>
+			        <td>X</td>
+			        <td>N</td>
+			    </tr>
 			</table>
+			</div>
+			<div class="footer">
+				<div class="lf">
+				    <p><span>Status<br>状态</span><span style="float:left;"><img src="{{root}}/images/opl_r.png">Responsibilities &Target Date fixed<br>责任人和完成日期定义
+				    </span></p>
+					<p  class="title">Starter Motors and Generators</p>
+					<p>SG/BPS-CN | 2017. 11. 17 | V2.0</p>
+				</div>
+				<div class="rt">
+				   <img src="{{root}}/images/logo2.png" class="fr">
+				</div>
+			</div>			
 		</div>
 	</div>
     </script>

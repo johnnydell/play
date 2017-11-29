@@ -140,4 +140,4 @@ var opl = function(){
 		init:init
 	}
 }();
-//$(document).ready(opl.init);
+$(document).ready(opl.init);
