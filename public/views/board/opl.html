@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Board- OPL</title>
+		<link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/login.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/opl.css"/>
+		
+	</head>
+	<body>
+		<div class="box">
+		    <!-- left menu -->
+			<div class="left fl"></div>
+			<div class="right">
+				<!-- right header -->
+				<header></header>
+				<div class="container">
+				    <!-- main template -->				    
+				</div>
+				<!-- right footer -->
+				<footer></footer>		
+			</div>
+		</div>
+	</body>
+	<script src="../../js/lib/jquery-1.10.1.min.js"></script>
+	<script src="../../js/lib/ractive-legacy.js"></script>
+	<script src="../../js/lib/jquery.i18n.properties-1.0.9.js"></script>
+	<script src="../../js/lib/manager.js"></script>
+	<script src="../../js/opl.js"></script>
+	<script id="main-template" type="text/active">
+	<div class="position _clear title">
+		<h3>{{i18n_opl_title}}</h3>
+		<div class="fr">
+			<p>
+				<i class="icon icon-home"></i>
+				<a href="../index.html">{{i18n_opl_nav1}}</a>
+				<font color="#ccc">></font>
+				<a href="../lines.html">{{i18n_opl_nav2}}</a>
+				<font color="#ccc">></font>
+				<a href="../boards.html">{{i18n_opl_nav3}}</a>
+				<font color="#ccc">></font>
+				<span>{{i18n_opl_title}}</span>
+			</p>
+		</div>
+	</div>
+	<div class="content">
+		<div class="content-box">
+            <div class="toolbar">
+                <button type="button" class="btn" on-click="test">测试</button>
+				<button type="button" class="btn" on-click="addAttendee">增加出席人员</button>
+				<button type="button" class="btn" on-click="saveAttendee">保存出席人员</button>
+				<button type="button" class="btn" on-click="deleteAttendee">删除出席人员</button>
+            </div>
+			<div class="header">
+				<div class="title"><span>Open Point List  问题清单</span></div>
+				<div class="info">
+					 <div class="lb">
+					   <span>Line生产线:</span>
+					   <span>Month月份:</span>
+					 </div>
+					 <div class="val">
+						 <span class="fst">ARS1</span>
+						 <span id="monthSelect" on-click="toShowMonthSelect">
+                             <label>2月</label>
+                             <select style="display:none" on-blur="toHideMonthSelect">
+				               <option value="1">1月</option>
+             				   <option value="2">2月</option>
+	             			   <option value="3">3月</option>
+             				   <option value="4">4月</option>
+	             			   <option value="5">5月</option>
+	             			   <option value="6">6月</option>
+	             			   <option value="7">7月</option>
+	             			   <option value="8">8月</option>
+	             			   <option value="9">9月</option>
+	             			   <option value="10">10月</option>
+	             			   <option value="11">11月</option>
+	             			   <option value="12">12月</option>
+	             			</select>
+                         </span>
+					 </div>
+					 <div></div>
+				</div>
+			</div>
+			<table id="attendeeList">
+				<tr>
+				    <th width="2%"><input type="checkbox" /></th>
+					<th width="12%">Date<br>日期</th>
+					<th width="12%">Ref No<br>编号</th>
+					<th width="12%">Person Found<br>问题提出人</th>
+					<th width="2%">Station<br>工位号</th>
+					<th width="2%">2</th>
+					<th width="2%">3</th>
+					<th width="2%">4</th>
+					<th width="2%">5</th>
+					<th width="2%">6</th>
+					<th width="2%">7</th>
+					<th width="2%">8</th>
+					<th width="2%">9</th>
+					<th width="2%">10</th>
+					<th width="2%">11</th>
+					<th width="2%">12</th>
+					<th width="2%">13</th>
+					<th width="2%">14</th>
+					<th width="2%">15</th>
+					<th width="2%">16</th>
+					<th width="2%">17</th>
+					<th width="2%">18</th>
+					<th width="2%">19</th>
+					<th width="2%">20</th>
+					<th width="2%">21</th>
+					<th width="2%">22</th>
+					<th width="2%">23</th>
+					<th width="2%">24</th>
+					<th width="2%">25</th>
+					<th width="2%">26</th>
+					<th width="2%">27</th>
+					<th width="2%">28</th>
+					<th width="2%">29</th>
+					<th width="2%">30</th>
+					<th width="2%">31</th>
+				</tr>
+				<tr>
+				    <th width="2%"><input type="checkbox" /></th>
+					<th width="12%">Date<br>日期</th>
+					<th width="12%">Ref No<br>编号</th>
+					<th width="12%">Person Found<br>问题提出人</th>
+					<th width="2%">Station<br>工位号</th>
+					<th width="2%">2</th>
+					<th width="2%">3</th>
+					<th width="2%">4</th>
+					<th width="2%">5</th>
+					<th width="2%">6</th>
+					<th width="2%">7</th>
+					<th width="2%">8</th>
+					<th width="2%">9</th>
+					<th width="2%">10</th>
+					<th width="2%">11</th>
+					<th width="2%">12</th>
+					<th width="2%">13</th>
+					<th width="2%">14</th>
+					<th width="2%">15</th>
+					<th width="2%">16</th>
+					<th width="2%">17</th>
+					<th width="2%">18</th>
+					<th width="2%">19</th>
+					<th width="2%">20</th>
+					<th width="2%">21</th>
+					<th width="2%">22</th>
+					<th width="2%">23</th>
+					<th width="2%">24</th>
+					<th width="2%">25</th>
+					<th width="2%">26</th>
+					<th width="2%">27</th>
+					<th width="2%">28</th>
+					<th width="2%">29</th>
+					<th width="2%">30</th>
+					<th width="2%">31</th>
+				</tr>
+			</table>
+		</div>
+	</div>
+    </script>
+</html>
