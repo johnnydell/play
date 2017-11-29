@@ -13,6 +13,7 @@ var oeeLoss = function(){
 				oeeLossChart3.init();
 				oeeLossChart4.init();
 				oeeLossChart5.init();
+				oeeLossChart6.init();
 			}
 		});
 	}

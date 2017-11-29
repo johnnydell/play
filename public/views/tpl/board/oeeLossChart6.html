@@ -1,0 +1,35 @@
+<div class="chart6">
+   <h4>全年OEE损失概况</h4>
+   <div class="dt">
+	   <div class="chart">
+	   <table>
+			<tr>
+				<td width="7%">损失类型</td>
+				<td width="9%">损失描述</td>
+				<td width="7%">Jan</td>
+				<td width="7%">Feb</td>
+				<td width="7%">Mar</td>
+				<td width="7%">Apr</td>
+				<td width="7%">May</td>
+				<td width="7%">Jun</td>
+				<td width="7%">Jul</td>
+				<td width="7%">Aug</td>
+				<td width="7%">Sep</td>
+				<td width="7%">Oct</td>
+				<td width="7%">Nov</td>
+				<td width="7%">Dec</td>
+			</tr>
+			{{#each ttloss}}
+			<tr>
+				<td bgcolor="{{color}}">{{type}}</td>
+				<td>{{desc}}</td>
+				{{#each months:num}}
+				<td>{{.}}</td>
+				{{/each}}
+			</tr>
+			{{/each}}
+		</table>
+		</div>	
+	    <div class="icon"><img style="padding-top:25px;" src="{{root}}/images/ttloss.png"/></div>
+   </div>
+</div>
