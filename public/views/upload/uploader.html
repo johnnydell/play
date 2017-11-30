@@ -25,6 +25,7 @@
 		</div>
 	</body>
 	<script src="../../js/lib/jquery-1.10.1.min.js"></script>
+	<script src="../../js/lib/jquery.form.min.js"></script>
 	<script src="../../js/lib/ractive-legacy.js"></script>
 	<script src="../../js/lib/jquery.i18n.properties-1.0.9.js"></script>
 	<script src="../../js/lib/manager.js"></script>
@@ -43,7 +44,7 @@
 		</div>
 	</div>
 	<div class="content">
-	    
+	    <span id="msg_info"></span>
 		<div class="content-box">
 			<table id="tbl_upload">
 				<tr>
@@ -59,36 +60,44 @@
 					<td>{{i18n_uploader_name_layout}}</td>
 					<td >
 						
-						<form id="form_layout_upload" enctype="multipart/form-data" action="uploadFile/layout" method="POST">
+						<form id="form_layout_upload" enctype="multipart/form-data"  method="POST">
 							<input type="text" id="avatval" placeholder="请选择文件···" readonly="readonly" style="vertical-align: middle; width:60%"/>
-							<a href="javascript:;" class="divupload" on-change="testtest">选择文件<input type="file" name="layout" value="" id="layout_upload" class="btnBrowser"/></a>
-							<input type="submit" name="btnUploadLayout" value="{{i18n_uploader_name_upload}}" class="divupload"/>
+							<a href="javascript:;" class="divupload" >选择文件<input type="file" name="layout" value="" id="layout_upload" class="btnBrowser"/></a>
+							<input type="button" name="btnUploadLayout" value="{{i18n_uploader_name_upload}}" class="divupload" on-click="uploadLayoutPage"/>
 						</form>
 						
 					</td>
 					
 					<td>
-						
+						<span id="result_layout">
+						</span>
 					</td>
-					<td></td>
+					<td>
+						<span id="time_layout">
+						</span>
+					</td>
 				</tr>
 				<tr>
 					<td>2</td>
 					<td>{{i18n_uploader_name_balance}}</td>
 					<td >
 						
-						<form id="form_layout_upload" enctype="multipart/form-data" action="uploadFile/balance" method="POST">
+						<form id="form_balance_upload" enctype="multipart/form-data"  method="POST">
 							<input type="text" id="avatval" placeholder="请选择文件···" readonly="readonly" style="vertical-align: middle; width:60%"/>
-							<a href="javascript:;" class="divupload" on-change="testtest">选择文件<input type="file" name="balance" value="" id="balance_upload" class="btnBrowser"/></a>
-							<input type="submit" name="btnUploadBalance" value="{{i18n_uploader_name_upload}}" class="divupload"/>
+							<a href="javascript:;" class="divupload" >选择文件<input type="file" name="balance" value="" id="balance_upload" class="btnBrowser"/></a>
+							<input type="button" name="btnUploadBalance" value="{{i18n_uploader_name_upload}}" class="divupload" on-click="uploadBalancePage"/>
 						</form>
 						
 					</td>
 					
 					<td>
-						
+						<span id="result_balance">
+						</span>
 					</td>
-					<td></td>
+					<td>
+						<span id="time_balance">
+						</span>
+					</td>
 				</tr>
 
 			</table>

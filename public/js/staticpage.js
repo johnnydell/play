@@ -5,7 +5,7 @@ var staticpage = function(){
 		var ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
-			data: {},
+			data: {root:manager.root},
 			onrender: function(){
 				manager.loadProperties(this, "staticpage", "../../");
 				pagename = manager.getPV("pageName");
@@ -13,13 +13,13 @@ var staticpage = function(){
 			},
 			oncomplete: function(){
 				$.ajax({
-					url		: '/edashboard/views/staticpage/viewdoc/' + pagename,
+					url		: manager.root + '/views/staticpage/viewdoc/' + pagename,
 					type	: 'post',
 					data	: '',
 					success: function(json)
 					{
 						console.log(json);
-						$("#pdfviewer").css("display", "").css("width", "100%").css("height", "600");
+						$("#pdfviewer").css("display", "").css("width", "100%").css("height", "800");
 						$("#pdfviewer").attr("src", root + "/" + json);
 						
 					}

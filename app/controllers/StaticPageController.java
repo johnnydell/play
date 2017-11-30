@@ -27,8 +27,12 @@ public class StaticPageController extends Controller {
 			//check if it's excel file or pdf file
 			if(! fileName.toLowerCase().contains("pdf") ){
 				//need to convert it to pdf first
-				pdfFilePath = filePath.toLowerCase().contains(".xlsx") ? filePath.replace("xlsx", "pdf") : filePath.replaceAll("xls", "pdf");
-				contextFilePath = contextFilePath.toLowerCase().contains(".xlsx") ? contextFilePath.replace("xlsx", "pdf") : contextFilePath.replaceAll("xls", "pdf");
+				int index = filePath.lastIndexOf(".");
+				pdfFilePath = filePath.substring(0, index) + ".pdf";
+				//pdfFilePath = filePath.toLowerCase().contains(".xlsx") ? filePath.replace("xlsx", "pdf") : filePath.replace("xls", "pdf");
+				index = contextFilePath.lastIndexOf(".");
+				contextFilePath = contextFilePath.substring(0, index) + ".pdf";
+				//contextFilePath = contextFilePath.toLowerCase().contains(".xlsx") ? contextFilePath.replace("xlsx", "pdf") : contextFilePath.replaceAll("xls", "pdf");
 				logger.info("pdfPath : = " + pdfFilePath);
 				File file = new File(pdfFilePath);
 				if (!file.exists()){
