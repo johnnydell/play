@@ -61,8 +61,8 @@
 					<td >
 						
 						<form id="form_layout_upload" enctype="multipart/form-data"  method="POST">
-							<input type="text" id="avatval" placeholder="请选择文件···" readonly="readonly" style="vertical-align: middle; width:60%"/>
-							<a href="javascript:;" class="divupload" >选择文件<input type="file" name="layout" value="" id="layout_upload" class="btnBrowser"/></a>
+							<input type="text" id="avatval_layout" placeholder="请选择文件···" readonly="readonly" style="vertical-align: middle; width:60%"/>
+							<a href="javascript:;" class="divupload">选择文件<input type="file" name="layout" value="" id="layout_upload" class="btnBrowser"/></a>
 							<input type="button" name="btnUploadLayout" value="{{i18n_uploader_name_upload}}" class="divupload" on-click="uploadLayoutPage"/>
 						</form>
 						
@@ -83,7 +83,7 @@
 					<td >
 						
 						<form id="form_balance_upload" enctype="multipart/form-data"  method="POST">
-							<input type="text" id="avatval" placeholder="请选择文件···" readonly="readonly" style="vertical-align: middle; width:60%"/>
+							<input type="text" id="avatval_balance" placeholder="请选择文件···" readonly="readonly" style="vertical-align: middle; width:60%"/>
 							<a href="javascript:;" class="divupload" >选择文件<input type="file" name="balance" value="" id="balance_upload" class="btnBrowser"/></a>
 							<input type="button" name="btnUploadBalance" value="{{i18n_uploader_name_upload}}" class="divupload" on-click="uploadBalancePage"/>
 						</form>
@@ -96,6 +96,98 @@
 					</td>
 					<td>
 						<span id="time_balance">
+						</span>
+					</td>
+				</tr>
+
+				<tr>
+					<td>3</td>
+					<td>{{i18n_uploader_name_pss}}</td>
+					<td >
+						
+						<form id="form_pss_upload" enctype="multipart/form-data"  method="POST">
+							<input type="text" id="avatval_pss" placeholder="请选择文件···" readonly="readonly" style="vertical-align: middle; width:60%"/>
+							<a href="javascript:;" class="divupload" >选择文件<input type="file" name="pss" value="" id="pss_upload" class="btnBrowser"/></a>
+							<input type="button" name="btnUploadPss" value="{{i18n_uploader_name_upload}}" class="divupload" on-click="uploadPssPage"/>
+						</form>
+						
+					</td>
+					
+					<td>
+						<span id="result_pss">
+						</span>
+					</td>
+					<td>
+						<span id="time_pss">
+						</span>
+					</td>
+				</tr>
+
+				<tr>
+					<td>4</td>
+					<td>{{i18n_uploader_name_oeepdca}}</td>
+					<td >
+						
+						<form id="form_oeepdca_upload" enctype="multipart/form-data"  method="POST">
+							<input type="text" id="avatval_oeepdca" placeholder="请选择文件···" readonly="readonly" style="vertical-align: middle; width:60%"/>
+							<a href="javascript:;" class="divupload" >选择文件<input type="file" name="oeepdca" value="" id="oeepdca_upload" class="btnBrowser"/></a>
+							<input type="button" name="btnUploadoeepdca" value="{{i18n_uploader_name_upload}}" class="divupload" on-click="uploadOeePdcaPage"/>
+						</form>
+						
+					</td>
+					
+					<td>
+						<span id="result_oeepdca">
+						</span>
+					</td>
+					<td>
+						<span id="time_oeepdca">
+						</span>
+					</td>
+				</tr>
+
+				<tr>
+					<td>5</td>
+					<td>{{i18n_uploader_name_5s}}</td>
+					<td >
+						
+						<form id="form_5s_upload" enctype="multipart/form-data"  method="POST">
+							<input type="text" id="avatval_5s" placeholder="请选择文件···" readonly="readonly" style="vertical-align: middle; width:60%"/>
+							<a href="javascript:;" class="divupload" >选择文件<input type="file" name="5s" value="" id="5s_upload" class="btnBrowser"/></a>
+							<input type="button" name="btnUpload5s" value="{{i18n_uploader_name_upload}}" class="divupload" on-click="upload5sPage"/>
+						</form>
+						
+					</td>
+					
+					<td>
+						<span id="result_5s">
+						</span>
+					</td>
+					<td>
+						<span id="time_5s">
+						</span>
+					</td>
+				</tr>
+
+				<tr>
+					<td>5</td>
+					<td>{{i18n_uploader_name_trainmatrix}}</td>
+					<td >
+						
+						<form id="form_trainmatrix_upload" enctype="multipart/form-data"  method="POST">
+							<input type="text" id="avatval_train_matrix" placeholder="请选择文件···" readonly="readonly" style="vertical-align: middle; width:60%"/>
+							<a href="javascript:;" class="divupload" >选择文件<input type="file" name="trainmatrix" value="" id="5s_upload" class="btnBrowser"/></a>
+							<input type="button" name="btnUploadTrainMatrix" value="{{i18n_uploader_name_upload}}" class="divupload" on-click="uploadTrainMatrixPage"/>
+						</form>
+						
+					</td>
+					
+					<td>
+						<span id="result_trainmatrix">
+						</span>
+					</td>
+					<td>
+						<span id="time_trainmatrix">
 						</span>
 					</td>
 				</tr>

@@ -9,7 +9,55 @@ var uploader = function(){
 				manager.loadProperties(this, "uploader", "../../");
 			},
 			oncomplete: function(){
+				//init click event - Layout
 				
+	             $("#avatval_layout").click(function(){
+	                 $("#layout_upload").trigger('click');
+	             });
+	             $("#layout_upload").change(function(){
+	                 $("#avatval_layout").val($(this).val());
+	             });
+	             
+	           //init click event - Balance
+	             $("#avatval_balance").click(function(){
+	                 $("#balance_upload").trigger('click');
+	             });
+	             $("#balance_upload").change(function(){
+	                 $("#avatval_balance").val($(this).val());
+	             });
+	             
+	             
+	             //init click event - Problem Solved Sheet
+	             $("#avatval_pss").click(function(){
+	                 $("#pss_upload").trigger('click');
+	             });
+	             $("#pss_upload").change(function(){
+	                 $("#avatval_pss").val($(this).val());
+	             });
+	             
+	           //init click event - OEE_PDCA
+	             $("#avatval_oeepdca").click(function(){
+	                 $("#oeepdca_upload").trigger('click');
+	             });
+	             $("#oeepdca_upload").change(function(){
+	                 $("#avatval_oeepdca").val($(this).val());
+	             });
+	             
+	           //init click event - 5S
+	             $("#avatval_5s").click(function(){
+	                 $("#5s_upload").trigger('click');
+	             });
+	             $("#5s_upload").change(function(){
+	                 $("#avatval_5s").val($(this).val());
+	             });
+	             
+	           //init click event - Training_Matrix
+	             $("#avatval_train_matrix").click(function(){
+	                 $("#train_matrix_upload").trigger('click');
+	             });
+	             $("#train_matrix_upload").change(function(){
+	                 $("#avatval_train_matrix").val($(this).val());
+	             });
 			}
 			
 		});
@@ -46,6 +94,69 @@ var uploader = function(){
                     dataType: "json" /*设置返回值类型为文本*/
                 });
 				
+			},
+			
+			//upload Problem Solved Sheet static page
+			uploadPssPage : function () {
+				$("#form_pss_upload").ajaxSubmit({
+                    success: function (data) {
+                        $("#msg_info").html(data.info);
+                        $("#result_pss").html(data.result);
+                        $("#time_pss").html(data.last_update_time);
+                    },
+                    error: function (error) {console.log(error); },
+                    url: root + '/views/upload/uploadFile/pss', /*设置post提交到的页面*/
+                    type: "post", /*设置表单以post方法提交*/
+                    dataType: "json" /*设置返回值类型为文本*/
+                });
+				
+			},
+			
+			//upload OEE_PDCA static page
+			uploadOeePdcaPage : function () {
+				$("#form_oeepdca_upload").ajaxSubmit({
+                    success: function (data) {
+                        $("#msg_info").html(data.info);
+                        $("#result_oeepdca").html(data.result);
+                        $("#time_oeepdca").html(data.last_update_time);
+                    },
+                    error: function (error) {console.log(error); },
+                    url: root + '/views/upload/uploadFile/oeepdca', /*设置post提交到的页面*/
+                    type: "post", /*设置表单以post方法提交*/
+                    dataType: "json" /*设置返回值类型为文本*/
+                });
+				
+			},
+			
+			//upload 5S static page
+			upload5sPage : function () {
+				$("#form_5s_upload").ajaxSubmit({
+                    success: function (data) {
+                        $("#msg_info").html(data.info);
+                        $("#result_5s").html(data.result);
+                        $("#time_5s").html(data.last_update_time);
+                    },
+                    error: function (error) {console.log(error); },
+                    url: root + '/views/upload/uploadFile/5s', /*设置post提交到的页面*/
+                    type: "post", /*设置表单以post方法提交*/
+                    dataType: "json" /*设置返回值类型为文本*/
+                });
+				
+			},
+			
+			//upload Training_Matrix static page
+			uploadTrainMatrixPage : function () {
+				$("#form_trainmatrix_upload").ajaxSubmit({
+                    success: function (data) {
+                        $("#msg_info").html(data.info);
+                        $("#result_trainmatrix").html(data.result);
+                        $("#time_trainmatrix").html(data.last_update_time);
+                    },
+                    error: function (error) {console.log(error); },
+                    url: root + '/views/upload/uploadFile/trainmatrix', /*设置post提交到的页面*/
+                    type: "post", /*设置表单以post方法提交*/
+                    dataType: "json" /*设置返回值类型为文本*/
+                });
 			}
 			
 		});

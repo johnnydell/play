@@ -85,7 +85,26 @@ public class StaticPageController extends Controller {
 				buffer.append( Constants.STATIC_FILE_SAVE_PATH_BALANCE );
 				
 			}
-			
+			else if ("pss".equals(fileType)) {
+				// blance excel file
+				buffer.append( Constants.STATIC_FILE_SAVE_PATH_PSS );
+				
+			}
+			else if ("oeepdca".equals(fileType)) {
+				// blance excel file
+				buffer.append( Constants.STATIC_FILE_SAVE_PATH_OEEPDCA );
+				
+			}
+			else if ("5s".equals(fileType)) {
+				// blance excel file
+				buffer.append( Constants.STATIC_FILE_SAVE_PATH_5S );
+				
+			}
+			else if ("trainmatrix".equals(fileType)) {
+				// blance excel file
+				buffer.append( Constants.STATIC_FILE_SAVE_PATH_MATRIX );
+				
+			}
 			buffer.append(File.separator);
 			buffer.append(fileName);
 			
@@ -111,7 +130,26 @@ public class StaticPageController extends Controller {
 				buffer.append( Constants.STATIC_FILE_SAVE_PATH_BALANCE );
 				
 			}
-			
+			else if ("pss".equals(fileType)) {
+				// blance excel file
+				buffer.append( Constants.STATIC_FILE_SAVE_PATH_PSS );
+				
+			}
+			else if ("oeepdca".equals(fileType)) {
+				// blance excel file
+				buffer.append( Constants.STATIC_FILE_SAVE_PATH_OEEPDCA );
+				
+			}
+			else if ("5s".equals(fileType)) {
+				// blance excel file
+				buffer.append( Constants.STATIC_FILE_SAVE_PATH_5S );
+				
+			}
+			else if ("trainmatrix".equals(fileType)) {
+				// blance excel file
+				buffer.append( Constants.STATIC_FILE_SAVE_PATH_MATRIX );
+				
+			}
 			buffer.append(File.separator);
 			buffer.append(fileName);
 			

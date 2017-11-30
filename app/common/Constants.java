@@ -11,5 +11,13 @@ public class Constants {
 	public static String STATIC_FILE_SAVE_PATH_LAYOUT = play.Play.application().configuration().getString("file.path.layout");
 
 	public static String STATIC_FILE_SAVE_PATH_BALANCE = play.Play.application().configuration().getString("file.path.balance");
+	
+	public static String STATIC_FILE_SAVE_PATH_PSS = play.Play.application().configuration().getString("file.path.pss");
+
+	public static String STATIC_FILE_SAVE_PATH_OEEPDCA = play.Play.application().configuration().getString("file.path.oeepdca");
+	
+	public static String STATIC_FILE_SAVE_PATH_5S = play.Play.application().configuration().getString("file.path.5s");
+
+	public static String STATIC_FILE_SAVE_PATH_MATRIX = play.Play.application().configuration().getString("file.path.trainmatrix");
 
 }

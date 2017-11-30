@@ -14,7 +14,6 @@ import common.Constants;
 import common.util.FileUtil;
 import models.UploadFile;
 import models.UploadFileHistory;
-import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Http.MultipartFormData.FilePart;
@@ -99,6 +98,26 @@ public class UploaderController extends Controller {
 			else if ("balance".equals(fileName)) {
 				// blance excel file
 				buffer.append( Constants.STATIC_FILE_SAVE_PATH_BALANCE );
+				
+			}
+			else if ("pss".equals(fileName)) {
+				// blance excel file
+				buffer.append( Constants.STATIC_FILE_SAVE_PATH_PSS );
+				
+			}
+			else if ("oeepdca".equals(fileName)) {
+				// blance excel file
+				buffer.append( Constants.STATIC_FILE_SAVE_PATH_OEEPDCA );
+				
+			}
+			else if ("5s".equals(fileName)) {
+				// blance excel file
+				buffer.append( Constants.STATIC_FILE_SAVE_PATH_5S );
+				
+			}
+			else if ("trainmatrix".equals(fileName)) {
+				// blance excel file
+				buffer.append( Constants.STATIC_FILE_SAVE_PATH_MATRIX );
 				
 			}
 			
