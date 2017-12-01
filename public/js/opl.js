@@ -3,10 +3,8 @@ var opl = function(){
 		var opl = [];
 		var deletedOPL =[];
 		var years = ['2016','2017','2018'];
-		var month = '04';
 		var months = ['01','02','03','04','05','06','07','08','09','10','11','12'];
-		var days = ['01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'];
-		
+	
 		var ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
@@ -15,8 +13,6 @@ var opl = function(){
 				manager.loadProperties(this, "opl", "../../");
 				this.set("years",years);
 				this.set("months",months);
-				this.set("month",month);
-				this.set("days",days);
 				var op1 = {
 						id:"0",
 						checked:false,
