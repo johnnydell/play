@@ -13,6 +13,9 @@ GET     /edashboard/city/addCity   						controllers.CityController.addCity()
 # UPLOADER
 POST /edashboard/views/upload/uploadFile/:fileType 		controllers.UploaderController.uploadFile(fileType : String)
 POST /edashboard/views/staticpage/viewdoc/:fileName 	controllers.StaticPageController.viewFileByName(fileName : String)
+
+# Hourly Count
+POST /edashboard/views/board/hourlycount/:LineName		controllers.HourlyCountController.viewHourlyCountByLineName(LineName : String)
 	
 
 # Map static resources from the /public folder to the /assets URL path

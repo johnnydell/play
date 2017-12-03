@@ -1,0 +1,42 @@
+package models;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.avaje.ebean.Ebean;
+
+import play.db.ebean.Model;
+
+@Entity
+@Table(name = "edb_product_type")
+public class ProductType extends Model {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	public Integer id;
+
+	@Column(name = "product_type_name")
+	public String productTypeName;
+
+	
+
+	@Column(name = "active")
+	public Boolean active;
+
+	public static Finder<Integer, ProductType> find = new Finder<Integer, ProductType>(Integer.class, ProductType.class);
+
+	public static ProductType findByName(String name) {
+		return find.where().ilike("productTypeName", "%" + name + "%").findUnique();
+	}
+
+	public static void save(ProductType productType) {
+		Ebean.save(productType);
+	}
+
+}

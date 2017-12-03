@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Board- Meeting Attendance</title>
+		<link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/login.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/jquery-ui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/hourlycount.css"/>
+		
+	</head>
+	<body>
+		<div class="box">
+		    <!-- left menu -->
+			<div class="left fl"></div>
+			<div class="right">
+				<!-- right header -->
+				<header></header>
+				<div class="container">
+				    <!-- main template -->				    
+				</div>
+				<!-- right footer -->
+				<footer></footer>		
+			</div>
+		</div>
+	</body>
+	<script src="../../js/lib/jquery-1.10.1.min.js"></script>
+	<script src="../../js/lib/ractive-legacy.js"></script>
+	<script src="../../js/lib/jquery.i18n.properties-1.0.9.js"></script>
+	<script src="../../js/lib/manager.js"></script>
+	<script src="../../js/hourlycount.js"></script>
+	<script src="../../js/lib/jquery-ui.min.js"></script>
+	<script id="main-template" type="text/active">
+	<div class="position _clear title">
+		<h3>{{i18n_hourlycount_title}}</h3>
+		<div class="fr">
+			<p>
+				<i class="icon icon-home"></i>
+				<a href="../index.html">{{i18n_hourlycount_nav1}}</a>
+				<font color="#ccc">></font>
+				<a href="../lines.html">{{i18n_hourlycount_nav2}}</a>
+				<font color="#ccc">></font>
+				<a href="../boards.html">{{i18n_hourlycount_nav3}}</a>
+				<font color="#ccc">></font>
+				<span>{{i18n_hourlycount_title}}</span>
+			</p>
+		</div>
+	</div>
+	<div class="content">
+		<div class="content-box">
+            
+			<div class="header">
+				<div class="title"><span>{{i18n_hourlycount_title}}</span></div>
+				<div class="info">
+					 <div class="lb">
+					   <span>{{i18n_hourlycount_line}}</span>		   
+					 </div>
+					 <div class="val">
+						 <span class="fst">ARS1</span> 
+					 </div>
+					 <div class="lb">
+						<span>{{i18n_hourlycount_date}}</span>
+					</div>
+					<div class="val">
+						<span id="monthSelect" on-click="toShowMonthSelect">
+                             <label>2月</label>
+                             <select style="display:none" on-blur="toHideMonthSelect">
+				               <option value="1">1月</option>
+             				   <option value="2">2月</option>
+	             			   <option value="3">3月</option>
+             				   <option value="4">4月</option>
+	             			   <option value="5">5月</option>
+	             			   <option value="6">6月</option>
+	             			   <option value="7">7月</option>
+	             			   <option value="8">8月</option>
+	             			   <option value="9">9月</option>
+	             			   <option value="10">10月</option>
+	             			   <option value="11">11月</option>
+	             			   <option value="12">12月</option>
+	             			</select>
+                         </span>
+					</div>
+				</div>
+			</div>
+			<table id="hourlycountlist">
+				<tr>
+					<td colspan="1" >
+                         {{i18n_hourlycount_time}}
+                    </td>
+					<td colspan="4">
+                         {{i18n_hourlycount_product}}
+                    </td>
+					<td colspan="2" >
+                        {{i18n_hourlycount_oeeplan}}
+                    </td>
+					<td colspan="2" >
+                        {{i18n_hourlycount_oeeactual}}
+                    </td>
+					<td colspan="7">
+                        {{i18n_hourlycount_hourly}}
+                    </td>
+					<td colspan="3" >
+                        {{i18n_hourlycount_quality_loss}}
+                    </td>
+					<td colspan="3" >
+                        {{i18n_hourlycount_tech_loss}}
+                    </td>
+					<td colspan="4" >
+                        {{i18n_hourlycount_chgover_loss}}
+                    </td>
+					<td colspan="9" >
+                        {{i18n_hourlycount_org_loss}}
+                    </td>
+					<td colspan="7" >
+                        {{i18n_hourlycount_remark}}
+                    </td>
+					<td colspan="1" width="4%">
+                        {{i18n_hourlycount_downtime_code}}
+                    </td>
+				</tr>
+				<tr>
+					<td colspan="1" >
+                        &nbsp;
+                    </td>
+					<td colspan="4">
+                         &nbsp;
+                    </td>
+					<td colspan="2" >
+                        &nbsp;
+                    </td>
+					<td colspan="2" >
+                       &nbsp;
+                    </td>
+					<td colspan="7">
+                       &nbsp;
+                    </td>
+					<td colspan="3" >
+                        &nbsp;
+                    </td>
+					<td colspan="3" >
+                        &nbsp;
+                    </td>
+					<td colspan="4" >
+                       &nbsp;
+                    </td>
+					<td colspan="9" >
+                        &nbsp;
+                    </td>
+					<td colspan="7" rowspan="3" style="text_align:center">
+                        <p>{{i18n_hourlycount_remark_desc_1}}</p>
+						<p>{{i18n_hourlycount_remark_desc_2}}</p>
+						<p>{{i18n_hourlycount_remark_desc_3}}</p>
+						<p>{{i18n_hourlycount_remark_desc_4}}</p>
+                    </td>
+					<td rowspan="3" >
+                        &nbsp;
+                    </td>
+				</tr>
+
+				<tr>
+					<td rowspan="2" width="4%">
+                         {{i18n_hourlycount_from_to}}
+                    </td>
+					<td rowspan="2" width="4%">
+                         {{i18n_hourlycount_type1}}
+                    </td>
+					<td rowspan="2" width="4%">
+                        {{i18n_hourlycount_cycle_time1}}
+                    </td>
+					<td rowspan="2" width="4%">
+                        {{i18n_hourlycount_type2}}
+                    </td>
+					<td rowspan="2" width="4%">
+                        {{i18n_hourlycount_cycle_time2}}
+                    </td>
+					<td rowspan="2" width="2%">
+                        {{i18n_hourlycount_output}}
+                    </td>
+					<td rowspan="2" width="2%">
+                        {{i18n_hourlycount_total_output}}
+                    </td>
+					<td rowspan="2" width="2%">
+                        {{i18n_hourlycount_output}}
+                    </td>
+					<td rowspan="2" width="2%">
+                        {{i18n_hourlycount_total_output}}
+                    </td>
+					<td rowspan="2" width="1%">
+                        30
+                    </td>
+					<td rowspan="2" width="1%">
+                        60
+                    </td>
+					<td rowspan="2" width="1%">
+                        90
+                    </td>
+					<td rowspan="2" width="1%">
+                        120
+                    </td>
+					<td rowspan="2" width="1%">
+                        150
+                    </td>
+					<td rowspan="2" width="1%">
+                        180
+                    </td>
+					<td rowspan="2"width="1%" >
+                        240
+                    </td>
+					<td rowspan="1" width="2%">
+                        {{i18n_hourlycount_scrap}}
+                    </td>
+					<td colspan="1" width="2%">
+                        {{i18n_hourlycount_rework}}
+                    </td>
+					<td rowspan="2" width="2%" class="graycolor">
+                        {{i18n_hourlycount_losses}}
+                    </td>
+					<td colspan="1" width="2%">
+                        {{i18n_hourlycount_breakdown}}
+                    </td>
+					<td colspan="1" width="2%">
+                        {{i18n_hourlycount_minor_adjust}}
+                    </td>
+					<td rowspan="2" width="2%" class="graycolor">
+                        {{i18n_hourlycount_losses}}
+                    </td>
+					<td colspan="1" width="2%">
+                        {{i18n_hourlycount_plan_setup}}
+                    </td>
+					<td colspan="1" width="2%">
+                        {{i18n_hourlycount_unplan_setup}}
+                    </td>
+					<td colspan="1" width="2%">
+                        {{i18n_hourlycount_exchg_tools}}
+                    </td>
+					<td rowspan="2" width="2%" class="graycolor">
+                        {{i18n_hourlycount_losses}}
+                    </td>
+
+					<td colspan="1" width="2%" >
+                        {{i18n_hourlycount_lack_person}}
+                    </td>
+					<td colspan="1"width="2%" >
+                        {{i18n_hourlycount_lack_material}}
+                    </td>
+					<td colspan="1" width="2%">
+                        {{i18n_hourlycount_release_3parts}}
+                    </td>
+					<td colspan="1" width="2%">
+                        {{i18n_hourlycount_exchg_material}}
+                    </td>
+					<td colspan="1" width="2%">
+                        {{i18n_hourlycount_unplan_tpm}}
+                    </td>
+					<td colspan="1" width="2%">
+                        {{i18n_hourlycount_unplan_sample_process}}
+                    </td>
+					<td colspan="1" width="2%">
+                        {{i18n_hourlycount_new_operator}}
+                    </td>
+					<td colspan="1" width="2%">
+                        {{i18n_hourlycount_others}}
+                    </td>
+					<td rowspan="2" width="2%" class="graycolor">
+                        {{i18n_hourlycount_losses}}
+                    </td>
+
+				</tr>
+				<tr>
+				   	<td>Q1</td>
+					<td>Q2</td>
+					<td>T1</td>
+					<td>T2</td>
+					<td>C1</td>
+					<td>C2</td>
+					<td>C3</td>
+					<td>O1</td>
+					<td>O2</td>
+					<td>O3</td>
+					<td>O4</td>
+					<td>O5</td>
+					<td>O6</td>
+					<td>O7</td>
+					<td>O8</td>
+				</tr>
+			{{#each hourlyCountV1}}
+                <tr class="attendeeTr">
+					<td>
+						<label>{{hourid}}</label>
+					</td>
+					<td>
+						<label>{{productTypeName1}}</label>
+					</td>
+					<td>
+						<label>{{productCycle1}}</label>
+					</td>
+					<td>
+						<label>{{productTypeName2}}</label>
+					</td>
+					<td>
+						<label>{{productCycle2}}</label>
+					</td>
+					<td>
+						<label>{{planCount}}</label>
+					</td>
+					<td>
+						<label>{{planCount}}</label>
+					</td>
+					<td>
+						<label>{{actualCount}}</label>
+					</td>
+					<td>
+						<label>{{actualCount}}</label>
+					</td>
+					<td colspan="7">
+						<label>{{productHourCount}}</label>
+					</td>
+					<td>
+						<label>{{scrapCount}}</label>
+					</td>
+					<td>
+						<label>{{reworkCount}}</label>
+					</td>
+					<td class="graycolor">
+						<label>{{qualityLoss}}</label>
+					</td>
+					<td>
+						<label>{{breakdownCount}}</label>
+					</td>
+					<td>
+						<label>{{adjustmentCount}}</label>
+					</td>
+					<td class="graycolor">
+						<label>{{technicalLoss}}</label>
+					</td>
+					<td>
+						<label>{{planSetupCount}}</label>
+					</td>
+					<td>
+						<label>{{unplanSetupCount}}</label>
+					</td>
+					<td>
+						<label>{{exchgToolCount}}</label>
+					</td>
+					<td class="graycolor"> 
+						<label>{{changeoverLoss}}</label>
+					</td>
+					<td>
+						<label>{{lackPersonnelCount}}</label>
+					</td>
+					<td>
+						<label>{{lackMaterialCount}}</label>
+					</td>
+					<td>
+						<label>{{testReleaseThreePartsCount}}</label>
+					</td>
+
+					<td>
+						<label>{{exchgMaterialCount}}</label>
+					</td>
+					<td>
+						<label>{{unplanSampleCount}}</label>
+					</td>
+					<td>
+						<label>{{newOperatorCount}}</label>
+					</td>
+					<td>
+						<label>{{unplanTpmCount}}</label>
+					</td>
+					<td>
+						<label>{{othersCount}}</label>
+					</td>
+					<td class="graycolor">
+						<label>{{orgnizationLoss}}</label>
+					</td>
+					
+					<td colspan="7">
+						<label>{{remark}}</label>
+					</td>
+					<td>
+						&nbsp;
+					</td>
+				</tr>
+			{{/each}}
+				<tr class="graycolor">
+					<td colspan="1">
+						<label>7-15</label>
+					</td>
+					<td colspan="15">
+						{{i18n_hourlycount_current_plan_output}} &nbsp;&nbsp;{{hourlyCountsTotal1.group1_plan}}
+					</td>
+					<td colspan="27">
+						{{i18n_hourlycount_current_actual_output}} &nbsp;&nbsp;{{hourlyCountsTotal1.group1_actual}}
+					</td>
+				</tr>
+			{{#each hourlyCountV2}}
+                <tr class="attendeeTr">
+					<td>
+						<label>{{hourid}}</label>
+					</td>
+					<td>
+						<label>{{productTypeName1}}</label>
+					</td>
+					<td>
+						<label>{{productCycle1}}</label>
+					</td>
+					<td>
+						<label>{{productTypeName2}}</label>
+					</td>
+					<td>
+						<label>{{productCycle2}}</label>
+					</td>
+					<td>
+						<label>{{planCount}}</label>
+					</td>
+					<td>
+						<label>{{planCount}}</label>
+					</td>
+					<td>
+						<label>{{actualCount}}</label>
+					</td>
+					<td>
+						<label>{{actualCount}}</label>
+					</td>
+					<td colspan="7">
+						<label>{{productHourCount}}</label>
+					</td>
+					<td>
+						<label>{{scrapCount}}</label>
+					</td>
+					<td>
+						<label>{{reworkCount}}</label>
+					</td>
+					<td class="graycolor">
+						<label>{{qualityLoss}}</label>
+					</td>
+					<td>
+						<label>{{breakdownCount}}</label>
+					</td>
+					<td>
+						<label>{{adjustmentCount}}</label>
+					</td>
+					<td class="graycolor">
+						<label>{{technicalLoss}}</label>
+					</td>
+					<td>
+						<label>{{planSetupCount}}</label>
+					</td>
+					<td>
+						<label>{{unplanSetupCount}}</label>
+					</td>
+					<td>
+						<label>{{exchgToolCount}}</label>
+					</td>
+					<td class="graycolor">
+						<label>{{changeoverLoss}}</label>
+					</td>
+					<td>
+						<label>{{lackPersonnelCount}}</label>
+					</td>
+					<td>
+						<label>{{lackMaterialCount}}</label>
+					</td>
+					<td>
+						<label>{{testReleaseThreePartsCount}}</label>
+					</td>
+
+					<td>
+						<label>{{exchgMaterialCount}}</label>
+					</td>
+					<td>
+						<label>{{unplanSampleCount}}</label>
+					</td>
+					<td>
+						<label>{{newOperatorCount}}</label>
+					</td>
+					<td>
+						<label>{{unplanTpmCount}}</label>
+					</td>
+					<td>
+						<label>{{othersCount}}</label>
+					</td>
+					<td class="graycolor">
+						<label>{{orgnizationLoss}}</label>
+					</td>
+					
+					<td colspan="7">
+						<label>{{remark}}</label>
+					</td>
+					<td>
+						&nbsp;
+					</td>
+				</tr>
+			{{/each}}
+				<tr class="graycolor">
+					<td colspan="1">
+						<label>7-19</label>
+					</td>
+					<td colspan="15">
+						{{i18n_hourlycount_current_plan_output}} &nbsp;&nbsp;{{hourlyCountsTotal2.group1_plan}}
+					</td>
+					<td colspan="27">
+						{{i18n_hourlycount_current_actual_output}} &nbsp;&nbsp;{{hourlyCountsTotal2.group1_actual}}
+					</td>
+				</tr>
+			{{#each hourlyCountV3}}
+                <tr class="attendeeTr">
+					<td>
+						<label>{{hourid}}</label>
+					</td>
+					<td>
+						<label>{{productTypeName1}}</label>
+					</td>
+					<td>
+						<label>{{productCycle1}}</label>
+					</td>
+					<td>
+						<label>{{productTypeName2}}</label>
+					</td>
+					<td>
+						<label>{{productCycle2}}</label>
+					</td>
+					<td>
+						<label>{{planCount}}</label>
+					</td>
+					<td>
+						<label>{{planCount}}</label>
+					</td>
+					<td>
+						<label>{{actualCount}}</label>
+					</td>
+					<td>
+						<label>{{actualCount}}</label>
+					</td>
+					<td colspan="7">
+						<label>{{productHourCount}}</label>
+					</td>
+					<td>
+						<label>{{scrapCount}}</label>
+					</td>
+					<td>
+						<label>{{reworkCount}}</label>
+					</td>
+					<td class="graycolor">
+						<label>{{qualityLoss}}</label>
+					</td>
+					<td>
+						<label>{{breakdownCount}}</label>
+					</td>
+					<td>
+						<label>{{adjustmentCount}}</label>
+					</td>
+					<td class="graycolor">
+						<label>{{technicalLoss}}</label>
+					</td>
+					<td>
+						<label>{{planSetupCount}}</label>
+					</td>
+					<td>
+						<label>{{unplanSetupCount}}</label>
+					</td>
+					<td>
+						<label>{{exchgToolCount}}</label>
+					</td>
+					<td class="graycolor">
+						<label>{{changeoverLoss}}</label>
+					</td>
+					<td>
+						<label>{{lackPersonnelCount}}</label>
+					</td>
+					<td>
+						<label>{{lackMaterialCount}}</label>
+					</td>
+					<td>
+						<label>{{testReleaseThreePartsCount}}</label>
+					</td>
+
+					<td>
+						<label>{{exchgMaterialCount}}</label>
+					</td>
+					<td>
+						<label>{{unplanSampleCount}}</label>
+					</td>
+					<td>
+						<label>{{newOperatorCount}}</label>
+					</td>
+					<td>
+						<label>{{unplanTpmCount}}</label>
+					</td>
+					<td>
+						<label>{{othersCount}}</label>
+					</td>
+					<td class="graycolor">
+						<label>{{orgnizationLoss}}</label>
+					</td>
+					
+					<td colspan="7">
+						<label>{{remark}}</label>
+					</td>
+					<td>
+						&nbsp;
+					</td>
+				</tr>
+			{{/each}}
+				<tr class="graycolor">
+					<td colspan="1">
+						<label>15-23</label>
+					</td>
+					<td colspan="15">
+						{{i18n_hourlycount_current_plan_output}} &nbsp;&nbsp;{{hourlyCountsTotal3.group1_plan}}
+					</td>
+					<td colspan="27">
+						{{i18n_hourlycount_current_actual_output}} &nbsp;&nbsp;{{hourlyCountsTotal3.group1_actual}}
+					</td>
+				</tr>
+			{{#each hourlyCountV4}}
+                <tr class="attendeeTr">
+					<td>
+						<label>{{hourid}}</label>
+					</td>
+					<td>
+						<label>{{productTypeName1}}</label>
+					</td>
+					<td>
+						<label>{{productCycle1}}</label>
+					</td>
+					<td>
+						<label>{{productTypeName2}}</label>
+					</td>
+					<td>
+						<label>{{productCycle2}}</label>
+					</td>
+					<td>
+						<label>{{planCount}}</label>
+					</td>
+					<td>
+						<label>{{planCount}}</label>
+					</td>
+					<td>
+						<label>{{actualCount}}</label>
+					</td>
+					<td>
+						<label>{{actualCount}}</label>
+					</td>
+					<td colspan="7">
+						<label>{{productHourCount}}</label>
+					</td>
+					<td>
+						<label>{{scrapCount}}</label>
+					</td>
+					<td>
+						<label>{{reworkCount}}</label>
+					</td>
+					<td class="graycolor">
+						<label>{{qualityLoss}}</label>
+					</td>
+					<td>
+						<label>{{breakdownCount}}</label>
+					</td>
+					<td>
+						<label>{{adjustmentCount}}</label>
+					</td>
+					<td class="graycolor">
+						<label>{{technicalLoss}}</label>
+					</td>
+					<td>
+						<label>{{planSetupCount}}</label>
+					</td>
+					<td>
+						<label>{{unplanSetupCount}}</label>
+					</td>
+					<td>
+						<label>{{exchgToolCount}}</label>
+					</td>
+					<td class="graycolor">
+						<label>{{changeoverLoss}}</label>
+					</td>
+					<td>
+						<label>{{lackPersonnelCount}}</label>
+					</td>
+					<td>
+						<label>{{lackMaterialCount}}</label>
+					</td>
+					<td>
+						<label>{{testReleaseThreePartsCount}}</label>
+					</td>
+
+					<td>
+						<label>{{exchgMaterialCount}}</label>
+					</td>
+					<td>
+						<label>{{unplanSampleCount}}</label>
+					</td>
+					<td>
+						<label>{{newOperatorCount}}</label>
+					</td>
+					<td>
+						<label>{{unplanTpmCount}}</label>
+					</td>
+					<td>
+						<label>{{othersCount}}</label>
+					</td>
+					<td class="graycolor">
+						<label>{{orgnizationLoss}}</label>
+					</td>
+					
+					<td colspan="7">
+						<label>{{remark}}</label>
+					</td>
+					<td>
+						&nbsp;
+					</td>
+				</tr>
+				
+			{{/each}}
+                <tr class="graycolor">
+					<td colspan="1">
+						<label>23-07</label>
+					</td>
+					<td colspan="15">
+						{{i18n_hourlycount_current_plan_output}} &nbsp;&nbsp;{{hourlyCountsTotal4.group1_plan}}
+					</td>
+					<td colspan="27">
+						{{i18n_hourlycount_current_actual_output}} &nbsp;&nbsp;{{hourlyCountsTotal4.group1_actual}}
+					</td>
+				</tr>
+				<tr>
+					
+					<td colspan="2">
+						<label>{{i18n_hourlycount_plan_weight_average_cycle}}</label>
+					</td>
+					<td>
+						&nbsp;
+					</td>
+					<td colspan="13">
+						<label>{{i18n_hourlycount_plan_cpl_total_output}}</label>
+					</td>
+					
+					<td colspan="19">
+						&nbsp;
+					</td>
+					<td colspan="3">
+						<label>{{i18n_hourlycount_plan_moe_output}}</label>
+					</td>
+					<td colspan="3">
+						<label>{{i18n_hourlycount_actual_output}}</label>
+					</td>
+					<td colspan="2">
+						<label>{{i18n_hourlycount_actual_oee}}</label>
+					</td>
+				</tr>
+				<tr>
+					
+					<td colspan="9">
+						<label>{{i18n_hourlycount_footer_desc}}</label>
+					</td>
+					
+					<td colspan="7">
+						<label>{{i18n_hourlycount_sign_shift_1}}</label>
+					</td>
+					
+					<td colspan="5">
+						&nbsp;
+					</td>
+					<td colspan="4">
+						<label>{{i18n_hourlycount_sign_shift_2}}</label>
+					</td>
+					
+					<td colspan="5">
+						&nbsp;
+					</td>
+					<td colspan="5">
+						<label>{{i18n_hourlycount_sign_shift_3}}</label>
+					</td>
+					
+					<td colspan="3">
+						&nbsp;
+					</td>
+					<td colspan="3">
+						<label>{{i18n_hourlycount_sign_group}}</label>
+					</td>
+					
+					<td colspan="2">
+						<label>{{i18n_hourlycount_target_oee}}</label>
+					</td>
+				</tr>
+			</table>
+			<div class="footer">
+				<div class="lf">
+					<p  class="title">Starter Motors and Generators</p>
+					<p>SG/BPS-CN | 07.03.2014 | V1.0 | © Robert Bosch GmbH 2014. Alle Rechte vorbehalten, auch bzgl. jeder Verfügung, Verwertung, Reproduktion,</p>
+					<p>Bearbeitung, Weitergabe sowie für den Fall von Schutzrechtsanmeldungen.</p>
+				</div>
+				<div class="rt">
+				   <img src="{{root}}/images/logo2.png" class="fr">
+				</div>
+			</div>
+		</div>
+	</div>
+    </script>
+</html>
