@@ -40,11 +40,11 @@
 }
 
 .content-box table td {
-    /* line-height: 37px; */
+   /** line-height: 37px;**/
     text-align: center;
     border: 1px solid #000;
     font-size: smaller;	
-    height: 37px;
+    height: 54px;
 }
 
 .content-box table td:nth-child(17) {
