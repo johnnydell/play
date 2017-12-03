@@ -48,6 +48,24 @@ var manager = function() {
 		return '';
 	}
 	
+	//设定菜单按钮的选定，由具体页面来设定
+	function setMenuBar(icon){
+	     switch(icon){
+	       case 'scr':
+	         $(".box .left ul .icon-scr").parent().css("background","#ebeff4");
+	       	  break;
+	       case 'cd':
+	          $(".box .left ul .icon-cd").children(2).css("background","#ebeff4");
+	          break;
+	       case 'gj':
+	          $(".box .left ul .icon-gj").children(3).css("background","#ebeff4");
+	       	  break;
+	       case 'xf':
+	          $(".box .left ul .icon-xf").children(4).css("background","#ebeff4");
+	          break;   
+	     }
+	}
+	
 	// 国际化共通方法,dir表示当前的位置上级目录级位，../../两级，../一级
 	function loadProperties(ractive, name,dir) {
 	    jQuery.i18n.properties({// 加载资浏览器语言对应的资源文件
@@ -83,6 +101,9 @@ var manager = function() {
 	          },
 	          toOthers:function(){
 	              location.href = root+"/views/board/opl.html";
+	          },
+	          toScreen:function(){
+	          	  location.href = root+"/views/scr.html";
 	          },
 	          toLogin:function(){	     
       	    	  $(".popup").show();  
@@ -138,7 +159,8 @@ var manager = function() {
 		init: renderLayout,
 		loadProperties:loadProperties,
 		root:root,
-		getPV:getPV
+		getPV:getPV,
+		setMenuBar:setMenuBar
  }
 
 }();
