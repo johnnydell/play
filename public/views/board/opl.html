@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Board- OPL</title>
+		<link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/login.css"/>
+		<link rel="stylesheet" type="text/css" href="../../js/lib/datetimepicker/jquery.datetimepicker.css"/>	
+		<link rel="stylesheet" type="text/css" href="../../css/opl.css"/>
+	</head>
+	<body>
+		<div class="box">
+		    <!-- left menu -->
+			<div class="left fl"></div>
+			<div class="right">
+				<!-- right header -->
+				<header></header>
+				<div class="container">
+				    <!-- main template -->				    
+				</div>
+				<!-- right footer -->
+				<footer></footer>		
+			</div>
+		</div>
+	</body>
+	<script src="../../js/lib/jquery-1.10.1.min.js"></script>
+	<script src="../../js/lib/ractive-legacy.js"></script>
+	<script src="../../js/lib/jquery.i18n.properties-1.0.9.js"></script>
+	<script src="../../js/lib/datetimepicker/jquery.datetimepicker.full.js"></script>
+	<script src="../../js/lib/manager.js"></script>
+	<script src="../../js/opl.js"></script>
+	<script id="main-template" type="text/active">
+	<div class="position _clear title">
+		<h3>{{i18n_opl_title}}</h3>
+		<div class="fr">
+			<p>
+				<i class="icon icon-home"></i>
+				<a href="../index.html">{{i18n_opl_nav1}}</a>
+				<font color="#ccc">></font>
+				<a href="../lines.html">{{i18n_opl_nav2}}</a>
+				<font color="#ccc">></font>
+				<a href="../boards.html">{{i18n_opl_nav3}}</a>
+				<font color="#ccc">></font>
+				<span>{{i18n_opl_title}}</span>
+			</p>
+		</div>
+	</div>
+	<div class="content">
+		<div class="content-box">
+            <div class="toolbar">
+                <button type="button" class="btn" on-click="test">测试</button>
+				<button type="button" class="btn" on-click="addOP">增加出席人员</button>
+				<button type="button" class="btn" on-click="saveOP">保存出席人员</button>
+				<button type="button" class="btn" on-click="deleteOP">删除出席人员</button>
+            </div>
+			<div class="header">
+				<table>
+			    <tr>
+					<th class="title" rowspan="2" colspan="8">Open Point List  问题清单</th>
+					<th colspan="3" style="font-size: 20px;font-weight: bold;text-align:right;">Line生产线：</th>
+					<th style="background-color:white;color: #000;border: 1px solid #000;">FAG2</th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+				</tr>
+				<tr>
+					<th colspan="3" style="font-size: 20px;font-weight: bold;text-align:right;">Month月份：</th>
+					<th class="dt" width="10%" style="background-color:white;color: #000;border: 1px solid #000;text-align:left;">
+					<label on-click="toShowYearSelect">2017</label>                    
+					<select style="display:none;" on-blur="toHideYearSelect">
+ 						{{#each years:index}}
+						 <option value="{{years[index]}}">{{years[index]}}</option>
+				         {{/each}}
+	             	</select>
+                    <label on-click="toShowMonthSelect">8 月</label>
+ 					<select style="display:none;" on-blur="toHideMonthSelect">
+						 {{#each months:index}}
+						 <option value="{{months[index]}}">{{months[index]}} 月</option>
+				         {{/each}}
+	             	</select>
+                    </th>
+					<th class="page" style="background-color:white;color: #000;border: 1px solid #000;">
+					第
+					<label on-click="toShowPageSelect">1</label>
+ 					<select style="display:none;" on-blur="toHidePageSelect">
+						<option value="1">1</option>
+				        <option value="2">2</option>
+             			<option value="3">3</option>
+						<option value="4">4</option>
+	             	</select>
+                                                                      页
+                    </th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+				</tr>
+			    <tr>
+				    <th width="2%" rowspan="2"><input type="checkbox" /></th>
+			        <th width="4%" rowspan="2">Date<br>日期</th>
+			        <th width="4%" rowspan="2">Ref No<br>编号</th>
+			        <th width="5%" rowspan="2">Person Found<br>问题提出人</th>
+			        <th width="4%" rowspan="2">Station<br>工位号</th>
+			        <th colspan="7">Deviation / Problem 偏差/问题</th>
+			        <th colspan="6">Corrective Action行动方案</th>
+			    </tr>
+			    <tr>
+			        <th width="11%">Description<br>偏差或问题描述</th>
+			        <th width="4%">From<br>问题起始时间</th>
+			        <th width="4%">To<br>问题结束时间</th>
+			        <th width="3%">timing<br>持续时间(分钟)</th>
+			        <th width="4%">Amount<br>缺陷数量</th>
+			        <th width="16%" colspan="2">Root Cause<br>根本原因</th>
+			        <th width="9%">Immediate<br>临时措施</th>
+			        <th width="12%">Long Term<br>永久措施<br>(在关闭阶段需要同步更新FMEA,CP,WI,PRR,SP、STAB、5M1E等相关工艺文件及标准)</th>
+			        <th width="4%">Problem solving sheet(Y/N)<br>问题解决表</th>
+			        <th width="4%">Person Responsible<br>责任人</th>
+			        <th width="5%">Deadline<br>截止日期</th>
+			        <th width="3%">Status<br>状态</th>        
+			    </tr>
+ 				{{#each opl}}
+			    <tr class="opltr">
+				    <td><input type="checkbox" checked="{{checked}}" /></td>
+			        <td on-click="toShowColumnEditor">
+                       <label class="field">{{date}}</label>
+                        <input class="field date" style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{date}}"/>
+                    </td>
+			        <td on-click="toShowColumnEditor">
+                       <label class="field">{{refNo}}</label>
+                       <input class="field" type="text" style="display:none;" on-blur="toHideColumnEditor" value="{{refNo}}"/>
+                    </td>
+			        <td on-click="toShowColumnEditor">
+                       <label class="field">{{personFound}}</label>
+                       <input class="field" type="text" style="display:none;" on-blur="toHideColumnEditor" value="{{personFound}}"/>
+                    </td>
+			        <td on-click="toShowColumnEditor">
+                       <label class="field">{{station}}</label>
+                       <input class="field" type="text" style="display:none;" on-blur="toHideColumnEditor" value="{{station}}"/>
+                    </td>
+			        <td on-click="toShowColumnEditor">
+					   <label class="field">{{description}}</label>
+                       <textarea class="field" style="display:none;" on-blur="toHideColumnEditor" cols="80" rows="2">{{description}}</textarea>
+                    </td>
+			        <td on-click="toShowColumnEditor">
+					   <label class="field">{{dtFrom}}</label>
+					   <input class="field dtFrom" style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{dtFrom}}"/>
+                    </td>
+			        <td on-click="toShowColumnEditor">
+                       <label class="field">{{dtTo}}</label>
+					   <input class="field dtTo" style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{dtTo}}"/>
+                    </td>
+			        <td on-click="toShowColumnEditor">
+                       <label class="field">{{timing}}</label>
+                       <input class="field" type="text" style="display:none;" on-blur="toHideColumnEditor" value="{{timing}}"/>
+                    </td>
+					<td on-click="toShowColumnEditor">
+                       <label class="field">{{amt}}</label>
+                       <input class="field" type="text" style="display:none;" on-blur="toHideColumnEditor" value="{{amt}}"/>
+                    </td>
+					<td colspan="2" on-click="toShowColumnEditor">
+					   <label class="field">{{rootCause}}</label>
+                       <textarea class="field" style="margin-top: 1px;display:none;" on-blur="toHideColumnEditor" cols="80" rows="2">{{rootCause}}</textarea>
+                    </td>
+			        <td on-click="toShowColumnEditor">
+					   <label class="field">{{immediate}}</label>
+                       <textarea class="field" style="display:none;" on-blur="toHideColumnEditor" cols="80" rows="2">{{immediate}}</textarea>
+                    </td>
+			        <td on-click="toShowColumnEditor">
+					   <label class="field">{{longTerm}}</label>
+                       <textarea class="field" style="display:none;" on-blur="toHideColumnEditor" cols="80" rows="2">{{longTerm}}</textarea>
+                    </td>
+			        <td on-click="toShowColumnEditor">
+                       <label class="field">{{problemSolvingSheet}}</label>
+					   <select class="field" style="display:none;" on-blur="toHideColumnEditor" value="{{problemSolvingSheet}}">
+						 <option value="Y">Y</option>
+						 <option value="N">N</option>
+	             	   </select>
+                    </td>
+			        <td on-click="toShowColumnEditor">
+                       <label class="field">{{responsible}}</label>
+                       <input class="field" type="text" style="display:none;" on-blur="toHideColumnEditor" value="{{responsible}}"/>
+                    </td>
+			        <td on-click="toShowColumnEditor">
+                       <label class="field">{{deadline}}</label>
+                       <input class="field deadline" style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{deadline}}"/>
+                    </td>
+			        <td on-click="toShowColumnEditor">
+                       <label class="field">{{status}}</label>
+					   <select class="field" style="display:none;" on-blur="toHideColumnEditor" value="{{status}}">
+						 <option value="Y">Y</option>
+						 <option value="N">N</option>
+	             	   </select>
+                    </td>
+			    </tr>
+				{{/each}}
+			</table>
+			</div>
+			<div class="footer">
+				<div class="lf">
+                    <ul>
+                       <li><span style="font-weight:bold;line-height: 16px;">Status<br>状态</span></li>
+					   <li><span><img src="{{root}}/images/opl-r.png">Responsibilities &Target Date fixed<br>责任人和完成日期定义 </span></li>
+					   <li><span><img src="{{root}}/images/opl-a.png">Actions Initiated<br>行动方案实施 </span></li>
+					   <li><span><img src="{{root}}/images/opl-c.png">Completion of Actions<br>所有行动方案完成</span></li>
+					   <li><span><img src="{{root}}/images/opl-e.png">Effectiveness Proved,Problem Closed<br>验证结果问题已解决 </span></li>
+                    </ul>
+					<p  class="title">Starter Motors and Generators</p>
+					<p>SG/BPS-CN | 2017. 11. 17 | V2.0</p>
+				</div>
+				<div class="rt">
+				   <img src="{{root}}/images/logo2.png" class="fr">
+				</div>
+			</div>			
+		</div>
+	</div>
+    </script>
+</html>

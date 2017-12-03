@@ -1,0 +1,16 @@
+.top .lft .chart2{
+	height:100%;
+}
+
+.top .lft .icon {
+    width: 20%;
+	float: left;
+	height:100%;
+    text-align: left;
+}
+
+.top .lft .chart {
+	width: 80%;
+	float: left;
+	height:100%;
+}

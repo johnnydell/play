@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Display Screen</title>
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/login.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/scr.css"/>
+		
+	</head>
+	<body>
+		<div class="box">
+		    <!-- left menu -->
+			<div class="left fl"></div>
+			<div class="right">
+				<!-- right header -->
+				<header></header>
+				<div class="container">
+				    <!-- main template -->				    
+				</div>
+				<!-- right footer -->
+				<footer></footer>		
+			</div>
+		</div>
+	</body>
+	<script src="../js/lib/jquery-1.10.1.min.js"></script>
+	<script src="../js/lib/ractive-legacy.js"></script>
+	<script src="../js/lib/jquery.i18n.properties-1.0.9.js"></script>
+	<script src="../js/lib/manager.js"></script>
+	<script src="../js/scr.js"></script>
+	<script id="main-template" type="text/active">
+	<div class="position _clear title">
+		<h3>{{i18n_scr_title}}</h3>
+		<div class="fr">
+			<p>
+				<i class="icon icon-home"></i>
+				<span>{{i18n_scr_title}}</span>
+			</p>
+		</div>
+	</div>
+	<div class="content">
+		<div class="content-box">
+            <div class="toolbar">
+               	<h4>产线实时展示屏</h4>
+            </div>
+            <div class="ctx">
+                <div class="curr">
+                   <div class="info">
+                  	 <ul>
+	                    <li	class="f50">
+	                        <h1>当前生产型号</h1>
+	                        <a href="javascript:void(0);">8888888888-2Y8</a>
+	                    </li>
+	                    <li class="f25">
+	                        <h1>节拍[S]</h1>
+	                       <a href="javascript:void(0);">15</a>
+	                    </li>
+	                    <li class="f25">
+	                    	<h1>人数</h1>
+	                        <a href="javascript:void(0);">12</a>
+	                    </li>
+	                  </ul>
+	                  <ul>
+	                    <li	class="f25">
+	                        <h1>计划产出</h1>
+	                        <a href="javascript:void(0);">500</a>
+	                    </li>
+	                    <li	class="f25">
+	                        <h1>实际产出</h1>
+	                        <a href="javascript:void(0);">501</a>
+	                    </li>
+	                    <li class="f25">
+	                        <h1>偏差</h1>
+	                       <a href="javascript:void(0);" style="color:green">+1</a>
+	                    </li>
+	                    <li class="f25">
+	                    	<h1>OEE</h1>
+	                        <a href="javascript:void(0);" style="color:green">85%</a>
+	                    </li>
+	                  </ul>
+                   </div>
+                   <div class="light">
+                     <div><img width="80px" height="80px" src="{{root}}/images/grn_light.png"/></div>
+                     <div><img width="80px" height="80px" src="{{root}}/images/ept_light.png"/></div>
+                     <div><img width="80px" height="80px" src="{{root}}/images/ept_light.png"/></div>
+                   </div>
+                </div>
+                <div class="next">
+                   <div class="info">
+                      <ul>
+                        <li	class="f50">
+                            <h1>下一生产型号</h1>
+                            <a href="javascript:void(0);">6666666666-6SB</a>
+                        </li>
+                        <li class="f25">
+                            <h1>节拍[S]</h1>
+                           <a href="javascript:void(0);">15</a>
+                        </li>
+                        <li class="f25">
+                        	<h1>人数</h1>
+                            <a href="javascript:void(0);">12</a>
+                        </li>
+                      </ul>
+                   </div>
+                   <div class="light"></div>
+                </div>
+            </div>
+		</div>
+	</div>
+    </script>
+</html>

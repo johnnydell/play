@@ -3,7 +3,7 @@ var meetAttdRep = function(){
 		var ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
-			data: {},
+			data: {root:manager.root},
 			onrender: function(){
 				manager.loadProperties(this, "meetAttdRep", "../../");
 			},

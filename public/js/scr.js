@@ -1,23 +1,21 @@
-var boards = function(){
+var scr = function(){
 	function init(){
 		var ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
 			data: {root:manager.root},
 			onrender: function(){
-				manager.loadProperties(this, "boards", "../");
+				manager.loadProperties(this, "scr", "../");
+				manager.setMenuBar("scr");
 			},
-			oncomplete: function(){						
+			oncomplete: function(){	
+			    
 			}
 		});
-		
-		
-		ractive.on({			
-		})
 	}
 	
 	return {
 		init:init
 	}
 }();
-$(document).ready(boards.init);
+$(document).ready(scr.init);

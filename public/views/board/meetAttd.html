@@ -50,6 +50,7 @@
             <div class="toolbar">
                 <button type="button" class="btn" on-click="test">测试</button>
 				<button type="button" class="btn" on-click="addAttendee">增加出席人员</button>
+				<button type="button" class="btn" on-click="saveAttendee">保存出席人员</button>
 				<button type="button" class="btn" on-click="deleteAttendee">删除出席人员</button>
             </div>
 			<div class="header">
@@ -85,19 +86,19 @@
 			<table id="attendeeList">
 				<tr>
 					<td colspan="6" id="meetingTimeTd">
-                                                                                    会议时间/Meeting Time: 
-                        <label on-click="toShowMeetingTimeText">10:00-10:15</label>
-                        <input type="text" style="display:none" on-blur="toHideMeetingTimeText" value="10:00-10:15" />
+                        <span>会议时间/Meeting Time:</span>  
+						<label on-click="toShowMeetingTimeText">10:00-10:15</label>                      
+                        <input style="width:50%;display:none" type="text" on-blur="toHideMeetingTimeText" value="10:00-10:15" />
                     </td>
 					<td colspan="14" id="meetingSpotTd">
-                                                                                    会议地点/Meeting Spot:
+                        <span>会议地点/Meeting Spot:</span>
                         <label on-click="toShowMeetingSpotText">Team board/班组信息板</label>
-						<input type="text" style="display:none" on-blur="toHideMeetingSpotText" value="Team board/班组信息板" />
+						<input style="width:50%;display:none" type="text" on-blur="toHideMeetingSpotText" value="Team board/班组信息板" />
                     </td>
 					<td colspan="15" id="meetingHostTd">
-                        Host/主持人:
+                        <span>Host/主持人:</span>
                     	<label on-click="toShowMeetingHostText">Team Leader/班长</label>
-						<input type="text" style="display:none" on-blur="toHideMeetingHostText" value="Team Leader/班长" />
+						<input style="width:50%;display:none" type="text" on-blur="toHideMeetingHostText" value="Team Leader/班长" />
                     </td>
 				</tr>
 				<tr>
@@ -156,9 +157,10 @@
 	               		<input type="text" on-blur="toHideDeptInput" style="display:none" value="{{dept}}" />
 	               </td>
 	               {{#each days}}
-	               <td on-click="toShowDaySelect">
-	               		<label>{{v}}</label>
-	               		<select style="display:none" value="{{v}}" on-blur="toHideDaySelect">
+				   {{#if s =='0'}}	
+					<td on-click="toShowDaySelect">			   
+					 	<label>{{v}}</label>
+						<select style="display:none" value="{{v}}" on-blur="toHideDaySelect">
 			               <option value="X">X</option>
          				   <option value="E">E</option>
          				   <option value="A">A</option>
@@ -166,7 +168,10 @@
          				   <option value="\">\</option>
          				   <option value="L">L</option>
              			</select>
-	               </td>
+                    </td>
+                   {{else}}
+					<td style="background: #bec2c3;"><label></label></td>
+				   {{/if}}
 	               {{/each}}
                 </tr>
                 {{/each}}				
@@ -195,8 +200,8 @@
 			<div class="footer">
 				<div class="lf">
 					<p  class="title">Starter Motors and Generators</p>
-					<p>SG/BPS-CN | 07.03.2014 | V1.0 | © Robert Bosch GmbH 2014. Alle Rechte vorbehalten, auch bzgl. jeder Verfügung, Verwertung, Reproduktion,</p>
-					<p>Bearbeitung, Weitergabe sowie für den Fall von Schutzrechtsanmeldungen.</p>
+					<p>SG/BPS-CN | 2017. 11. 17 | V2.0</p>
+					<!--<p>Bearbeitung, Weitergabe sowie für den Fall von Schutzrechtsanmeldungen.</p>-->
 				</div>
 				<div class="rt">
 				   <img src="{{root}}/images/logo2.png" class="fr">

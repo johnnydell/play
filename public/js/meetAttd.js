@@ -3,37 +3,37 @@ var meetAttd = function(){
 		var attendees = [];
 		var deletedAttendees =[];
 		var days = [
-			{d:1,v:"X"},
-			{d:2,v:"E"},
-			{d:3,v:"E"},
-			{d:4,v:"E"},
-			{d:5,v:"E"},
-			{d:6,v:"E"},
-			{d:7,v:"E"},
-			{d:8,v:"E"},
-			{d:9,v:"E"},
-			{d:10,v:"E"},
-			{d:11,v:"E"},
-			{d:12,v:"E"},
-			{d:13,v:"E"},
-			{d:14,v:"E"},
-			{d:15,v:"E"},
-			{d:16,v:"E"},
-			{d:17,v:"E"},
-			{d:18,v:"E"},
-			{d:19,v:"E"},
-			{d:20,v:"E"},
-			{d:21,v:"E"},
-			{d:22,v:"E"},
-			{d:23,v:"E"},
-			{d:24,v:"E"},
-			{d:25,v:"E"},
-			{d:26,v:"E"},
-			{d:27,v:"E"},
-			{d:28,v:"E"},
-			{d:29,v:"E"},
-			{d:30,v:"E"},
-			{d:31,v:"E"}
+			{d:1,v:"X",s:'0'},
+			{d:2,v:"E",s:'0'},
+			{d:3,v:"E",s:'0'},
+			{d:4,v:"E",s:'1'},
+			{d:5,v:"E",s:'1'},
+			{d:6,v:"E",s:'0'},
+			{d:7,v:"E",s:'0'},
+			{d:8,v:"E",s:'0'},
+			{d:9,v:"E",s:'0'},
+			{d:10,v:"E",s:'0'},
+			{d:11,v:"E",s:'0'},
+			{d:12,v:"E",s:'1'},
+			{d:13,v:"E",s:'1'},
+			{d:14,v:"E",s:'0'},
+			{d:15,v:"E",s:'0'},
+			{d:16,v:"E",s:'0'},
+			{d:17,v:"E",s:'0'},
+			{d:18,v:"E",s:'0'},
+			{d:19,v:"E",s:'1'},
+			{d:20,v:"E",s:'1'},
+			{d:21,v:"E",s:'0'},
+			{d:22,v:"E",s:'0'},
+			{d:23,v:"E",s:'0'},
+			{d:24,v:"E",s:'0'},
+			{d:25,v:"E",s:'0'},
+			{d:26,v:"E",s:'1'},
+			{d:27,v:"E",s:'1'},
+			{d:28,v:"E",s:'0'},
+			{d:29,v:"E",s:'0'},
+			{d:30,v:"E",s:'0'},
+			{d:31,v:"E",s:'0'}
 		];
 		
 		var ractive = new Ractive({
@@ -97,8 +97,11 @@ var meetAttd = function(){
 				  	i--;
 				  }		      
 			},
+			saveAttendee:function(){
+				console.log("prepare to save");
+			},
 			test:function(){
-				console.log(attendees);
+				console.log(attendees[0].days[3]);
 				console.log(deletedAttendees);
 			},
 			toShowNameInput:function(e){

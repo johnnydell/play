@@ -1,0 +1,16 @@
+.top .rgt .chart4{
+	height:100%;
+}
+
+.top .rgt .icon {
+    width: 20%;
+	float: left;
+	height:100%;
+    text-align: left;
+}
+
+.top .rgt .chart {
+	width: 80%;
+	float: left;
+	height:100%;
+}
