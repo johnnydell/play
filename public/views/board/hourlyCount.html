@@ -57,28 +57,15 @@
 					   <span>{{i18n_hourlycount_line}}</span>		   
 					 </div>
 					 <div class="val">
-						 <span class="fst">ARS1</span> 
+						 <span class="fst">{{lineName}}</span> 
 					 </div>
 					 <div class="lb">
 						<span>{{i18n_hourlycount_date}}</span>
 					</div>
 					<div class="val">
-						<span id="monthSelect" on-click="toShowMonthSelect">
-                             <label>2月</label>
-                             <select style="display:none" on-blur="toHideMonthSelect">
-				               <option value="1">1月</option>
-             				   <option value="2">2月</option>
-	             			   <option value="3">3月</option>
-             				   <option value="4">4月</option>
-	             			   <option value="5">5月</option>
-	             			   <option value="6">6月</option>
-	             			   <option value="7">7月</option>
-	             			   <option value="8">8月</option>
-	             			   <option value="9">9月</option>
-	             			   <option value="10">10月</option>
-	             			   <option value="11">11月</option>
-	             			   <option value="12">12月</option>
-	             			</select>
+						<span id="dateSelect">
+                             <input type="text" id="lblDateShow"  value="{{dateToday}}" readonly/>
+                             
                          </span>
 					</div>
 				</div>
@@ -498,10 +485,10 @@
 						<label>7-19</label>
 					</td>
 					<td colspan="15">
-						{{i18n_hourlycount_current_plan_output}} &nbsp;&nbsp;{{hourlyCountsTotal2.group1_plan}}
+						{{i18n_hourlycount_current_plan_output}} &nbsp;&nbsp;{{hourlyCountsTotal2.group2_plan}}
 					</td>
 					<td colspan="27">
-						{{i18n_hourlycount_current_actual_output}} &nbsp;&nbsp;{{hourlyCountsTotal2.group1_actual}}
+						{{i18n_hourlycount_current_actual_output}} &nbsp;&nbsp;{{hourlyCountsTotal2.group2_actual}}
 					</td>
 				</tr>
 			{{#each hourlyCountV3}}
@@ -608,10 +595,10 @@
 						<label>15-23</label>
 					</td>
 					<td colspan="15">
-						{{i18n_hourlycount_current_plan_output}} &nbsp;&nbsp;{{hourlyCountsTotal3.group1_plan}}
+						{{i18n_hourlycount_current_plan_output}} &nbsp;&nbsp;{{hourlyCountsTotal3.group3_plan}}
 					</td>
 					<td colspan="27">
-						{{i18n_hourlycount_current_actual_output}} &nbsp;&nbsp;{{hourlyCountsTotal3.group1_actual}}
+						{{i18n_hourlycount_current_actual_output}} &nbsp;&nbsp;{{hourlyCountsTotal3.group3_actual}}
 					</td>
 				</tr>
 			{{#each hourlyCountV4}}
@@ -719,10 +706,10 @@
 						<label>23-07</label>
 					</td>
 					<td colspan="15">
-						{{i18n_hourlycount_current_plan_output}} &nbsp;&nbsp;{{hourlyCountsTotal4.group1_plan}}
+						{{i18n_hourlycount_current_plan_output}} &nbsp;&nbsp;{{hourlyCountsTotal4.group4_plan}}
 					</td>
 					<td colspan="27">
-						{{i18n_hourlycount_current_actual_output}} &nbsp;&nbsp;{{hourlyCountsTotal4.group1_actual}}
+						{{i18n_hourlycount_current_actual_output}} &nbsp;&nbsp;{{hourlyCountsTotal4.group4_actual}}
 					</td>
 				</tr>
 				<tr>
@@ -761,24 +748,24 @@
 					</td>
 					
 					<td colspan="5">
-						&nbsp;
+						<label>{{hourlyCountV0.teamLeaderSign1}}</label>
 					</td>
 					<td colspan="4">
 						<label>{{i18n_hourlycount_sign_shift_2}}</label>
 					</td>
 					
 					<td colspan="5">
-						&nbsp;
+						<label>{{hourlyCountV0.teamLeaderSign2}}</label>
 					</td>
 					<td colspan="5">
 						<label>{{i18n_hourlycount_sign_shift_3}}</label>
 					</td>
 					
 					<td colspan="3">
-						&nbsp;
+						<label>{{hourlyCountV0.teamLeaderSign3}}</label>
 					</td>
 					<td colspan="3">
-						<label>{{i18n_hourlycount_sign_group}}</label>
+						<label>{{i18n_hourlycount_sign_group}} &nbsp; &nbsp; {{hourlyCountV0.groupLeaderSign}}</label>
 					</td>
 					
 					<td colspan="2">

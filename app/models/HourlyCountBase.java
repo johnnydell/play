@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.avaje.ebean.Ebean;
 
 import play.db.ebean.Model;
@@ -45,9 +47,20 @@ public class HourlyCountBase extends Model {
 	public Integer productCycle2;
 
 	@Column(name = "product_date")
+	//@DateTimeFormat(pattern="yyyy-mm-dd")
 	public Date productDate;
-
 	
+	@Column(name = "team_leader_sign_1")
+	public String teamLeaderSign1;
+
+	@Column(name = "team_leader_sign_2")
+	public String teamLeaderSign2;
+	
+	@Column(name = "team_leader_sign_3")
+	public String teamLeaderSign3;
+	
+	@Column(name = "group_leader_sign")
+	public String groupLeaderSign;
 
 	public static Finder<Integer, HourlyCountBase> find = new Finder<Integer, HourlyCountBase>(Integer.class, HourlyCountBase.class);
 

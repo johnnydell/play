@@ -1,5 +1,8 @@
 package models;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +26,8 @@ public class HourlyCountDetail extends Model {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private static DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
 	@Id
 	public Integer id;
@@ -113,8 +118,10 @@ public class HourlyCountDetail extends Model {
 
 	public static Finder<Integer, HourlyCountDetail> find = new Finder<Integer, HourlyCountDetail>(Integer.class, HourlyCountDetail.class);
 
-	public static List<HourlyCountDetail> findByLineName(String name) {
-		return find.where().ilike("hourlyCountBase.productLine.lineName", "%" + name + "%").orderBy("").fetch("hourlyCountBase").findList();
+	public static List<HourlyCountDetail> findByLineName(String lineName, String productDateStr) throws ParseException {
+		
+		Date productDate = df.parse(productDateStr);
+		return find.where().ilike("hourlyCountBase.productLine.lineName", "%" + lineName + "%").eq("hourlyCountBase.productDate", productDate).orderBy("").fetch("hourlyCountBase").findList();
 	}
 
 	public static void save(HourlyCountDetail hourlyCountDetail) {
