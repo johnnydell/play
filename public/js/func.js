@@ -82,8 +82,24 @@ var func = function(){
 						return false;
 					}
 				})
-				
-				
+				var param = {
+					'funcs':'123'
+				}
+				$.ajax({
+					url: manager.root + "/func/saveFunc",
+					type: "POST",
+					dataType: "json",
+					data: JSON.stringify(param),
+					beforeSend: function() {
+						manager.block();
+					},
+					success: function(data) {
+						console.log(data);
+					},
+					complete: function() {
+						manager.unblock();
+					}
+				});				
 			},
 			test:function(){
 				
