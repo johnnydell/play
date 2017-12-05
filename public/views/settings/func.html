@@ -67,11 +67,11 @@
 			        <th width="34%">功能名称</th>
 			        <th width="6%">状态</th>
 			    </tr>
- 				{{#each funcs}}
-			    <tr class="functr">
+ 				{{#each funcs:index}}
+			    <tr class="functr" lang="{{index}}">
 				    <td><input type="checkbox" checked="{{checked}}" /></td>
 			        <td on-click="toShowColumnEditor">
-                       <label class="field">{{moduleName}}</label>
+                        <label class="field">{{moduleName}}</label>
                         <input class="field" style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{moduleName}}"/>
                     </td>
 			        <td on-click="toShowColumnEditor">
