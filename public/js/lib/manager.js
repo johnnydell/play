@@ -160,7 +160,27 @@ var manager = function() {
 		loadProperties:loadProperties,
 		root:root,
 		getPV:getPV,
-		setMenuBar:setMenuBar
+		setMenuBar:setMenuBar,
+		block: function() {
+        	$.blockUI({
+                message: '<div style="font-size: 14px;font-weight: bold;color: #f60;height: 40px;width: 250px;line-height: 40px;text-align: center;margin: 0 auto;"><img alt="" src="' + root + '/images/loading.gif"></div>',
+                css: {
+                    border: 'none',
+                    padding: '2px',
+                    top: "50%",
+                    left: "40%",
+                    backgroundColor: 'none'
+                },
+                overlayCSS: {
+                    backgroundColor: '#333',
+                    opacity: 0.3,
+                    cursor:'default'
+                }
+            });
+        },
+        unblock: function() {
+        	$.unblockUI();
+        }
  }
 
 }();

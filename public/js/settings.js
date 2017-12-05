@@ -3,7 +3,7 @@ var settings = function(){
 		var ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
-			data: {},
+			data: {root:manager.root},
 			onrender: function(){
 				manager.loadProperties(this, "settings", "../");
 			},
@@ -11,7 +11,10 @@ var settings = function(){
 			}
 		});
 		
-		ractive.on({		   
+		ractive.on({		
+			toFunView:function(){
+				location.href=manager.root+"/views/settings/func.html";
+			}
 		})
 	}
 	

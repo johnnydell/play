@@ -187,18 +187,8 @@ var opl = function(){
 		})
 	}
 	
-	function dynamicBlurWdatePicker(obj){
-		$(obj).prev().text($(obj).val());
-		//$(obj).unbind( "blur");
-		/*$(obj).bind( "blur",function(){
-			$(obj).prev().show();
-			$(obj).hide();
-		});*/
-	}
-	
 	return {
-		init:init,
-		dynamicBlurWdatePicker:dynamicBlurWdatePicker
+		init:init
 	}
 }();
 $(document).ready(opl.init);

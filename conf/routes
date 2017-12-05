@@ -10,6 +10,10 @@ GET     /edashboard/city/show      						controllers.CityController.show()
 GET     /edashboard/city/allCities   					controllers.CityController.allCities()
 GET     /edashboard/city/addCity   						controllers.CityController.addCity()
 
+
+#Setting Func
+GET  /edashboard/func/getList               			controllers.FuncController.getList()
+
 # UPLOADER
 POST /edashboard/views/upload/uploadFile/:fileType 		controllers.UploaderController.uploadFile(fileType : String)
 POST /edashboard/views/staticpage/viewdoc/:fileName 	controllers.StaticPageController.viewFileByName(fileName : String)

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Settings-Func</title>
+		<link rel="stylesheet" type="text/css" href="../js/lib/alerts/jquery.alerts.css"/>	
+	</head>
+	<body>
+		<input id="alert_button" type="button" value="Show Alert"> 		
+	</body>
+	<script src="../js/lib/jquery-1.10.1.min.js"></script>
+	<script src="../js/lib/alerts/jquery.alerts.js"></script>
+	
+	<script type="text/javascript">			
+		$(document).ready( function() {
+			$("#alert_button").click( function() {
+				jAlert('This is a custom alert box', 'Alert Dialog');
+			});
+		});
+		
+	</script>
+</html>
