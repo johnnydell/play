@@ -32,7 +32,7 @@ public class ProductLine extends Model {
 	public static Finder<Integer, ProductLine> find = new Finder<Integer, ProductLine>(Integer.class, ProductLine.class);
 
 	public static ProductLine findByName(String name) {
-		return find.where().ilike("lineName", "%" + name + "%").findUnique();
+		return find.where().eq("lineName", name).findUnique();
 	}
 
 	public static void save(ProductLine productLine) {

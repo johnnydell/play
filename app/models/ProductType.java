@@ -1,5 +1,7 @@
 package models;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -32,7 +34,11 @@ public class ProductType extends Model {
 	public static Finder<Integer, ProductType> find = new Finder<Integer, ProductType>(Integer.class, ProductType.class);
 
 	public static ProductType findByName(String name) {
-		return find.where().ilike("productTypeName", "%" + name + "%").findUnique();
+		return find.where().eq("productTypeName", name).findUnique();
+	}
+	
+	public static List<ProductType> findAll() {
+		return find.all();
 	}
 
 	public static void save(ProductType productType) {

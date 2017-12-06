@@ -9,7 +9,9 @@ GET     /                           					controllers.Application.index()
 GET     /edashboard/city/show      						controllers.CityController.show()
 GET     /edashboard/city/allCities   					controllers.CityController.allCities()
 GET     /edashboard/city/addCity   						controllers.CityController.addCity()
-
+GET     /edashboard/city/addCity2   					controllers.CityController.addCity2(id:String,name:String)
+POST     /edashboard/city/addCity3   					controllers.CityController.addCity3()
+POST     /edashboard/city/addCity4   					controllers.CityController.addCity4()
 
 #Setting Func
 GET  /edashboard/func/getList               			controllers.FuncController.getList()
@@ -21,6 +23,7 @@ POST /edashboard/views/staticpage/viewdoc/:fileName 	controllers.StaticPageContr
 
 # Hourly Count
 POST /edashboard/views/board/hourlycount/:LineName/:productDate		controllers.HourlyCountController.viewHourlyCountByLineName(LineName : String, productDate : String)
+POST /edashboard/views/board/hourlycount/saveResult		controllers.HourlyCountController.saveHourlyCount()
 	
 
 # Map static resources from the /public folder to the /assets URL path

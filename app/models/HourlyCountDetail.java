@@ -27,8 +27,6 @@ public class HourlyCountDetail extends Model {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private static DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-
 	@Id
 	public Integer id;
 	
@@ -38,6 +36,20 @@ public class HourlyCountDetail extends Model {
 	
 	@Column(name = "product_hour")
 	public Integer productHour;
+	
+	@ManyToOne
+	@JoinColumn(name="product_type_id_1")
+	public ProductType productType1;
+	
+	@ManyToOne
+	@JoinColumn(name="product_type_id_2")
+	public ProductType productType2;
+
+	@Column(name = "product_cycle_1")
+	public Integer productCycle1;
+	
+	@Column(name = "product_cycle_2")
+	public Integer productCycle2;
 	
 	@Column(name = "plan_count")
 	public Integer planCount;
@@ -118,14 +130,21 @@ public class HourlyCountDetail extends Model {
 
 	public static Finder<Integer, HourlyCountDetail> find = new Finder<Integer, HourlyCountDetail>(Integer.class, HourlyCountDetail.class);
 
-	public static List<HourlyCountDetail> findByLineName(String lineName, String productDateStr) throws ParseException {
+	public static List<HourlyCountDetail> findByLineName(String lineName, Date productDate) {
 		
-		Date productDate = df.parse(productDateStr);
 		return find.where().ilike("hourlyCountBase.productLine.lineName", "%" + lineName + "%").eq("hourlyCountBase.productDate", productDate).orderBy("").fetch("hourlyCountBase").findList();
+	}
+	
+	public static List<HourlyCountDetail> findByBaseId(Integer baseId){
+		return find.where().eq("hourlyCountBase.id", baseId).findList();
 	}
 
 	public static void save(HourlyCountDetail hourlyCountDetail) {
 		Ebean.save(hourlyCountDetail);
+	}
+	
+	public static void saveList(List<HourlyCountDetail> lists){
+		Ebean.save(lists);
 	}
 
 }
