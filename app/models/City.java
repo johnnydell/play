@@ -38,6 +38,10 @@ public class City extends Model {
     public static void save(City city){
     	Ebean.save(city);
     }
+    
+    public static void saveList(List<City> cities){
+    	Ebean.save(cities);
+    }
 	
 
 }

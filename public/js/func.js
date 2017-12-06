@@ -15,6 +15,7 @@ var func = function(){
 				funcs = data;
 				$.each(funcs,function(i,n){
 					n.checked = false;
+					n.updated = "0";//0 表示no changes ,1 updated
 				});
 				ractive.set("funcs",funcs);
 			},
@@ -40,6 +41,8 @@ var func = function(){
 		
 		ractive.on({
 			toShowColumnEditor:function(e){
+				var index = $(e.node).parent().attr("lang");
+				funcs[index].updated = "1";
 				$(e.node).children(0).hide().next().show().focus();
 			},
 			toHideColumnEditor:function(e){
@@ -57,7 +60,8 @@ var func = function(){
 						funcKey:"",
 						funcName:"",
 						active:'1',
-						checked:false
+						checked:false,
+						updated:'0'
 				};
 				funcs.push(func);
 				ractive.update("funcs");
@@ -81,15 +85,13 @@ var func = function(){
 						jAlert('please fullfill your fields to commit', 'ERROR');						
 						return false;
 					}
-				})
-				var param = {
-					'funcs':'123'
-				}
+				});				
 				$.ajax({
 					url: manager.root + "/func/saveFunc",
 					type: "POST",
 					dataType: "json",
-					data: JSON.stringify(param),
+					data:JSON.stringify(funcs),
+					contentType: "application/json",    
 					beforeSend: function() {
 						manager.block();
 					},
@@ -102,7 +104,28 @@ var func = function(){
 				});				
 			},
 			test:function(){
-				
+				/*$.ajax({
+					url: manager.root + "/city/addCity3",
+					type: "POST",
+					data:{"id":"123","name":"ccc"}, 
+					success: function(data) {
+						console.log(data);
+					},
+					complete: function() {
+					}
+				});	*/
+				/*$.ajax({
+					url: manager.root + "/city/addCity4",
+					type: "POST",
+					contentType: "application/json",  
+					dataType: "json",   
+	                data: JSON.stringify({"id":"123","name":"ccc"}), 
+					success: function(data) {
+						console.log(data);
+					},
+					complete: function() {
+					}
+				});	*/
 			}			
 		})
 	}

@@ -50,7 +50,7 @@
                 <button type="button" class="btn" on-click="test">测试</button>
 				<button type="button" class="btn" on-click="addFunc">增加功能点</button>
 				<button type="button" class="btn" on-click="saveFunc">保存功能点</button>
-				<button type="button" class="btn" on-click="deleteFunc">删除功能点</button>
+				<!--<button type="button" class="btn" on-click="deleteFunc">删除功能点</button>-->
             </div>
 			<div class="header">
 				<table>
@@ -67,20 +67,20 @@
 			        <th width="34%">功能名称</th>
 			        <th width="6%">状态</th>
 			    </tr>
- 				{{#each funcs}}
-			    <tr class="functr">
+ 				{{#each funcs:index}}
+			    <tr class="functr" lang="{{index}}">
 				    <td><input type="checkbox" checked="{{checked}}" /></td>
 			        <td on-click="toShowColumnEditor">
-                       <label class="field">{{moduleName}}</label>
-                        <input class="field" style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{moduleName}}"/>
+                        <label class="field">{{moduleName}}</label>
+                        <input class="field" style="display:none;" maxlength="20" on-blur="toHideColumnEditor" type="text" value="{{moduleName}}"/>
                     </td>
 			        <td on-click="toShowColumnEditor">
                        <label class="field">{{funcKey}}</label>
-                       <input class="field" type="text" style="display:none;" on-blur="toHideColumnEditor" value="{{funcKey}}"/>
+                       <input class="field" type="text" style="display:none;" maxlength="20" on-blur="toHideColumnEditor" value="{{funcKey}}"/>
                     </td>
 			        <td on-click="toShowColumnEditor">
                        <label class="field">{{funcName}}</label>
-                       <input class="field" type="text" style="display:none;" on-blur="toHideColumnEditor" value="{{funcName}}"/>
+                       <input class="field" type="text" style="display:none;" maxlength="20" on-blur="toHideColumnEditor" value="{{funcName}}"/>
                     </td>
 			        <td on-click="toShowColumnEditor">
                        <label class="field">

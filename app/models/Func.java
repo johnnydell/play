@@ -6,6 +6,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.avaje.ebean.Ebean;
+
 import play.db.ebean.Model;
 
 @Entity
@@ -34,6 +37,26 @@ public class Func extends Model {
 	public static List<Func> getList() {
 	        return find.all();
 	}
+	
+	public static void save(Func func){
+    	Ebean.save(func);
+    }
+    
+    public static void saveList(List<Func> funcs){
+    	Ebean.save(funcs);
+    }
+    
+    public static void update(Func func){
+    	Ebean.update(func);
+    }
+    
+    public static void updateList(List<Func> funcs){
+    	if(funcs != null && funcs.size() > 0){
+    		for(int i = 0;i<funcs.size(); i++){
+    			Ebean.update(funcs.get(i));
+    		}
+    	}
+    }
 	
 
 }
