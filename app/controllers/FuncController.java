@@ -11,10 +11,8 @@ import bean.FuncEditor;
 
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import play.mvc.Controller;
-import play.mvc.Http.RequestBody;
 import play.mvc.Result;
 
 public class FuncController extends Controller {
@@ -27,23 +25,31 @@ public class FuncController extends Controller {
    
    public static Result saveFunc(){
 	   JsonNode in = request().body().asJson();
-	   ArrayList<FuncEditor> li = new ArrayList<FuncEditor>();
-	   FuncEditor editor;
+	   ArrayList<Func> addLi = new ArrayList<Func>();
+	   ArrayList<Func> updateLi = new ArrayList<Func>();
 	   Iterator<JsonNode> a = in.iterator();
 	   while(a.hasNext()){
 		   JsonNode node = a.next();
-		   editor = new FuncEditor();
-		   editor.setId(node.get("id").toString());
-		   editor.setModuleName(node.get("moduleName").toString());
-		   editor.setFuncKey(node.get("funcKey").toString());
-		   editor.setFuncName(node.get("funcName").toString());
-		   editor.setActive(node.get("active").toString());
-		   editor.setChecked(node.get("checked").toString());
-		   editor.setUpdated(node.get("updated").toString());
-		   li.add(editor);
+		   Func func = new Func();
+		   String id = node.get("id").asText();
+		   String updated = node.get("updated").asText();
+		   
+		   func.active = node.get("active").asText();
+		   func.funcKey = node.get("funcKey").asText();
+		   func.funcName = node.get("funcName").asText();
+		   func.moduleName = node.get("moduleName").asText();
+		   if(id.equals("0")){
+			   addLi.add(func);
+		   } else {
+			   if(updated.equals("1")){
+				   func.id = Integer.valueOf(node.get("id").asText());  
+				   updateLi.add(func);  
+			   }
+		   }
 	   }
-	   
-	   return ok("{a:'123'}");
+	   System.out.println(addLi.size()+":"+updateLi.size());
+	   Func.saveList(addLi);
+	   Func.updateList(updateLi);
+	   return ok("{'add':'"+addLi.size()+"','update':'"+updateLi.size()+"'}");
    }
-
 }

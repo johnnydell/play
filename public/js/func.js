@@ -85,8 +85,7 @@ var func = function(){
 						jAlert('please fullfill your fields to commit', 'ERROR');						
 						return false;
 					}
-				})
-				console.log(funcs);
+				});				
 				$.ajax({
 					url: manager.root + "/func/saveFunc",
 					type: "POST",
@@ -105,7 +104,28 @@ var func = function(){
 				});				
 			},
 			test:function(){
-				console.log(funcs);
+				/*$.ajax({
+					url: manager.root + "/city/addCity3",
+					type: "POST",
+					data:{"id":"123","name":"ccc"}, 
+					success: function(data) {
+						console.log(data);
+					},
+					complete: function() {
+					}
+				});	*/
+				/*$.ajax({
+					url: manager.root + "/city/addCity4",
+					type: "POST",
+					contentType: "application/json",  
+					dataType: "json",   
+	                data: JSON.stringify({"id":"123","name":"ccc"}), 
+					success: function(data) {
+						console.log(data);
+					},
+					complete: function() {
+					}
+				});	*/
 			}			
 		})
 	}
