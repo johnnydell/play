@@ -8,6 +8,7 @@
 		<link rel="stylesheet" type="text/css" href="../../css/login.css"/>
 		<link rel="stylesheet" type="text/css" href="../../js/lib/datetimepicker/jquery.datetimepicker.css"/>	
 		<link rel="stylesheet" type="text/css" href="../../css/opl.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/addPSS.css"/>
 	</head>
 	<body>
 		<div class="box">
@@ -179,13 +180,27 @@
                     </td>
 			        <td on-click="toShowColumnEditor">
                        <label class="field">{{problemSolvingSheet}}</label>
-					   <select class="field" style="display:none;" on-blur="toHideColumnEditor" value="{{problemSolvingSheet}}">
+					   <select class="field" style="display:none;" on-blur="toHideColumnEditor" on-change="changePSS" value="{{problemSolvingSheet}}">
 						 <option value="Y">Y</option>
 						 <option value="N">N</option>
 	             	   </select>
                     </td>
  					<td>
-                       <label class="field"><a class="link" href="#">{{pss}}</a></label>
+                       {{#if problemSolvingSheet == 'Y'}}
+							{{#if pss != ''}}
+								<label class="field" ><a class="link" href="javascript:void(0);" on-click="showPss">{{pss}}</a></label>
+								<label class="field" style="display:none;"><a class="link" href="javascript:void(0);" on-click="showPss">增加PSS</a></label>
+								<label class="field" style="display:none;"></label>
+							{{else}}
+								<label class="field" style="display:none;"><a class="link" href="javascript:void(0);" on-click="showPss">{{pss}}</a></label>
+								<label class="field" ><a class="link" href="javascript:void(0);" on-click="showPss">增加PSS</a></label>
+								<label class="field" style="display:none;"></label>
+                      		{{/if}}
+                       {{else}}
+                    		<label class="field" style="display:none;"><a class="link" href="javascript:void(0);" on-click="showPss">{{pss}}</a></label>
+							<label class="field" style="display:none;"><a class="link" href="javascript:void(0);" on-click="showPss">增加PSS</a></label>
+							<label class="field" ></label>
+                       {{/if}}
                     </td>
 			        <td on-click="toShowColumnEditor">
                        <label class="field">{{responsible}}</label>
@@ -224,5 +239,7 @@
 			</div>			
 		</div>
 	</div>
+    <!-- 登录DIV -->
+	<div class="pss_popup"></div>
     </script>
 </html>
