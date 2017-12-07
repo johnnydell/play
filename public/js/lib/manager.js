@@ -92,9 +92,12 @@ var manager = function() {
 	            template: template
 	        });   
 	        
-	        ractive.on({
+	        ractive.on({	        	
 	          toDashboard:function(){
 	              location.href = root+"/views/index.html";
+	          },
+	          toMeetAttendence:function(){
+	        	  location.href = root+"/views/board/meetAttd.html";
 	          },
 	          toSettings:function(){
 	              location.href = root+"/views/settings.html";
