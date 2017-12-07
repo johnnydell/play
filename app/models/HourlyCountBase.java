@@ -59,8 +59,8 @@ public class HourlyCountBase extends Model {
 		return find.where().eq("productLine.lineName", name).eq("productDate", productDate).orderBy("").fetch("productLine").findUnique();
 	}
 
-	public static void save(HourlyCountBase uploadFile) {
-		Ebean.save(uploadFile);
+	public static void save(HourlyCountBase base) {
+		Ebean.save(base);
 	}
 
 }

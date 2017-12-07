@@ -1,6 +1,6 @@
 var hourlycount = function(){
 	
-	var hourlycounts_base, hourlycounts_g1, hourlycounts_g2, hourlycounts_g3, hourlycounts_g4;
+	var hourlycounts_base, hourlycounts_g1, hourlycounts_g2, hourlycounts_g3, hourlycounts_g4, hourlycounts = [], hourlycounts_sub_total = [];
 	var hourlycounts_sub1, hourlycounts_sub2, hourlycounts_sub3, hourlycounts_sub4;
 	var lineName =  manager.getPV("lineName");;
 	
@@ -16,18 +16,17 @@ var hourlycount = function(){
 		ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
-			data: {root:manager.root,
-				lineName : lineName,
-//				hourlyCountV0:hourlycounts_base,
-//				hourlyCountV1:hourlycounts_g1,
-//				hourlyCountV2:hourlycounts_g2,
-//				hourlyCountV3:hourlycounts_g3,
-//				hourlyCountV4:hourlycounts_g4,
-//				hourlyCountsTotal1:hourlycounts_sub1,
-//				hourlyCountsTotal2:hourlycounts_sub2,
-//				hourlyCountsTotal3:hourlycounts_sub3,
-//				hourlyCountsTotal4:hourlycounts_sub4,
-				dateToday:dateTodayStr},
+			data: {
+				root		: manager.root,
+				lineName 	: lineName,
+				dateToday	: dateTodayStr,
+				format		: function(num){
+					if ( null == num || num == 0 || num == '' ) 
+						return '';
+					else
+						return num;
+				}
+			},
 			
 			onrender: function(){
 				manager.loadProperties(this, "hourlycount", "../../");
@@ -60,21 +59,140 @@ var hourlycount = function(){
 			toHideColumnEditor:function(e){
 				$(e.node).hide().prev().show().text($(e.node).val());
 			},
+			toHideColumnEditorWithCalculationForPlan:function(e){
+				var val = parseInt($(e.node).val());
+				var current_index = e.index;
+				var val1 = null;
+				var sub_total_g1 = 0;
+				var sub_total_g2 = 0;
+				var sub_total_g3 = 0;
+				var sub_total_g4 = 0;
+				var sub_total = 0;
+				$(".attendeeTr").each(function(index){
+					val1 = $($(this).children(0)[5]).children(0).text();
+					val1 = isNull(val1) ? 0 :  (isNaN(val1) ? 0 : parseInt(val1));
+					//calculate 7:00 AM ~ 3:00 PM
+					if (index < 8 ){
+						sub_total_g1 += val1;
+					}
+					//calculate 7:00 AM ~ 7:00 PM
+					if (index < 12 ){
+						sub_total_g2 += val1;
+					}
+					
+					//calculate 3:00 PM ~ 11:00 PM
+					if (7 < index && index < 16 ){
+						sub_total_g3 += val1;
+					}
+					
+					//calculate 3:00 PM ~ 11:00 PM
+					if (15 < index && index < 24 ){
+						sub_total_g4 += val1;
+					}
+					sub_total += val1;
+					if (val1 !== 0){
+						hourlycounts[index].planTotalCount = sub_total;
+					}
+						
+			    });
+				//set current plan label value
+				$(e.node).hide().prev().show().text(val);
+				//set current plan total value
+				//$(e.node).parent().next().text(sub_total);
+				
+				hourlycounts_sub_total[0].group_plan = sub_total_g1;
+				hourlycounts_sub_total[1].group_plan = sub_total_g2;
+				hourlycounts_sub_total[2].group_plan = sub_total_g3;
+				hourlycounts_sub_total[3].group_plan = sub_total_g4;
+				ractive.update();
+			},
+			toHideColumnEditorWithCalculationForActual:function(e){
+				var val = parseInt($(e.node).val());
+				var current_index = e.index;
+				var val1 = null;
+				var sub_total_g1 = 0;
+				var sub_total_g2 = 0;
+				var sub_total_g3 = 0;
+				var sub_total_g4 = 0;
+				var sub_total = 0;
+				$(".attendeeTr").each(function(index){
+					val1 = $($(this).children(0)[7]).children(0).text();
+					val1 = isNull(val1) ? 0 :  (isNaN(val1) ? 0 : parseInt(val1));
+					//calculate 7:00 AM ~ 3:00 PM
+					if (index < 8 ){
+						sub_total_g1 += val1;
+					}
+					//calculate 7:00 AM ~ 7:00 PM
+					if (index < 12 ){
+						sub_total_g2 += val1;
+					}
+					
+					//calculate 3:00 PM ~ 11:00 PM
+					if (7 < index && index < 16 ){
+						sub_total_g3 += val1;
+					}
+					
+					//calculate 3:00 PM ~ 11:00 PM
+					if (15 < index && index < 24 ){
+						sub_total_g4 += val1;
+					}
+					sub_total += val1;
+					if (val1 !== 0){
+						hourlycounts[index].actualTotalCount = sub_total;
+					}
+						
+			    });
+				//set current plan label value
+				$(e.node).hide().prev().show().text(val);
+				//set current plan total value
+				//$(e.node).parent().next().text(sub_total);
+				
+				hourlycounts_sub_total[0].group_actual = sub_total_g1;
+				hourlycounts_sub_total[1].group_actual = sub_total_g2;
+				hourlycounts_sub_total[2].group_actual = sub_total_g3;
+				hourlycounts_sub_total[3].group_actual = sub_total_g4;
+				
+				//calculate hourly count percent
+				if ( val !== 0 ){
+					$(e.node).parent().next().next().children(0).show().val(val);
+					var hourlyCountWidth = parseInt($(e.node).parent().next().next().css("width"));
+					var perc = val / 240;
+					var realWidth = Math.ceil(hourlyCountWidth * perc);
+					$(e.node).parent().next().next().children(0).css("width", realWidth);
+					if (perc < 0.6){
+						$(e.node).parent().next().next().children(0).css("background-color", "red");
+					}
+					else if (perc > 0.6 && perc < 0.8){
+						$(e.node).parent().next().next().children(0).css("background-color", "yellow");
+					}
+					else{
+						$(e.node).parent().next().next().children(0).css("background-color", "green");
+					}
+				}
+				else{
+					$(e.node).parent().next().next().children(0).hide();
+				}
+				
+				
+				ractive.update();
+			},
+			toValidateEditorOnlyNum:function(e){
+				var val = $(e.node).val();
+				$(e.node).val(val.replace(/\D/g, ''));
+			},
 			saveHourlyCount:function(){
 				console.log("lineName = " + lineName + ",dateStr = " + dateTodayStr);
 				var params = {
 						lineName 		: lineName,
 						dateStr  		: dateTodayStr,
 						baseInfo		: hourlycounts_base,
-						dateGroup1		: hourlycounts_g1,
-						dateGroup2		: hourlycounts_g2,
-						dateGroup3		: hourlycounts_g3,
-						dateGroup4		: hourlycounts_g4
+						dataGroup		: hourlycounts
 				};
 				$.ajax({
 					url		: manager.root + '/views/board/hourlycount/saveResult',
 					type	: 'post',
-					data	: params,
+					data	: JSON.stringify(params),
+					contentType: "application/json", 
 					success: function(ret)
 					{
 						console.log(ret);
@@ -87,116 +205,33 @@ var hourlycount = function(){
 	
 	/*Initial all of data*/
 	function initDataTemplate(){
+		hourlycounts = [];
 		hourlycounts_base = {teamLeaderSign1:"", teamLeaderSign2:"", teamLeaderSign3:"", groupLeaderSign:""};
-		hourlycounts_g1 = [
-			{hourid:"7-8",productHour:"8",lineName:"",productTypeName1:"",productCycle1:"",productTypeName2:"",productCycle2:"",planCount:"",actualCount:"",productHourCount:"",
-				scrapCount:"",reworkCount:"",qualityLoss:"",breakdownCount:"",adjustmentCount:"",technicalLoss:"",planSetupCount:"",unplanSetupCount:"",exchgToolCount:"",changeoverLoss:"",
-				lackPersonnelCount:"",lackMaterialCount:"", testReleaseThreePartsCount:"",exchgMaterialCount:"",unplanSampleCount:"",newOperatorCount:"",unplanTpmCount:"",othersCount:"",
-				orgnizationLoss:"",performanceCount:"", undefinedCount:"",remark:""},
-			{hourid:"8-9",productHour:"9",lineName:"",productTypeName1:"",productCycle1:"",productTypeName2:"",productCycle2:"",planCount:"",actualCount:"",productHourCount:"",
-				scrapCount:"",reworkCount:"",qualityLoss:"",breakdownCount:"",adjustmentCount:"",technicalLoss:"",planSetupCount:"",unplanSetupCount:"",exchgToolCount:"",changeoverLoss:"",
-				lackPersonnelCount:"",lackMaterialCount:"", testReleaseThreePartsCount:"",exchgMaterialCount:"",unplanSampleCount:"",newOperatorCount:"",unplanTpmCount:"",othersCount:"",
-				orgnizationLoss:"",performanceCount:"", undefinedCount:"",remark:""},
-			{hourid:"9-10",productHour:"10",lineName:"",productTypeName1:"",productCycle1:"",productTypeName2:"",productCycle2:"",planCount:"",actualCount:"",productHourCount:"",
-				scrapCount:"",reworkCount:"",qualityLoss:"",breakdownCount:"",adjustmentCount:"",technicalLoss:"",planSetupCount:"",unplanSetupCount:"",exchgToolCount:"",changeoverLoss:"",
-				lackPersonnelCount:"",lackMaterialCount:"", testReleaseThreePartsCount:"",exchgMaterialCount:"",unplanSampleCount:"",newOperatorCount:"",unplanTpmCount:"",othersCount:"",
-				orgnizationLoss:"",performanceCount:"", undefinedCount:"",remark:""},		
-			{hourid:"10-11",productHour:"11",lineName:"",productTypeName1:"",productCycle1:"",productTypeName2:"",productCycle2:"",planCount:"",actualCount:"",productHourCount:"",
-				scrapCount:"",reworkCount:"",qualityLoss:"",breakdownCount:"",adjustmentCount:"",technicalLoss:"",planSetupCount:"",unplanSetupCount:"",exchgToolCount:"",changeoverLoss:"",
-				lackPersonnelCount:"",lackMaterialCount:"", testReleaseThreePartsCount:"",exchgMaterialCount:"",unplanSampleCount:"",newOperatorCount:"",unplanTpmCount:"",othersCount:"",
-				orgnizationLoss:"",performanceCount:"", undefinedCount:"",remark:""},
-			{hourid:"11-12",productHour:"12",lineName:"",productTypeName1:"",productCycle1:"",productTypeName2:"",productCycle2:"",planCount:"",actualCount:"",productHourCount:"",
-				scrapCount:"",reworkCount:"",qualityLoss:"",breakdownCount:"",adjustmentCount:"",technicalLoss:"",planSetupCount:"",unplanSetupCount:"",exchgToolCount:"",changeoverLoss:"",
-				lackPersonnelCount:"",lackMaterialCount:"", testReleaseThreePartsCount:"",exchgMaterialCount:"",unplanSampleCount:"",newOperatorCount:"",unplanTpmCount:"",othersCount:"",
-				orgnizationLoss:"",performanceCount:"", undefinedCount:"",remark:""},
-			{hourid:"12-13",productHour:"13",lineName:"",productTypeName1:"",productCycle1:"",productTypeName2:"",productCycle2:"",planCount:"",actualCount:"",productHourCount:"",
-				scrapCount:"",reworkCount:"",qualityLoss:"",breakdownCount:"",adjustmentCount:"",technicalLoss:"",planSetupCount:"",unplanSetupCount:"",exchgToolCount:"",changeoverLoss:"",
-				lackPersonnelCount:"",lackMaterialCount:"", testReleaseThreePartsCount:"",exchgMaterialCount:"",unplanSampleCount:"",newOperatorCount:"",unplanTpmCount:"",othersCount:"",
-				orgnizationLoss:"",performanceCount:"", undefinedCount:"",remark:""},
-			{hourid:"13-14",productHour:"14",lineName:"",productTypeName1:"",productCycle1:"",productTypeName2:"",productCycle2:"",planCount:"",actualCount:"",productHourCount:"",
-				scrapCount:"",reworkCount:"",qualityLoss:"",breakdownCount:"",adjustmentCount:"",technicalLoss:"",planSetupCount:"",unplanSetupCount:"",exchgToolCount:"",changeoverLoss:"",
-				lackPersonnelCount:"",lackMaterialCount:"", testReleaseThreePartsCount:"",exchgMaterialCount:"",unplanSampleCount:"",newOperatorCount:"",unplanTpmCount:"",othersCount:"",
-				orgnizationLoss:"",performanceCount:"", undefinedCount:"",remark:""},
-			{hourid:"14-15",productHour:"15",lineName:"",productTypeName1:"",productCycle1:"",productTypeName2:"",productCycle2:"",planCount:"",actualCount:"",productHourCount:"",
-				scrapCount:"",reworkCount:"",qualityLoss:"",breakdownCount:"",adjustmentCount:"",technicalLoss:"",planSetupCount:"",unplanSetupCount:"",exchgToolCount:"",changeoverLoss:"",
-				lackPersonnelCount:"",lackMaterialCount:"", testReleaseThreePartsCount:"",exchgMaterialCount:"",unplanSampleCount:"",newOperatorCount:"",unplanTpmCount:"",othersCount:"",
-				orgnizationLoss:"",performanceCount:"", undefinedCount:"",remark:""}
-			
-		];
-		hourlycounts_sub1 = {group1_plan:"", group1_actual:""};
-		hourlycounts_g2 = [
-			{hourid:"15-16",productHour:"16",lineName:"",productTypeName1:"",productCycle1:"",productTypeName2:"",productCycle2:"",planCount:"",actualCount:"",productHourCount:"",
-				scrapCount:"",reworkCount:"",qualityLoss:"",breakdownCount:"",adjustmentCount:"",technicalLoss:"",planSetupCount:"",unplanSetupCount:"",exchgToolCount:"",changeoverLoss:"",
-				lackPersonnelCount:"",lackMaterialCount:"", testReleaseThreePartsCount:"",exchgMaterialCount:"",unplanSampleCount:"",newOperatorCount:"",unplanTpmCount:"",othersCount:"",
-				orgnizationLoss:"",performanceCount:"", undefinedCount:"",remark:""},
-			{hourid:"16-17",productHour:"17",lineName:"",productTypeName1:"",productCycle1:"",productTypeName2:"",productCycle2:"",planCount:"",actualCount:"",productHourCount:"",
-				scrapCount:"",reworkCount:"",qualityLoss:"",breakdownCount:"",adjustmentCount:"",technicalLoss:"",planSetupCount:"",unplanSetupCount:"",exchgToolCount:"",changeoverLoss:"",
-				lackPersonnelCount:"",lackMaterialCount:"", testReleaseThreePartsCount:"",exchgMaterialCount:"",unplanSampleCount:"",newOperatorCount:"",unplanTpmCount:"",othersCount:"",
-				orgnizationLoss:"",performanceCount:"", undefinedCount:"",remark:""},
-			{hourid:"17-18",productHour:"18",lineName:"",productTypeName1:"",productCycle1:"",productTypeName2:"",productCycle2:"",planCount:"",actualCount:"",productHourCount:"",
-				scrapCount:"",reworkCount:"",qualityLoss:"",breakdownCount:"",adjustmentCount:"",technicalLoss:"",planSetupCount:"",unplanSetupCount:"",exchgToolCount:"",changeoverLoss:"",
-				lackPersonnelCount:"",lackMaterialCount:"", testReleaseThreePartsCount:"",exchgMaterialCount:"",unplanSampleCount:"",newOperatorCount:"",unplanTpmCount:"",othersCount:"",
-				orgnizationLoss:"",performanceCount:"", undefinedCount:"",remark:""},		
-			{hourid:"18-19",productHour:"19",lineName:"",productTypeName1:"",productCycle1:"",productTypeName2:"",productCycle2:"",planCount:"",actualCount:"",productHourCount:"",
-				scrapCount:"",reworkCount:"",qualityLoss:"",breakdownCount:"",adjustmentCount:"",technicalLoss:"",planSetupCount:"",unplanSetupCount:"",exchgToolCount:"",changeoverLoss:"",
-				lackPersonnelCount:"",lackMaterialCount:"", testReleaseThreePartsCount:"",exchgMaterialCount:"",unplanSampleCount:"",newOperatorCount:"",unplanTpmCount:"",othersCount:"",
-				orgnizationLoss:"",performanceCount:"", undefinedCount:"",remark:""}
-		];
-		hourlycounts_sub2 = {group2_plan:"", group2_actual:""};
-		hourlycounts_g3 = [
-			{hourid:"19-20",productHour:"20",lineName:"",productTypeName1:"",productCycle1:"",productTypeName2:"",productCycle2:"",planCount:"",actualCount:"",productHourCount:"",
-				scrapCount:"",reworkCount:"",qualityLoss:"",breakdownCount:"",adjustmentCount:"",technicalLoss:"",planSetupCount:"",unplanSetupCount:"",exchgToolCount:"",changeoverLoss:"",
-				lackPersonnelCount:"",lackMaterialCount:"", testReleaseThreePartsCount:"",exchgMaterialCount:"",unplanSampleCount:"",newOperatorCount:"",unplanTpmCount:"",othersCount:"",
-				orgnizationLoss:"",performanceCount:"", undefinedCount:"",remark:""},
-			{hourid:"20-21",productHour:"21",lineName:"",productTypeName1:"",productCycle1:"",productTypeName2:"",productCycle2:"",planCount:"",actualCount:"",productHourCount:"",
-				scrapCount:"",reworkCount:"",qualityLoss:"",breakdownCount:"",adjustmentCount:"",technicalLoss:"",planSetupCount:"",unplanSetupCount:"",exchgToolCount:"",changeoverLoss:"",
-				lackPersonnelCount:"",lackMaterialCount:"", testReleaseThreePartsCount:"",exchgMaterialCount:"",unplanSampleCount:"",newOperatorCount:"",unplanTpmCount:"",othersCount:"",
-				orgnizationLoss:"",performanceCount:"", undefinedCount:"",remark:""},
-			{hourid:"21-22",productHour:"22",lineName:"",productTypeName1:"",productCycle1:"",productTypeName2:"",productCycle2:"",planCount:"",actualCount:"",productHourCount:"",
-				scrapCount:"",reworkCount:"",qualityLoss:"",breakdownCount:"",adjustmentCount:"",technicalLoss:"",planSetupCount:"",unplanSetupCount:"",exchgToolCount:"",changeoverLoss:"",
-				lackPersonnelCount:"",lackMaterialCount:"", testReleaseThreePartsCount:"",exchgMaterialCount:"",unplanSampleCount:"",newOperatorCount:"",unplanTpmCount:"",othersCount:"",
-				orgnizationLoss:"",performanceCount:"", undefinedCount:"",remark:""},		
-			{hourid:"22-23",productHour:"23",lineName:"",productTypeName1:"",productCycle1:"",productTypeName2:"",productCycle2:"",planCount:"",actualCount:"",productHourCount:"",
-				scrapCount:"",reworkCount:"",qualityLoss:"",breakdownCount:"",adjustmentCount:"",technicalLoss:"",planSetupCount:"",unplanSetupCount:"",exchgToolCount:"",changeoverLoss:"",
-				lackPersonnelCount:"",lackMaterialCount:"", testReleaseThreePartsCount:"",exchgMaterialCount:"",unplanSampleCount:"",newOperatorCount:"",unplanTpmCount:"",othersCount:"",
-				orgnizationLoss:"",performanceCount:"", undefinedCount:"",remark:""}
-		];
-		hourlycounts_sub3 = {group3_plan:"", group3_actual:""};
-		hourlycounts_g4 = [
-			{hourid:"23-00",productHour:"0",lineName:"",productTypeName1:"",productCycle1:"",productTypeName2:"",productCycle2:"",planCount:"",actualCount:"",productHourCount:"",
-				scrapCount:"",reworkCount:"",qualityLoss:"",breakdownCount:"",adjustmentCount:"",technicalLoss:"",planSetupCount:"",unplanSetupCount:"",exchgToolCount:"",changeoverLoss:"",
-				lackPersonnelCount:"",lackMaterialCount:"", testReleaseThreePartsCount:"",exchgMaterialCount:"",unplanSampleCount:"",newOperatorCount:"",unplanTpmCount:"",othersCount:"",
-				orgnizationLoss:"",performanceCount:"", undefinedCount:"",remark:""},
-			{hourid:"00-1",productHour:"1",lineName:"",productTypeName1:"",productCycle1:"",productTypeName2:"",productCycle2:"",planCount:"",actualCount:"",productHourCount:"",
-				scrapCount:"",reworkCount:"",qualityLoss:"",breakdownCount:"",adjustmentCount:"",technicalLoss:"",planSetupCount:"",unplanSetupCount:"",exchgToolCount:"",changeoverLoss:"",
-				lackPersonnelCount:"",lackMaterialCount:"", testReleaseThreePartsCount:"",exchgMaterialCount:"",unplanSampleCount:"",newOperatorCount:"",unplanTpmCount:"",othersCount:"",
-				orgnizationLoss:"",performanceCount:"", undefinedCount:"",remark:""},
-			{hourid:"1-2",productHour:"2",lineName:"",productTypeName1:"",productCycle1:"",productTypeName2:"",productCycle2:"",planCount:"",actualCount:"",productHourCount:"",
-				scrapCount:"",reworkCount:"",qualityLoss:"",breakdownCount:"",adjustmentCount:"",technicalLoss:"",planSetupCount:"",unplanSetupCount:"",exchgToolCount:"",changeoverLoss:"",
-				lackPersonnelCount:"",lackMaterialCount:"", testReleaseThreePartsCount:"",exchgMaterialCount:"",unplanSampleCount:"",newOperatorCount:"",unplanTpmCount:"",othersCount:"",
-				orgnizationLoss:"",performanceCount:"", undefinedCount:"",remark:""},		
-			{hourid:"2-3",productHour:"3",lineName:"",productTypeName1:"",productCycle1:"",productTypeName2:"",productCycle2:"",planCount:"",actualCount:"",productHourCount:"",
-				scrapCount:"",reworkCount:"",qualityLoss:"",breakdownCount:"",adjustmentCount:"",technicalLoss:"",planSetupCount:"",unplanSetupCount:"",exchgToolCount:"",changeoverLoss:"",
-				lackPersonnelCount:"",lackMaterialCount:"", testReleaseThreePartsCount:"",exchgMaterialCount:"",unplanSampleCount:"",newOperatorCount:"",unplanTpmCount:"",othersCount:"",
-				orgnizationLoss:"",performanceCount:"", undefinedCount:"",remark:""},
-			{hourid:"3-4",productHour:"4",lineName:"",productTypeName1:"",productCycle1:"",productTypeName2:"",productCycle2:"",planCount:"",actualCount:"",productHourCount:"",
-				scrapCount:"",reworkCount:"",qualityLoss:"",breakdownCount:"",adjustmentCount:"",technicalLoss:"",planSetupCount:"",unplanSetupCount:"",exchgToolCount:"",changeoverLoss:"",
-				lackPersonnelCount:"",lackMaterialCount:"", testReleaseThreePartsCount:"",exchgMaterialCount:"",unplanSampleCount:"",newOperatorCount:"",unplanTpmCount:"",othersCount:"",
-				orgnizationLoss:"",performanceCount:"", undefinedCount:"",remark:""},
-			{hourid:"4-5",productHour:"5",lineName:"",productTypeName1:"",productCycle1:"",productTypeName2:"",productCycle2:"",planCount:"",actualCount:"",productHourCount:"",
-				scrapCount:"",reworkCount:"",qualityLoss:"",breakdownCount:"",adjustmentCount:"",technicalLoss:"",planSetupCount:"",unplanSetupCount:"",exchgToolCount:"",changeoverLoss:"",
-				lackPersonnelCount:"",lackMaterialCount:"", testReleaseThreePartsCount:"",exchgMaterialCount:"",unplanSampleCount:"",newOperatorCount:"",unplanTpmCount:"",othersCount:"",
-				orgnizationLoss:"",performanceCount:"", undefinedCount:"",remark:""},
-			{hourid:"5-6",productHour:"6",lineName:"",productTypeName1:"",productCycle1:"",productTypeName2:"",productCycle2:"",planCount:"",actualCount:"",productHourCount:"",
-				scrapCount:"",reworkCount:"",qualityLoss:"",breakdownCount:"",adjustmentCount:"",technicalLoss:"",planSetupCount:"",unplanSetupCount:"",exchgToolCount:"",changeoverLoss:"",
-				lackPersonnelCount:"",lackMaterialCount:"", testReleaseThreePartsCount:"",exchgMaterialCount:"",unplanSampleCount:"",newOperatorCount:"",unplanTpmCount:"",othersCount:"",
-				orgnizationLoss:"",performanceCount:"", undefinedCount:"",remark:""},
-			{hourid:"6-7",productHour:"7",lineName:"",productTypeName1:"",productCycle1:"",productTypeName2:"",productCycle2:"",planCount:"",actualCount:"",productHourCount:"",
-				scrapCount:"",reworkCount:"",qualityLoss:"",breakdownCount:"",adjustmentCount:"",technicalLoss:"",planSetupCount:"",unplanSetupCount:"",exchgToolCount:"",changeoverLoss:"",
-				lackPersonnelCount:"",lackMaterialCount:"", testReleaseThreePartsCount:"",exchgMaterialCount:"",unplanSampleCount:"",newOperatorCount:"",unplanTpmCount:"",othersCount:"",
-				orgnizationLoss:"",performanceCount:"", undefinedCount:"",remark:""}
-		];
-		hourlycounts_sub4 = {group4_plan:"", group4_actual:""};
+		for (i = 8; i < 24; i ++){
+			hourlycounts_item = {hourid: ((i - 1) + "-" + i),productHour: i,lineName:"",productTypeName1:"",productCycle1:0,productTypeName2:"",productCycle2:0,planCount:0,planTotalCount:0,actualCount:0,actualTotalCount:0,productHourCount:0,
+					scrapCount:0,reworkCount:0,qualityLoss:0,breakdownCount:0,adjustmentCount:0,technicalLoss:0,planSetupCount:0,unplanSetupCount:0,exchgToolCount:0,changeoverLoss:0,
+					lackPersonnelCount:0,lackMaterialCount:0, testReleaseThreePartsCount:0,exchgMaterialCount:0,unplanSampleCount:0,newOperatorCount:0,unplanTpmCount:0,othersCount:0,
+					orgnizationLoss:0,performanceCount:0, undefinedCount:0,remark:""};
+			hourlycounts.push(hourlycounts_item);
+		}
+		hourlycounts_item = {hourid: "23-00",productHour:0,lineName:"",productTypeName1:"",productCycle1:0,productTypeName2:"",productCycle2:0,planCount:0,planTotalCount:0,actualCount:0,actualTotalCount:0,productHourCount:0,
+				scrapCount:0,reworkCount:0,qualityLoss:0,breakdownCount:0,adjustmentCount:0,technicalLoss:0,planSetupCount:0,unplanSetupCount:0,exchgToolCount:0,changeoverLoss:0,
+				lackPersonnelCount:0,lackMaterialCount:0, testReleaseThreePartsCount:0,exchgMaterialCount:0,unplanSampleCount:0,newOperatorCount:0,unplanTpmCount:0,othersCount:0,
+				orgnizationLoss:0,performanceCount:0, undefinedCount:0,remark:""};
+		hourlycounts.push(hourlycounts_item);
+		for (i = 1; i < 8; i ++){
+			hourlycounts_item = {hourid: ((i - 1) + "-" + i),productHour:i,lineName:"",productTypeName1:"",productCycle1:0,productTypeName2:"",productCycle2:0,planCount:0,planTotalCount:0,actualCount:0,actualTotalCount:0,productHourCount:0,
+					scrapCount:0,reworkCount:0,qualityLoss:0,breakdownCount:0,adjustmentCount:0,technicalLoss:0,planSetupCount:0,unplanSetupCount:0,exchgToolCount:0,changeoverLoss:0,
+					lackPersonnelCount:0,lackMaterialCount:0, testReleaseThreePartsCount:0,exchgMaterialCount:0,unplanSampleCount:0,newOperatorCount:0,unplanTpmCount:0,othersCount:0,
+					orgnizationLoss:0,performanceCount:0, undefinedCount:0,remark:""};
+			hourlycounts.push(hourlycounts_item);
+		}
+		
+		for (i = 0; i < 4; i ++){
+			hourlycounts_sub = {group_plan:0, group_actual:0};
+			hourlycounts_sub_total.push(hourlycounts_sub);
+		}
+		
 	}
 	
 	function queryHourlyCount(lineName, productDateStr){
@@ -217,185 +252,81 @@ var hourlycount = function(){
 					hourlycounts_base.teamLeaderSign3 = listdata[0].hourlyCountBase.teamLeaderSign3;
 					hourlycounts_base.groupLeaderSign = listdata[0].hourlyCountBase.groupLeaderSign;
 				}
+				var planTotalCount = 0;
+				var actualTotalCount = 0;
+				//set properties into page
 				for(i = 0; i < listdata.length; i++){
-					//check if this item belong to hourlycounts_g1
-					for (j = 0; j < hourlycounts_g1.length; j ++){
-						if (listdata[i].productHour == hourlycounts_g1[j].productHour){
-							hourlycounts_g1[j].productTypeName1 = listdata[i].productType1 == null ? "" : listdata[i].productType1.productTypeName;
-							hourlycounts_g1[j].productCycle1 	= listdata[i].productCycle1 == "null" ? "" : listdata[i].productCycle1;
-							hourlycounts_g1[j].productTypeName2 = listdata[i].productType2 == null ? "" : listdata[i].productType2.productTypeName;
-							hourlycounts_g1[j].productCycle2 	= listdata[i].productCycle2 == "null" ? "" : listdata[i].productCycle2;
-							hourlycounts_g1[j].planCount 		= listdata[i].planCount== "null" ? "" : listdata[i].planCount;
-							hourlycounts_g1[j].actualCount 		= listdata[i].actualCount== "null" ? "" : listdata[i].actualCount;
-							hourlycounts_g1[j].productHourCount = listdata[i].productHourCount== "null" ? "" : listdata[i].productHourCount;
-							hourlycounts_g1[j].scrapCount 		= listdata[i].scrapCount== "null" ? "" : listdata[i].scrapCount;
-							hourlycounts_g1[j].reworkCount 		= listdata[i].reworkCount== "null" ? "" : listdata[i].reworkCount;
-							hourlycounts_g1[j].qualityLoss 		= listdata[i].qualityLoss== "null" ? "" : listdata[i].qualityLoss;
-							hourlycounts_g1[j].breakdownCount 	= listdata[i].breakdownCount== "null" ? "" : listdata[i].breakdownCount;
-							hourlycounts_g1[j].adjustmentCount 	= listdata[i].adjustmentCount== "null" ? "" : listdata[i].adjustmentCount;
-							hourlycounts_g1[j].technicalLoss 	= listdata[i].technicalLoss== "null" ? "" : listdata[i].technicalLoss;
-							hourlycounts_g1[j].planSetupCount 	= listdata[i].planSetupCount== "null" ? "" : listdata[i].planSetupCount;
-							hourlycounts_g1[j].unplanSetupCount = listdata[i].unplanSetupCount== "null" ? "" : listdata[i].unplanSetupCount;
-							hourlycounts_g1[j].exchgToolCount 	= listdata[i].exchgToolCount== "null" ? "" : listdata[i].exchgToolCount;
-							hourlycounts_g1[j].changeoverLoss 	= listdata[i].changeoverLoss== "null" ? "" : listdata[i].changeoverLoss;
-							hourlycounts_g1[j].lackPersonnelCount = listdata[i].lackPersonnelCount== "null" ? "" : listdata[i].lackPersonnelCount;
-							hourlycounts_g1[j].lackMaterialCount = listdata[i].lackMaterialCount== "null" ? "" : listdata[i].lackMaterialCount;
-							hourlycounts_g1[j].testReleaseThreePartsCount = listdata[i].testReleaseThreePartsCount== "null" ? "" : listdata[i].testReleaseThreePartsCount;
-							hourlycounts_g1[j].exchgMaterialCount = listdata[i].exchgMaterialCount== "null" ? "" : listdata[i].exchgMaterialCount;
-							hourlycounts_g1[j].unplanSampleCount = listdata[i].unplanSampleCount== "null" ? "" : listdata[i].unplanSampleCount;
-							hourlycounts_g1[j].newOperatorCount = listdata[i].newOperatorCount== "null" ? "" : listdata[i].newOperatorCount;
-							hourlycounts_g1[j].othersCount 		= listdata[i].othersCount== "null" ? "" : listdata[i].othersCount;
-							hourlycounts_g1[j].orgnizationLoss 	= listdata[i].orgnizationLoss== "null" ? "" : listdata[i].orgnizationLoss;
-							hourlycounts_g1[j].unplanTpmCount 	= listdata[i].unplanTpmCount== "null" ? "" : listdata[i].unplanTpmCount;
-							hourlycounts_g1[j].performanceCount = listdata[i].performanceCount== "null" ? "" : listdata[i].performanceCount;
-							hourlycounts_g1[j].undefinedCount 	= listdata[i].undefinedCount== "null" ? "" : listdata[i].undefinedCount;
-							hourlycounts_g1[j].remark 			= listdata[i].remark== "null" ? "" : listdata[i].remark;
-							
-							//calculate sub total 
-							hourlycounts_sub1.group1_plan 		+= (listdata[i].planCount == "" ? 0 : listdata[i].planCount);
-							hourlycounts_sub1.group1_actual 	+= (listdata[i].actualCount == "" ? 0 : listdata[i].actualCount);
-						}
+					hourlycounts[i].productTypeName1 		= isNull(listdata[i].productType1) ? "" : listdata[i].productType1.productTypeName;
+					hourlycounts[i].productCycle1 			= isNull(listdata[i].productCycle1 ) ? 0 : parseInt(listdata[i].productCycle1);
+					hourlycounts[i].productTypeName2 		= isNull(listdata[i].productType2) ? "" : listdata[i].productType2.productTypeName;
+					hourlycounts[i].productCycle2 			= isNull(listdata[i].productCycle2 ) ? 0 : parseInt(listdata[i].productCycle2);
+					hourlycounts[i].planCount 				= isNull(listdata[i].planCount) ? 0 : parseInt(listdata[i].planCount);
+					hourlycounts[i].actualCount 			= isNull(listdata[i].actualCount) ? 0 : parseInt(listdata[i].actualCount);
+					hourlycounts[i].productHourCount 		= isNull(listdata[i].productHourCount) ? 0 : parseInt(listdata[i].productHourCount);
+					hourlycounts[i].scrapCount 				= isNull(listdata[i].scrapCount) ? 0 : parseInt(listdata[i].scrapCount);
+					hourlycounts[i].reworkCount 			= isNull(listdata[i].reworkCount) ? 0 : parseInt(listdata[i].reworkCount);
+					hourlycounts[i].qualityLoss 			= isNull(listdata[i].qualityLoss) ? 0 : parseInt(listdata[i].qualityLoss);
+					hourlycounts[i].breakdownCount 			= isNull(listdata[i].breakdownCount) ? 0 : parseInt(listdata[i].breakdownCount);
+					hourlycounts[i].adjustmentCount 		= isNull(listdata[i].adjustmentCount) ? 0 : parseInt(listdata[i].adjustmentCount);
+					hourlycounts[i].technicalLoss 			= isNull(listdata[i].technicalLoss) ? 0 : parseInt(listdata[i].technicalLoss);
+					hourlycounts[i].planSetupCount 			= isNull(listdata[i].planSetupCount) ? 0 : parseInt(listdata[i].planSetupCount);
+					hourlycounts[i].unplanSetupCount 		= isNull(listdata[i].unplanSetupCount) ? 0 : parseInt(listdata[i].unplanSetupCount);
+					hourlycounts[i].exchgToolCount 			= isNull(listdata[i].exchgToolCount) ? 0 : parseInt(listdata[i].exchgToolCount);
+					hourlycounts[i].changeoverLoss 			= isNull(listdata[i].changeoverLoss) ? 0 : parseInt(listdata[i].changeoverLoss);
+					hourlycounts[i].lackPersonnelCount 		= isNull(listdata[i].lackPersonnelCount) ? 0 : parseInt(listdata[i].lackPersonnelCount);
+					hourlycounts[i].lackMaterialCount 		= isNull(listdata[i].lackMaterialCount) ? 0 : parseInt(listdata[i].lackMaterialCount);
+					hourlycounts[i].testReleaseThreePartsCount = isNull(listdata[i].testReleaseThreePartsCount) ? 0 : parseInt(listdata[i].testReleaseThreePartsCount);
+					hourlycounts[i].exchgMaterialCount 		= isNull(listdata[i].exchgMaterialCount) ? 0 : parseInt(listdata[i].exchgMaterialCount);
+					hourlycounts[i].unplanSampleCount 		= isNull(listdata[i].unplanSampleCount) ? 0 : parseInt(listdata[i].unplanSampleCount);
+					hourlycounts[i].newOperatorCount 		= isNull(listdata[i].newOperatorCount) ? 0 : parseInt(listdata[i].newOperatorCount);
+					hourlycounts[i].othersCount 			= isNull(listdata[i].othersCount) ? 0 : parseInt(listdata[i].othersCount);
+					hourlycounts[i].orgnizationLoss 		= isNull(listdata[i].orgnizationLoss) ? 0 : parseInt(listdata[i].orgnizationLoss);
+					hourlycounts[i].unplanTpmCount 			= isNull(listdata[i].unplanTpmCount) ? 0 : parseInt(listdata[i].unplanTpmCount);
+					hourlycounts[i].performanceCount 		= isNull(listdata[i].performanceCount) ? 0 : parseInt(listdata[i].performanceCount);
+					hourlycounts[i].undefinedCount 			= isNull(listdata[i].undefinedCount) ? 0 : parseInt(listdata[i].undefinedCount);
+					hourlycounts[i].remark 					= isNull(listdata[i].remark) ? "" : listdata[i].remark;
+					
+					planTotalCount 							+= hourlycounts[i].planCount;
+					actualTotalCount 						+= hourlycounts[i].actualCount;
+					hourlycounts[i].planTotalCount			= planTotalCount;
+					hourlycounts[i].actualTotalCount		= actualTotalCount;
+					
+					//calculate sub total count for group 1
+					if (i < 8){
+						hourlycounts_sub_total[0].group_plan += hourlycounts[i].planCount;
+						hourlycounts_sub_total[0].group_actual += hourlycounts[i].actualCount;
 					}
 					
-					//check if this item belong to hourlycounts_g2
-					for (j = 0; j < hourlycounts_g2.length; j ++){
-						if (listdata[i].productHour == hourlycounts_g2[j].productHour){
-							hourlycounts_g2[j].productTypeName1 = listdata[i].productType1 == null ? "" : listdata[i].productType1.productTypeName;
-							hourlycounts_g2[j].productCycle1 	= listdata[i].productCycle1 == "null" ? "" : listdata[i].productCycle1;
-							hourlycounts_g2[j].productTypeName2 = listdata[i].productType2 == null ? "" : listdata[i].productType2.productTypeName;
-							hourlycounts_g2[j].productCycle2 	= listdata[i].productCycle2 == "null" ? "" : listdata[i].productCycle2;
-							hourlycounts_g2[j].planCount 		= listdata[i].planCount== "null" ? "" : listdata[i].planCount;
-							hourlycounts_g2[j].actualCount 		= listdata[i].actualCount== "null" ? "" : listdata[i].actualCount;
-							hourlycounts_g2[j].productHourCount = listdata[i].productHourCount== "null" ? "" : listdata[i].productHourCount;
-							hourlycounts_g2[j].scrapCount 		= listdata[i].scrapCount== "null" ? "" : listdata[i].scrapCount;
-							hourlycounts_g2[j].reworkCount 		= listdata[i].reworkCount== "null" ? "" : listdata[i].reworkCount;
-							hourlycounts_g2[j].qualityLoss 		= listdata[i].qualityLoss== "null" ? "" : listdata[i].qualityLoss;
-							hourlycounts_g2[j].breakdownCount 	= listdata[i].breakdownCount== "null" ? "" : listdata[i].breakdownCount;
-							hourlycounts_g2[j].adjustmentCount 	= listdata[i].adjustmentCount== "null" ? "" : listdata[i].adjustmentCount;
-							hourlycounts_g2[j].technicalLoss 	= listdata[i].technicalLoss== "null" ? "" : listdata[i].technicalLoss;
-							hourlycounts_g2[j].planSetupCount 	= listdata[i].planSetupCount== "null" ? "" : listdata[i].planSetupCount;
-							hourlycounts_g2[j].unplanSetupCount = listdata[i].unplanSetupCount== "null" ? "" : listdata[i].unplanSetupCount;
-							hourlycounts_g2[j].exchgToolCount 	= listdata[i].exchgToolCount== "null" ? "" : listdata[i].exchgToolCount;
-							hourlycounts_g2[j].changeoverLoss 	= listdata[i].changeoverLoss== "null" ? "" : listdata[i].changeoverLoss;
-							hourlycounts_g2[j].lackPersonnelCount = listdata[i].lackPersonnelCount== "null" ? "" : listdata[i].lackPersonnelCount;
-							hourlycounts_g2[j].lackMaterialCount = listdata[i].lackMaterialCount== "null" ? "" : listdata[i].lackMaterialCount;
-							hourlycounts_g2[j].testReleaseThreePartsCount = listdata[i].testReleaseThreePartsCount== "null" ? "" : listdata[i].testReleaseThreePartsCount;
-							hourlycounts_g2[j].exchgMaterialCount = listdata[i].exchgMaterialCount== "null" ? "" : listdata[i].exchgMaterialCount;
-							hourlycounts_g2[j].unplanSampleCount = listdata[i].unplanSampleCount== "null" ? "" : listdata[i].unplanSampleCount;
-							hourlycounts_g2[j].newOperatorCount = listdata[i].newOperatorCount== "null" ? "" : listdata[i].newOperatorCount;
-							hourlycounts_g2[j].othersCount 		= listdata[i].othersCount== "null" ? "" : listdata[i].othersCount;
-							hourlycounts_g2[j].orgnizationLoss 	= listdata[i].orgnizationLoss== "null" ? "" : listdata[i].orgnizationLoss;
-							hourlycounts_g2[j].unplanTpmCount 	= listdata[i].unplanTpmCount== "null" ? "" : listdata[i].unplanTpmCount;
-							hourlycounts_g2[j].performanceCount = listdata[i].performanceCount== "null" ? "" : listdata[i].performanceCount;
-							hourlycounts_g2[j].undefinedCount 	= listdata[i].undefinedCount== "null" ? "" : listdata[i].undefinedCount;
-							hourlycounts_g2[j].remark 			= listdata[i].remark== "null" ? "" : listdata[i].remark;
-							
-							//calculate sub total 
-							hourlycounts_sub2.group2_plan 		+= (listdata[i].planCount == "" ? 0 : listdata[i].planCount);
-							hourlycounts_sub2.group2_actual 	+= (listdata[i].actualCount == "" ? 0 : listdata[i].actualCount);
-						}
-					}
-					var temp_group2_plan = hourlycounts_sub2.group2_plan;
-					var temp_group2_actual = hourlycounts_sub2.group2_actual;
-					//add group1 sub total count
-					//hourlycounts_sub2.group2_plan 	+= hourlycounts_sub1.group1_plan;
-					//hourlycounts_sub2.group2_actual += hourlycounts_sub1.group1_actual;
-					
-					//check if this item belong to hourlycounts_g3
-					for (j = 0; j < hourlycounts_g3.length; j ++){
-						if (listdata[i].productHour == hourlycounts_g3[j].productHour){
-							hourlycounts_g3[j].productTypeName1 = listdata[i].productType1 == null ? "" : listdata[i].productType1.productTypeName;
-							hourlycounts_g3[j].productCycle1 	= listdata[i].productCycle1 == "null" ? "" : listdata[i].productCycle1;
-							hourlycounts_g3[j].productTypeName2 = listdata[i].productType2 == null ? "" : listdata[i].productType2.productTypeName;
-							hourlycounts_g3[j].productCycle2 	= listdata[i].productCycle2 == "null" ? "" : listdata[i].productCycle2;
-							hourlycounts_g3[j].planCount 		= listdata[i].planCount== "null" ? "" : listdata[i].planCount;
-							hourlycounts_g3[j].actualCount 		= listdata[i].actualCount== "null" ? "" : listdata[i].actualCount;
-							hourlycounts_g3[j].productHourCount = listdata[i].productHourCount== "null" ? "" : listdata[i].productHourCount;
-							hourlycounts_g3[j].scrapCount 		= listdata[i].scrapCount== "null" ? "" : listdata[i].scrapCount;
-							hourlycounts_g3[j].reworkCount 		= listdata[i].reworkCount== "null" ? "" : listdata[i].reworkCount;
-							hourlycounts_g3[j].qualityLoss 		= listdata[i].qualityLoss== "null" ? "" : listdata[i].qualityLoss;
-							hourlycounts_g3[j].breakdownCount 	= listdata[i].breakdownCount== "null" ? "" : listdata[i].breakdownCount;
-							hourlycounts_g3[j].adjustmentCount 	= listdata[i].adjustmentCount== "null" ? "" : listdata[i].adjustmentCount;
-							hourlycounts_g3[j].technicalLoss 	= listdata[i].technicalLoss== "null" ? "" : listdata[i].technicalLoss;
-							hourlycounts_g3[j].planSetupCount 	= listdata[i].planSetupCount== "null" ? "" : listdata[i].planSetupCount;
-							hourlycounts_g3[j].unplanSetupCount = listdata[i].unplanSetupCount== "null" ? "" : listdata[i].unplanSetupCount;
-							hourlycounts_g3[j].exchgToolCount 	= listdata[i].exchgToolCount== "null" ? "" : listdata[i].exchgToolCount;
-							hourlycounts_g3[j].changeoverLoss 	= listdata[i].changeoverLoss== "null" ? "" : listdata[i].changeoverLoss;
-							hourlycounts_g3[j].lackPersonnelCount = listdata[i].lackPersonnelCount== "null" ? "" : listdata[i].lackPersonnelCount;
-							hourlycounts_g3[j].lackMaterialCount = listdata[i].lackMaterialCount== "null" ? "" : listdata[i].lackMaterialCount;
-							hourlycounts_g3[j].testReleaseThreePartsCount = listdata[i].testReleaseThreePartsCount== "null" ? "" : listdata[i].testReleaseThreePartsCount;
-							hourlycounts_g3[j].exchgMaterialCount = listdata[i].exchgMaterialCount== "null" ? "" : listdata[i].exchgMaterialCount;
-							hourlycounts_g3[j].unplanSampleCount = listdata[i].unplanSampleCount== "null" ? "" : listdata[i].unplanSampleCount;
-							hourlycounts_g3[j].newOperatorCount = listdata[i].newOperatorCount== "null" ? "" : listdata[i].newOperatorCount;
-							hourlycounts_g3[j].othersCount 		= listdata[i].othersCount== "null" ? "" : listdata[i].othersCount;
-							hourlycounts_g3[j].orgnizationLoss 	= listdata[i].orgnizationLoss== "null" ? "" : listdata[i].orgnizationLoss;
-							hourlycounts_g3[j].unplanTpmCount 	= listdata[i].unplanTpmCount== "null" ? "" : listdata[i].unplanTpmCount;
-							hourlycounts_g3[j].performanceCount = listdata[i].performanceCount== "null" ? "" : listdata[i].performanceCount;
-							hourlycounts_g3[j].undefinedCount 	= listdata[i].undefinedCount== "null" ? "" : listdata[i].undefinedCount;
-							hourlycounts_g3[j].remark 			= listdata[i].remark== "null" ? "" : listdata[i].remark;
-							
-							//calculate sub total 
-							hourlycounts_sub3.group3_plan 		+= (listdata[i].planCount == "" ? 0 : listdata[i].planCount);
-							hourlycounts_sub3.group3_actual 	+= (listdata[i].actualCount == "" ? 0 : listdata[i].actualCount);
-						}
+					//calculate sub total count for group 2
+					if (i < 12){
+						hourlycounts_sub_total[1].group_plan += hourlycounts[i].planCount;
+						hourlycounts_sub_total[1].group_actual += hourlycounts[i].actualCount;
 					}
 					
-					//add group2 sub total count
-					hourlycounts_sub3.group3_plan 	+= temp_group2_plan;
-					hourlycounts_sub3.group3_actual += temp_group2_actual;
-					
-					//check if this item belong to hourlycounts_g4
-					for (j = 0; j < hourlycounts_g4.length; j ++){
-						if (listdata[i].productHour == hourlycounts_g4[j].productHour){
-							hourlycounts_g4[j].productTypeName1 = listdata[i].productType1 == null ? "" : listdata[i].productType1.productTypeName;
-							hourlycounts_g4[j].productCycle1 	= listdata[i].productCycle1 == "null" ? "" : listdata[i].productCycle1;
-							hourlycounts_g4[j].productTypeName2 = listdata[i].productType2 == null ? "" : listdata[i].productType2.productTypeName;
-							hourlycounts_g4[j].productCycle2 	= listdata[i].productCycle2 == "null" ? "" : listdata[i].productCycle2;
-							hourlycounts_g4[j].planCount 		= listdata[i].planCount== "null" ? "" : listdata[i].planCount;
-							hourlycounts_g4[j].actualCount 		= listdata[i].actualCount== "null" ? "" : listdata[i].actualCount;
-							hourlycounts_g4[j].productHourCount = listdata[i].productHourCount== "null" ? "" : listdata[i].productHourCount;
-							hourlycounts_g4[j].scrapCount 		= listdata[i].scrapCount== "null" ? "" : listdata[i].scrapCount;
-							hourlycounts_g4[j].reworkCount 		= listdata[i].reworkCount== "null" ? "" : listdata[i].reworkCount;
-							hourlycounts_g4[j].qualityLoss 		= listdata[i].qualityLoss== "null" ? "" : listdata[i].qualityLoss;
-							hourlycounts_g4[j].breakdownCount 	= listdata[i].breakdownCount== "null" ? "" : listdata[i].breakdownCount;
-							hourlycounts_g4[j].adjustmentCount 	= listdata[i].adjustmentCount== "null" ? "" : listdata[i].adjustmentCount;
-							hourlycounts_g4[j].technicalLoss 	= listdata[i].technicalLoss== "null" ? "" : listdata[i].technicalLoss;
-							hourlycounts_g4[j].planSetupCount 	= listdata[i].planSetupCount== "null" ? "" : listdata[i].planSetupCount;
-							hourlycounts_g4[j].unplanSetupCount = listdata[i].unplanSetupCount== "null" ? "" : listdata[i].unplanSetupCount;
-							hourlycounts_g4[j].exchgToolCount 	= listdata[i].exchgToolCount== "null" ? "" : listdata[i].exchgToolCount;
-							hourlycounts_g4[j].changeoverLoss 	= listdata[i].changeoverLoss== "null" ? "" : listdata[i].changeoverLoss;
-							hourlycounts_g4[j].lackPersonnelCount = listdata[i].lackPersonnelCount== "null" ? "" : listdata[i].lackPersonnelCount;
-							hourlycounts_g4[j].lackMaterialCount = listdata[i].lackMaterialCount== "null" ? "" : listdata[i].lackMaterialCount;
-							hourlycounts_g4[j].testReleaseThreePartsCount = listdata[i].testReleaseThreePartsCount== "null" ? "" : listdata[i].testReleaseThreePartsCount;
-							hourlycounts_g4[j].exchgMaterialCount = listdata[i].exchgMaterialCount== "null" ? "" : listdata[i].exchgMaterialCount;
-							hourlycounts_g4[j].unplanSampleCount = listdata[i].unplanSampleCount== "null" ? "" : listdata[i].unplanSampleCount;
-							hourlycounts_g4[j].newOperatorCount = listdata[i].newOperatorCount== "null" ? "" : listdata[i].newOperatorCount;
-							hourlycounts_g4[j].othersCount 		= listdata[i].othersCount== "null" ? "" : listdata[i].othersCount;
-							hourlycounts_g4[j].orgnizationLoss 	= listdata[i].orgnizationLoss== "null" ? "" : listdata[i].orgnizationLoss;
-							hourlycounts_g4[j].unplanTpmCount 	= listdata[i].unplanTpmCount== "null" ? "" : listdata[i].unplanTpmCount;
-							hourlycounts_g4[j].performanceCount = listdata[i].performanceCount== "null" ? "" : listdata[i].performanceCount;
-							hourlycounts_g4[j].undefinedCount 	= listdata[i].undefinedCount== "null" ? "" : listdata[i].undefinedCount;
-							hourlycounts_g4[j].remark 			= listdata[i].remark== "null" ? "" : listdata[i].remark;
-							
-							//calculate sub total 
-							hourlycounts_sub4.group4_plan 		+= (listdata[i].planCount == "" ? 0 : listdata[i].planCount);
-							hourlycounts_sub4.group4_actual 	+= (listdata[i].actualCount == "" ? 0 : listdata[i].actualCount);
-						}
+					//calculate sub total count for group 3
+					if (7 < i && i < 16){
+						hourlycounts_sub_total[2].group_plan += hourlycounts[i].planCount;
+						hourlycounts_sub_total[2].group_actual += hourlycounts[i].actualCount;
 					}
+					//calculate sub total count for group 4
+					if (15 < i && i < 24){
+						hourlycounts_sub_total[3].group_plan += hourlycounts[i].planCount;
+						hourlycounts_sub_total[3].group_actual += hourlycounts[i].actualCount;
+					}
+					
 				}
 				ractive.set("hourlyCountV0", hourlycounts_base);
-				ractive.set("hourlyCountV1", hourlycounts_g1);
-				ractive.set("hourlyCountV2", hourlycounts_g2);
-				ractive.set("hourlyCountV3", hourlycounts_g3);
-				ractive.set("hourlyCountV4", hourlycounts_g4);
-				ractive.set("hourlyCountsTotal1", hourlycounts_sub1);
-				ractive.set("hourlyCountsTotal2", hourlycounts_sub2);
-				ractive.set("hourlyCountsTotal3", hourlycounts_sub3);
-				ractive.set("hourlyCountsTotal4", hourlycounts_sub4);
+				ractive.set("hourlyCountV1", hourlycounts);
+				ractive.set("hourlyCountsTotal", hourlycounts_sub_total);
 				//ractive.update();
 			}
 		
 		});
+	}
+	
+	function isNull(arg1)
+	{
+	 return !arg1 && arg1!==0 && typeof arg1!=="boolean" ? true : false;
 	}
 	
 	return {

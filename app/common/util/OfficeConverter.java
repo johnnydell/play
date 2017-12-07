@@ -85,7 +85,8 @@ public class OfficeConverter {
 			//ax.setProperty("AutoRecover", new Variant(false));
 			workbooks = excel.getProperty("Workbooks").toDispatch();
 
-			//Object[] obj = new Object[] { inFilePath, new Variant(false), new Variant(false) };
+			Object[] obj = new Object[] { inFilePath, new Variant(false), new Variant(false) };
+			workbook = Dispatch.invoke(workbooks, "Open", Dispatch.Method, obj, new int[1]).toDispatch();
 //			Object[] obj = new Object[] { 
 //					inFilePath, 			//file name
 //					new Variant(0) , 		//UpdateLinks      
@@ -104,7 +105,7 @@ public class OfficeConverter {
 //					new Variant(1)			//CorruptLoad      
 //					};
 			
-			//excel = Dispatch.invoke(excels, "Open", Dispatch.Method, obj, new int[1]).toDispatch();
+			
 //			workbook = Dispatch.call(workbooks, "Open", inFilePath, 
 //					0,
 //					true,
@@ -121,12 +122,12 @@ public class OfficeConverter {
 //					false,
 //					1).toDispatch();
 			
-			workbook = Dispatch.call(workbooks, "Open", inFilePath, // FileName
-					3, // UpdateLinks
-					false, // Readonly
-					5, // Format
-					"" // Password
-					).toDispatch();
+//			workbook = Dispatch.call(workbooks, "Open", inFilePath, // FileName
+//					3, // UpdateLinks
+//					false, // Readonly
+//					5, // Format
+//					"" // Password
+//					).toDispatch();
 			
 
 			// 转换格式
