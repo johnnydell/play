@@ -1,5 +1,5 @@
 /*** 弹出框样式 ***/
-.popup {
+.login_popup {
     position: fixed;
     top: 0;
     right: 0;
@@ -12,23 +12,33 @@
     display: none;
 }
 
-.model{
+.login_popup .model{
     position: fixed;
     top: 50%;
     left: 50%;
     width: 600px;
-    height: 320px;
     margin-left: -350px;
     margin-top: -300px;
     background: #fff;    
     text-align: left;
 }
 
-.modal-header {
+.login_popup .modal-header {
     border-bottom: 1px solid #e5e5e5;
 }
 
-.modal-header .close {
+.login_popup .modal-body {
+    position: relative;
+    padding: 20px;
+}
+
+.login_popup .modal-footer {
+    padding: 15px;
+    text-align: right;
+    border-top: 1px solid #e5e5e5;
+}
+
+.login_popup .modal-header .close {
     margin-right: 10px;
     float: right;
     font-size: 21px;
@@ -41,90 +51,37 @@
     opacity: .2;
 }
 
-.modal-header h4 {
+.login_popup .modal-header h4 {
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 10px;
     font-weight: lighter;
 }
 
-.modal-body {
-    position: relative;
-    padding: 20px;
+.login_popup .modal-footer .btn {
+	padding: 6px 12px;
+	background: #DADADA;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	cursor: pointer;
 }
 
-.modal-body form {
-    display: block;
-    margin-top: 0em;
-}
+/** body内部设置**/
 
-.modal-body .table {
+.login_popup .modal-body .table {
     width: 100%;
-    max-width: 100%;
     margin-bottom: 20px;
-    background-color: transparent;
-    border-spacing: 0;
-    border-collapse: collapse;
 }
 
-.modal-body .table tr {
-    display: table-row;
-    vertical-align: inherit;
-    border-color: inherit;
-}
-
-.modal-body .table>tbody>tr>td {
+.login_popup .modal-body .table>tbody>tr>td {
 	padding:8px;
 }
 
-.modal-body .table .form-control {
-	border-radius: 0px !important;
-    box-shadow: none;
-    border-color: #d2d6de;
-    display: block;
-    width: 100%;
-    height: 34px;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+.login_popup .modal-body .table .form-control {
+	padding: 6px 12px;
+	width: 100%;
+	border: 1px solid #ccc;
 }
 
-.modal-footer {
-    padding: 15px;
-    text-align: right;
-    border-top: 1px solid #e5e5e5;
-}
 
-.modal-footer .btn {
-    box-shadow: none;
-    background: #DADADA;
-    display: inline-block;
-    padding: 6px 12px;
-    margin-bottom: 0;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: 1px solid transparent;
-    border-radius: 4px;
-}
+

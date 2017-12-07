@@ -109,10 +109,10 @@ var manager = function() {
 	          	  location.href = root+"/views/scr.html";
 	          },
 	          toLogin:function(){	     
-      	    	  $(".popup").show();  
+      	    	  $(".login_popup").show();  
       	    	  $.get(root+"/views/tpl/common/login.html", function (data) {
 	        	        var ractive2 = new Ractive({
-	        	            el: ".popup",
+	        	            el: ".login_popup",
 	        	            template: data,
 	        	            data:{root:root},
 	        	            oncomplete: function () {
@@ -125,7 +125,7 @@ var manager = function() {
 	        	        });
 	        	        
 	        	        ractive2.on("close", function () {
-	        	            $(".popup").hide().html("");
+	        	            $(".login_popup").hide().html("");
 	        	        });
 	        	    });      	
 	          }

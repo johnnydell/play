@@ -29,6 +29,7 @@ var opl = function(){
 						immediate:'sdfasfdfexeafe sdfdfe ',
 						longTerm:'1111',
 						problemSolvingSheet:'Y',
+						pss:'111.xls',
 						responsible:'zhangsan',
 						deadline:'2017-04-02',
 						status:'N'						
@@ -50,6 +51,7 @@ var opl = function(){
 						immediate:'sdfasfdfexeafe sdfdfe ',
 						longTerm:'1111',
 						problemSolvingSheet:'Y',
+						pss:'111.xls',
 						responsible:'zhangsan',
 						deadline:'2017-04-02',
 						status:'N'						
@@ -132,6 +134,7 @@ var opl = function(){
 						immediate:'sdfasfdfexeafe sdfdfe ',
 						longTerm:'1111',
 						problemSolvingSheet:'Y',
+						pss:'111.xls',
 						responsible:'zhangsan',
 						deadline:'2017-04-02',
 						status:'N'						

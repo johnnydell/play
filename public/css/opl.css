@@ -47,7 +47,7 @@
     height: 54px;
 }
 
-.content-box table td:nth-child(17) {
+.content-box table td:last-child {
 	color: #006bb7;
 	font-size:xx-large;
 	text-align: center;
@@ -119,6 +119,11 @@
 .opltr td input,.opltr td select,.opltr td textarea {
 	border: 1px solid #0080ff;	
 }	
+
+.opltr td .field .link{
+	text-decoration: underline;
+	color: #0080ff;
+}
 
 
 
