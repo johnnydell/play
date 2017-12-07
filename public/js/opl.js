@@ -29,6 +29,7 @@ var opl = function(){
 						immediate:'sdfasfdfexeafe sdfdfe ',
 						longTerm:'1111',
 						problemSolvingSheet:'Y',
+						pss:'111.xls',
 						responsible:'zhangsan',
 						deadline:'2017-04-02',
 						status:'N'						
@@ -49,12 +50,35 @@ var opl = function(){
 						rootCause:'sdafdasfdasfdasfdsfdsf',
 						immediate:'sdfasfdfexeafe sdfdfe ',
 						longTerm:'1111',
-						problemSolvingSheet:'Y',
+						problemSolvingSheet:'N',
+						pss:'111.xls',
 						responsible:'zhangsan',
 						deadline:'2017-04-02',
 						status:'N'						
 					};
 				opl.push(op2);
+				var op3 = {
+						id:"0",
+						checked:false,
+						date:"2017-04-02",
+						refNo:"BH001",
+						personFound:"ZANSANG",
+						station:'001',
+						description:'sadfs dsaf a 你好！',
+						dtFrom:'18:15',
+						dtTo:'18:15',
+						timing:'3',
+						amt:'12',
+						rootCause:'sdafdasfdasfdasfdsfdsf',
+						immediate:'sdfasfdfexeafe sdfdfe ',
+						longTerm:'1111',
+						problemSolvingSheet:'Y',
+						pss:'',
+						responsible:'zhangsan',
+						deadline:'2017-04-02',
+						status:'N'						
+					};
+				opl.push(op3);
 				this.set("opl",opl);
 			},
 			oncomplete: function(){
@@ -115,6 +139,9 @@ var opl = function(){
 					$(e.node).hide().prev().show().text($(e.node).val());
 				}
 			},
+			changePSS:function(e){
+				
+			},
 			addOP:function(){				
 				var op = {
 						id:"0",
@@ -132,6 +159,7 @@ var opl = function(){
 						immediate:'sdfasfdfexeafe sdfdfe ',
 						longTerm:'1111',
 						problemSolvingSheet:'Y',
+						pss:'111.xls',
 						responsible:'zhangsan',
 						deadline:'2017-04-02',
 						status:'N'						
@@ -183,7 +211,28 @@ var opl = function(){
 			test:function(){
 				console.log(opl[0].days[3]);
 				console.log(deletedOPL);
-			}			
+			},
+			showPss:function(){
+				$(".pss_popup").show();  
+    	    	  $.get(manager.root+"/views/tpl/board/addPSS.html", function (data) {
+	        	        var ractive2 = new Ractive({
+	        	            el: ".pss_popup",
+	        	            template: data,
+	        	            data:{root:manager.root},
+	        	            oncomplete: function () {
+
+	        	            }
+	        	        });
+
+	        	        ractive2.on("login", function () {
+	        	            console.log("login");
+	        	        });
+	        	        
+	        	        ractive2.on("close", function () {
+	        	            $(".pss_popup").hide().html("");
+	        	        });
+	        	    });   
+			}
 		})
 	}
 	

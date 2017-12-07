@@ -1,5 +1,5 @@
 /*** 弹出框样式 ***/
-.login_popup {
+.pss_popup {
     position: fixed;
     top: 0;
     right: 0;
@@ -12,7 +12,7 @@
     display: none;
 }
 
-.login_popup .model{
+.pss_popup .model{
     position: fixed;
     top: 50%;
     left: 50%;
@@ -23,22 +23,22 @@
     text-align: left;
 }
 
-.login_popup .modal-header {
+.pss_popup .modal-header {
     border-bottom: 1px solid #e5e5e5;
 }
 
-.login_popup .modal-body {
+.pss_popup .modal-body {
     position: relative;
     padding: 20px;
 }
 
-.login_popup .modal-footer {
+.pss_popup .modal-footer {
     padding: 15px;
     text-align: right;
     border-top: 1px solid #e5e5e5;
 }
 
-.login_popup .modal-header .close {
+.pss_popup .modal-header .close {
     margin-right: 10px;
     float: right;
     font-size: 21px;
@@ -51,14 +51,14 @@
     opacity: .2;
 }
 
-.login_popup .modal-header h4 {
+.pss_popup .modal-header h4 {
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 10px;
     font-weight: lighter;
 }
 
-.login_popup .modal-footer .btn {
+.pss_popup .modal-footer .btn {
 	padding: 6px 12px;
 	background: #DADADA;
 	border: 1px solid transparent;
@@ -68,16 +68,16 @@
 
 /** body内部设置**/
 
-.login_popup .modal-body .table {
+.pss_popup .modal-body .table {
     width: 100%;
     margin-bottom: 20px;
 }
 
-.login_popup .modal-body .table>tbody>tr>td {
+.pss_popup .modal-body .table>tbody>tr>td {
 	padding:8px;
 }
 
-.login_popup .modal-body .table .form-control {
+.pss_popup .modal-body .table .form-control {
 	padding: 6px 12px;
 	width: 100%;
 	border: 1px solid #ccc;

@@ -8,6 +8,7 @@
 		<link rel="stylesheet" type="text/css" href="../../css/login.css"/>
 		<link rel="stylesheet" type="text/css" href="../../js/lib/datetimepicker/jquery.datetimepicker.css"/>	
 		<link rel="stylesheet" type="text/css" href="../../css/opl.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/addPSS.css"/>
 	</head>
 	<body>
 		<div class="box">
@@ -66,6 +67,7 @@
 					<th></th>
 					<th></th>
 					<th></th>
+					<th></th>
 				</tr>
 				<tr>
 					<th colspan="3" style="font-size: 20px;font-weight: bold;text-align:right;">Month月份：</th>
@@ -99,6 +101,7 @@
 					<th></th>
 					<th></th>
 					<th></th>
+					<th></th>
 				</tr>
 			    <tr>
 				    <th width="2%" rowspan="2"><input type="checkbox" /></th>
@@ -107,7 +110,7 @@
 			        <th width="5%" rowspan="2">Person Found<br>问题提出人</th>
 			        <th width="4%" rowspan="2">Station<br>工位号</th>
 			        <th colspan="7">Deviation / Problem 偏差/问题</th>
-			        <th colspan="6">Corrective Action行动方案</th>
+			        <th colspan="7">Corrective Action行动方案</th>
 			    </tr>
 			    <tr>
 			        <th width="11%">Description<br>偏差或问题描述</th>
@@ -115,10 +118,11 @@
 			        <th width="4%">To<br>问题结束时间</th>
 			        <th width="3%">timing<br>持续时间(分钟)</th>
 			        <th width="4%">Amount<br>缺陷数量</th>
-			        <th width="16%" colspan="2">Root Cause<br>根本原因</th>
+			        <th width="12%" colspan="2">Root Cause<br>根本原因</th>
 			        <th width="9%">Immediate<br>临时措施</th>
 			        <th width="12%">Long Term<br>永久措施<br>(在关闭阶段需要同步更新FMEA,CP,WI,PRR,SP、STAB、5M1E等相关工艺文件及标准)</th>
-			        <th width="4%">Problem solving sheet(Y/N)<br>问题解决表</th>
+			        <th width="3%">Problem solving sheet(Y/N)<br>问题解决表</th>
+					<th width="5%">PSS链接<br>问题解决表</th>
 			        <th width="4%">Person Responsible<br>责任人</th>
 			        <th width="5%">Deadline<br>截止日期</th>
 			        <th width="3%">Status<br>状态</th>        
@@ -176,10 +180,27 @@
                     </td>
 			        <td on-click="toShowColumnEditor">
                        <label class="field">{{problemSolvingSheet}}</label>
-					   <select class="field" style="display:none;" on-blur="toHideColumnEditor" value="{{problemSolvingSheet}}">
+					   <select class="field" style="display:none;" on-blur="toHideColumnEditor" on-change="changePSS" value="{{problemSolvingSheet}}">
 						 <option value="Y">Y</option>
 						 <option value="N">N</option>
 	             	   </select>
+                    </td>
+ 					<td>
+                       {{#if problemSolvingSheet == 'Y'}}
+							{{#if pss != ''}}
+								<label class="field" ><a class="link" href="javascript:void(0);" on-click="showPss">{{pss}}</a></label>
+								<label class="field" style="display:none;"><a class="link" href="javascript:void(0);" on-click="showPss">增加PSS</a></label>
+								<label class="field" style="display:none;"></label>
+							{{else}}
+								<label class="field" style="display:none;"><a class="link" href="javascript:void(0);" on-click="showPss">{{pss}}</a></label>
+								<label class="field" ><a class="link" href="javascript:void(0);" on-click="showPss">增加PSS</a></label>
+								<label class="field" style="display:none;"></label>
+                      		{{/if}}
+                       {{else}}
+                    		<label class="field" style="display:none;"><a class="link" href="javascript:void(0);" on-click="showPss">{{pss}}</a></label>
+							<label class="field" style="display:none;"><a class="link" href="javascript:void(0);" on-click="showPss">增加PSS</a></label>
+							<label class="field" ></label>
+                       {{/if}}
                     </td>
 			        <td on-click="toShowColumnEditor">
                        <label class="field">{{responsible}}</label>
@@ -218,5 +239,7 @@
 			</div>			
 		</div>
 	</div>
+    <!-- 登录DIV -->
+	<div class="pss_popup"></div>
     </script>
 </html>
