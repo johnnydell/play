@@ -1,0 +1,77 @@
+.content{
+	height: 100%;
+}
+.pdca-box{
+	position: relative;
+	text-align: center;
+}
+.pdca-lr{
+	width: 30%;
+	display: inline-block;
+	padding: 80px 20px 0px;
+	vertical-align: top;
+}
+.pdca-c{
+	width: 30%;
+	display: inline-block;
+	padding: 30px 20px 0px;
+}
+.pdca-item{
+	margin-bottom: 50px;
+	width: 100%;
+}
+
+.pdca-item img:hover{
+	border:3px solid  #f00;
+}
+
+.pdca-c .pdca-item{
+	margin-bottom: 20px;
+}
+
+.pdca-item h3{
+	text-align: center;
+	
+}
+.pdca-item h3 i{
+	display: inline-block;
+	width: 35px;;
+	height: 35px;
+	line-height: 30px;
+	text-align: center;
+	color: #000;
+	background: #ffff00;
+	border: solid 1px #8faadc;
+	border-radius: 50%;
+	font-size: 16px;
+	font-weight: normal;
+	vertical-align: middle;
+}
+.pdca-item h3 span{
+	display: inline-block;
+	width: 80%;
+	margin-left: 5px;
+	padding: 0px 2px;
+	border: solid 1px #000;
+	background: #8faadc;
+	color: #fff;
+	vertical-align: middle;
+}
+.pdca-item img{
+	margin: 10px 0px;
+	width: 100%;
+	max-height: 255px;
+}
+
+.pdca-item.pdca2{
+	margin: 0px auto 20px;
+	width: 176px;
+	height: 200px;
+	background: url(../images/board/bg_c.png) no-repeat;
+	background-size: 100% 100%;
+	text-align: center;
+	line-height: 220px;
+	font-size: 30px;
+	color: #003366;
+	font-weight: bold;
+}
