@@ -209,8 +209,10 @@ var opl = function(){
 				console.log("prepare to save");
 			},
 			test:function(){
-				console.log(opl[0].days[3]);
-				console.log(deletedOPL);
+				/*console.log(opl[0].days[3]);
+				console.log(deletedOPL);*/
+				console.log(manager);
+				manager.triggerLogin();
 			},
 			showPss:function(){
 				$(".pss_popup").show();  
