@@ -8,6 +8,7 @@
 		<link rel="stylesheet" type="text/css" href="../../css/login.css"/>
 		<link rel="stylesheet" type="text/css" href="../../css/jquery-ui.min.css"/>
 		<link rel="stylesheet" type="text/css" href="../../css/hourlycount.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/hourlypop.css"/>
 		
 	</head>
 	<body>
@@ -288,7 +289,7 @@
 					</td>
 					<td on-click="toShowColumnEditor">
 						<label>{{format(hourlyCountV1[index].productTypeName2)}}</label>
-						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV1[index].productTypeName2}}" on-keyup="toValidateEditorOnlyNum"/>
+						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV1[index].productTypeName2}}" />
 					</td>
 					<td on-click="toShowColumnEditor">
 						<label>{{format(hourlyCountV1[index].productCycle2)}}</label>
@@ -299,7 +300,12 @@
 						<input class="field plan" style="display:none;" on-blur="toHideColumnEditorWithCalculationForPlan" type="text" value="{{hourlyCountV1[index].planCount}}" on-keyup="toValidateEditorOnlyNum"/>
 					</td>
 					<td>
+						
+					{{#if hourlyCountV1[index].planCount > 0}}
 						<label>{{format(hourlyCountV1[index].planTotalCount)}}</label>
+					{{else}}
+						<label></label>
+					{{/if}}	
 						
 					</td>
 					<td on-click="toShowColumnEditor">
@@ -307,82 +313,95 @@
 						<input class="field " style="display:none;" on-blur="toHideColumnEditorWithCalculationForActual" type="text" value="{{hourlyCountV1[index].actualCount}}" on-keyup="toValidateEditorOnlyNum"/>
 					</td>
 					<td>
+					{{#if hourlyCountV1[index].actualCount > 0}}
 						<label>{{format(hourlyCountV1[index].actualTotalCount)}}</label>
-						
+					{{else}}
+						<label></label>
+					{{/if}}	
 					</td>
 					<td colspan="7" style="text-align:left">
-						<input type="button" style="display:none; height=35px" value="{{hourlyCountV1[index].productHourCount}}"/>
+					{{#if hourlyCountV1[index].productHourCount > 0}}
+						{{#if hourlyCountV1[index].productHourPercent < 0.5}}
+							<input type="button" style=" height:35px; background-color:red" value="{{hourlyCountV1[index].productHourCount}}"/>
+						{{elseif hourlyCountV1[index].productHourPercent < 0.7 && hourlyCountV1[index].productHourPercent > 0.5}}
+							<input type="button" style=" height:35px; background-color:yellow" value="{{hourlyCountV1[index].productHourCount}}"/>
+						{{else}}
+							<input type="button" style=" height:35px; background-color:green" value="{{hourlyCountV1[index].productHourCount}}"/>
+						{{/if}}
+					{{else}}
+						<input type="button" style="display:none; height:35px" value="{{hourlyCountV1[index].productHourCount}}"/>
+					{{/if}}
 					</td>
-					<td on-click="toShowColumnEditor">
+					<td on-click="toShowRemark">
 						<label>{{format(hourlyCountV1[index].scrapCount)}}</label>
-						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV1[index].scrapCount}}" on-keyup="toValidateEditorOnlyNum"/>
+						
 					</td>
-					<td on-click="toShowColumnEditor">
+					<td on-click="toShowRemark">
 						<label>{{format(hourlyCountV1[index].reworkCount)}}</label>
-						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV1[index].reworkCount}}" on-keyup="toValidateEditorOnlyNum"/>
+						
 					</td>
 					<td class="graycolor" >
 						<label>{{format(hourlyCountV1[index].qualityLoss)}}</label>
 					</td>
-					<td on-click="toShowColumnEditor">
+					<td on-click="toShowRemark">
 						<label>{{format(hourlyCountV1[index].breakdownCount)}}</label>
-						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV1[index].breakdownCount}}" on-keyup="toValidateEditorOnlyNum"/>
+						
 					</td>
-					<td on-click="toShowColumnEditor">
+					<td on-click="toShowRemark">
 						<label>{{format(hourlyCountV1[index].adjustmentCount)}}</label>
-						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV1[index].adjustmentCount}}" on-keyup="toValidateEditorOnlyNum"/>
+						
 					</td>
 					<td class="graycolor">
 						<label>{{format(hourlyCountV1[index].technicalLoss)}}</label>
 						
 					</td>
-					<td on-click="toShowColumnEditor">
+					<td on-click="toShowRemark">
 						<label>{{format(hourlyCountV1[index].planSetupCount)}}</label>
-						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV1[index].planSetupCount}}" on-keyup="toValidateEditorOnlyNum"/>
+						
 					</td>
-					<td on-click="toShowColumnEditor">
+					<td on-click="toShowRemark">
 						<label>{{format(hourlyCountV1[index].unplanSetupCount)}}</label>
-						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV1[index].unplanSetupCount}}" on-keyup="toValidateEditorOnlyNum"/>
+						
 					</td>
-					<td on-click="toShowColumnEditor">
+					<td on-click="toShowRemark">
 						<label>{{format(hourlyCountV1[index].exchgToolCount)}}</label>
-						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV1[index].exchgToolCount}}" on-keyup="toValidateEditorOnlyNum"/>
+						
 					</td>
 					<td class="graycolor"> 
 						<label>{{format(hourlyCountV1[index].changeoverLoss)}}</label>
 					</td>
-					<td on-click="toShowColumnEditor">
+					<td on-click="toShowRemark">
 						<label>{{format(hourlyCountV1[index].lackPersonnelCount)}}</label>
-						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV1[index].lackPersonnelCount}}" on-keyup="toValidateEditorOnlyNum"/>
+						
 					</td>
-					<td on-click="toShowColumnEditor">
+					<td on-click="toShowRemark">
 						<label>{{format(hourlyCountV1[index].lackMaterialCount)}}</label>
-						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV1[index].lackMaterialCount}}" on-keyup="toValidateEditorOnlyNum"/>
+						
 					</td>
-					<td on-click="toShowColumnEditor">
+					<td on-click="toShowRemark">
 						<label>{{format(hourlyCountV1[index].testReleaseThreePartsCount)}}</label>
-						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV1[index].testReleaseThreePartsCount}}" on-keyup="toValidateEditorOnlyNum"/>
+						
 					</td>
 
-					<td on-click="toShowColumnEditor">
+					<td on-click="toShowRemark">
 						<label>{{format(hourlyCountV1[index].exchgMaterialCount)}}</label>
-						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV1[index].exchgMaterialCount}}" on-keyup="toValidateEditorOnlyNum"/>
+						
 					</td>
-					<td on-click="toShowColumnEditor">
+					<td on-click="toShowRemark">
 						<label>{{format(hourlyCountV1[index].unplanSampleCount)}}</label>
-						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV1[index].unplanSampleCount}}" on-keyup="toValidateEditorOnlyNum"/>
+						
 					</td>
-					<td on-click="toShowColumnEditor">
+					<td on-click="toShowRemark">
 						<label>{{format(hourlyCountV1[index].newOperatorCount)}}</label>
-						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV1[index].newOperatorCount}}" on-keyup="toValidateEditorOnlyNum"/>
+						
 					</td>
-					<td on-click="toShowColumnEditor">
+					<td on-click="toShowRemark">
 						<label>{{format(hourlyCountV1[index].unplanTpmCount)}}</label>
-						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV1[index].unplanTpmCount}}" on-keyup="toValidateEditorOnlyNum"/>
+						
 					</td>
-					<td on-click="toShowColumnEditor">
+					<td on-click="toShowRemark">
 						<label>{{format(hourlyCountV1[index].othersCount)}}</label>
-						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV1[index].othersCount}}" on-keyup="toValidateEditorOnlyNum"/>
+						
 					</td>
 					<td class="graycolor">
 						<label>{{format(hourlyCountV1[index].orgnizationLoss)}}</label>
@@ -392,8 +411,9 @@
 					<td colspan="7">
 						<label>{{hourlyCountV1[index].remark}}</label>
 					</td>
-					<td>
-						&nbsp;
+					<td on-click="toShowColumnEditor">
+						<label>{{hourlyCountV1[index].techDownCode}}</label>
+						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV1[index].techDownCode}}" />
 					</td>
 				</tr>
 				{{#if index == 7}}
@@ -484,32 +504,32 @@
 						
 					</td>
 					
-					<td colspan="3" on-click="toShowColumnEditor">
+					<td colspan="3" on-click="toShowLogin">
 						<label>{{hourlyCountV0.teamLeaderSign1}}</label>
-						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV0.teamLeaderSign1}}"/>
+
 					</td>
 					<td colspan="4">
 						<label>{{i18n_hourlycount_sign_shift_2}}</label>
 					</td>
 					
-					<td colspan="4" on-click="toShowColumnEditor">
+					<td colspan="4" on-click="toShowLogin">
 						<label>{{hourlyCountV0.teamLeaderSign2}}</label>
-						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV0.teamLeaderSign2}}"/>
+						
 					</td>
 					<td colspan="4">
 						<label>{{i18n_hourlycount_sign_shift_3}}</label>
 					</td>
 					
-					<td colspan="4" on-click="toShowColumnEditor">
+					<td colspan="4" on-click="toShowLogin">
 						<label>{{hourlyCountV0.teamLeaderSign3}}</label>
-						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV0.teamLeaderSign3}}"/>
+						
 					</td>
 					<td colspan="3">
 						<label>{{i18n_hourlycount_sign_group}}</label>
 					</td>
-					<td colspan="4" on-click="toShowColumnEditor">
+					<td colspan="4" on-click="toShowLogin">
 						<label>{{hourlyCountV0.groupLeaderSign}}</label>
-						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV0.groupLeaderSign}}"/>
+						
 					</td>
 					<td colspan="2">
 						<label>{{i18n_hourlycount_target_oee}}</label>
@@ -528,5 +548,7 @@
 			</div>
 		</div>
 	</div>
+	<!-- DIV -->
+	<div class="hourly_popup"></div>
     </script>
 </html>

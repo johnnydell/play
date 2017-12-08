@@ -120,11 +120,7 @@
 	cursor: pointer;
 }
 
-.content-box table td:nth-child(2) {
-	color: #006bb7;
-	text-align: center;
-	border: 1px solid #000;
-}
+
 
 .content-box table td span {
 	margin-left: 20px;

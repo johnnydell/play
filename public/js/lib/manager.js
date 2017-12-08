@@ -153,6 +153,7 @@ var manager = function() {
 
   	        ractive2.on("login", function () {
   	            console.log("login");
+  	          $(".login_popup").hide().html("");
   	        });
   	        
   	        ractive2.on("close", function () {
