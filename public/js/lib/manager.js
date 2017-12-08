@@ -108,27 +108,7 @@ var manager = function() {
 	          toScreen:function(){
 	          	  location.href = root+"/views/scr.html";
 	          },
-	          toLogin:function(){	     
-      	    	  $(".login_popup").show();  
-      	    	  $.get(root+"/views/tpl/common/login.html", function (data) {
-	        	        var ractive2 = new Ractive({
-	        	            el: ".login_popup",
-	        	            template: data,
-	        	            data:{root:root},
-	        	            oncomplete: function () {
-
-	        	            }
-	        	        });
-
-	        	        ractive2.on("login", function () {
-	        	            console.log("login");
-	        	        });
-	        	        
-	        	        ractive2.on("close", function () {
-	        	            $(".login_popup").hide().html("");
-	        	        });
-	        	    });      	
-	          }
+	          toLogin:triggerLogin
 	        })
 	        
 	    });
@@ -157,6 +137,29 @@ var manager = function() {
 	        });   
 	    });   
 	}
+	
+	//触发弹出登录
+	function triggerLogin(){	     
+    	  $(".login_popup").show(); 
+    	  $.get(root+"/views/tpl/common/login.html", function (data) {
+  	        var ractive2 = new Ractive({
+  	            el: ".login_popup",
+  	            template: data,
+  	            data:{root:root},
+  	            oncomplete: function () {
+
+  	            }
+  	        });
+
+  	        ractive2.on("login", function () {
+  	            console.log("login");
+  	        });
+  	        
+  	        ractive2.on("close", function () {
+  	            $(".login_popup").hide().html("");
+  	        });
+  	    });      	
+    }
 
 	return {
 		init: renderLayout,
@@ -183,7 +186,8 @@ var manager = function() {
         },
         unblock: function() {
         	$.unblockUI();
-        }
+        },
+        triggerLogin:triggerLogin
  }
 
 }();
