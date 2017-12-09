@@ -17,6 +17,9 @@ POST     /edashboard/city/addCity4   					controllers.CityController.addCity4()
 GET  /edashboard/func/getList               			controllers.FuncController.getList()
 POST /edashboard/func/saveFunc               			controllers.FuncController.saveFunc()
 
+#OPL
+POST /edashboard/addPss/uploadFile 		                controllers.AddPSSController.uploadFile()
+
 # UPLOADER
 POST /edashboard/views/upload/uploadFile/:fileType 		controllers.UploaderController.uploadFile(fileType : String)
 POST /edashboard/views/staticpage/viewdoc/:fileName 	controllers.StaticPageController.viewFileByName(fileName : String)

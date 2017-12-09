@@ -9,6 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="../../js/lib/datetimepicker/jquery.datetimepicker.css"/>	
 		<link rel="stylesheet" type="text/css" href="../../css/opl.css"/>
 		<link rel="stylesheet" type="text/css" href="../../css/addPSS.css"/>
+		<link rel="stylesheet" type="text/css" href="../../js/lib/webuploader-0.1.5/webuploader.css"/>        
 	</head>
 	<body>
 		<div class="box">
@@ -31,6 +32,7 @@
 	<script src="../../js/lib/datetimepicker/jquery.datetimepicker.full.js"></script>
 	<script src="../../js/lib/manager.js"></script>
 	<script src="../../js/opl.js"></script>
+    <script src="../../js/lib/webuploader-0.1.5/webuploader.js"></script>
 	<script id="main-template" type="text/active">
 	<div class="position _clear title">
 		<h3>{{i18n_opl_title}}</h3>
@@ -127,7 +129,7 @@
 			        <th width="5%">Deadline<br>截止日期</th>
 			        <th width="3%">Status<br>状态</th>        
 			    </tr>
- 				{{#each opl}}
+ 				{{#each opl:index}}
 			    <tr class="opltr">
 				    <td><input type="checkbox" checked="{{checked}}" /></td>
 			        <td on-click="toShowColumnEditor">
@@ -185,7 +187,7 @@
 						 <option value="N">N</option>
 	             	   </select>
                     </td>
- 					<td>
+ 					<td lang="{{index}}">
                        {{#if problemSolvingSheet == 'Y'}}
 							{{#if pss != ''}}
 								<label class="field" ><a class="link" href="javascript:void(0);" on-click="showPss">{{pss}}</a></label>
