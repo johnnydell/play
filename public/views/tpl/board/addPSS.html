@@ -4,34 +4,31 @@
 		<h4>PSS链接管理</h4>
 	</div>
 	<div class="modal-body">
-		<form>
 		<table class="table">
 			<tbody>
 			<tr>
 				<td>
 				    <label><strong>当前PSS链接:</strong></label> 
-				    <a href="#">111.xls</a>
+				    <a href="#">{{currPss}}</a>
 			     </td>
 			</tr>
 			<tr>
 				<td>
-				    <input type="text" placeholder="请选择文件···" readonly="readonly"/>
-					<a href="javascript:;" class="fileBtn">选择文件<input type="file" name="layout" value="" id="layout_upload" class="btnBrowser"/></a>
-					<input type="button" name="btnUploadLayout" value="{{i18n_uploader_name_upload}}" class="divupload" on-click="uploadLayoutPage"/>
+					<div id="uploader">
+				    <div id="thelist" class="uploader-list"></div>
+				    <div>
+				        <div id="picker" class="webuploader-container">
+					        <div class="webuploader-pick">选择文件</div>
+						        <div>
+							        <input name="file" class="webuploader-element-invisible" multiple="multiple" type="file">
+						        </div>
+					        </div>
+				        	<button id="ctlBtn" class="btn-ext btn-default">开始上传</button>
+				    </div>
+				</div>
 			     </td>
-			</tr>
-			<tr>
-				<td>
-				   <label><strong>Password: </strong></label>
-				   <input type="password" id="doLogin_passwd" class="form-control"> 
-				</td>
 			</tr>
 			</tbody>
 		</table>
-		</form>
-	</div>
-	<div class="modal-footer">
-		<button type="button" class="btn" on-click="close">Close</button>
-		<button type="button" class="btn" on-click="login">Login</button>
 	</div>
 </div>

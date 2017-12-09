@@ -51,7 +51,7 @@ var opl = function(){
 						immediate:'sdfasfdfexeafe sdfdfe ',
 						longTerm:'1111',
 						problemSolvingSheet:'N',
-						pss:'111.xls',
+						pss:'',
 						responsible:'zhangsan',
 						deadline:'2017-04-02',
 						status:'N'						
@@ -214,15 +214,111 @@ var opl = function(){
 				console.log(manager);
 				manager.triggerLogin();
 			},
-			showPss:function(){
+			showPss:function(e){
+			    var index = $(e.node).parent().parent().attr("lang");
 				$(".pss_popup").show();  
     	    	  $.get(manager.root+"/views/tpl/board/addPSS.html", function (data) {
+    	    	        var currPss	= opl[index].pss;     
 	        	        var ractive2 = new Ractive({
 	        	            el: ".pss_popup",
 	        	            template: data,
 	        	            data:{root:manager.root},
 	        	            oncomplete: function () {
-
+	        	                var _ractive = this;
+	        	                _ractive.set("currPss",currPss);
+	        	                
+	        	            	var $list = $('#thelist'),
+							        $btn = $('#ctlBtn'),
+							        state = 'pending',
+							        uploader;
+							    
+							    uploader = WebUploader.create({
+							
+							        // 不压缩image
+							        resize: false,
+							
+							        // swf文件路径
+							        swf: manager.root + '/js/lib/webuploader-0.1.5/Uploader.swf',
+							
+							        // 文件接收服务端。
+							        server: manager.root + '/addPss/uploadFile',
+							
+							        // 选择文件的按钮。可选。
+							        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+							        pick: '#picker',
+							        accept: {
+										title: 'excel',
+										extensions: 'xls,xlsx',
+										mimeTypes: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+									}
+							    });
+							
+							    // 当有文件添加进来的时候
+							    uploader.on( 'fileQueued', function( file ) {
+							     	$list.html('');
+							        $list.append( '<div id="' + file.id + '" class="item">' +
+							            '<h4 class="info">' + file.name + '</h4>' +
+							            '<p class="state">等待上传...</p>' +
+							        '</div>' );
+							    });
+							
+							    // 文件上传过程中创建进度条实时显示。
+							    uploader.on( 'uploadProgress', function( file, percentage ) {
+							        var $li = $( '#'+file.id ),
+							            $percent = $li.find('.progress .progress-bar');
+							
+							        // 避免重复创建
+							        if ( !$percent.length ) {
+							            $percent = $('<div class="progress progress-striped active">' +
+							              '<div class="progress-bar" role="progressbar" style="width: 0%">' +
+							              '</div>' +
+							            '</div>').appendTo( $li ).find('.progress-bar');
+							        }
+							
+							        $li.find('p.state').text('上传中');
+							
+							        $percent.css( 'width', percentage * 100 + '%' );
+							    });
+							
+							    uploader.on( 'uploadSuccess', function( file,resp ) {
+							        $( '#'+file.id ).find('p.state').text('已上传');
+							        if(resp.result === 'OK'){
+							          currPss = resp.newFileName;
+							          _ractive.set("currPss",currPss);
+							        }
+							    });
+							
+							    uploader.on( 'uploadError', function( file ) {
+							        $( '#'+file.id ).find('p.state').text('上传出错');
+							    });
+							
+							    uploader.on( 'uploadComplete', function( file ) {
+							        $( '#'+file.id ).find('.progress').fadeOut();
+							    });
+							
+							    uploader.on( 'all', function( type ) {
+							        if ( type === 'startUpload' ) {
+							            state = 'uploading';
+							        } else if ( type === 'stopUpload' ) {
+							            state = 'paused';
+							        } else if ( type === 'uploadFinished' ) {
+							            state = 'done';
+							        }
+							
+							        if ( state === 'uploading' ) {
+							            $btn.text('暂停上传');
+							        } else {
+							            $btn.text('开始上传');
+							        }
+							    });
+							
+							    $btn.on( 'click', function() {
+							        if ( state === 'uploading' ) {
+							            uploader.stop();
+							        } else {
+							            uploader.upload();
+							        }
+							    });        	            	   
 	        	            }
 	        	        });
 
@@ -232,6 +328,8 @@ var opl = function(){
 	        	        
 	        	        ractive2.on("close", function () {
 	        	            $(".pss_popup").hide().html("");
+	        	            opl[index].pss = currPss;
+	        	            ractive.update("opl");
 	        	        });
 	        	    });   
 			}
