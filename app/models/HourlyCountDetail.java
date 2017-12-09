@@ -125,6 +125,10 @@ public class HourlyCountDetail extends Model {
 	
 	@Column(name = "remark")
 	public String remark;
+	
+	@Column(name = "tech_down_code")
+	public String techDownCode;
+	
 
 	
 
