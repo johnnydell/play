@@ -1,16 +1,23 @@
 <div class="model">
 	<div class="modal-header">
 		<button type="button" class="close" on-click="close">×</button>
-		<h4>Login</h4>
+		<h4>PSS链接管理</h4>
 	</div>
 	<div class="modal-body">
-		<form role="form" class="ng-pristine ng-valid">
-		<div class="form-group">
-		<table id="doLogin" class="table">
-			<tbody><tr>
+		<form>
+		<table class="table">
+			<tbody>
+			<tr>
 				<td>
-				    <label><strong>User Name:</strong></label> 
-				    <input type="text" id="doLogin_username" class="form-control">
+				    <label><strong>当前PSS链接:</strong></label> 
+				    <a href="#">111.xls</a>
+			     </td>
+			</tr>
+			<tr>
+				<td>
+				    <input type="text" placeholder="请选择文件···" readonly="readonly"/>
+					<a href="javascript:;" class="fileBtn">选择文件<input type="file" name="layout" value="" id="layout_upload" class="btnBrowser"/></a>
+					<input type="button" name="btnUploadLayout" value="{{i18n_uploader_name_upload}}" class="divupload" on-click="uploadLayoutPage"/>
 			     </td>
 			</tr>
 			<tr>
@@ -19,8 +26,8 @@
 				   <input type="password" id="doLogin_passwd" class="form-control"> 
 				</td>
 			</tr>
-		</tbody></table>
-		</div>
+			</tbody>
+		</table>
 		</form>
 	</div>
 	<div class="modal-footer">

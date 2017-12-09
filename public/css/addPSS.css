@@ -73,6 +73,24 @@
     margin-bottom: 20px;
 }
 
+.pss_popup .modal-body .table a {
+	text-decoration: underline;
+	color: #0080ff;
+}
+
+.pss_popup .modal-body .table .fileBtn {
+    position: relative;
+    background: #D0EEFF;
+    border: 1px solid #99D3F5;
+    border-radius: 4px;
+    padding: 4px 12px;
+    overflow: hidden;
+    color: #1E88C7;
+    text-decoration: none;
+    text-indent: 0;
+    line-height: 20px;	
+}
+
 .pss_popup .modal-body .table>tbody>tr>td {
 	padding:8px;
 }
