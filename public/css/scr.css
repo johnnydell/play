@@ -17,16 +17,18 @@
 
 .content-box .curr {
   height:400px;
-  border:1px solid #1852BD;
+  border-left:3px solid #1852BD;
+  border-top:3px solid #1852BD;
+  border-right:3px solid #1852BD;
 }
 
 .content-box .curr .light{
-  border-left:1px solid #1852BD;
+  border-left:3px solid #1852BD;
 }
 
 .content-box .next {
    height:160px;
-   border:1px solid #1852BD;
+   border:3px solid #1852BD;
 }
 
 .content-box .info{
@@ -52,7 +54,8 @@
 
 .content-box ul li {
 	float: left;
-	font-size: 20px;
+	font-size: 30px;
+	font-weight: bold;
 	text-align: center;
 }
 
@@ -64,6 +67,8 @@
 	line-height: 80px;
 	background: white;
 	color:#003366;
+	font-size:35px;
+	font-weight: bold;
 }
 
 .content-box .f50 {   

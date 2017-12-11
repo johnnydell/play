@@ -51,15 +51,18 @@ public class UploaderController extends Controller {
 					UploadFile uploadFile = UploadFile.findByName(fileType);
 					if (uploadFile == null)
 						uploadFile = new UploadFile();
+					
+					String fileNameLastUpdate = prepareFileName(now, fileType, extension);
+					logger.info("lastest file name = " + fileNameLastUpdate);
 					//save
 					uploadFile.fileName = fileType;
-					uploadFile.fileNameLast = prepareFileName(now, fileType, extension);
+					uploadFile.fileNameLast = fileNameLastUpdate;
 					uploadFile.lastUploadTime = now;
 					uploadFile.active = true;
 					UploadFile.save(uploadFile);
 					
 					UploadFileHistory fileHistory = new UploadFileHistory();
-					fileHistory.fileName = uploadFile.fileNameLast;
+					fileHistory.fileName = fileNameLastUpdate;
 					fileHistory.uploadFile = uploadFile;
 					fileHistory.uploadTime = now;
 					UploadFileHistory.save(fileHistory);

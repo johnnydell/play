@@ -134,7 +134,7 @@ public class OfficeConverter {
 			Object[] obj2 = new Object[] { new Variant(EXCEL_TO_PDF_OPERAND), // PDF格式=0
 					outFilePath, new Variant(0) // 0=标准 (生成的PDF图片不会变模糊) ; 1=最小文件
 			};
-			Dispatch.invoke(excel, "ExportAsFixedFormat", Dispatch.Method, obj2, new int[1]);
+			Dispatch.invoke(workbook, "ExportAsFixedFormat", Dispatch.Method, obj2, new int[1]);
 
 		} catch (Exception es) {
 			es.printStackTrace();
