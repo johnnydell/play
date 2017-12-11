@@ -18,7 +18,7 @@ GET  /edashboard/func/getList               			controllers.FuncController.getLis
 POST /edashboard/func/saveFunc               			controllers.FuncController.saveFunc()
 
 #OPL
-POST /edashboard/addPss/uploadFile 		                controllers.AddPSSController.uploadFile()
+POST /edashboard/addPss/uploadFile 		                controllers.opl.AddPSSController.uploadFile()
 
 # UPLOADER
 POST /edashboard/views/upload/uploadFile/:fileType 		controllers.UploaderController.uploadFile(fileType : String)
