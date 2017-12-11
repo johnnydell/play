@@ -13,6 +13,7 @@ var role = function(){
 			},
 			success: function(data) {
 				roles = data;
+				console.log(data);
 				$.each(roles,function(i,n){
 					n.checked = false;
 					n.updated = "0";//0 表示no changes ,1 updated

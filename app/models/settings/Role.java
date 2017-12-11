@@ -2,9 +2,11 @@ package models.settings;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.avaje.ebean.Ebean;
@@ -25,6 +27,9 @@ public class Role extends Model {
 	
 	@Column(name = "role_desc")
 	public String roleDesc;
+	
+	@OneToMany(mappedBy="role", cascade=CascadeType.ALL)
+	public List<RoleFunc> roleFuncs; 
 	
 	@Column(name = "active")
 	public String active;	
