@@ -12,8 +12,11 @@ var settings = function(){
 		});
 		
 		ractive.on({		
-			toFunView:function(){
+			toFuncMgt:function(){
 				location.href=manager.root+"/views/settings/func.html";
+			},
+			toRoleMgt:function(){
+				location.href=manager.root+"/views/settings/role.html";
 			}
 		})
 	}

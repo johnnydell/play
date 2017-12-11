@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Settings-Role</title>
+		<link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/login.css"/>
+		<link rel="stylesheet" type="text/css" href="../../js/lib/alerts/jquery.alerts.css"/>	
+		<link rel="stylesheet" type="text/css" href="../../css/role.css"/>
+	</head>
+	<body>
+		<div class="box">
+		    <!-- left menu -->
+			<div class="left fl"></div>
+			<div class="right">
+				<!-- right header -->
+				<header></header>
+				<div class="container">
+				    <!-- main template -->				    
+				</div>
+				<!-- right footer -->
+				<footer></footer>		
+			</div>
+		</div>
+	</body>
+	<script src="../../js/lib/jquery-1.10.1.min.js"></script>
+	<script src="../../js/lib/jquery.blockui.js"></script>
+	<script src="../../js/lib/jquery.alerts.js"></script>
+	<script src="../../js/lib/ractive-legacy.js"></script>
+	<script src="../../js/lib/jquery.i18n.properties-1.0.9.js"></script>
+	<script src="../../js/lib/manager.js"></script>
+	<script src="../../js/role.js"></script>
+	<script id="main-template" type="text/active"/>
+	<div class="position _clear title">
+		<h3>{{i18n_func_title}}</h3>
+		<div class="fr">
+			<p>
+				<i class="icon icon-home"></i>
+				<a href="{{root}}/views/settings.html">{{i18n_func_nav1}}</a>
+				<font color="#ccc">></font>
+				<span>{{i18n_func_title}}</span>
+			</p>
+		</div>
+	</div>
+	<div class="content">
+		<div class="content-box">
+            <div class="toolbar">
+                <button type="button" class="btn" on-click="test">测试</button>
+				<button type="button" class="btn" on-click="addRole">增加角色</button>
+				<button type="button" class="btn" on-click="saveRole">保存角色</button>
+				<button type="button" class="btn" on-click="deleteRole">删除角色</button>
+            </div>
+			<div class="header">
+				<table>
+			    <tr>
+					<th class="title" colspan="5">角色列表</th>
+				</tr>
+				<tr>
+					<th colspan="5">&nbsp;</th>
+				</tr>
+			    <tr>
+				    <th width="2%"><input type="checkbox" /></th>
+			        <th width="39%">角色名称</th>
+			        <th width="39%">角色描述</th>
+			        <th width="14%">角色功能</th>
+			        <th width="6%">状态</th>
+			    </tr>
+ 				{{#each roles:index}}
+			    <tr class="roletr" lang="{{index}}">
+				    <td><input type="checkbox" checked="{{checked}}" /></td>
+			        <td on-click="toShowColumnEditor">
+                        <label class="field">{{moduleName}}</label>
+                        <input class="field" style="display:none;" maxlength="20" on-blur="toHideColumnEditor" type="text" value="{{roleName}}"/>
+                    </td>
+			        <td on-click="toShowColumnEditor">
+                       <label class="field">{{funcKey}}</label>
+                       <input class="field" type="text" style="display:none;" maxlength="20" on-blur="toHideColumnEditor" value="{{roleDesc}}"/>
+                    </td>
+			        <td>
+                       {{#if id != '0'}}
+							<label class="field" ><a class="link" href="javascript:void(0);" on-click="viewRoleFunc">查看</a></label>
+							<label class="field" ><a class="link" href="javascript:void(0);" on-click="editRoleFunc">编辑</a></label>
+                       {{/if}}
+                    </td>
+			        <td on-click="toShowColumnEditor">
+                       <label class="field">
+                       {{#if active == '1'}}
+                        Active
+                       {{else}}
+                        Inactive
+                       {{/if}}
+                       </label>
+                       <select class="field" style="display:none;" on-blur="toHideColumnEditor" value="{{active}}">
+						 <option value="1">Active</option>
+						 <option value="0">Inactive</option>
+	             	   </select>
+                    </td>
+			    </tr>
+				{{/each}}
+			</table>
+			</div>
+			<div class="footer">
+				<div class="lf">
+					<p class="title">Starter Motors and Generators</p>
+					<p>SG/BPS-CN | 2017. 11. 17 | V2.0</p>
+				</div>
+				<div class="rt">
+				   <img src="{{root}}/images/logo2.png" class="fr">
+				</div>
+			</div>			
+		</div>
+	</div>
+    </script>
+</html>

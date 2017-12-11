@@ -78,12 +78,17 @@
 	margin-top: 25px;
 }
 
-.functr td .field{
+.roletr td .field{
 	width: 100%;
 	height:100%;
 }
 
-.functr td input,.functr td select,.functr td textarea {
+.roletr td input,.roletr td select,.roletr td textarea {
 	border: 1px solid #0080ff;	
 }	
+
+.roletr td .field .link{
+	text-decoration: underline;
+	color: #0080ff;
+}
 
