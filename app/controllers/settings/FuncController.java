@@ -1,13 +1,10 @@
-package controllers;
-
+package controllers.settings;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
-import models.Func;
-import bean.FuncEditor;
+import models.settings.Func;
 
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.JsonNode;

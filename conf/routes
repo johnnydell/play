@@ -14,8 +14,8 @@ POST     /edashboard/city/addCity3   					controllers.CityController.addCity3()
 POST     /edashboard/city/addCity4   					controllers.CityController.addCity4()
 
 #Setting Func
-GET  /edashboard/func/getList               			controllers.FuncController.getList()
-POST /edashboard/func/saveFunc               			controllers.FuncController.saveFunc()
+GET  /edashboard/func/getList               			controllers.settings.FuncController.getList()
+POST /edashboard/func/saveFunc               			controllers.settings.FuncController.saveFunc()
 
 #OPL
 POST /edashboard/addPss/uploadFile 		                controllers.opl.AddPSSController.uploadFile()
