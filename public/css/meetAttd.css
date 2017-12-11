@@ -171,3 +171,13 @@
     cursor: pointer;
     border-radius: 4px;
 }
+
+.dt select,.dt label{
+	width: 50%;
+	float: left;	
+	text-align: center;
+}
+
+.dt select{
+	border: 1px solid #0080ff;	
+}

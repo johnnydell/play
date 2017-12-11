@@ -2,6 +2,8 @@ var meetAttd = function(){
 	function init(){
 		var attendees = [];
 		var deletedAttendees =[];
+		var years = ['2016','2017','2018'];
+		var months = ['01','02','03','04','05','06','07','08','09','10','11','12'];
 		var days = [
 			{d:1,v:"X",s:'0'},
 			{d:2,v:"E",s:'0'},
@@ -42,6 +44,8 @@ var meetAttd = function(){
 			data: {root:manager.root},
 			onrender: function(){
 				manager.loadProperties(this, "meetAttd", "../../");
+				this.set("years",years);
+				this.set("months",months);
 			},
 			oncomplete: function(){
 			}
@@ -51,11 +55,17 @@ var meetAttd = function(){
 			toSignIn:function(){
 				location.href = "meetAttdSignIn.html";
 			},
-			toShowMonthSelect:function(){
-				$("#monthSelect label").hide().next().show().focus();	
+			toShowYearSelect:function(e){
+				$(e.node).hide().next().show().focus();
 			},
-			toHideMonthSelect:function(){
-				var _$select = $("#monthSelect select");
+			toHideYearSelect:function(e){
+				$(e.node).hide().prev().show().text($(e.node).find("option:selected").text());
+			},
+			toShowMonthSelect:function(e){
+				$(e.node).hide().next().show().focus();	
+			},
+			toHideMonthSelect:function(e){
+				var _$select = $(e.node);
 				_$select.hide().prev().show().text(_$select.find("option:selected").text());
 			},
 			toShowMeetingTimeText:function(){
