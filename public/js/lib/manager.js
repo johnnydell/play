@@ -2,7 +2,7 @@ var manager = function() {
     
     
     var cookieDomain = "";
-    
+    window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
     var context = "edashboard"; //上下文
     var origin = location.origin//地址
     var root = origin+"/"+context;
