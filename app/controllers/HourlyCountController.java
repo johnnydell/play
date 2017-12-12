@@ -106,14 +106,11 @@ public class HourlyCountController extends Controller {
 			//already created details before, this time only need update each item
 			isExisted = true;
 		}
-//		else{
-//			//totally first time save action, need to insert to DB
-//			details = new ArrayList<>();
-//		}
+
 		for (int i = 0; i < nodeCount; i++){
-			if (isExisted)
-				detailObj = details.get(i);
-			else
+			//if (isExisted)
+			//	detailObj = details.get(i);
+			//else
 				detailObj = new HourlyCountDetail();
 			
 			//get product type from DB
@@ -173,11 +170,10 @@ public class HourlyCountController extends Controller {
 			if (!isExisted)
 				toBeSavedDetails.add(detailObj);
 			else{
-				detailObj.id = detailObj.id;
+				detailObj.id = details.get(i).id;
 				toBeUpdatedDetails.add(detailObj);
 			}
 		}
-		logger.info("toBeSavedDetails.size()=" + toBeSavedDetails.size() + ", toBeUpdatedDetails.size()=" + toBeUpdatedDetails.size());
 		if (toBeSavedDetails.size() > 0){
 			HourlyCountDetail.saveList(toBeSavedDetails);
 		}

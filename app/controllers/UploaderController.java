@@ -48,10 +48,11 @@ public class UploaderController extends Controller {
 				
 				if (saveResult) {
 					//try save data into DB
-					UploadFile uploadFile = UploadFile.findByName(fileType);
+					UploadFile uploadFile = new UploadFile();
+					UploadFile uploadFile1 = UploadFile.findByName(fileType);
 					boolean isExist = true;
-					if (uploadFile == null){
-						uploadFile = new UploadFile();
+					
+					if (uploadFile1 == null){
 						isExist = false;
 					}
 					
@@ -65,8 +66,8 @@ public class UploaderController extends Controller {
 					if (!isExist)
 						UploadFile.save(uploadFile);
 					else{
-						uploadFile.id = uploadFile.id;
-						UploadFile.update(uploadFile);
+						uploadFile.id = uploadFile1.id;
+						UploadFile.updateBean(uploadFile);
 					}
 					
 					UploadFileHistory fileHistory = new UploadFileHistory();
