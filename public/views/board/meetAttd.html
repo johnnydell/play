@@ -80,7 +80,7 @@
 					 <div></div>
 				</div>
 			</div>
-			<table id="attendeeList">
+			<table>
 				<tr>
 					<td colspan="6" id="meetingTimeTd">
                         <span>会议时间/Meeting Time:</span>  
@@ -139,25 +139,25 @@
                 <tr class="attendeeTr">
                    <td><input class="opt" type="checkbox" checked="{{checked}}" /></td>
 	               <td on-click="toShowNameInput">
-	               		<label>{{name}}</label>
-	               		<input type="text" on-blur="toHideNameInput" style="display:none" value="{{name}}" />
+	               		<label class="field">{{name}}</label>
+	               		<input class="field" type="text" on-blur="toHideNameInput" style="display:none" value="{{name}}" />
 	               </td>
 	               <td on-click="toShowTypeSelect">
-	                    <label>{{type}}</label>
-	                    <select style="display:none" value="{{type}}" on-blur="toHideTypeSelect">
+	                    <label class="field">{{type}}</label>
+	                    <select class="field" style="display:none" value="{{type}}" on-blur="toHideTypeSelect">
 			               <option value="R">R</option>
          				   <option value="O">O</option>
              			</select>
 	               </td>
 	               <td on-click="toShowDeptSelect">
-	               		<label>{{dept}}</label>
-	               		<input type="text" on-blur="toHideDeptInput" style="display:none" value="{{dept}}" />
+	               		<label class="field">{{dept}}</label>
+	               		<input class="field" type="text" on-blur="toHideDeptInput" style="display:none" value="{{dept}}" />
 	               </td>
 	               {{#each days}}
 				   {{#if s =='0'}}	
 					<td on-click="toShowDaySelect">			   
-					 	<label>{{v}}</label>
-						<select style="display:none" value="{{v}}" on-blur="toHideDaySelect">
+					 	<label class="field">{{v}}</label>
+						<select class="field" style="display:none" value="{{v}}" on-blur="toHideDaySelect">
 			               <option value="X">X</option>
          				   <option value="E">E</option>
          				   <option value="A">A</option>
@@ -167,7 +167,7 @@
              			</select>
                     </td>
                    {{else}}
-					<td style="background: #bec2c3;"><label></label></td>
+					<td style="background: #bec2c3;"><label class="field"></label></td>
 				   {{/if}}
 	               {{/each}}
                 </tr>

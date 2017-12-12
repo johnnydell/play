@@ -45,6 +45,7 @@
     border: 1px solid #000;
     font-size: smaller;	
     height: 54px;
+    cursor: pointer;
 }
 
 .content-box table td:last-child {
@@ -116,7 +117,7 @@
 	height:100%;
 }
 
-.opltr td input,.opltr td select,.opltr td textarea {
+.opltr td input[type='text'],.opltr td select,.opltr td textarea {
 	border: 1px solid #0080ff;	
 }	
 
@@ -124,6 +125,3 @@
 	text-decoration: underline;
 	color: #0080ff;
 }
-
-
-

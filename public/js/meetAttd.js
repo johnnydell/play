@@ -48,6 +48,12 @@ var meetAttd = function(){
 				this.set("months",months);
 			},
 			oncomplete: function(){
+				
+				var attendee1 = {id:"0",checked:false,name:"Newer",type:"R",dept:"",days:days};
+				attendees.push(attendee1);
+				var attendee2 = {id:"0",checked:false,name:"Newer",type:"R",dept:"",days:days};
+				attendees.push(attendee2);
+				ractive.set("attendees",attendees);
 			}
 		});
 		
