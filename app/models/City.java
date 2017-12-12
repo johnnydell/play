@@ -1,6 +1,7 @@
 package models;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,8 +13,13 @@ import play.db.ebean.Model;
 @Entity  
 public class City extends Model {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	public Integer ID;
+	public String ID = UUID.randomUUID().toString().replace("-", "");
 	
 	public String Name;
 	
@@ -24,8 +30,8 @@ public class City extends Model {
 	public Integer Population; 
 	
 	// Query
-    public static Finder<Integer,City> find = 
-            new Finder<Integer,City>(Integer.class, City.class);
+    public static Finder<String,City> find = 
+            new Finder<String,City>(String.class, City.class);
     
     public static List<City> findAll() {
         return find.all();

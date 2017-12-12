@@ -1,6 +1,8 @@
 package models.settings;
 
 import java.util.List;
+import java.util.UUID;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -16,7 +18,7 @@ public class RoleFunc extends Model {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	public Integer id;
+	public String id = UUID.randomUUID().toString().replace("-", "");
 	
 	@ManyToOne
 	@JoinColumn(name="role_id")
@@ -26,7 +28,7 @@ public class RoleFunc extends Model {
 	@JoinColumn(name="func_id")
 	public Func func;
 		
-	public static Finder<Integer,RoleFunc> find = new Finder<Integer,RoleFunc>(Integer.class, RoleFunc.class);
+	public static Finder<String,RoleFunc> find = new Finder<String,RoleFunc>(String.class, RoleFunc.class);
 	
 	public static List<RoleFunc> getList() {
 	        return find.all();

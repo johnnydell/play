@@ -2,6 +2,7 @@ package models;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,7 +25,7 @@ public class HourlyCountDetail extends Model {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	public Integer id;
+	public String id = UUID.randomUUID().toString().replace("-", "");
 	
 	@ManyToOne
 	@JoinColumn(name="hourly_count_base_id")
@@ -128,14 +129,14 @@ public class HourlyCountDetail extends Model {
 
 	
 
-	public static Finder<Integer, HourlyCountDetail> find = new Finder<Integer, HourlyCountDetail>(Integer.class, HourlyCountDetail.class);
+	public static Finder<String, HourlyCountDetail> find = new Finder<String, HourlyCountDetail>(String.class, HourlyCountDetail.class);
 
 	public static List<HourlyCountDetail> findByLineName(String lineName, Date productDate) {
 		
 		return find.where().ilike("hourlyCountBase.productLine.lineName", "%" + lineName + "%").eq("hourlyCountBase.productDate", productDate).orderBy("").fetch("hourlyCountBase").fetch("productType1").fetch("productType2").findList();
 	}
 	
-	public static List<HourlyCountDetail> findByBaseId(Integer baseId){
+	public static List<HourlyCountDetail> findByBaseId(String baseId){
 		return find.where().eq("hourlyCountBase.id", baseId).findList();
 	}
 

@@ -1,9 +1,7 @@
 package models;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,7 +26,7 @@ public class HourlyCountBase extends Model {
 	
 
 	@Id
-	public Integer id;
+	public String id = UUID.randomUUID().toString().replace("-", "");
 	
 	@ManyToOne
 	@JoinColumn(name="product_line_id")
@@ -52,7 +50,7 @@ public class HourlyCountBase extends Model {
 	@Column(name = "group_leader_sign")
 	public String groupLeaderSign;
 
-	public static Finder<Integer, HourlyCountBase> find = new Finder<Integer, HourlyCountBase>(Integer.class, HourlyCountBase.class);
+	public static Finder<String, HourlyCountBase> find = new Finder<String, HourlyCountBase>(String.class, HourlyCountBase.class);
 
 	public static HourlyCountBase findByLineNameAndDate(String name, Date productDate)  {
 		

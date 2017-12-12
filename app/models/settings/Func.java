@@ -1,6 +1,7 @@
 package models.settings;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,7 +19,7 @@ public class Func extends Model {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	public Integer id;
+	public String id = UUID.randomUUID().toString().replace("-", "");
 	
 	@Column(name = "module_name")
 	public String moduleName;
@@ -32,7 +33,7 @@ public class Func extends Model {
 	@Column(name = "active")
 	public String active;	
 		
-	public static Finder<Integer,Func> find = new Finder<Integer,Func>(Integer.class, Func.class);
+	public static Finder<String,Func> find = new Finder<String,Func>(String.class, Func.class);
 	
 	public static List<Func> getList() {
 	        return find.all();

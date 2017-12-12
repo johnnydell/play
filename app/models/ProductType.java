@@ -1,6 +1,7 @@
 package models;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +22,7 @@ public class ProductType extends Model {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	public Integer id;
+	public String id = UUID.randomUUID().toString().replace("-", "");
 
 	@Column(name = "product_type_name")
 	public String productTypeName;
@@ -31,7 +32,7 @@ public class ProductType extends Model {
 	@Column(name = "active")
 	public Boolean active;
 
-	public static Finder<Integer, ProductType> find = new Finder<Integer, ProductType>(Integer.class, ProductType.class);
+	public static Finder<String, ProductType> find = new Finder<String, ProductType>(String.class, ProductType.class);
 
 	public static ProductType findByName(String name) {
 		return find.where().eq("productTypeName", name).findUnique();

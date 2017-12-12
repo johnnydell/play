@@ -21,8 +21,9 @@ public class RoleController extends Controller {
         return ok(str);
     }
    
-   public static Result saveFunc(){
+   public static Result saveRole(){
 	   JsonNode in = request().body().asJson();
+	   JsonNode addRoles = in.get("addRoles");
 	   ArrayList<Func> addLi = new ArrayList<Func>();
 	   ArrayList<Func> updateLi = new ArrayList<Func>();
 	   Iterator<JsonNode> a = in.iterator();
@@ -40,7 +41,7 @@ public class RoleController extends Controller {
 			   addLi.add(func);
 		   } else {
 			   if(updated.equals("1")){
-				   func.id = Integer.valueOf(node.get("id").asText());  
+				   func.id = node.get("id").asText();  
 				   updateLi.add(func);  
 			   }
 		   }

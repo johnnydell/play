@@ -2,6 +2,7 @@ package models;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +24,7 @@ public class UploadFileHistory extends Model {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	public Integer id;
+	public String id = UUID.randomUUID().toString().replace("-", "");
 
 	@Column(name = "file_name")
 	public String fileName;
@@ -34,7 +35,7 @@ public class UploadFileHistory extends Model {
 	@ManyToOne
 	public UploadFile uploadFile;
 
-	public static Finder<Integer, UploadFileHistory> find = new Finder<Integer, UploadFileHistory>(Integer.class, UploadFileHistory.class);
+	public static Finder<String, UploadFileHistory> find = new Finder<String, UploadFileHistory>(String.class, UploadFileHistory.class);
 
 	public static List<UploadFileHistory> findByName(String name) {
 		return find.where().ilike("fileName", "%" + name + "%").findList();

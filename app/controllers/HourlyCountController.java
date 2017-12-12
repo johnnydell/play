@@ -175,8 +175,10 @@ public class HourlyCountController extends Controller {
 			//prepare save list
 			if (!isExisted)
 				toBeSavedDetails.add(detailObj);
-			else
+			else{
+				detailObj.id = detailObj.id;
 				toBeUpdatedDetails.add(detailObj);
+			}
 		}
 		logger.info("toBeSavedDetails.size()=" + toBeSavedDetails.size() + ", toBeUpdatedDetails.size()=" + toBeUpdatedDetails.size());
 		if (toBeSavedDetails.size() > 0){

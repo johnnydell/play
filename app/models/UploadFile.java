@@ -1,6 +1,7 @@
 package models;
 
 import java.util.Date;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +22,7 @@ public class UploadFile extends Model {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	public Integer id;
+	public String id = UUID.randomUUID().toString().replace("-", "");
 
 	@Column(name = "file_name")
 	public String fileName;
@@ -35,7 +36,7 @@ public class UploadFile extends Model {
 	@Column(name = "active")
 	public Boolean active;
 
-	public static Finder<Integer, UploadFile> find = new Finder<Integer, UploadFile>(Integer.class, UploadFile.class);
+	public static Finder<String, UploadFile> find = new Finder<String, UploadFile>(String.class, UploadFile.class);
 
 	public static UploadFile findByName(String name) {
 		return find.where().ilike("fileName", "%" + name + "%").findUnique();
