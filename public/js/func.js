@@ -41,9 +41,9 @@ var func = function(){
 		
 		ractive.on({
 			toShowColumnEditor:function(e){
-				var index = $(e.node).parent().attr("lang");
+				var index = $(e.node).parent().parent().attr("lang");
 				funcs[index].updated = "1";
-				$(e.node).children(0).hide().next().show().focus();
+				$(e.node).hide().next().show().focus();
 			},
 			toHideColumnEditor:function(e){
 				var type = e.node.type;

@@ -1,6 +1,7 @@
 package models.settings;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,7 +21,7 @@ public class Role extends Model {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	public Integer id;
+	public String id = UUID.randomUUID().toString().replace("-", "");
 	
 	@Column(name = "role_name")
 	public String roleName;
@@ -34,7 +35,7 @@ public class Role extends Model {
 	@Column(name = "active")
 	public String active;	
 		
-	public static Finder<Integer,Role> find = new Finder<Integer,Role>(Integer.class, Role.class);
+	public static Finder<String,Role> find = new Finder<String,Role>(String.class, Role.class);
 	
 	public static List<Role> getList() {
 	        return find.all();

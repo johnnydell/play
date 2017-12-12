@@ -107,7 +107,7 @@
 				</tr>
 			    <tr>
 				    <th width="2%" rowspan="2"><input type="checkbox" /></th>
-			        <th width="4%" rowspan="2">Date<br>日期</th>
+			        <th width="6%" rowspan="2">Date<br>日期</th>
 			        <th width="4%" rowspan="2">Ref No<br>编号</th>
 			        <th width="5%" rowspan="2">Person Found<br>问题提出人</th>
 			        <th width="4%" rowspan="2">Station<br>工位号</th>
@@ -115,12 +115,12 @@
 			        <th colspan="7">Corrective Action行动方案</th>
 			    </tr>
 			    <tr>
-			        <th width="11%">Description<br>偏差或问题描述</th>
+			        <th width="10%">Description<br>偏差或问题描述</th>
 			        <th width="4%">From<br>问题起始时间</th>
 			        <th width="4%">To<br>问题结束时间</th>
 			        <th width="3%">timing<br>持续时间(分钟)</th>
 			        <th width="4%">Amount<br>缺陷数量</th>
-			        <th width="12%" colspan="2">Root Cause<br>根本原因</th>
+			        <th width="11%" colspan="2">Root Cause<br>根本原因</th>
 			        <th width="9%">Immediate<br>临时措施</th>
 			        <th width="12%">Long Term<br>永久措施<br>(在关闭阶段需要同步更新FMEA,CP,WI,PRR,SP、STAB、5M1E等相关工艺文件及标准)</th>
 			        <th width="3%">Problem solving sheet(Y/N)<br>问题解决表</th>
@@ -130,58 +130,58 @@
 			        <th width="3%">Status<br>状态</th>        
 			    </tr>
  				{{#each opl:index}}
-			    <tr class="opltr">
+			    <tr class="opltr" lang="{{index}}">
 				    <td><input type="checkbox" checked="{{checked}}" /></td>
-			        <td on-click="toShowColumnEditor">
-                       <label class="field">{{date}}</label>
+			        <td>
+                       <label class="field" on-click="toShowColumnEditor">{{date}}</label>
                         <input class="field date" style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{date}}"/>
                     </td>
-			        <td on-click="toShowColumnEditor">
-                       <label class="field">{{refNo}}</label>
+			        <td>
+                       <label class="field" on-click="toShowColumnEditor">{{refNo}}</label>
                        <input class="field" type="text" style="display:none;" on-blur="toHideColumnEditor" value="{{refNo}}"/>
                     </td>
-			        <td on-click="toShowColumnEditor">
-                       <label class="field">{{personFound}}</label>
+			        <td>
+                       <label class="field" on-click="toShowColumnEditor">{{personFound}}</label>
                        <input class="field" type="text" style="display:none;" on-blur="toHideColumnEditor" value="{{personFound}}"/>
                     </td>
-			        <td on-click="toShowColumnEditor">
-                       <label class="field">{{station}}</label>
+			        <td>
+                       <label class="field" on-click="toShowColumnEditor">{{station}}</label>
                        <input class="field" type="text" style="display:none;" on-blur="toHideColumnEditor" value="{{station}}"/>
                     </td>
-			        <td on-click="toShowColumnEditor">
-					   <label class="field">{{description}}</label>
+			        <td>
+					   <label class="field" on-click="toShowColumnEditor">{{description}}</label>
                        <textarea class="field" style="display:none;" on-blur="toHideColumnEditor" cols="80" rows="2">{{description}}</textarea>
                     </td>
-			        <td on-click="toShowColumnEditor">
-					   <label class="field">{{dtFrom}}</label>
+			        <td>
+					   <label class="field" on-click="toShowColumnEditor">{{dtFrom}}</label>
 					   <input class="field dtFrom" style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{dtFrom}}"/>
                     </td>
-			        <td on-click="toShowColumnEditor">
-                       <label class="field">{{dtTo}}</label>
+			        <td>
+                       <label class="field"  on-click="toShowColumnEditor">{{dtTo}}</label>
 					   <input class="field dtTo" style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{dtTo}}"/>
                     </td>
-			        <td on-click="toShowColumnEditor">
-                       <label class="field">{{timing}}</label>
+			        <td>
+                       <label class="field" on-click="toShowColumnEditor">{{timing}}</label>
                        <input class="field" type="text" style="display:none;" on-blur="toHideColumnEditor" value="{{timing}}"/>
                     </td>
-					<td on-click="toShowColumnEditor">
-                       <label class="field">{{amt}}</label>
+					<td>
+                       <label class="field" on-click="toShowColumnEditor">{{amt}}</label>
                        <input class="field" type="text" style="display:none;" on-blur="toHideColumnEditor" value="{{amt}}"/>
                     </td>
-					<td colspan="2" on-click="toShowColumnEditor">
-					   <label class="field">{{rootCause}}</label>
+					<td colspan="2">
+					   <label class="field"  on-click="toShowColumnEditor">{{rootCause}}</label>
                        <textarea class="field" style="margin-top: 1px;display:none;" on-blur="toHideColumnEditor" cols="80" rows="2">{{rootCause}}</textarea>
                     </td>
-			        <td on-click="toShowColumnEditor">
-					   <label class="field">{{immediate}}</label>
+			        <td>
+					   <label class="field"  on-click="toShowColumnEditor">{{immediate}}</label>
                        <textarea class="field" style="display:none;" on-blur="toHideColumnEditor" cols="80" rows="2">{{immediate}}</textarea>
                     </td>
-			        <td on-click="toShowColumnEditor">
-					   <label class="field">{{longTerm}}</label>
+			        <td>
+					   <label class="field"  on-click="toShowColumnEditor">{{longTerm}}</label>
                        <textarea class="field" style="display:none;" on-blur="toHideColumnEditor" cols="80" rows="2">{{longTerm}}</textarea>
                     </td>
-			        <td on-click="toShowColumnEditor">
-                       <label class="field">{{problemSolvingSheet}}</label>
+			        <td>
+                       <label class="field" on-click="toShowColumnEditor">{{problemSolvingSheet}}</label>
 					   <select class="field" style="display:none;" on-blur="toHideColumnEditor" on-change="changePSS" value="{{problemSolvingSheet}}">
 						 <option value="Y">Y</option>
 						 <option value="N">N</option>
@@ -204,16 +204,16 @@
 							<label class="field" ></label>
                        {{/if}}
                     </td>
-			        <td on-click="toShowColumnEditor">
-                       <label class="field">{{responsible}}</label>
+			        <td>
+                       <label class="field"  on-click="toShowColumnEditor">{{responsible}}</label>
                        <input class="field" type="text" style="display:none;" on-blur="toHideColumnEditor" value="{{responsible}}"/>
                     </td>
-			        <td on-click="toShowColumnEditor">
-                       <label class="field">{{deadline}}</label>
+			        <td>
+                       <label class="field"  on-click="toShowColumnEditor">{{deadline}}</label>
                        <input class="field deadline" style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{deadline}}"/>
                     </td>
-			        <td on-click="toShowColumnEditor">
-                       <label class="field">{{status}}</label>
+			        <td>
+                       <label class="field" on-click="toShowColumnEditor">{{status}}</label>
 					   <select class="field" style="display:none;" on-blur="toHideColumnEditor" value="{{status}}">
 						 <option value="Y">Y</option>
 						 <option value="N">N</option>

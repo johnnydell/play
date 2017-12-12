@@ -64,8 +64,10 @@ public class UploaderController extends Controller {
 					uploadFile.active = true;
 					if (!isExist)
 						UploadFile.save(uploadFile);
-					else
+					else{
+						uploadFile.id = uploadFile.id;
 						UploadFile.update(uploadFile);
+					}
 					
 					UploadFileHistory fileHistory = new UploadFileHistory();
 					fileHistory.fileName = fileNameLastUpdate;

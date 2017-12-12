@@ -129,7 +129,7 @@ var opl = function(){
 				$(e.node).hide().prev().show().text($(e.node).find("option:selected").text());
 			},
 			toShowColumnEditor:function(e){
-				$(e.node).children(0).hide().next().show().focus();
+				$(e.node).hide().next().show().focus();
 			},
 			toHideColumnEditor:function(e){
 				var type = e.node.type;

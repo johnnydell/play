@@ -69,12 +69,12 @@
  				{{#each roles:index}}
 			    <tr class="roletr" lang="{{index}}">
 				    <td><input type="checkbox" checked="{{checked}}" /></td>
-			        <td on-click="toShowColumnEditor">
-                        <label class="field">{{roleName}}</label>
+			        <td>
+                        <label class="field"  on-click="toShowColumnEditor">{{roleName}}</label>
                         <input class="field" style="display:none;" maxlength="20" on-blur="toHideColumnEditor" type="text" value="{{roleName}}"/>
                     </td>
-			        <td on-click="toShowColumnEditor">
-                       <label class="field">{{roleDesc}}</label>
+			        <td>
+                       <label class="field"  on-click="toShowColumnEditor">{{roleDesc}}</label>
                        <input class="field" type="text" style="display:none;" maxlength="20" on-blur="toHideColumnEditor" value="{{roleDesc}}"/>
                     </td>
 			        <td>
@@ -85,8 +85,8 @@
                             <label class="field" ><font color="red">未保存</font></label>        
                        {{/if}}
                     </td>
-			        <td on-click="toShowColumnEditor">
-                       <label class="field">
+			        <td>
+                       <label class="field"  on-click="toShowColumnEditor">
                        {{#if active == '1'}}
                         Active
                        {{else}}

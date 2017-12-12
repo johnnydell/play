@@ -171,6 +171,9 @@
 .attendeeTr td .field{
 	width: 100%;
 	height:100%;
+	display:inline-block;
+	vertical-align: middle;
+	line-height: 30px;
 }
 
 .attendeeTr td input[type='text'],.attendeeTr td select,.attendeeTr td textarea {

@@ -120,35 +120,18 @@ var meetAttd = function(){
 				console.log(attendees[0].days[3]);
 				console.log(deletedAttendees);
 			},
-			toShowNameInput:function(e){
-				$(e.node).find("label").hide().next().show().focus();
+			toShowColumnEditor:function(e){
+				var index = $(e.node).parent().parent().attr("lang");
+				$(e.node).hide().next().show().focus();
 			},
-			toHideNameInput:function(e){
-				var _$input = $(e.node);
-				_$input.hide().prev().text(_$input.val()).show();
-			},
-			toShowTypeSelect:function(e){
-				$(e.node).find("label").hide().next().show().focus();
-			},
-			toHideTypeSelect:function(e){
-				var _$select = $(e.node);
-				_$select.hide().prev().text(_$select.find("option:selected").val()).show();
-			},
-			toShowDeptSelect:function(e){
-				$(e.node).find("label").hide().next().show().focus();
-			},
-			toHideDeptInput:function(e){
-				var _$input = $(e.node);
-				_$input.hide().prev().text(_$input.val()).show();
-			},
-			toShowDaySelect:function(e){
-				$(e.node).find("label").hide().next().show().focus();
-			},
-			toHideDaySelect:function(e){
-				var _$select = $(e.node);
-				_$select.hide().prev().text(_$select.find("option:selected").val()).show();
+			toHideColumnEditor:function(e){
+				var type = e.node.type;
+				if(type == 'select-one'){
+					$(e.node).hide().prev().show().text($(e.node).find("option:selected").text());
+				} else {
+					$(e.node).hide().prev().show().text($(e.node).val());
+				}
 			}
-			
 		})
 	}
 	

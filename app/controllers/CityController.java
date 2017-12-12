@@ -19,13 +19,13 @@ public class CityController extends Controller {
    public static Result addCity() {
 	    List<City> cities = new ArrayList<City>();
 		City  c1 = new City();
-		c1.ID = 20;
+		//c1.ID = 20;
 		c1.Name = "dell";
 		c1.District = "1";
 		c1.Population = 1;
 		c1.countrycode = "12";
 		City  c2 = new City();
-		c2.ID = 19;
+		//c2.ID = 19;
 		c2.Name = "vicky";
 		c2.District = "1";
 		c2.Population = 1;
@@ -39,7 +39,7 @@ public class CityController extends Controller {
    @Transactional
    public static Result addCity2(String id,String name) {
 		City  c1 = new City();
-		c1.ID = Integer.valueOf(id);
+		c1.ID = id;
 		c1.Name =name;
 		c1.District = "1";
 		c1.Population = 1;

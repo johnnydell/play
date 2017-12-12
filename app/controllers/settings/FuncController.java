@@ -39,7 +39,7 @@ public class FuncController extends Controller {
 			   addLi.add(func);
 		   } else {
 			   if(updated.equals("1")){
-				   func.id = Integer.valueOf(node.get("id").asText());  
+				   func.id = node.get("id").asText();  
 				   updateLi.add(func);  
 			   }
 		   }

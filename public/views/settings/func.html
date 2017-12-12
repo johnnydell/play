@@ -69,20 +69,20 @@
  				{{#each funcs:index}}
 			    <tr class="functr" lang="{{index}}">
 				    <td><input type="checkbox" checked="{{checked}}" /></td>
-			        <td on-click="toShowColumnEditor">
-                        <label class="field">{{moduleName}}</label>
+			        <td>
+                        <label on-click="toShowColumnEditor" class="field">{{moduleName}}</label>
                         <input class="field" style="display:none;" maxlength="20" on-blur="toHideColumnEditor" type="text" value="{{moduleName}}"/>
                     </td>
-			        <td on-click="toShowColumnEditor">
-                       <label class="field">{{funcKey}}</label>
+			        <td>
+                       <label class="field" on-click="toShowColumnEditor">{{funcKey}}</label>
                        <input class="field" type="text" style="display:none;" maxlength="20" on-blur="toHideColumnEditor" value="{{funcKey}}"/>
                     </td>
-			        <td on-click="toShowColumnEditor">
-                       <label class="field">{{funcName}}</label>
+			        <td>
+                       <label class="field" on-click="toShowColumnEditor">{{funcName}}</label>
                        <input class="field" type="text" style="display:none;" maxlength="20" on-blur="toHideColumnEditor" value="{{funcName}}"/>
                     </td>
-			        <td on-click="toShowColumnEditor">
-                       <label class="field">
+			        <td>
+                       <label class="field" on-click="toShowColumnEditor">
                        {{#if active == '1'}}
                         Active
                        {{else}}

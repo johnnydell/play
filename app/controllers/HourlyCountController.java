@@ -5,14 +5,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -145,6 +141,7 @@ public class HourlyCountController extends Controller {
 			detailObj.productType2 				= productType2;
 			detailObj.productCycle2 			= detailInfoNode.get(i).get("productCycle2").asInt();
 			detailObj.productHour 				= detailInfoNode.get(i).get("productHour").asInt();
+			detailObj.productHourIndex 			= detailInfoNode.get(i).get("productHourIndex").asInt();
 			detailObj.productHourCount 			= detailInfoNode.get(i).get("productHourCount").asInt();
 			detailObj.planCount 				= detailInfoNode.get(i).get("planCount").asInt();
 			detailObj.actualCount 				= detailInfoNode.get(i).get("actualCount").asInt();
@@ -175,8 +172,10 @@ public class HourlyCountController extends Controller {
 			//prepare save list
 			if (!isExisted)
 				toBeSavedDetails.add(detailObj);
-			else
+			else{
+				detailObj.id = detailObj.id;
 				toBeUpdatedDetails.add(detailObj);
+			}
 		}
 		logger.info("toBeSavedDetails.size()=" + toBeSavedDetails.size() + ", toBeUpdatedDetails.size()=" + toBeUpdatedDetails.size());
 		if (toBeSavedDetails.size() > 0){
