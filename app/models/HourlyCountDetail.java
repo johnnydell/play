@@ -1,8 +1,5 @@
 package models;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.avaje.ebean.Ebean;
@@ -136,7 +132,7 @@ public class HourlyCountDetail extends Model {
 
 	public static List<HourlyCountDetail> findByLineName(String lineName, Date productDate) {
 		
-		return find.where().ilike("hourlyCountBase.productLine.lineName", "%" + lineName + "%").eq("hourlyCountBase.productDate", productDate).orderBy("").fetch("hourlyCountBase").findList();
+		return find.where().ilike("hourlyCountBase.productLine.lineName", "%" + lineName + "%").eq("hourlyCountBase.productDate", productDate).orderBy("").fetch("hourlyCountBase").fetch("productType1").fetch("productType2").findList();
 	}
 	
 	public static List<HourlyCountDetail> findByBaseId(Integer baseId){
@@ -149,6 +145,12 @@ public class HourlyCountDetail extends Model {
 	
 	public static void saveList(List<HourlyCountDetail> lists){
 		Ebean.save(lists);
+	}
+	
+	public static void updateList(List<HourlyCountDetail> lists){
+		for(HourlyCountDetail detail : lists){
+			Ebean.update(detail);
+		}
 	}
 
 }

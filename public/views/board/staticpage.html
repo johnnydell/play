@@ -5,7 +5,7 @@
 		<title>Board - OEE</title>
 		<link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
 		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
-
+		<link rel="stylesheet" type="text/css" href="../../css/staticpage.css"/>
 		
 	</head>
 	<body>
@@ -32,7 +32,19 @@
 	
 	<script id="main-template" type="text/active">
 	<div class="position _clear title">
-		<h3>{{i18n_settings_title_layout}}</h3>
+		{{#if pageName == 'balance'}}
+			<h3>{{i18n_staticpage_title_balance}}</h3>
+		{{elseif pageName == 'pss'}}
+			<h3>{{i18n_staticpage_title_pss}}</h3>
+		{{elseif pageName == 'layout'}}
+			<h3>{{i18n_staticpage_title_layout}}</h3>
+		{{elseif pageName == 'oeepdca'}}
+			<h3>{{i18n_staticpage_title_oeepdca}}</h3>
+		{{elseif pageName == '5s'}}
+			<h3>{{i18n_staticpage_title_5s}}</h3>
+		{{elseif pageName == 'trainmatrix'}}
+			<h3>{{i18n_staticpage_title_trainmatrix}}</h3>
+		{{/if}}
 		<div class="fr">
 			<p>
 				<i class="icon icon-home"></i>
@@ -40,13 +52,28 @@
 				<font color="#ccc">></font>
 				<a href="../lines.html">{{i18n_staticpage_nav2}}</a>
 				<font color="#ccc">></font>
-				<a href="../boards.html">{{i18n_staticpage_nav3}}</a>
-				
+				<a href="../board1.html">{{i18n_staticpage_nav3}}</a>
+				<font color="#ccc">></font>
+				{{#if pageName == 'balance'}}
+					<span>{{i18n_staticpage_title_balance}}</span>
+				{{elseif pageName == 'pss'}}
+					<span>{{i18n_staticpage_title_pss}}</span>
+				{{elseif pageName == 'layout'}}
+					<span>{{i18n_staticpage_title_layout}}</span>
+				{{elseif pageName == 'oeepdca'}}
+					<span>{{i18n_staticpage_title_oeepdca}}</span>
+				{{elseif pageName == '5s'}}
+					<span>{{i18n_staticpage_title_5s}}</span>
+				{{elseif pageName == 'trainmatrix'}}
+					<span>{{i18n_staticpage_title_trainmatrix}}</span>
+				{{/if}}
 			</p>
 		</div>
 	</div>
 	<div class="content">
 		<div class="content-box">
+			<span id="msginfo"></span>
+			<a id="uploadURL" href="{{root}}/views/upload/uploader.html" style="display : none;" class="link">Go to Upload Page</a>
 			<iframe id="pdfviewer" style="display : none;border : 0"/>	
 			
 		</div>

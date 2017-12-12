@@ -62,5 +62,7 @@ public class HourlyCountBase extends Model {
 	public static void save(HourlyCountBase base) {
 		Ebean.save(base);
 	}
-
+	public static void update(HourlyCountBase base) {
+		Ebean.update(base);
+	}
 }

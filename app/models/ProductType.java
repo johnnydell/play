@@ -44,5 +44,10 @@ public class ProductType extends Model {
 	public static void save(ProductType productType) {
 		Ebean.save(productType);
 	}
+	
+	public static void update(ProductType productType) {
+		Ebean.update(productType);
+	}
+
 
 }

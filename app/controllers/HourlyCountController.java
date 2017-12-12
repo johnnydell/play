@@ -58,10 +58,12 @@ public class HourlyCountController extends Controller {
 		Date productDate = df.parse(dateStr);
 		//get hourly base info
 		HourlyCountBase base = HourlyCountBase.findByLineNameAndDate(lineName, productDate);
+		boolean isExistBase = true;
 		
 		//create new hourly base info if it's totally new record
 		if (null == base){
 			base = new HourlyCountBase();
+			isExistBase = false;
 		}
 		
 		//check if product line existed
@@ -70,6 +72,7 @@ public class HourlyCountController extends Controller {
 			line = new ProductLine();
 			line.lineName = lineName;
 			line.active = true;
+			ProductLine.save(line);
 		}
 		//set each properties
 		base.groupLeaderSign = baseInfoNode.get("groupLeaderSign").asText();
@@ -80,7 +83,10 @@ public class HourlyCountController extends Controller {
 		base.teamLeaderSign3 = baseInfoNode.get("teamLeaderSign3").asText();
 		
 		//save to DB
-		HourlyCountBase.save(base);
+		if(!isExistBase)
+			HourlyCountBase.save(base);
+		else
+			HourlyCountBase.update(base);
 		
 		//start to parse detail info
 		JsonNode detailInfoNode = data.path("dataGroup");
@@ -89,7 +95,9 @@ public class HourlyCountController extends Controller {
 		List<HourlyCountDetail> details = HourlyCountDetail.findByBaseId(base.id);
 		
 		//define a new list to store to-be-saved items
-		//List<HourlyCountDetail> toBeSavedDetails;
+		List<HourlyCountDetail> toBeSavedDetails = new ArrayList<>();
+		//define a new list to store to-be-update items
+		List<HourlyCountDetail> toBeUpdatedDetails = new ArrayList<>();
 		HourlyCountDetail detailObj = null;
 		
 		int nodeCount = 0;
@@ -102,10 +110,10 @@ public class HourlyCountController extends Controller {
 			//already created details before, this time only need update each item
 			isExisted = true;
 		}
-		else{
-			//totally first time save action, need to insert to DB
-			details = new ArrayList<>();
-		}
+//		else{
+//			//totally first time save action, need to insert to DB
+//			details = new ArrayList<>();
+//		}
 		for (int i = 0; i < nodeCount; i++){
 			if (isExisted)
 				detailObj = details.get(i);
@@ -166,10 +174,17 @@ public class HourlyCountController extends Controller {
 			
 			//prepare save list
 			if (!isExisted)
-				details.add(detailObj);
+				toBeSavedDetails.add(detailObj);
+			else
+				toBeUpdatedDetails.add(detailObj);
 		}
-		
-		HourlyCountDetail.saveList(details);
+		logger.info("toBeSavedDetails.size()=" + toBeSavedDetails.size() + ", toBeUpdatedDetails.size()=" + toBeUpdatedDetails.size());
+		if (toBeSavedDetails.size() > 0){
+			HourlyCountDetail.saveList(toBeSavedDetails);
+		}
+		if (toBeUpdatedDetails.size() > 0){
+			HourlyCountDetail.updateList(toBeUpdatedDetails);
+		}
 		
 		return ok(ret);
 	}
