@@ -34,6 +34,9 @@ public class HourlyCountDetail extends Model {
 	@Column(name = "product_hour")
 	public Integer productHour;
 	
+	@Column(name = "product_hour_index")
+	public Integer productHourIndex;
+	
 	@ManyToOne
 	@JoinColumn(name="product_type_id_1")
 	public ProductType productType1;
@@ -133,7 +136,7 @@ public class HourlyCountDetail extends Model {
 
 	public static List<HourlyCountDetail> findByLineName(String lineName, Date productDate) {
 		
-		return find.where().ilike("hourlyCountBase.productLine.lineName", "%" + lineName + "%").eq("hourlyCountBase.productDate", productDate).orderBy("").fetch("hourlyCountBase").fetch("productType1").fetch("productType2").findList();
+		return find.where().ilike("hourlyCountBase.productLine.lineName", "%" + lineName + "%").eq("hourlyCountBase.productDate", productDate).orderBy("productHourIndex").fetch("hourlyCountBase").fetch("productType1").fetch("productType2").findList();
 	}
 	
 	public static List<HourlyCountDetail> findByBaseId(String baseId){
