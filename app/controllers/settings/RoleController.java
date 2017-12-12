@@ -21,8 +21,9 @@ public class RoleController extends Controller {
         return ok(str);
     }
    
-   public static Result saveFunc(){
+   public static Result saveRole(){
 	   JsonNode in = request().body().asJson();
+	   JsonNode addRoles = in.get("addRoles");
 	   ArrayList<Func> addLi = new ArrayList<Func>();
 	   ArrayList<Func> updateLi = new ArrayList<Func>();
 	   Iterator<JsonNode> a = in.iterator();

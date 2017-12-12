@@ -20,7 +20,7 @@
 				    <!-- main template -->				    
 				</div>
 				<!-- right footer -->
-				<footer></footer>		
+				<footer></footer>
 			</div>
 		</div>
 	</body>
@@ -70,17 +70,19 @@
 			    <tr class="roletr" lang="{{index}}">
 				    <td><input type="checkbox" checked="{{checked}}" /></td>
 			        <td on-click="toShowColumnEditor">
-                        <label class="field">{{moduleName}}</label>
+                        <label class="field">{{roleName}}</label>
                         <input class="field" style="display:none;" maxlength="20" on-blur="toHideColumnEditor" type="text" value="{{roleName}}"/>
                     </td>
 			        <td on-click="toShowColumnEditor">
-                       <label class="field">{{funcKey}}</label>
+                       <label class="field">{{roleDesc}}</label>
                        <input class="field" type="text" style="display:none;" maxlength="20" on-blur="toHideColumnEditor" value="{{roleDesc}}"/>
                     </td>
 			        <td>
                        {{#if id != '0'}}
 							<label class="field" ><a class="link" href="javascript:void(0);" on-click="viewRoleFunc">查看</a></label>
 							<label class="field" ><a class="link" href="javascript:void(0);" on-click="editRoleFunc">编辑</a></label>
+					   {{else}}
+                            <label class="field" ><font color="red">未保存</font></label>        
                        {{/if}}
                     </td>
 			        <td on-click="toShowColumnEditor">

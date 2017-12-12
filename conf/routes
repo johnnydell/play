@@ -19,6 +19,7 @@ POST /edashboard/func/saveFunc               			controllers.settings.FuncControl
 
 #Setting Role
 GET  /edashboard/role/getList               			controllers.settings.RoleController.getList()
+POST /edashboard/role/saveRole               			controllers.settings.RoleController.saveRole()
 
 #OPL
 POST /edashboard/addPss/uploadFile 		                controllers.opl.AddPSSController.uploadFile()

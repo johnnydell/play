@@ -57,9 +57,9 @@ var role = function(){
 			addRole:function(){				
 				var role = {
 						id:"0",
-						moduleName:"",
-						funcKey:"",
-						funcName:"",
+						roleName:"",
+						roleDesc:"",
+						roleFuncs:[],
 						active:'1',
 						checked:false,
 						updated:'0'
@@ -81,17 +81,30 @@ var role = function(){
 				  }		      
 			},
 			saveRole:function(){
+				var error = false;
 				$.each(roles,function(i,n){
-					if(n.moduleName == '' || n.funcKey == '' || n.funcName == ''){	
-						jAlert('please fullfill your fields to commit', 'ERROR');						
+					if(n.roleName == '' || n.roleDesc == ''){	
+						jAlert('please fullfill your fields to commit', 'ERROR');
+						error = true;
 						return false;
 					}
-				});				
+				});	
+				var addRoles = [];
+				var updateRoles = [];				
+				$(roles).each(function(i,n){
+					if(n.id == '0'){
+						addRoles.push(n);
+					} else if(n.updated == '1'){
+						updateRoles.push(n);
+					}
+				});
+				console.log(addRoles.length);
+				return;
 				$.ajax({
 					url: manager.root + "/role/saveRole",
 					type: "POST",
 					dataType: "json",
-					data:JSON.stringify(roles),
+					data:JSON.stringify({addRoles:addRoles,updateRoles:updateRoles}),
 					contentType: "application/json",    
 					beforeSend: function() {
 						manager.block();

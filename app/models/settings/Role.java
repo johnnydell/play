@@ -29,7 +29,7 @@ public class Role extends Model {
 	public String roleDesc;
 	
 	@OneToMany(mappedBy="role", cascade=CascadeType.ALL)
-	public List<RoleFunc> roleFuncs; 
+    public List<RoleFunc> roleFuncs; 
 	
 	@Column(name = "active")
 	public String active;	
