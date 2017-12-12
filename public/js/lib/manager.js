@@ -2,7 +2,12 @@ var manager = function() {
     
     
     var cookieDomain = "";
-    
+    if (window["context"] == undefined) {
+        if (!window.location.origin) {
+            window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+        }
+        window["context"] = location.origin+"/V6.0";
+    }
     var context = "edashboard"; //上下文
     var origin = location.origin//地址
     var root = origin+"/"+context;
