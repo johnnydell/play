@@ -45,4 +45,7 @@ public class UploadFile extends Model {
 		Ebean.save(uploadFile);
 	}
 
+	public static void update(UploadFile uploadFile) {
+		Ebean.update(uploadFile);
+	}
 }

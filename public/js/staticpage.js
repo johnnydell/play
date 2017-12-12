@@ -1,14 +1,16 @@
 var staticpage = function(){
 	function init(){
-		var pagename;
+		var pagename = manager.getPV("pageName");;
 		var root=manager.root;
 		var ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
-			data: {root:manager.root},
+			data: {
+				root:manager.root,
+				pageName : pagename
+				},
 			onrender: function(){
 				manager.loadProperties(this, "staticpage", "../../");
-				pagename = manager.getPV("pageName");
 				console.log("pagename=" + pagename);
 			},
 			oncomplete: function(){
@@ -16,12 +18,15 @@ var staticpage = function(){
 					url		: manager.root + '/views/staticpage/viewdoc/' + pagename,
 					type	: 'post',
 					data	: '',
-					success: function(json)
+					success: function(ret)
 					{
-						console.log(json);
-						$("#pdfviewer").css("display", "").css("width", "100%").css("height", "800");
-						$("#pdfviewer").attr("src", root + "/" + json);
-						
+						if (ret == "0"){
+							$("#msginfo").html(pagename + " was not uploaded before, please go to upload page.");
+							$("#uploadURL").css("display", "");
+						}else{
+							$("#pdfviewer").css("display", "").css("width", "100%").css("height", "800");
+							$("#pdfviewer").attr("src", root + "/" + ret);
+						}
 					}
 				});
 			}

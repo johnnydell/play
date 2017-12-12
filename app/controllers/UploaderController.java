@@ -49,8 +49,11 @@ public class UploaderController extends Controller {
 				if (saveResult) {
 					//try save data into DB
 					UploadFile uploadFile = UploadFile.findByName(fileType);
-					if (uploadFile == null)
+					boolean isExist = true;
+					if (uploadFile == null){
 						uploadFile = new UploadFile();
+						isExist = false;
+					}
 					
 					String fileNameLastUpdate = prepareFileName(now, fileType, extension);
 					logger.info("lastest file name = " + fileNameLastUpdate);
@@ -59,7 +62,10 @@ public class UploaderController extends Controller {
 					uploadFile.fileNameLast = fileNameLastUpdate;
 					uploadFile.lastUploadTime = now;
 					uploadFile.active = true;
-					UploadFile.save(uploadFile);
+					if (!isExist)
+						UploadFile.save(uploadFile);
+					else
+						UploadFile.update(uploadFile);
 					
 					UploadFileHistory fileHistory = new UploadFileHistory();
 					fileHistory.fileName = fileNameLastUpdate;
