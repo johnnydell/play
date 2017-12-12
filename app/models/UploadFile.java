@@ -46,7 +46,8 @@ public class UploadFile extends Model {
 		Ebean.save(uploadFile);
 	}
 
-	public static void update(UploadFile uploadFile) {
+	public static void updateBean(UploadFile uploadFile) {
 		Ebean.update(uploadFile);
+		
 	}
 }
