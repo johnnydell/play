@@ -17,12 +17,14 @@
     padding-right: 30px;
 }
 
-.content-box input {
+.content-box .field  {
     border: 1px solid #0080ff;
-    padding: 3px;
+    
     height: 30px;
     width: 100%;
 }
+
+
 
 .content-box .header .title {
 	width: 50%;
@@ -176,4 +178,13 @@
     
    
     background-color: #c0c0c0;
+}
+
+.content-box .hasDatepicker{
+	float:left;
+	text-align:center;
+	height: 32px;
+	vertical-align: middle;
+	width: 100%;
+	border: 1px solid #0080ff;
 }

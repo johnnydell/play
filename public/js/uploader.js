@@ -68,8 +68,8 @@ var uploader = function(){
 			uploadLayoutPage : function () {
 				$("#form_layout_upload").ajaxSubmit({
                     success: function (data) {
-                        $("#msg_info").html(data.info);
-                        $("#result_layout").html(data.result);
+                        $("#msg_info").html($.i18n.map[data.info]);
+                        $("#result_layout").html($.i18n.map[data.result]);
                         $("#time_layout").html(data.last_update_time);
                     },
                     error: function (error) {console.log(error); },
@@ -84,8 +84,8 @@ var uploader = function(){
 			uploadBalancePage : function () {
 				$("#form_balance_upload").ajaxSubmit({
                     success: function (data) {
-                        $("#msg_info").html(data.info);
-                        $("#result_balance").html(data.result);
+                        $("#msg_info").html($.i18n.map[data.info]);
+                        $("#result_balance").html($.i18n.map[data.result]);
                         $("#time_balance").html(data.last_update_time);
                     },
                     error: function (error) {console.log(error); },
@@ -100,8 +100,8 @@ var uploader = function(){
 			uploadPssPage : function () {
 				$("#form_pss_upload").ajaxSubmit({
                     success: function (data) {
-                        $("#msg_info").html(data.info);
-                        $("#result_pss").html(data.result);
+                        $("#msg_info").html($.i18n.map[data.info]);
+                        $("#result_pss").html($.i18n.map[data.result]);
                         $("#time_pss").html(data.last_update_time);
                     },
                     error: function (error) {console.log(error); },
@@ -116,8 +116,8 @@ var uploader = function(){
 			uploadOeePdcaPage : function () {
 				$("#form_oeepdca_upload").ajaxSubmit({
                     success: function (data) {
-                        $("#msg_info").html(data.info);
-                        $("#result_oeepdca").html(data.result);
+                        $("#msg_info").html($.i18n.map[data.info]);
+                        $("#result_oeepdca").html($.i18n.map[data.result]);
                         $("#time_oeepdca").html(data.last_update_time);
                     },
                     error: function (error) {console.log(error); },
@@ -132,8 +132,8 @@ var uploader = function(){
 			upload5sPage : function () {
 				$("#form_5s_upload").ajaxSubmit({
                     success: function (data) {
-                        $("#msg_info").html(data.info);
-                        $("#result_5s").html(data.result);
+                        $("#msg_info").html($.i18n.map[data.info]);
+                        $("#result_5s").html($.i18n.map[data.result]);
                         $("#time_5s").html(data.last_update_time);
                     },
                     error: function (error) {console.log(error); },
@@ -148,8 +148,8 @@ var uploader = function(){
 			uploadTrainMatrixPage : function () {
 				$("#form_trainmatrix_upload").ajaxSubmit({
                     success: function (data) {
-                        $("#msg_info").html(data.info);
-                        $("#result_trainmatrix").html(data.result);
+                        $("#msg_info").html($.i18n.map[data.info]);
+                        $("#result_trainmatrix").html($.i18n.map[data.result]);
                         $("#time_trainmatrix").html(data.last_update_time);
                     },
                     error: function (error) {console.log(error); },

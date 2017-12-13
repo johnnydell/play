@@ -40,7 +40,7 @@ public class HourlyCountController extends Controller {
 	}
 	
 	public static Result saveHourlyCount() throws ParseException{
-		String ret = "Save OK";
+		String ret = "1";
 		
 		String lineName = null, dateStr = null;
 		
