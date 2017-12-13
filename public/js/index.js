@@ -3,16 +3,20 @@ var index = function(){
 		var ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
-			data: {},
+			data: {language:manager.getLanguage()},
 			onrender: function(){
 				manager.loadProperties(this, "index", "../");
-				console.log("render");
 			},
-			oncomplete: function(){
-			
-				console.log("sdfsdf");
+			oncomplete: function(){		
 			}
 		});
+		
+		ractive.on({
+			setLanguage:function(e){
+				var language = $(e.node).val();
+				manager.setLanguage(language);
+			}
+		})
 		
 	}
 	

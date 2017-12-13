@@ -40,10 +40,26 @@
 	</div>
 	<div class="content">
 	    <div class="check">
-			<label for="zh">中文</label><div class="check-box"><input type="radio" name="language" value="zh" id="zh" checked="checked" /><i></i></div>
+			<label for="zh">中文</label>
+            <div class="check-box">
+               {{#if language == 'zh'}}
+               <input type="radio" name="language" value="zh" id="zh" on-click="setLanguage" checked="checked" />
+               {{else}}
+			   <input type="radio" name="language" value="zh" id="zh" on-click="setLanguage" />
+               {{/if}}
+               <i></i>
+            </div>
 		</div>
 		<div class="check">
-			<label for="en">英文</label><div class="check-box"><input type="radio" name="language" value="en" id="en" /><i></i></div>
+			<label for="en">英文</label>
+			<div class="check-box">
+				{{#if language == 'en'}}
+				<input type="radio" name="language" value="en" id="en" on-click="setLanguage" checked="checked"  />
+				{{else}}
+			    <input type="radio" name="language" value="en" id="en" on-click="setLanguage" />
+                {{/if}}
+				<i></i>
+			</div>
 		</div>
 		<div class="content-box">
 			<ul>

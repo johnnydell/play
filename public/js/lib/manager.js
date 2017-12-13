@@ -17,8 +17,8 @@ var manager = function() {
 	var language = getCookie("language");
 	if(language == "undefined" || language == undefined){
 		language = "zh";
+		setCookie("language", language);
 	}
-	setCookie("language", language);
 	
 	//设置cookie
 	function setCookie(key, value) {
@@ -168,6 +168,12 @@ var manager = function() {
 		root:root,
 		getPV:getPV,
 		setMenuBar:setMenuBar,
+		setLanguage:function(language){
+			setCookie("language", language);
+		},
+		getLanguage:function(){
+			return getCookie("language");
+		},
 		block: function() {
         	$.blockUI({
                 message: '<div style="font-size: 14px;font-weight: bold;color: #f60;height: 40px;width: 250px;line-height: 40px;text-align: center;margin: 0 auto;"><img alt="" src="' + root + '/images/loading.gif"></div>',
