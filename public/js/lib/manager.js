@@ -1,6 +1,4 @@
 var manager = function() {
-    
-    
     var cookieDomain = "";
     window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
     var context = "edashboard"; //上下文
@@ -24,18 +22,16 @@ var manager = function() {
 	function setCookie(key, value) {
 		var date = new Date();
 		date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000));
-		document.cookie = key + "=" + escape(value) + "; path=/; domain = " + cookieDomain + "; expires=" + date.toGMTString();
+		$.cookie(key,value,{
+		    expires:date,   		
+		    path:'/',		
+		    domain:''
+		})
 	}
 		
 	//获取cookie
 	function getCookie(objName){
-		var arrStr = document.cookie.split("; ");
-		for(var i = 0;i < arrStr.length;i ++){
-			var temp = arrStr[i].split("=");
-			if(temp[0] == objName){
-				return unescape(temp[1]);
-			}
-		}
+	   return $.cookie(objName);		
 	}
 	
 	//获取当前地址的参数
@@ -152,7 +148,6 @@ var manager = function() {
   	        });
 
   	        ractive2.on("login", function () {
-  	            console.log("login");
   	          $(".login_popup").hide().html("");
   	        });
   	        

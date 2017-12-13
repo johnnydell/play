@@ -8,6 +8,7 @@ var index = function(){
 				manager.loadProperties(this, "index", "../");
 			},
 			oncomplete: function(){		
+				
 			}
 		});
 		

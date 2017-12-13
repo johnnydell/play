@@ -24,6 +24,7 @@
 		</div>
 	</body>
 	<script src="../js/lib/jquery-1.10.1.min.js"></script>
+	<script src="../js/lib/jquery.cookie.js"></script>
 	<script src="../js/lib/ractive-legacy.js"></script>
 	<script src="../js/lib/jquery.i18n.properties-1.0.9.js"></script>
 	<script src="../js/lib/manager.js"></script>
@@ -40,7 +41,7 @@
 	</div>
 	<div class="content">
 	    <div class="check">
-			<label for="zh">中文</label>
+			<label for="zh">中文{{language}}</label>
             <div class="check-box">
                {{#if language == 'zh'}}
                <input type="radio" name="language" value="zh" id="zh" on-click="setLanguage" checked="checked" />
