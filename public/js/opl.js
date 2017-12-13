@@ -82,26 +82,26 @@ var opl = function(){
 				this.set("opl",opl);
 			},
 			oncomplete: function(){
-				$('.opltr .date').datetimepicker({
+				$('.cxttr .date').datetimepicker({
 					yearOffset:0,
 					timepicker:false,
 					format:'Y-m-d',
 					minDate:'2000/01/01', // yesterday is minimum date
 					maxDate:'2030/02/28' // and tommorow is maximum date calendar
 				});
-				$('.opltr .deadline').datetimepicker({
+				$('.cxttr .deadline').datetimepicker({
 					yearOffset:0,
 					timepicker:false,
 					format:'Y-m-d',
 					minDate:'2000/01/01', // yesterday is minimum date
 					maxDate:'2030/02/28' // and tommorow is maximum date calendar
 				});
-				$(".opltr .dtFrom").datetimepicker({
+				$(".cxttr .dtFrom").datetimepicker({
 					datepicker:false,
 					format:'H:i',
 					step:5
 				});
-				$(".opltr .dtTo").datetimepicker({
+				$(".cxttr .dtTo").datetimepicker({
 					datepicker:false,
 					format:'H:i',
 					step:5
@@ -129,18 +129,32 @@ var opl = function(){
 				$(e.node).hide().prev().show().text($(e.node).find("option:selected").text());
 			},
 			toShowColumnEditor:function(e){
-				$(e.node).hide().next().show().focus();
+				var event = e.original || window.event;
+				event.stopPropagation();
+				$(e.node).children(0).hide().next().show().focus();
+			},
+			stopPropagation: function(e){
+				var event = e.original || window.event;
+				event.stopPropagation();
 			},
 			toHideColumnEditor:function(e){
 				var type = e.node.type;
+				var txt;
 				if(type == 'select-one'){
-					$(e.node).hide().prev().show().text($(e.node).find("option:selected").text());
+					txt = $(e.node).find("option:selected").text();
+				} else if(type == 'textarea') {
+					txt = $(e.node).val();
+					var index = $(e.node).parent().parent().attr("lang");
+					var colName = $(e.node).attr("colName");
+					if(colName != undefined && colName != ''){
+						opl[index][colName] = txt;
+					}
 				} else {
-					$(e.node).hide().prev().show().text($(e.node).val());
+					txt = $(e.node).val();
 				}
-			},
-			changePSS:function(e){
-				
+				var old_txt = txt;
+				txt = txt.length>10?txt.substring(0,10)+"....":txt;
+				$(e.node).hide().prev().show().text(txt).attr("title",old_txt);
 			},
 			addOP:function(){				
 				var op = {
@@ -167,26 +181,26 @@ var opl = function(){
 				opl.push(op);
 				ractive.update("opl");
 				//对新增的行进行绑定时间选择事件
-				$('.opltr:last .date').datetimepicker({
+				$('.cxttr:last .date').datetimepicker({
 					yearOffset:0,
 					timepicker:false,
 					format:'Y-m-d',
 					minDate:'2000/01/01', // yesterday is minimum date
 					maxDate:'2030/02/28' // and tommorow is maximum date calendar
 				});
-				$('.opltr:last .deadline').datetimepicker({
+				$('.cxttr:last .deadline').datetimepicker({
 					yearOffset:0,
 					timepicker:false,
 					format:'Y-m-d',
 					minDate:'2000/01/01', // yesterday is minimum date
 					maxDate:'2030/02/28' // and tommorow is maximum date calendar
 				});
-				$(".opltr:last .dtFrom").datetimepicker({
+				$(".cxttr:last .dtFrom").datetimepicker({
 					datepicker:false,
 					format:'H:i',
 					step:5
 				});
-				$(".opltr:last .dtTo").datetimepicker({
+				$(".cxttr:last .dtTo").datetimepicker({
 					datepicker:false,
 					format:'H:i',
 					step:5
@@ -209,13 +223,14 @@ var opl = function(){
 				console.log("prepare to save");
 			},
 			test:function(){
-				/*console.log(opl[0].days[3]);
-				console.log(deletedOPL);*/
+				console.log(opl[0].pss);
+				/*console.log(deletedOPL);
 				console.log(manager);
-				manager.triggerLogin();
+				manager.triggerLogin();*/
 			},
 			showPss:function(e){
 			    var index = $(e.node).parent().parent().attr("lang");
+			    var _$target = $(e.node);
 				$(".pss_popup").show();  
     	    	  $.get(manager.root+"/views/tpl/board/addPSS.html", function (data) {
     	    	        var currPss	= opl[index].pss;     
@@ -329,7 +344,9 @@ var opl = function(){
 	        	        ractive2.on("close", function () {
 	        	            $(".pss_popup").hide().html("");
 	        	            opl[index].pss = currPss;
-	        	            ractive.update("opl");
+	        	            //ractive.update("opl");
+	        	            var txt = currPss.length>10?currPss.substring(0,10)+"....":currPss;
+	        	            _$target.parent().children(0).html(txt);
 	        	        });
 	        	    });   
 			}

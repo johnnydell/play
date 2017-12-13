@@ -140,7 +140,7 @@
                    <td><input class="opt" type="checkbox" checked="{{checked}}" /></td>
 	               <td>
 	               		<label class="field" on-click="toShowColumnEditor">{{name}}</label>
-	               		<input class="field" type="text" on-blur="toHideColumnEditor" style="display:none" value="{{name}}" />
+	               		<input class="field" type="text" maxlength="20" on-blur="toHideColumnEditor" style="display:none" value="{{name}}" />
 	               </td>
 	               <td>
 	                    <label class="field" on-click="toShowColumnEditor">{{type}}</label>
@@ -151,7 +151,7 @@
 	               </td>
 	               <td>
 	               		<label class="field" on-click="toShowColumnEditor">{{dept}}</label>
-	               		<input class="field" type="text" on-blur="toHideColumnEditor" style="display:none" value="{{dept}}" />
+	               		<input class="field" type="text" maxlength="20" on-blur="toHideColumnEditor" style="display:none" value="{{dept}}" />
 	               </td>
 	               {{#each days}}
 				   {{#if s =='0'}}	

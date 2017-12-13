@@ -126,11 +126,21 @@ var meetAttd = function(){
 			},
 			toHideColumnEditor:function(e){
 				var type = e.node.type;
+				var txt;
 				if(type == 'select-one'){
-					$(e.node).hide().prev().show().text($(e.node).find("option:selected").text());
+					txt = $(e.node).find("option:selected").text();
+				} else if(type == 'textarea') {
+					txt = $(e.node).val();
+					var index = $(e.node).parent().parent().attr("lang");
+					var colName = $(e.node).attr("colName");
+					if(colName != undefined && colName != ''){
+						opl[index][colName] = txt;
+					}
 				} else {
-					$(e.node).hide().prev().show().text($(e.node).val());
+					txt = $(e.node).val();
 				}
+				txt = txt.length>10?txt.substring(0,10)+"....":txt;
+				$(e.node).hide().prev().show().text(txt)
 			}
 		})
 	}

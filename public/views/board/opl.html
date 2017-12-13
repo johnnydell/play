@@ -22,7 +22,7 @@
 				    <!-- main template -->				    
 				</div>
 				<!-- right footer -->
-				<footer></footer>		
+				<footer></footer>
 			</div>
 		</div>
 	</body>
@@ -130,59 +130,59 @@
 			        <th width="3%">Status<br>状态</th>        
 			    </tr>
  				{{#each opl:index}}
-			    <tr class="opltr" lang="{{index}}">
+			    <tr class="cxttr" lang="{{index}}">
 				    <td><input type="checkbox" checked="{{checked}}" /></td>
-			        <td>
-                       <label class="field" on-click="toShowColumnEditor">{{date}}</label>
-                        <input class="field date" style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{date}}"/>
+			        <td on-click="toShowColumnEditor">
+                       <label class="field">{{date}}</label>
+                        <input class="field date"  style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{date}}" on-click="stopPropagation"/>
                     </td>
-			        <td>
-                       <label class="field" on-click="toShowColumnEditor">{{refNo}}</label>
-                       <input class="field" type="text" style="display:none;" on-blur="toHideColumnEditor" value="{{refNo}}"/>
+			        <td on-click="toShowColumnEditor">
+                       <label class="field" >{{refNo}}</label>
+                       <input class="field" type="text" style="display:none;" on-blur="toHideColumnEditor" value="{{refNo}}" on-click="stopPropagation"/>
                     </td>
-			        <td>
-                       <label class="field" on-click="toShowColumnEditor">{{personFound}}</label>
-                       <input class="field" type="text" style="display:none;" on-blur="toHideColumnEditor" value="{{personFound}}"/>
+			        <td on-click="toShowColumnEditor">
+                       <label class="field" >{{personFound}}</label>
+                       <input class="field" type="text" style="display:none;" on-blur="toHideColumnEditor" value="{{personFound}}" on-click="stopPropagation"/>
                     </td>
-			        <td>
-                       <label class="field" on-click="toShowColumnEditor">{{station}}</label>
-                       <input class="field" type="text" style="display:none;" on-blur="toHideColumnEditor" value="{{station}}"/>
+			        <td on-click="toShowColumnEditor">
+                       <label class="field" >{{station}}</label>
+                       <input class="field" type="text" style="display:none;" on-blur="toHideColumnEditor" value="{{station}}" on-click="stopPropagation"/>
                     </td>
-			        <td>
-					   <label class="field" on-click="toShowColumnEditor">{{description}}</label>
-                       <textarea class="field" style="display:none;" on-blur="toHideColumnEditor" cols="80" rows="2">{{description}}</textarea>
+			        <td on-click="toShowColumnEditor" >
+					   <label class="field" >{{description}}</label>
+                       <textarea class="field" style="display:none;" colName="description" on-blur="toHideColumnEditor" cols="80" rows="2" on-click="stopPropagation">{{description}}</textarea>
                     </td>
-			        <td>
-					   <label class="field" on-click="toShowColumnEditor">{{dtFrom}}</label>
-					   <input class="field dtFrom" style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{dtFrom}}"/>
+			        <td on-click="toShowColumnEditor">
+					   <label class="field" >{{dtFrom}}</label>
+					   <input class="field dtFrom" style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{dtFrom}}" on-click="stopPropagation"/>
                     </td>
-			        <td>
-                       <label class="field"  on-click="toShowColumnEditor">{{dtTo}}</label>
-					   <input class="field dtTo" style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{dtTo}}"/>
+			        <td on-click="toShowColumnEditor">
+                       <label class="field" >{{dtTo}}</label>
+					   <input class="field dtTo" style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{dtTo}}" on-click="stopPropagation"/>
                     </td>
-			        <td>
-                       <label class="field" on-click="toShowColumnEditor">{{timing}}</label>
-                       <input class="field" type="text" style="display:none;" on-blur="toHideColumnEditor" value="{{timing}}"/>
+			        <td on-click="toShowColumnEditor">
+                       <label class="field" >{{timing}}</label>
+                       <input class="field" type="text" style="display:none;" on-blur="toHideColumnEditor" value="{{timing}}" on-click="stopPropagation"/>
                     </td>
-					<td>
-                       <label class="field" on-click="toShowColumnEditor">{{amt}}</label>
-                       <input class="field" type="text" style="display:none;" on-blur="toHideColumnEditor" value="{{amt}}"/>
+					<td on-click="toShowColumnEditor">
+                       <label class="field">{{amt}}</label>
+                       <input class="field" type="text" style="display:none;" on-blur="toHideColumnEditor" value="{{amt}}" on-click="stopPropagation"/>
                     </td>
-					<td colspan="2">
-					   <label class="field"  on-click="toShowColumnEditor">{{rootCause}}</label>
-                       <textarea class="field" style="margin-top: 1px;display:none;" on-blur="toHideColumnEditor" cols="80" rows="2">{{rootCause}}</textarea>
+					<td colspan="2" on-click="toShowColumnEditor" >
+					   <label class="field">{{rootCause}}</label>
+                       <textarea class="field" style="margin-top: 1px;display:none;" colName="rootCause" on-blur="toHideColumnEditor" cols="80" rows="2" on-click="stopPropagation">{{rootCause}}</textarea>
                     </td>
-			        <td>
-					   <label class="field"  on-click="toShowColumnEditor">{{immediate}}</label>
-                       <textarea class="field" style="display:none;" on-blur="toHideColumnEditor" cols="80" rows="2">{{immediate}}</textarea>
+			        <td on-click="toShowColumnEditor" >
+					   <label class="field">{{immediate}}</label>
+                       <textarea class="field" style="display:none;" colName="immediate" on-blur="toHideColumnEditor" cols="80" rows="2" on-click="stopPropagation">{{immediate}}</textarea>
                     </td>
-			        <td>
-					   <label class="field"  on-click="toShowColumnEditor">{{longTerm}}</label>
-                       <textarea class="field" style="display:none;" on-blur="toHideColumnEditor" cols="80" rows="2">{{longTerm}}</textarea>
+			        <td on-click="toShowColumnEditor" >
+					   <label class="field">{{longTerm}}</label>
+                       <textarea class="field" style="display:none;" colName="longTerm" on-blur="toHideColumnEditor" cols="80" rows="2" on-click="stopPropagation">{{longTerm}}</textarea>
                     </td>
-			        <td>
-                       <label class="field" on-click="toShowColumnEditor">{{problemSolvingSheet}}</label>
-					   <select class="field" style="display:none;" on-blur="toHideColumnEditor" on-change="changePSS" value="{{problemSolvingSheet}}">
+			        <td on-click="toShowColumnEditor">
+                       <label class="field">{{problemSolvingSheet}}</label>
+					   <select class="field" style="display:none;" on-blur="toHideColumnEditor" value="{{problemSolvingSheet}}" on-click="stopPropagation">
 						 <option value="Y">Y</option>
 						 <option value="N">N</option>
 	             	   </select>
@@ -204,17 +204,17 @@
 							<label class="field" ></label>
                        {{/if}}
                     </td>
-			        <td>
-                       <label class="field"  on-click="toShowColumnEditor">{{responsible}}</label>
-                       <input class="field" type="text" style="display:none;" on-blur="toHideColumnEditor" value="{{responsible}}"/>
+			        <td on-click="toShowColumnEditor">
+                       <label class="field" >{{responsible}}</label>
+                       <input class="field" type="text" style="display:none;" on-blur="toHideColumnEditor" value="{{responsible}}" on-click="stopPropagation"/>
                     </td>
-			        <td>
-                       <label class="field"  on-click="toShowColumnEditor">{{deadline}}</label>
-                       <input class="field deadline" style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{deadline}}"/>
+			        <td  on-click="toShowColumnEditor">
+                       <label class="field">{{deadline}}</label>
+                       <input class="field deadline" style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{deadline}}" on-click="stopPropagation"/>
                     </td>
-			        <td>
-                       <label class="field" on-click="toShowColumnEditor">{{status}}</label>
-					   <select class="field" style="display:none;" on-blur="toHideColumnEditor" value="{{status}}">
+			        <td  on-click="toShowColumnEditor">
+                       <label class="field">{{status}}</label>
+					   <select class="field" style="display:none;" on-blur="toHideColumnEditor" value="{{status}}" on-click="stopPropagation">
 						 <option value="Y">Y</option>
 						 <option value="N">N</option>
 	             	   </select>
