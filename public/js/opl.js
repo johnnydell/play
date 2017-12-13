@@ -2,7 +2,7 @@ var opl = function(){
 	function init(){
 		var opl = [];
 		var deletedOPL =[];
-		var years = ['2016','2017','2018'];
+		var years = ['2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018'];
 		var months = ['01','02','03','04','05','06','07','08','09','10','11','12'];
 	
 		var ractive = new Ractive({
@@ -160,25 +160,25 @@ var opl = function(){
 				var op = {
 						id:"0",
 						checked:false,
-						date:"2017-04-02",
-						refNo:"BH001",
-						personFound:"ZANSANG",
-						station:'001',
-						description:'sadfs dsaf a 你好！',
-						dtFrom:'18:15',
-						dtTo:'18:15',
-						timing:'3',
-						amt:'12',
-						rootCause:'sdafdasfdasfdasfdsfdsf',
-						immediate:'sdfasfdfexeafe sdfdfe ',
-						longTerm:'1111',
-						problemSolvingSheet:'Y',
-						pss:'111.xls',
-						responsible:'zhangsan',
-						deadline:'2017-04-02',
+						date:"",
+						refNo:"",
+						personFound:"",
+						station:'',
+						description:'',
+						dtFrom:'',
+						dtTo:'',
+						timing:'',
+						amt:'',
+						rootCause:'',
+						immediate:' sdfdfe ',
+						longTerm:'',
+						problemSolvingSheet:'N',
+						pss:'',
+						responsible:'',
+						deadline:'',
 						status:'N'						
 					};
-				opl.push(op);
+				opl.unshift(op);
 				ractive.update("opl");
 				//对新增的行进行绑定时间选择事件
 				$('.cxttr:last .date').datetimepicker({
@@ -345,8 +345,10 @@ var opl = function(){
 	        	            $(".pss_popup").hide().html("");
 	        	            opl[index].pss = currPss;
 	        	            //ractive.update("opl");
-	        	            var txt = currPss.length>10?currPss.substring(0,10)+"....":currPss;
-	        	            _$target.parent().children(0).html(txt);
+	        	            if(currPss != ''){
+	        	            	var txt = currPss.length>10?currPss.substring(0,10)+"....":currPss;
+	        	           	    _$target.parent().children(0).html(txt);
+	        	            }
 	        	        });
 	        	    });   
 			}

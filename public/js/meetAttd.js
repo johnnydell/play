@@ -2,7 +2,7 @@ var meetAttd = function(){
 	function init(){
 		var attendees = [];
 		var deletedAttendees =[];
-		var years = ['2016','2017','2018'];
+		var years = ['2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018'];
 		var months = ['01','02','03','04','05','06','07','08','09','10','11','12'];
 		var days = [
 			{d:1,v:"X",s:'0'},
@@ -46,14 +46,16 @@ var meetAttd = function(){
 				manager.loadProperties(this, "meetAttd", "../../");
 				this.set("years",years);
 				this.set("months",months);
+				this.set("currYear","2017");
+				this.set("currMonth","12");
 			},
 			oncomplete: function(){
 				
-				var attendee1 = {id:"0",checked:false,name:"Newer",type:"R",dept:"",days:days};
+				/*var attendee1 = {id:"0",checked:false,name:"",type:"R",dept:"",days:days};
 				attendees.push(attendee1);
-				var attendee2 = {id:"0",checked:false,name:"Newer",type:"R",dept:"",days:days};
+				var attendee2 = {id:"0",checked:false,name:"",type:"R",dept:"",days:days};
 				attendees.push(attendee2);
-				ractive.set("attendees",attendees);
+				ractive.set("attendees",attendees);*/
 			}
 		});
 		
@@ -96,7 +98,7 @@ var meetAttd = function(){
 				_$txt.hide().prev().show().text(_$txt.val());
 			},
 			addAttendee:function(){				
-				var attendee = {id:"0",checked:false,name:"Newer",type:"R",dept:"",days:days};
+				var attendee = {id:"0",checked:false,name:"",type:"R",dept:"",days:days};
 				attendees.push(attendee);
 				ractive.set("attendees",attendees);
 			},
