@@ -41,7 +41,7 @@
 }
 
 .content-box table td {
-  	height: 34px;
+	height: 34px;
     text-align: center;
     border: 1px solid #000;
     font-size: smaller;	
@@ -82,8 +82,13 @@
 	width: 100%;
 	height:100%;
 	display:inline-block;
-	vertical-align: middle;
 	line-height: 30px;
+	vertical-align: middle;
+}
+
+.roletr td:nth-child(4) .field {
+	width: 50%;
+	float:left;
 }
 
 .roletr td input[type='text'],.roletr td select,.roletr td textarea {

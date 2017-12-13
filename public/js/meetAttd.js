@@ -51,11 +51,22 @@ var meetAttd = function(){
 			},
 			oncomplete: function(){
 				
-				/*var attendee1 = {id:"0",checked:false,name:"",type:"R",dept:"",days:days};
+				var attendee1 = {id:"1",checked:false,name:"Member A",type:"R",dept:"Dept A",days:days};
 				attendees.push(attendee1);
-				var attendee2 = {id:"0",checked:false,name:"",type:"R",dept:"",days:days};
+				var attendee2 = {id:"2",checked:false,name:"Member B",type:"R",dept:"Dept B",days:days};
 				attendees.push(attendee2);
-				ractive.set("attendees",attendees);*/
+				ractive.set("attendees",attendees);
+				
+				$(".meettimeStart").datetimepicker({
+					datepicker:false,
+					format:'H:i',
+					step:5
+				});
+				$(".meettimeEnd").datetimepicker({
+					datepicker:false,
+					format:'H:i',
+					step:5
+				});
 			}
 		});
 		
@@ -76,19 +87,18 @@ var meetAttd = function(){
 				var _$select = $(e.node);
 				_$select.hide().prev().show().text(_$select.find("option:selected").text());
 			},
-			toShowMeetingTimeText:function(){
-				$("#meetingTimeTd label").hide().next().show().focus();				
+			toShowMeetingTimeText:function(e){				
+				$(e.node).hide().next().show().focus();		
+			},
+			toHideMeetingTimeText:function(e){
+				$(e.node).hide().prev().show().text($(e.node).val());			
 			},
 			toShowMeetingSpotText:function(){
 				$("#meetingSpotTd label").hide().next().show().focus();
 			},
 			toShowMeetingHostText:function(){
 				$("#meetingHostTd label").hide().next().show().focus();
-			},
-			toHideMeetingTimeText:function(){
-				var _$txt = $("#meetingTimeTd input");
-				_$txt.hide().prev().show().text(_$txt.val());			
-			},
+			},			
 			toHideMeetingSpotText:function(){
 				var _$txt = $("#meetingSpotTd input");
 				_$txt.hide().prev().show().text(_$txt.val());
@@ -99,7 +109,7 @@ var meetAttd = function(){
 			},
 			addAttendee:function(){				
 				var attendee = {id:"0",checked:false,name:"",type:"R",dept:"",days:days};
-				attendees.push(attendee);
+				attendees.unshift(attendee);
 				ractive.set("attendees",attendees);
 			},
 			deleteAttendee:function(){

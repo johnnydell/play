@@ -47,10 +47,10 @@
 	<div class="content">
 		<div class="content-box">
             <div class="toolbar">
-                <button type="button" class="btn" on-click="test">测试</button>
-				<button type="button" class="btn" on-click="addFunc">增加功能点</button>
-				<button type="button" class="btn" on-click="saveFunc">保存功能点</button>
-				<!--<button type="button" class="btn" on-click="deleteFunc">删除功能点</button>-->
+                <!--<button type="button" class="btn" on-click="test">测试</button>-->
+				<button type="button" class="btn" on-click="addFunc">增加</button>
+				<button type="button" class="btn" on-click="saveFunc">保存</button>
+				<!--<button type="button" class="btn" on-click="deleteFunc">删除</button>-->
             </div>
 			<div class="header">
 				<table>
@@ -61,7 +61,7 @@
 					<th colspan="5">&nbsp;</th>
 				</tr>
 			    <tr>
-				    <th width="2%"><input type="checkbox" /></th>
+				    <th width="2%"><input type="checkbox" /><font>&nbsp;</font></th>
 			        <th width="34%">模块名称</th>
 			        <th width="24%">功能KEY</th>
 			        <th width="34%">功能名称</th>
@@ -69,7 +69,14 @@
 			    </tr>
  				{{#each funcs:index}}
 			    <tr class="functr" lang="{{index}}">
-				    <td><input type="checkbox" checked="{{checked}}" /></td>
+				    <td>
+				    	<input type="checkbox" checked="{{checked}}" />
+				    	{{#if id == '0'}}
+				        <font color="red">*</font>
+				        {{else}}
+				        <font>&nbsp;</font>
+				        {{/if}}
+				    </td>
 			        <td>
                         <label on-click="toShowColumnEditor" class="field">{{moduleName}}</label>
                         <input class="field" style="display:none;" maxlength="20" on-blur="toHideColumnEditor" type="text" value="{{moduleName}}"/>

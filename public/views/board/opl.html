@@ -107,7 +107,7 @@
 					<th></th>
 				</tr>
 			    <tr>
-				    <th width="2%" rowspan="2"><input type="checkbox" /></th>
+				    <th width="2%" rowspan="2"><input type="checkbox" /> <font>&nbsp;</font></th>
 			        <th width="6%" rowspan="2">Date<br>日期</th>
 			        <th width="4%" rowspan="2">Ref No<br>编号</th>
 			        <th width="5%" rowspan="2">Person Found<br>问题提出人</th>
@@ -132,7 +132,14 @@
 			    </tr>
  				{{#each opl:index}}
 			    <tr class="cxttr" lang="{{index}}">
-				    <td><input type="checkbox" checked="{{checked}}" /></td>
+				    <td>
+				        <input type="checkbox" checked="{{checked}}" />
+				        {{#if id == '0'}}
+				        <font color="red">*</font>
+				        {{else}}
+				        <font>&nbsp;</font>
+				        {{/if}}
+				    </td>
 			        <td on-click="toShowColumnEditor">
                        <label class="field">{{date}}</label>
                         <input class="field date"  style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{date}}" on-click="stopPropagation"/>

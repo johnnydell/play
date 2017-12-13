@@ -6,6 +6,7 @@
 		<link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
 		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
 		<link rel="stylesheet" type="text/css" href="../../css/login.css"/>
+		<link rel="stylesheet" type="text/css" href="../../js/lib/datetimepicker/jquery.datetimepicker.css"/>	
 		<link rel="stylesheet" type="text/css" href="../../css/meetAttd.css"/>
 		
 	</head>
@@ -28,6 +29,7 @@
 	<script src="../../js/lib/jquery.cookie.js"></script>
 	<script src="../../js/lib/ractive-legacy.js"></script>
 	<script src="../../js/lib/jquery.i18n.properties-1.0.9.js"></script>
+	<script src="../../js/lib/datetimepicker/jquery.datetimepicker.full.js"></script>
 	<script src="../../js/lib/manager.js"></script>
 	<script src="../../js/meetAttd.js"></script>
 	<script id="main-template" type="text/active">
@@ -58,11 +60,11 @@
 				<div class="title"><span>{{i18n_meetAttd_title}}</span></div>
 				<div class="info">
 					 <div class="lb">
-					   <span>Line生产线:</span>
-					   <span>Month月份:</span>
+					   <span>{{i18n_meetAttd_line}}:</span>
+					   <span>{{i18n_meetAttd_month}}:</span>
 					 </div>
 					 <div class="val">
-						 <span class="fst">ARS1</span>
+						 <span class="fst">FAG2</span>
 						 <span class="dt">
                              <label on-click="toShowYearSelect">{{currYear}}</label>                    
 							 <select style="display:none;" on-blur="toHideYearSelect" value="{{currYear}}">
@@ -83,24 +85,27 @@
 			</div>
 			<table>
 				<tr>
-					<td colspan="6" id="meetingTimeTd">
-                        <span>会议时间/Meeting Time:</span>  
-						<label on-click="toShowMeetingTimeText">10:00-10:15</label>                      
-                        <input style="width:50%;display:none" type="text" on-blur="toHideMeetingTimeText" value="10:00-10:15" />
+					<td colspan="6">
+                        <span>{{i18n_meetAttd_meetingtime}}:</span>  
+						<label on-click="toShowMeetingTimeText">10:00</label>                      
+                        <input class="meettimeStart" style="width:50px;height:30px;display:none" type="text" on-blur="toHideMeetingTimeText" value="10:00" />
+                        -
+                        <label on-click="toShowMeetingTimeText">10:15</label>                      
+                        <input class="meettimeEnd" style="width:50px;height:30px;display:none" type="text" on-blur="toHideMeetingTimeText" value="10:15" />
                     </td>
 					<td colspan="14" id="meetingSpotTd">
-                        <span>会议地点/Meeting Spot:</span>
-                        <label on-click="toShowMeetingSpotText">Team board/班组信息板</label>
-						<input style="width:50%;display:none" type="text" on-blur="toHideMeetingSpotText" value="Team board/班组信息板" />
+                        <span>{{i18n_meetAttd_meetingspot}}:</span>
+                        <label on-click="toShowMeetingSpotText">{{i18n_meetAttd_teamboard}}</label>
+						<input style="width:50%;height:30px;display:none" type="text" on-blur="toHideMeetingSpotText" value="{{i18n_meetAttd_teamboard}}" />
                     </td>
 					<td colspan="15" id="meetingHostTd">
                         <span>Host/主持人:</span>
                     	<label on-click="toShowMeetingHostText">Team Leader/班长</label>
-						<input style="width:50%;display:none" type="text" on-blur="toHideMeetingHostText" value="Team Leader/班长" />
+						<input style="width:50%;height:30px;display:none" type="text" on-blur="toHideMeetingHostText" value="Team Leader/班长" />
                     </td>
 				</tr>
 				<tr>
-				    <th width="2%"><input type="checkbox" /></th>
+				    <th width="2%"><input type="checkbox" /><font>&nbsp;&nbsp;</font></th>
 					<th width="12%">Name姓名</th>
 					<th width="12%">Required/optional<br>必需(R)或可选(O)</th>
 					<th width="12%">Dept.部门</th>
@@ -138,7 +143,14 @@
 				</tr>
                 {{#each attendees:index}}
                 <tr class="attendeeTr" lang="{{index}}">
-                   <td><input class="opt" type="checkbox" checked="{{checked}}" /></td>
+                   <td>
+                   		<input class="opt" type="checkbox" checked="{{checked}}" />
+                   		{{#if id == '0'}}
+				        <font color="red">*</font>
+				        {{else}}
+				        <font>&nbsp;</font>
+				        {{/if}}
+                   </td>
 	               <td>
 	               		<label class="field" on-click="toShowColumnEditor">{{name}}</label>
 	               		<input class="field" type="text" maxlength="20" on-blur="toHideColumnEditor" style="display:none" value="{{name}}" />

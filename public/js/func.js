@@ -63,7 +63,7 @@ var func = function(){
 						checked:false,
 						updated:'0'
 				};
-				funcs.push(func);
+				funcs.unshift(func);
 				ractive.update("funcs");
 			},
 			deleteFunc:function(){

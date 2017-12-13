@@ -47,10 +47,10 @@
 	<div class="content">
 		<div class="content-box">
             <div class="toolbar">
-                <button type="button" class="btn" on-click="test">测试</button>
-				<button type="button" class="btn" on-click="addRole">增加角色</button>
-				<button type="button" class="btn" on-click="saveRole">保存角色</button>
-				<button type="button" class="btn" on-click="deleteRole">删除角色</button>
+                <!--<button type="button" class="btn" on-click="test">测试</button>-->
+				<button type="button" class="btn" on-click="addRole">增加</button>
+				<button type="button" class="btn" on-click="saveRole">保存</button>
+				<button type="button" class="btn" on-click="deleteRole">删除</button>
             </div>
 			<div class="header">
 				<table>
@@ -61,7 +61,7 @@
 					<th colspan="5">&nbsp;</th>
 				</tr>
 			    <tr>
-				    <th width="2%"><input type="checkbox" /></th>
+				    <th width="2%"><input type="checkbox" /><font>&nbsp;&nbsp;</font></th>
 			        <th width="39%">角色名称</th>
 			        <th width="39%">角色描述</th>
 			        <th width="14%">角色功能</th>
@@ -69,7 +69,14 @@
 			    </tr>
  				{{#each roles:index}}
 			    <tr class="roletr" lang="{{index}}">
-				    <td><input type="checkbox" checked="{{checked}}" /></td>
+				    <td>				        
+				    	<input type="checkbox" checked="{{checked}}" />
+				    	{{#if id == '0'}}
+				        <font color="red">*</font>
+				        {{else}}
+				        <font>&nbsp;</font>
+				        {{/if}}
+				    </td>
 			        <td>
                         <label class="field"  on-click="toShowColumnEditor">{{roleName}}</label>
                         <input class="field" style="display:none;" maxlength="20" on-blur="toHideColumnEditor" type="text" value="{{roleName}}"/>
@@ -83,7 +90,7 @@
 							<label class="field" ><a class="link" href="javascript:void(0);" on-click="viewRoleFunc">查看</a></label>
 							<label class="field" ><a class="link" href="javascript:void(0);" on-click="editRoleFunc">编辑</a></label>
 					   {{else}}
-                            <label class="field" ><font color="red">未保存</font></label>        
+                            <label class="field" ></label>        
                        {{/if}}
                     </td>
 			        <td>

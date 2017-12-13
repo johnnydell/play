@@ -64,7 +64,7 @@ var role = function(){
 						checked:false,
 						updated:'0'
 				};
-				roles.push(role);
+				roles.unshift(role);
 				ractive.update("roles");
 			},
 			deleteRole:function(){

@@ -176,6 +176,6 @@
 	line-height: 30px;
 }
 
-.attendeeTr td input[type='text'],.attendeeTr td select,.attendeeTr td textarea {
+table td input[type='text'],.attendeeTr td select,.attendeeTr td textarea {
 	border: 1px solid #0080ff;	
 }
