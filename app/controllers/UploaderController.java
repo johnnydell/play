@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,7 +27,8 @@ public class UploaderController extends Controller {
 	private final static DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
 	private final static DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-	public static Result uploadFile(String fileType) {
+	public static Result uploadFile(String fileType) throws UnsupportedEncodingException {
+		
 		JSONObject json = new JSONObject();
 		MultipartFormData body = request().body().asMultipartFormData();
 		FilePart filePart = body.getFile(fileType);
@@ -76,21 +78,21 @@ public class UploaderController extends Controller {
 					fileHistory.uploadTime = now;
 					UploadFileHistory.save(fileHistory);
 					
-					json.put("result", "OK");
-					json.put("info", "upload file " + fileType + " Succeed!");
+					json.put("result", "i18n_uploader_ok");
+					json.put("info", "i18n_uploader_info_succeed");
 				} else {
-					json.put("result", "FAIL");
-					json.put("info", "Upload file " + fileType + " Failed: Cannot save to Local directory. ");
+					json.put("result", "i18n_uploader_fail");
+					json.put("info", "i18n_uploader_info_local_save_fail");
 				}
 			}
 			else{
-				json.put("result", "FAIL");
-				json.put("info", "Upload file " + fileType + " Failed: Only accept [xls], [xlsx] and [pdf] files.");
+				json.put("result", "i18n_uploader_fail");
+				json.put("info", "i18n_uploader_info_invalid_ext");
 			}
 			
 		} else {
-			json.put("result", "FAIL");
-			json.put("info", "Upload file " + fileType + " Failed: there's no file detected.");
+			json.put("result", "i18n_uploader_fail");
+			json.put("info", "i18n_uploader_info_no_file");
 		}
 		return ok(json.toJSONString());
 	}

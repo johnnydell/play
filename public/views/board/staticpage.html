@@ -73,7 +73,15 @@
 	<div class="content">
 		<div class="content-box">
 			<span id="msginfo"></span>
-			<a id="uploadURL" href="{{root}}/views/upload/uploader.html" style="display : none;" class="link">Go to Upload Page</a>
+			<div class="toolbar">
+				<span>{{i18n_staticpage_switch_to}} </span>
+				{{#if pageName == 'balance'}}
+					<a href="{{root}}/views/board/staticpage.html?pageName=layout" class="link">{{i18n_staticpage_title_layout}}</a>
+				{{elseif pageName == 'layout'}}
+					<a href="{{root}}/views/board/staticpage.html?pageName=balance" class="link">{{i18n_staticpage_title_balance}}</a>
+				{{/if}}
+            </div>
+			<a id="uploadURL" href="{{root}}/views/settings/uploader.html" style="display : none;" class="link">Go to Upload Page</a>
 			<iframe id="pdfviewer" style="display : none;border : 0"/>	
 			
 		</div>

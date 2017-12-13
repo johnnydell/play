@@ -2,7 +2,7 @@
 <div class="model">
 	<div class="modal-header">
 		<button type="button" class="close" on-click="close">×</button>
-		<h4>Losses Input - {{lossInfoObj.lossNameV}}</h4>
+		<h4>{{i18n_hourlycount_loss_input}} - {{lossInfoObj.lossNameV}}</h4>
 	</div>
 	<div class="modal-body">
 		<form role="form" class="ng-pristine ng-valid">
@@ -25,7 +25,7 @@
 		</form>
 	</div>
 	<div class="modal-footer">
-		<button type="button" class="btn" on-click="close">Close</button>
-		<button type="button" class="btn" on-click="save">Save</button>
+		<button type="button" class="btn" on-click="close">{{i18n_close}}</button>
+		<button type="button" class="btn" on-click="save">{{i18n_save}}</button>
 	</div>
 </div>

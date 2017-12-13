@@ -30,6 +30,7 @@ var hourlycount = function(){
 			
 			onrender: function(){
 				manager.loadProperties(this, "hourlycount", "../../");
+				manager.loadProperties(this, "common", "../../");
 			},
 			oncomplete: function(){
 				//active date picker control
@@ -289,6 +290,10 @@ var hourlycount = function(){
 	        	            	root		: manager.root,
 	        	            	lossInfoObj : lossInfo
 	        	            	},
+        	            	onrender: function(){
+        	    				manager.loadProperties(this, "hourlycount", "../../");
+        	    				manager.loadProperties(this, "common", "../../");
+        	    			},
 	        	            oncomplete: function () {
 	        	            	
 	        	            }
@@ -300,7 +305,21 @@ var hourlycount = function(){
 	        			});
 	        	        ractive2.on("save", function () {
 	        	        	
-	        	        	//cellObj.children(0).html(lossInfo.lossCountV);
+	        	        	if (isNull(lossInfo.lossCountV)){
+	        	        		jAlert($.i18n.map['i18n_required'], $.i18n.map['i18n_error']);	
+	        	        		$("#remark_count").css("border", "1px solid red");
+	        	        		return false;
+	        	        	}else{
+	        	        		$("#remark_count").css("border", "1px solid #ccc");
+	        	        	}
+	        	        	if (isNull(lossInfo.lossReasonV)){
+	        	        		jAlert($.i18n.map['i18n_required'], $.i18n.map['i18n_error']);	
+	        	        		$("#remark_reason").css("border", "1px solid red");
+	        	        		return false;
+	        	        	}else{
+	        	        		$("#remark_reason").css("border", "1px solid #ccc");
+	        	        	}
+	        	        		
 	        	        	//update remarks
 	        	        	if (!isNull(remarks)){
 	        	        		//update remarks by current loss name
@@ -398,9 +417,21 @@ var hourlycount = function(){
 					type	: 'post',
 					data	: JSON.stringify(params),
 					contentType: "application/json", 
+					beforeSend: function() {
+						manager.block();
+					},
 					success: function(ret)
 					{
-						$("#msgBox").html(ret);
+						if (ret == '1'){
+							$("#msgBox").html($.i18n.map['i18n_save_ok']);
+						}
+						else{
+							$("#msgBox").html($.i18n.map['i18n_save_error']);
+						}
+						
+					},
+					complete: function() {
+						manager.unblock();
 					}
 				})
 			
