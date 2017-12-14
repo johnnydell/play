@@ -33,7 +33,8 @@
 }
 .content-box li a:hover,
 .content-box li a.active{
-	border-color: #00ffff;
-	border-width: 2px;
+	background: #f00;
+	/* border-color: #00ffff;
+	border-width: 2px; */
 	color: #fff;
 }

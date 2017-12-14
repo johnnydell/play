@@ -16,6 +16,7 @@ var index = function(){
 			setLanguage:function(e){
 				var language = $(e.node).val();
 				manager.setLanguage(language);
+				window.location.reload();
 			}
 		})
 		
