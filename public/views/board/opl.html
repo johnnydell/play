@@ -75,14 +75,14 @@
 				<tr>
 					<th colspan="3" style="font-size: 20px;font-weight: bold;text-align:right;">Month月份：</th>
 					<th class="dt" width="10%" style="background-color:white;color: #000;border: 1px solid #000;text-align:left;">
-					<label on-click="toShowYearSelect">2017</label>                    
-					<select style="display:none;" on-blur="toHideYearSelect">
+					<label on-click="toShowYearSelect">{{currYear}}</label>                    
+					<select style="display:none;" on-blur="toHideYearSelect" value="{{currYear}}">
  						{{#each years:index}}
 						 <option value="{{years[index]}}">{{years[index]}}</option>
 				         {{/each}}
 	             	</select>
-                    <label on-click="toShowMonthSelect">8 月</label>
- 					<select style="display:none;" on-blur="toHideMonthSelect">
+                    <label on-click="toShowMonthSelect">{{currMonth}} 月</label>
+ 					<select style="display:none;" on-blur="toHideMonthSelect" value="{{currMonth}}">
 						 {{#each months:index}}
 						 <option value="{{months[index]}}">{{months[index]}} 月</option>
 				         {{/each}}

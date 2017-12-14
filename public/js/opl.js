@@ -2,8 +2,8 @@ var opl = function(){
 	function init(){
 		var opl = [];
 		var deletedOPL =[];
-		var years = ['2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018'];
-		var months = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+		var years = manager.years;
+		var months = manager.months;
 	
 		var ractive = new Ractive({
 			el: ".container",
@@ -13,6 +13,8 @@ var opl = function(){
 				manager.loadProperties(this, "opl", "../../");
 				this.set("years",years);
 				this.set("months",months);
+				this.set("currYear","2017");
+				this.set("currMonth","12");
 				var op1 = {
 						id:"1",
 						checked:false,
