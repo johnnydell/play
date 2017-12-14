@@ -1,5 +1,6 @@
 .top .lft .chart2{
 	height:100%;
+	border: 1px solid #b19f9f;
 }
 
 .top .lft .icon {
@@ -12,5 +13,5 @@
 .top .lft .chart {
 	width: 80%;
 	float: left;
-	height:100%;
+	height:95%;
 }

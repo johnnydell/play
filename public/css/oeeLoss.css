@@ -129,9 +129,17 @@
 .top .lft .tloss,.top .lft .oloss{
 	width:100%;
   	height:50%;
+  	padding-bottom: 5px;
 }
 
 .top .rgt .closs,.top .rgt .qloss,.top .rgt .ploss{
 	width:100%;
   	height:33%;
+  	padding-bottom: 5px;
+}
+
+.dt select, .dt label {
+    width: 50%;
+    float: left;
+    text-align: center;
 }
