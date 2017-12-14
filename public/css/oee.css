@@ -123,3 +123,9 @@
 .top .rgt {
 	width:60%;
 }
+
+.dt select, .dt label {
+    width: 50%;
+    float: left;
+    text-align: center;
+}

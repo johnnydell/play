@@ -65,7 +65,20 @@
 					 </div>
 					 <div class="val">
 						 <span class="fst">FAG2</span>
-						 <span>2017 2月</span>
+						  <span class="dt">
+                             <label on-click="toShowYearSelect">{{currYear}} 年</label>                    
+							 <select style="display:none;" on-blur="toHideYearSelect" value="{{currYear}}">
+		 					   {{#each years:index}}
+								 <option value="{{years[index]}}">{{years[index]}} 年</option>
+						       {{/each}}
+			             	 </select>
+                             <label on-click="toShowMonthSelect">{{currMonth}} 月</label>
+                             <select style="display:none" on-blur="toHideMonthSelect" value="{{currMonth}}">
+				               {{#each months:index}}
+							    <option value="{{months[index]}}">{{months[index]}} 月</option>
+					           {{/each}}
+	             			</select>
+                         </span>
 					 </div>
 					 <div></div>
 				</div>

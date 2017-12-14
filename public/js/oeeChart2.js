@@ -43,7 +43,8 @@ var oeeChart2 = function(){
 	        series: [{
 	            type: 'column',
 	            name: 'Performance/Undefined losses',
-	            data: [10, 5, 10, 10, 5,0,0,0,0,0,0,0]
+	            data: [10, 5, 10, 10, 5,0,0,0,0,0,0,0],
+	            color:'#FF8000'
 	        }, {
 	            type: 'column',
 	            name: 'Quality losses',
