@@ -75,10 +75,12 @@
 		<div class="content-box">
 			<span id="msginfo"></span>
 			<div class="toolbar">
-				<span>{{i18n_staticpage_switch_to}} </span>
+				
 				{{#if pageName == 'balance'}}
+					<span>{{i18n_staticpage_switch_to}} </span>
 					<a href="{{root}}/views/board/staticpage.html?pageName=layout" class="link">{{i18n_staticpage_title_layout}}</a>
 				{{elseif pageName == 'layout'}}
+					<span>{{i18n_staticpage_switch_to}} </span>
 					<a href="{{root}}/views/board/staticpage.html?pageName=balance" class="link">{{i18n_staticpage_title_balance}}</a>
 				{{/if}}
             </div>

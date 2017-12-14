@@ -178,8 +178,8 @@ public class OfficeConverter {
 	}
 	
 	public static void main(String[] args) {
-		String inFilePath = "D:\\workspace_18\\edash\\public\\temp\\balance\\balance_20171130101824.xlsm";
-		String outFilePath = "D:\\workspace_18\\edash\\public\\temp\\balance\\balance_20171130101824.pdf";
+		String inFilePath = "D:\\AlexDu\\trunk\\Tasks\\java\\BOSCH\\e-dashboard\\doc\\SG_project_docs\\2017-11-23\\PDCA.xlsx";
+		String outFilePath = "D:\\AlexDu\\trunk\\Tasks\\java\\BOSCH\\e-dashboard\\doc\\SG_project_docs\\2017-11-23\\PDCA.pdf";
 		try {
 			excelToPdf(inFilePath, outFilePath);
 		} catch (Exception e) {

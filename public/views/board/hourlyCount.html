@@ -317,7 +317,7 @@
 					</td>
 					<td on-click="toShowColumnEditor">
 						<label>{{format(hourlyCountV1[index].actualCount)}}</label>
-						<input class="field " style="display:none;" on-blur="toHideColumnEditorWithCalculationForActual" type="text" value="{{hourlyCountV1[index].actualCount}}" on-keyup="toValidateEditorOnlyNum"/>
+						<input class="field" style="display:none;" on-blur="toHideColumnEditorWithCalculationForActual" type="text" value="{{hourlyCountV1[index].actualCount}}" on-keyup="toValidateEditorOnlyNum"/>
 					</td>
 					<td>
 					{{#if hourlyCountV1[index].actualCount > 0}}
@@ -329,14 +329,18 @@
 					<td colspan="7" style="text-align:left">
 					{{#if hourlyCountV1[index].productHourCount > 0}}
 						{{#if hourlyCountV1[index].productHourPercent <= 0.5}}
-							<input type="button" style=" height:35px; background-color:red" value="{{hourlyCountV1[index].productHourCount}}"/>
+							
+							<progress value="{{hourlyCountV1[index].productHourPercent}}" class="progress_red"  />
 						{{elseif hourlyCountV1[index].productHourPercent <= 0.7 && hourlyCountV1[index].productHourPercent > 0.5}}
-							<input type="button" style=" height:35px; background-color:yellow" value="{{hourlyCountV1[index].productHourCount}}"/>
+							
+							<progress value="{{hourlyCountV1[index].productHourPercent}}"  class="progress_yellow" />
 						{{else}}
-							<input type="button" style=" height:35px; background-color:green" value="{{hourlyCountV1[index].productHourCount}}"/>
+							
+							<progress value="{{hourlyCountV1[index].productHourPercent}}" class="progress_green" />
 						{{/if}}
 					{{else}}
-						<input type="button" style="display:none; height:35px" value="{{hourlyCountV1[index].productHourCount}}"/>
+						
+						<progress value="{{hourlyCountV1[index].productHourPercent}}"  style="display:none;"/>
 					{{/if}}
 					</td>
 					<td on-click="toShowRemark">
