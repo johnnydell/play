@@ -31,7 +31,7 @@ var opl = function(){
 						immediate:'sdfasfdfexeafe sdfdfe ',
 						longTerm:'1111',
 						problemSolvingSheet:'Y',
-						pss:'111.xls',
+						pss:'',
 						responsible:'zhangsan',
 						deadline:'2017-04-02',
 						status:'N'						
