@@ -32,7 +32,7 @@
 	<script src="../js/scr.js"></script>
 	<script id="main-template" type="text/active">
 	<div class="position _clear title">
-		<h3>{{i18n_scr_title}}</h3>
+		<h3><!--{{i18n_scr_title}}-->&nbsp;</h3>
 		<div class="fr">
 			<p>
 				<i class="icon icon-home"></i>
@@ -51,33 +51,40 @@
                   	 <ul>
 	                    <li	class="f50">
 	                        <h1>当前生产型号</h1>
-	                        <a href="javascript:void(0);">8888888888-2Y8</a>
+	                        <a on-click="toShowEditor" href="javascript:void(0);">{{data.currType}}</a>
+                            <input style="display:none;" on-blur="toHideEditor" type="text" value="{{data.currType}}"/>
 	                    </li>
 	                    <li class="f25">
 	                        <h1>节拍[S]</h1>
-	                       <a href="javascript:void(0);">15</a>
+	                        <a on-click="toShowEditor" href="javascript:void(0);">{{data.currJP}}</a>
+                            <input style="display:none;" on-blur="toHideEditor" type="text" value="{{data.currJP}}"/>
 	                    </li>
 	                    <li class="f25">
 	                    	<h1>人数</h1>
-	                        <a href="javascript:void(0);">12</a>
+	                        <a on-click="toShowEditor" href="javascript:void(0);">{{data.currRS}}</a>
+                            <input style="display:none;" on-blur="toHideEditor" type="text" value="{{data.currRS}}"/>
 	                    </li>
 	                  </ul>
 	                  <ul>
 	                    <li	class="f25">
 	                        <h1>计划产出</h1>
-	                        <a href="javascript:void(0);">500</a>
+	                        <a on-click="toShowEditor" href="javascript:void(0);">{{data.planCC}}</a>
+                            <input style="display:none;" on-blur="toHideEditor" type="text" value="{{data.planCC}}"/>
 	                    </li>
 	                    <li	class="f25">
 	                        <h1>实际产出</h1>
-	                        <a href="javascript:void(0);">501</a>
+	                        <a on-click="toShowEditor" href="javascript:void(0);">{{data.actualCC}}</a>
+                            <input style="display:none;" on-blur="toHideEditor" type="text" value="{{data.actualCC}}"/>
 	                    </li>
 	                    <li class="f25">
 	                        <h1>偏差</h1>
-	                       <a href="javascript:void(0);" style="color:green">+1</a>
+	                        <a on-click="toShowEditor" style="color:green" href="javascript:void(0);">{{data.diff}}</a>
+                            <input style="display:none;" on-blur="toHideEditor" type="text" value="{{data.diff}}"/>
 	                    </li>
 	                    <li class="f25">
 	                    	<h1>OEE</h1>
-	                        <a href="javascript:void(0);" style="color:green">85%</a>
+	                        <a on-click="toShowEditor" style="color:green" href="javascript:void(0);">{{data.oee}}</a>
+                            <input style="display:none;" on-blur="toHideEditor" type="text" value="{{data.oee}}"/>
 	                    </li>
 	                  </ul>
                    </div>
@@ -92,15 +99,18 @@
                       <ul>
                         <li	class="f50">
                             <h1>下一生产型号</h1>
-                            <a href="javascript:void(0);">6666666666-6SB</a>
+                            <a on-click="toShowEditor" href="javascript:void(0);">{{data.nextType}}</a>
+                            <input style="display:none;" on-blur="toHideEditor" type="text" value="{{data.nextType}}"/>
                         </li>
                         <li class="f25">
                             <h1>节拍[S]</h1>
-                           <a href="javascript:void(0);">15</a>
+                            <a on-click="toShowEditor" href="javascript:void(0);">{{data.nextJP}}</a>
+                            <input style="display:none;" on-blur="toHideEditor" type="text" value="{{data.nextJP}}"/>
                         </li>
                         <li class="f25">
                         	<h1>人数</h1>
-                            <a href="javascript:void(0);">12</a>
+                            <a on-click="toShowEditor" href="javascript:void(0);">{{data.nextRS}}</a>
+                            <input style="display:none;" on-blur="toHideEditor" type="text" value="{{data.nextRS}}"/>
                         </li>
                       </ul>
                    </div>
