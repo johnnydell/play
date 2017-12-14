@@ -190,30 +190,10 @@ var hourlycount = function(){
 				//calculate hourly count percent
 				hourlycounts[rowIndex].productHourCount = val;
 				hourlycounts[rowIndex].productHourPercent = val / 240;
-//				if ( val !== 0 ){
-//					$(e.node).parent().next().next().children(0).show();
-//					var hourlyCountWidth = parseInt($(e.node).parent().next().next().css("width"));
-//					var perc = val / 240;
-//					var realWidth = Math.ceil(hourlyCountWidth * perc);
-//					$(e.node).parent().next().next().children(0).css("width", realWidth);
-//					if (perc < 0.6){
-//						$(e.node).parent().next().next().children(0).css("background-color", "red");
-//					}
-//					else if (perc > 0.6 && perc < 0.8){
-//						$(e.node).parent().next().next().children(0).css("background-color", "yellow");
-//					}
-//					else{
-//						$(e.node).parent().next().next().children(0).css("background-color", "green");
-//					}
-//				}
-//				else{
-//					$(e.node).parent().next().next().children(0).hide();
-//				}
-				
-				
+	
 				ractive.update();
 			},
-			/*popup login window*/
+			/*popup remarks window*/
 			toShowRemark:function(e){
 				var cellIndex = e.node.cellIndex;
 				var rowIndex = e.index.index;
@@ -326,7 +306,7 @@ var hourlycount = function(){
 	        	        		if (remarks.indexOf(lossName) > -1){
 	        	        			lossNameIndex = remarks.indexOf(lossName);
 	        	        			commaIndex = remarks.indexOf(";", lossNameIndex);
-	        	        			remarks = remarks.substr(0, lossNameIndex - 1) + lossName + "-" + lossInfo.lossCountV + "-" + lossInfo.lossReasonV + ";" + remarks.substr(commaIndex, remarks.length - 1);
+	        	        			remarks = remarks.substr(0, lossNameIndex) + lossName + "-" + lossInfo.lossCountV + "-" + lossInfo.lossReasonV + ";" + remarks.substr(commaIndex + 1, remarks.length - 1);
 	        	        		}
 	        	        		//add new loss info into remark
 	        	        		else{
