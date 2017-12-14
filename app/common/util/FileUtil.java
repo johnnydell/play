@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.FileCopyUtils;
 
 public class FileUtil {
 
@@ -47,5 +48,36 @@ public class FileUtil {
 
 		return result;
 	}
+	
+	public static boolean copyFileToSpecificPath(String filePath, File sourceFile){
+		boolean result = false;
+
+		File targetFile = new File(filePath);
+		// check path if it's existed, if not, created
+
+		File fileParent = targetFile.getParentFile();
+		if (!fileParent.exists()) {
+			result = fileParent.mkdirs();
+		}
+		else{
+			//already existed.
+			result = true;
+		}
+		if (result) {
+			// write file content
+			try {
+				FileCopyUtils.copy(sourceFile, targetFile);
+				result = true;
+			} catch (IOException e) {
+				result = false;
+				logger.error("save file failed: " + e);
+			}
+		} else {
+			logger.error("Create File path: " + fileParent.getPath() + " Error");
+		}
+		return result;
+	}
+
+	
 
 }
