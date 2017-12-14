@@ -69,7 +69,7 @@ public class StaticPageController extends Controller {
 		}
 		else{
 			flash("error", "Only accept Excel or PDF file.");
-			return ok("");
+			return ok("0");
 		}
 		
 		

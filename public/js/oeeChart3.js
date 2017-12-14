@@ -41,157 +41,157 @@ var oeeChart3 = function(){
 		        type: 'line',
 		        name: 'OEE - actual',
 		        data: [{
-		            y: 10,
+		            y: 86.2,
+		            marker: {
+		                symbol: 'url('+manager.root+'/images/greenx.png)'
+		            }
+		        }, {
+		            y: 68.2,
 		            marker: {
 		                symbol: 'url('+manager.root+'/images/redx.png)'
 		            }
 		        }, {
-		            y: 60,
+		            y: 83.3,
 		            marker: {
 		                symbol: 'url('+manager.root+'/images/greenx.png)'
 		            }
 		        }, {
-		            y: 50,
+		            y: 81.4,
 		            marker: {
 		                symbol: 'url('+manager.root+'/images/greenx.png)'
 		            }
 		        }, {
-		            y: 70,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/greenx.png)'
-		            }
-		        }, {
-		            y: 30,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/redx.png)'
-		            }
-		        },{
-		            y: 10,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/redx.png)'
-		            }
-		        }, {
-		            y: 60,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/greenx.png)'
-		            }
-		        }, {
-		            y: 50,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/greenx.png)'
-		            }
-		        }, {
-		            y: 70,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/greenx.png)'
-		            }
-		        }, {
-		            y: 30,
+		            y: 0,
 		            marker: {
 		                symbol: 'url('+manager.root+'/images/redx.png)'
 		            }
 		        },{
-		            y: 10,
+		            y: 0,
 		            marker: {
 		                symbol: 'url('+manager.root+'/images/redx.png)'
 		            }
 		        }, {
-		            y: 60,
+		            y: 0,
 		            marker: {
 		                symbol: 'url('+manager.root+'/images/greenx.png)'
 		            }
 		        }, {
-		            y: 50,
+		            y: 0,
 		            marker: {
 		                symbol: 'url('+manager.root+'/images/greenx.png)'
 		            }
 		        }, {
-		            y: 70,
+		            y: 0,
 		            marker: {
 		                symbol: 'url('+manager.root+'/images/greenx.png)'
 		            }
 		        }, {
-		            y: 30,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/redx.png)'
-		            }
-		        },{
-		            y: 10,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/redx.png)'
-		            }
-		        }, {
-		            y: 60,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/greenx.png)'
-		            }
-		        }, {
-		            y: 50,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/greenx.png)'
-		            }
-		        }, {
-		            y: 70,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/greenx.png)'
-		            }
-		        }, {
-		            y: 30,
+		            y: 0,
 		            marker: {
 		                symbol: 'url('+manager.root+'/images/redx.png)'
 		            }
 		        },{
-		            y: 10,
+		            y: 0,
 		            marker: {
 		                symbol: 'url('+manager.root+'/images/redx.png)'
 		            }
 		        }, {
-		            y: 60,
+		            y: 0,
 		            marker: {
 		                symbol: 'url('+manager.root+'/images/greenx.png)'
 		            }
 		        }, {
-		            y: 50,
+		            y: 0,
 		            marker: {
 		                symbol: 'url('+manager.root+'/images/greenx.png)'
 		            }
 		        }, {
-		            y: 70,
+		            y: 0,
 		            marker: {
 		                symbol: 'url('+manager.root+'/images/greenx.png)'
 		            }
 		        }, {
-		            y: 30,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/redx.png)'
-		            }
-		        },{
-		            y: 10,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/redx.png)'
-		            }
-		        }, {
-		            y: 60,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/greenx.png)'
-		            }
-		        }, {
-		            y: 50,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/greenx.png)'
-		            }
-		        }, {
-		            y: 70,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/greenx.png)'
-		            }
-		        }, {
-		            y: 30,
+		            y: 0,
 		            marker: {
 		                symbol: 'url('+manager.root+'/images/redx.png)'
 		            }
 		        },{
-		            y: 10,
+		            y: 0,
+		            marker: {
+		                symbol: 'url('+manager.root+'/images/redx.png)'
+		            }
+		        }, {
+		            y: 0,
+		            marker: {
+		                symbol: 'url('+manager.root+'/images/greenx.png)'
+		            }
+		        }, {
+		            y: 0,
+		            marker: {
+		                symbol: 'url('+manager.root+'/images/greenx.png)'
+		            }
+		        }, {
+		            y: 0,
+		            marker: {
+		                symbol: 'url('+manager.root+'/images/greenx.png)'
+		            }
+		        }, {
+		            y: 0,
+		            marker: {
+		                symbol: 'url('+manager.root+'/images/redx.png)'
+		            }
+		        },{
+		            y: 0,
+		            marker: {
+		                symbol: 'url('+manager.root+'/images/redx.png)'
+		            }
+		        }, {
+		            y: 0,
+		            marker: {
+		                symbol: 'url('+manager.root+'/images/greenx.png)'
+		            }
+		        }, {
+		            y: 0,
+		            marker: {
+		                symbol: 'url('+manager.root+'/images/greenx.png)'
+		            }
+		        }, {
+		            y: 0,
+		            marker: {
+		                symbol: 'url('+manager.root+'/images/greenx.png)'
+		            }
+		        }, {
+		            y: 0,
+		            marker: {
+		                symbol: 'url('+manager.root+'/images/redx.png)'
+		            }
+		        },{
+		            y: 0,
+		            marker: {
+		                symbol: 'url('+manager.root+'/images/redx.png)'
+		            }
+		        }, {
+		            y: 0,
+		            marker: {
+		                symbol: 'url('+manager.root+'/images/greenx.png)'
+		            }
+		        }, {
+		            y: 0,
+		            marker: {
+		                symbol: 'url('+manager.root+'/images/greenx.png)'
+		            }
+		        }, {
+		            y: 0,
+		            marker: {
+		                symbol: 'url('+manager.root+'/images/greenx.png)'
+		            }
+		        }, {
+		            y: 0,
+		            marker: {
+		                symbol: 'url('+manager.root+'/images/redx.png)'
+		            }
+		        },{
+		            y: 0,
 		            marker: {
 		                symbol: 'url('+manager.root+'/images/redx.png)'
 		            }
@@ -201,9 +201,9 @@ var oeeChart3 = function(){
 		        type: 'spline',
 		        name: 'OEE - target',
 		        color:'red',
-		        data: [40, 40, 40, 40, 40,40, 40, 40, 40, 40,40, 40, 40,
-		               40, 40, 40, 40, 40,40, 40, 40, 40, 40,40, 40, 40,
-		               40, 40, 40, 40, 40],
+		        data: [75, 75, 75, 75, 75,75, 75, 75, 75, 75,75, 75, 75,
+		        	75, 75, 75, 75, 75,75, 75, 75, 75, 75,75, 75, 75,
+		        	75, 75, 75, 75, 75],
 		        marker: {
 		            enabled: false
 		        }

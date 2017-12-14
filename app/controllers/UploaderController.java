@@ -46,7 +46,7 @@ public class UploaderController extends Controller {
 				String filePath = prepareFilePath(now, fileType, extension);
 				boolean saveResult = false;
 				if (!"".equals(filePath))
-					saveResult = FileUtil.saveFileToSpecificPath(filePath, file);
+					saveResult = FileUtil.copyFileToSpecificPath(filePath, file);
 				
 				if (saveResult) {
 					//try save data into DB
