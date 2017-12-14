@@ -2,41 +2,9 @@ var meetAttd = function(){
 	function init(){
 		var attendees = [];
 		var deletedAttendees =[];
-		var years = ['2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018'];
-		var months = ['01','02','03','04','05','06','07','08','09','10','11','12'];
-		var days = [
-			{d:1,v:"X",s:'0'},
-			{d:2,v:"E",s:'0'},
-			{d:3,v:"E",s:'0'},
-			{d:4,v:"E",s:'1'},
-			{d:5,v:"E",s:'1'},
-			{d:6,v:"E",s:'0'},
-			{d:7,v:"E",s:'0'},
-			{d:8,v:"E",s:'0'},
-			{d:9,v:"E",s:'0'},
-			{d:10,v:"E",s:'0'},
-			{d:11,v:"E",s:'0'},
-			{d:12,v:"E",s:'1'},
-			{d:13,v:"E",s:'1'},
-			{d:14,v:"E",s:'0'},
-			{d:15,v:"E",s:'0'},
-			{d:16,v:"E",s:'0'},
-			{d:17,v:"E",s:'0'},
-			{d:18,v:"E",s:'0'},
-			{d:19,v:"E",s:'1'},
-			{d:20,v:"E",s:'1'},
-			{d:21,v:"E",s:'0'},
-			{d:22,v:"E",s:'0'},
-			{d:23,v:"E",s:'0'},
-			{d:24,v:"E",s:'0'},
-			{d:25,v:"E",s:'0'},
-			{d:26,v:"E",s:'1'},
-			{d:27,v:"E",s:'1'},
-			{d:28,v:"E",s:'0'},
-			{d:29,v:"E",s:'0'},
-			{d:30,v:"E",s:'0'},
-			{d:31,v:"E",s:'0'}
-		];
+		var years = manager.years;
+		var months = manager.months;
+		var daysStructure = {};
 		
 		var ractive = new Ractive({
 			el: ".container",
@@ -46,14 +14,16 @@ var meetAttd = function(){
 				manager.loadProperties(this, "meetAttd", "../../");
 				this.set("years",years);
 				this.set("months",months);
-				this.set("currYear","2017");
-				this.set("currMonth","12");
+				daysStructure.year = "2017";
+				daysStructure.month = "12";
+				refreshDaysData(daysStructure);
+				this.set("daysStructure",daysStructure);
 			},
 			oncomplete: function(){
 				
-				var attendee1 = {id:"1",checked:false,name:"Member A",type:"R",dept:"Dept A",days:days};
+				var attendee1 = {id:"1",checked:false,name:"Member A",type:"R",frequency:"2",dept:"Dept A",days:daysStructure.days};
 				attendees.push(attendee1);
-				var attendee2 = {id:"2",checked:false,name:"Member B",type:"R",dept:"Dept B",days:days};
+				var attendee2 = {id:"2",checked:false,name:"Member B",type:"R",frequency:"2",dept:"Dept B",days:daysStructure.days};
 				attendees.push(attendee2);
 				ractive.set("attendees",attendees);
 				
@@ -71,9 +41,6 @@ var meetAttd = function(){
 		});
 		
 		ractive.on({
-			toSignIn:function(){
-				location.href = "meetAttdSignIn.html";
-			},
 			toShowYearSelect:function(e){
 				$(e.node).hide().next().show().focus();
 			},
@@ -86,6 +53,14 @@ var meetAttd = function(){
 			toHideMonthSelect:function(e){
 				var _$select = $(e.node);
 				_$select.hide().prev().show().text(_$select.find("option:selected").text());
+			},
+			changeYear:function(){
+				refreshDaysData(daysStructure);
+				ractive.update("daysStructure");
+			},
+			changeMonth:function(){
+				refreshDaysData(daysStructure);
+				ractive.update("daysStructure");
 			},
 			toShowMeetingTimeText:function(e){				
 				$(e.node).hide().next().show().focus();		
@@ -108,7 +83,7 @@ var meetAttd = function(){
 				_$txt.hide().prev().show().text(_$txt.val());
 			},
 			addAttendee:function(){				
-				var attendee = {id:"0",checked:false,name:"",type:"R",dept:"",days:days};
+				var attendee = {id:"0",checked:false,name:"",type:"R",frequency:"",dept:"",days:daysStructure.days};
 				attendees.unshift(attendee);
 				ractive.set("attendees",attendees);
 			},
@@ -155,6 +130,27 @@ var meetAttd = function(){
 				$(e.node).hide().prev().show().text(txt)
 			}
 		})
+	}
+	
+	//构建对应年月份天数的days默认对象
+	function refreshDaysData(daysStructure){
+		var daysCnt = manager.getDaysCnt(daysStructure.year,daysStructure.month);
+		daysStructure.days = [];
+		daysStructure.daysCnt = daysCnt;
+		for(i = 1;i <= daysCnt;i++){
+			daysStructure.days.push({d:i,v:"",s:verifyWeekend(daysStructure.year,daysStructure.month,i)+''});//s标示是否为周末
+		}
+		return daysStructure;
+	}
+	
+	//验证日期是否为周末
+	function verifyWeekend(year,month,day){
+		var dt = new Date(parseInt(year),parseInt(month)-1,parseInt(day));
+		var ret = 0;//not a weekend day		
+		if (dt.getDay() == 0 || dt.getDay() == 6){
+		  ret = 1;
+		} 
+		return ret;
 	}
 	
 	return {

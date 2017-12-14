@@ -66,14 +66,14 @@
 					 <div class="val">
 						 <span class="fst">FAG2</span>
 						 <span class="dt">
-                             <label on-click="toShowYearSelect">{{currYear}}</label>                    
-							 <select style="display:none;" on-blur="toHideYearSelect" value="{{currYear}}">
+                             <label on-click="toShowYearSelect">{{daysStructure.year}}</label>                    
+							 <select style="display:none;" on-blur="toHideYearSelect" on-change="changeYear" value="{{daysStructure.year}}">
 		 					   {{#each years:index}}
 								 <option value="{{years[index]}}">{{years[index]}}</option>
 						       {{/each}}
 			             	 </select>
-                             <label on-click="toShowMonthSelect">{{currMonth}} 月</label>
-                             <select style="display:none" on-blur="toHideMonthSelect" value="{{currMonth}}">
+                             <label on-click="toShowMonthSelect">{{daysStructure.month}} 月</label>
+                             <select style="display:none" on-blur="toHideMonthSelect" on-change="changeMonth" value="{{daysStructure.month}}">
 				               {{#each months:index}}
 							    <option value="{{months[index]}}">{{months[index]}} 月</option>
 					           {{/each}}
@@ -85,7 +85,7 @@
 			</div>
 			<table>
 				<tr>
-					<td colspan="6">
+					<td colspan="7">
                         <span>{{i18n_meetAttd_meetingtime}}:</span>  
 						<label on-click="toShowMeetingTimeText">10:00</label>                      
                         <input class="meettimeStart" style="width:50px;height:30px;display:none" type="text" on-blur="toHideMeetingTimeText" value="10:00" />
@@ -107,39 +107,12 @@
 				<tr>
 				    <th width="2%"><input type="checkbox" /><font>&nbsp;&nbsp;</font></th>
 					<th width="12%">Name姓名</th>
-					<th width="12%">Required/optional<br>必需(R)或可选(O)</th>
-					<th width="12%">Dept.部门</th>
-					<th width="2%">1</th>
-					<th width="2%">2</th>
-					<th width="2%">3</th>
-					<th width="2%">4</th>
-					<th width="2%">5</th>
-					<th width="2%">6</th>
-					<th width="2%">7</th>
-					<th width="2%">8</th>
-					<th width="2%">9</th>
-					<th width="2%">10</th>
-					<th width="2%">11</th>
-					<th width="2%">12</th>
-					<th width="2%">13</th>
-					<th width="2%">14</th>
-					<th width="2%">15</th>
-					<th width="2%">16</th>
-					<th width="2%">17</th>
-					<th width="2%">18</th>
-					<th width="2%">19</th>
-					<th width="2%">20</th>
-					<th width="2%">21</th>
-					<th width="2%">22</th>
-					<th width="2%">23</th>
-					<th width="2%">24</th>
-					<th width="2%">25</th>
-					<th width="2%">26</th>
-					<th width="2%">27</th>
-					<th width="2%">28</th>
-					<th width="2%">29</th>
-					<th width="2%">30</th>
-					<th width="2%">31</th>
+					<th width="8%">Required/optional<br>必需(R)或可选(O)</th>
+					<th width="8%">Frequency<br>频次</th>
+					<th width="8%">Dept.部门</th>
+				   {{#each daysStructure.days}}
+					<th width="2%">{{d}}</th>
+	               {{/each}}
 				</tr>
                 {{#each attendees:index}}
                 <tr class="attendeeTr" lang="{{index}}">
@@ -162,15 +135,20 @@
          				   <option value="O">O</option>
              			</select>
 	               </td>
+				   <td>
+	               		<label class="field" on-click="toShowColumnEditor">{{frequency}}</label>
+	               		<input class="field" type="text" maxlength="20" on-blur="toHideColumnEditor" style="display:none" value="{{frequency}}" />
+	               </td>
 	               <td>
 	               		<label class="field" on-click="toShowColumnEditor">{{dept}}</label>
 	               		<input class="field" type="text" maxlength="20" on-blur="toHideColumnEditor" style="display:none" value="{{dept}}" />
 	               </td>
-	               {{#each days}}
+	               {{#each daysStructure.days}}
 				   {{#if s =='0'}}	
 					<td>			   
 					 	<label class="field" on-click="toShowColumnEditor">{{v}}</label>
 						<select class="field" style="display:none" value="{{v}}" on-blur="toHideColumnEditor">
+						   <option value=""></option>
 			               <option value="X">X</option>
          				   <option value="E">E</option>
          				   <option value="A">A</option>
@@ -186,7 +164,7 @@
                 </tr>
                 {{/each}}				
 				<tr>
-					<td class="des" colspan="35" style="text-align: left;color: #000;font-weight: bold;font-size: 16px;">
+					<td class="des" colspan="36" style="text-align: left;color: #000;font-weight: bold;font-size: 16px;">
 						<span style="margin-left: 0px;">[X] 出席Attend</span>
 						<span>[E] 请假Excused</span>
 						<span>[A] 未到Absent</span>
@@ -196,7 +174,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="35" style="text-align: left;color: #000;">
+					<td colspan="36" style="text-align: left;color: #000;">
 						<p>议程/Agenda：1.会议开始前记录到会人员 --1分钟,Record attending person(1 min);</p>
 			
 						<p style="padding-left: 114px">2.主要监控指标回顾 --3分钟,KPI review(3 min);</p>

@@ -5,6 +5,8 @@ var manager = function() {
     var origin = location.origin//地址
     var root = origin+"/"+context;
     var params = [];//参数数组
+    var years = ['2012','2013','2014','2015','2016','2017','2018','2019','2020','2021','2022',];
+	var months = ['01','02','03','04','05','06','07','08','09','10','11','12'];
     if(location.search !=''){
     	var pA = location.search.split('?')[1].split('&');
     	for(i = 0; i < pA.length;i++){
@@ -156,11 +158,34 @@ var manager = function() {
   	        });
   	    });      	
     }
+	
+	//根据年月后期的当前年月的具体天数
+	function getDaysCnt(_year,_month){
+		var year = parseInt(_year);
+		var month = parseInt(_month);
+		//定义天数；
+        var days;
+        //当月份为二月时，根据闰年还是非闰年判断天数
+        if (month == 2) {
+            days = year % 4 == 0 ? 29 : 28;
+
+        } else if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+            //月份为：1,3,5,7,8,10,12 时，为大月.则天数为31；
+            days = 31;
+        } else {
+            //其他月份，天数为：30.
+            days = 30;
+        }
+        return days;
+	}
 
 	return {
 		init: renderLayout,
 		loadProperties:loadProperties,
 		root:root,
+		years:years,
+		months:months,
+		getDaysCnt:getDaysCnt,
 		getPV:getPV,
 		setMenuBar:setMenuBar,
 		setLanguage:function(language){
