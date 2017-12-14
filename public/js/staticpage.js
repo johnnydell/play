@@ -1,6 +1,7 @@
 var staticpage = function(){
 	function init(){
-		var pagename = manager.getPV("pageName");;
+		var pagename = manager.getPV("pageName");
+		var oplLink = manager.getPV("oplLinkName");
 		var root=manager.root;
 		var ractive = new Ractive({
 			el: ".container",
@@ -15,7 +16,7 @@ var staticpage = function(){
 			},
 			oncomplete: function(){
 				$.ajax({
-					url		: manager.root + '/views/staticpage/viewdoc/' + pagename,
+					url		: manager.root + '/views/staticpage/viewdoc/' + pagename + "/" + oplLink,
 					type	: 'post',
 					data	: '',
 					success: function(ret)

@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -33,7 +34,12 @@ public class UploadFileHistory extends Model {
 	public Date uploadTime;
 
 	@ManyToOne
+	@JoinColumn(name="upload_file_id")
 	public UploadFile uploadFile;
+	
+	@ManyToOne
+	@JoinColumn(name="opl_id")
+	public Opl opl;
 
 	public static Finder<String, UploadFileHistory> find = new Finder<String, UploadFileHistory>(String.class, UploadFileHistory.class);
 

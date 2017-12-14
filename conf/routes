@@ -26,7 +26,7 @@ POST /edashboard/addPss/uploadFile 		                controllers.opl.AddPSSContr
 
 # UPLOADER
 POST /edashboard/views/upload/uploadFile/:fileType 		controllers.UploaderController.uploadFile(fileType : String)
-POST /edashboard/views/staticpage/viewdoc/:fileName 	controllers.StaticPageController.viewFileByName(fileName : String)
+POST /edashboard/views/staticpage/viewdoc/:fileName/:oplLinkName 	controllers.StaticPageController.viewFileByName(fileName : String, oplLinkName : String)
 
 # Hourly Count
 POST /edashboard/views/board/hourlycount/:LineName/:productDate		controllers.HourlyCountController.viewHourlyCountByLineName(LineName : String, productDate : String)

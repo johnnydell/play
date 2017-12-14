@@ -344,7 +344,8 @@ var opl = function(){
 	        	        });
 	        	        
 	        	        ractive2.on("gotoView", function () {
-	        	        	window.open('board/staticpage.html?pageName=pss');
+	        	        	console.log("currPss = " + currPss);
+	        	        	window.open('staticpage.html?pageName=pss&oplLinkName=' + currPss);
 	        	        });
 	        	        
 	        	        ractive2.on("close", function () {

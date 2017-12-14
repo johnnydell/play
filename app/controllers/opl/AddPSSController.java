@@ -41,7 +41,7 @@ public class AddPSSController extends Controller {
 			boolean saveResult = false;
 			if (!"".equals(filePath))
 				logger.info("trigger uploading to physic path");
-				saveResult = FileUtil.saveFileToSpecificPath(filePath, file);
+				saveResult = FileUtil.copyFileToSpecificPath(filePath, file);
 			if (saveResult) {				
 				json.put("result", "OK");
 				json.put("newFileName", newFileName);
@@ -60,10 +60,10 @@ public class AddPSSController extends Controller {
 	private static String prepareFileName(Date now, String fileName){
 		String result = "";
 		StringBuffer buffer = new StringBuffer();
-		String filePrefix = fileName.substring(0, fileName.lastIndexOf("."));
+		//String filePrefix = fileName.substring(0, fileName.lastIndexOf("."));
 		String extension = fileName.substring(fileName.lastIndexOf("."));
-		buffer.append(filePrefix);
-		buffer.append("_");
+		//buffer.append(filePrefix);
+		buffer.append("pss_");
 		buffer.append(df.format(now));
 		buffer.append(extension);
 		result = buffer.toString();
