@@ -341,6 +341,10 @@ var opl = function(){
 	        	            console.log("login");
 	        	        });
 	        	        
+	        	        ractive2.on("gotoView", function () {
+	        	        	window.open('board/staticpage.html?pageName=pss');
+	        	        });
+	        	        
 	        	        ractive2.on("close", function () {
 	        	            $(".pss_popup").hide().html("");
 	        	            opl[index].pss = currPss;
