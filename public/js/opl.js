@@ -268,12 +268,12 @@ var opl = function(){
 							
 							        // 选择文件的按钮。可选。
 							        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
-							        pick: '#picker',
-							        accept: {
-										title: 'excel',
-										extensions: 'xls,xlsx',
-										mimeTypes: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-									}
+							        pick: '#picker'//,
+							       // accept: {
+									//	title: 'excel',
+									//	extensions: 'xls,xlsx',
+								//	mimeTypes: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+									//}
 							    });
 							
 							    // 当有文件添加进来的时候
