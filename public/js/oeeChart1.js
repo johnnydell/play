@@ -22,7 +22,7 @@ var oeeChart1 = function(){
 	            enabled: false
 	        },
 	        xAxis: {
-	            categories: ['2012', ' 2013', '2014', '2015', '2015']
+	            categories: ['2013', ' 2014', '2015', '2016', '2017']
 	        },
 	        yAxis: {
 	            title: {
@@ -37,14 +37,14 @@ var oeeChart1 = function(){
 	        },
 	        series: [{
 	            type: 'column',
-	            name: 'OEE - target',
-	            data: [10, 20, 30, 40, 50],
+	            name: 'OEE - actual',
+	            data: [90, 80, 88, 89, 82],
 	            color:'#3C3C4D'
 	        }, {
 	            type: 'spline',
-	            name: 'OEE - actual',
+	            name: 'OEE - target',
 	            color:'red',
-	            data: [20, 20, 20, 20, 20],
+	            data: [80, 80, 80, 80, 80],
 	            marker: {
 	                enabled: false
 	            }

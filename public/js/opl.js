@@ -112,6 +112,12 @@ var opl = function(){
 		});
 		
 		ractive.on({
+			checkAll:function(e){
+				$(opl).each(function(i,n){
+					n.checked = $(e.node).is(':checked');
+				});				
+				ractive.update("opl");
+			},
 			toShowYearSelect:function(e){
 				$(e.node).hide().next().show().focus();
 			},

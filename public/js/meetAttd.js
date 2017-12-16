@@ -128,6 +128,12 @@ var meetAttd = function(){
 				}
 				txt = txt.length>10?txt.substring(0,10)+"....":txt;
 				$(e.node).hide().prev().show().text(txt)
+			},
+			checkAll:function(e){
+				$(attendees).each(function(i,n){
+					n.checked = $(e.node).is(':checked');
+				});				
+				ractive.update("attendees");
 			}
 		})
 	}
