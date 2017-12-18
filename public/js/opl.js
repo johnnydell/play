@@ -351,7 +351,8 @@ var opl = function(){
 	        	        
 	        	        ractive2.on("gotoView", function () {
 	        	        	console.log("currPss = " + currPss);
-	        	        	window.open('staticpage.html?pageName=pss&oplLinkName=' + currPss);
+	        	        	//window.open('staticpage.html?pageName=pss&oplLinkName=' + currPss);
+	        	        	window.location.href='staticpage.html?pageName=pss&oplLinkName=' + currPss;
 	        	        });
 	        	        
 	        	        ractive2.on("close", function () {
