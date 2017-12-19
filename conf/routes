@@ -5,8 +5,12 @@
 # Home page
 GET     /                           					controllers.Application.index()
 
+# Application
+GET     /edashboard/common/getCurrDate                  controllers.Application.getCurrDate()
+
 # City page
-GET     /edashboard/city/show      						controllers.CityController.show()
+GET     /edashboard/city/show/:key      				controllers.CityController.show(key : String)
+GET     /edashboard/city/set      						controllers.CityController.set()
 GET     /edashboard/city/allCities   					controllers.CityController.allCities()
 GET     /edashboard/city/addCity   						controllers.CityController.addCity()
 GET     /edashboard/city/addCity2   					controllers.CityController.addCity2(id:String,name:String)
@@ -23,6 +27,9 @@ POST /edashboard/role/saveRole               			controllers.settings.RoleControl
 
 #OPL
 POST /edashboard/addPss/uploadFile 		                controllers.opl.AddPSSController.uploadFile()
+
+#Meeting Attendance
+GET  /edashboard/metAttd/getMetAtdanceInfo              controllers.MetAttdController.getMetAtdanceInfo(line_id:String,year:String,month:String)
 
 # UPLOADER
 POST /edashboard/views/upload/uploadFile/:fileType 		controllers.UploaderController.uploadFile(fileType : String)

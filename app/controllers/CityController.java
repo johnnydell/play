@@ -70,10 +70,15 @@ public class CityController extends Controller {
         return ok(str);
     }
     
-    public static Result show() {  
+    public static Result show(String key) {  
     	City city = City.findByName("Herat");  
+    	session("connected",key);
     	String str = JSON.toJSONString(city);
     	 return ok(str);
-    }  
+    } 
+    
+    public static Result set() {    
+    	 return ok(session().get("connected") == null ? "":session().get("connected"));
+    } 
 
 }

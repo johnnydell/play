@@ -203,9 +203,11 @@ var manager = function() {
 		return today.getMonth() + 1;
 	}
 	
-	function getYearArrays(thisYear){
+	function getYearArrays(){
+		var date = getSystemDate();
+		var year = parseInt(date.split("-")[0]);		
 		for(i = -5; i < 10; i ++){
-			years.push(thisYear + i);
+			years.push(year + i);
 		}
 		return years;
 	}

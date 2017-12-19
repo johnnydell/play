@@ -64,18 +64,18 @@
 					   <span>{{i18n_meetAttd_month}}:</span>
 					 </div>
 					 <div class="val">
-						 <span class="fst">FAG2</span>
+						 <span class="fst">{{attendance.line_name}}</span>
 						 <span class="dt">
-                             <label on-click="toShowYearSelect">{{daysStructure.year}}</label>                    
-							 <select style="display:none;" on-blur="toHideYearSelect" on-change="changeYear" value="{{daysStructure.year}}">
+                             <label on-click="toShowYearSelect">{{attendance.year}}</label>                    
+							 <select style="display:none;" on-blur="toHideYearSelect" on-change="changeYear" value="{{attendance.year}}">
 		 					   {{#each years:index}}
 								 <option value="{{years[index]}}">{{years[index]}}</option>
 						       {{/each}}
 			             	 </select>
-                             <label on-click="toShowMonthSelect">{{daysStructure.month}} 月</label>
-                             <select style="display:none" on-blur="toHideMonthSelect" on-change="changeMonth" value="{{daysStructure.month}}">
+                             <label on-click="toShowMonthSelect">{{attendance.month}} {{i18n_meetAttd_yue}}</label>
+                             <select style="display:none" on-blur="toHideMonthSelect" on-change="changeMonth" value="{{attendance.month}}">
 				               {{#each months:index}}
-							    <option value="{{months[index]}}">{{months[index]}} 月</option>
+							    <option value="{{months[index]}}">{{months[index]}} {{i18n_meetAttd_yue}}</option>
 					           {{/each}}
 	             			</select>
                          </span>
@@ -87,30 +87,30 @@
 				<tr>
 					<td colspan="7">
                         <span>{{i18n_meetAttd_meetingtime}}:</span>  
-						<label on-click="toShowMeetingTimeText">10:00</label>                      
-                        <input class="meettimeStart" style="width:50px;height:30px;display:none" type="text" on-blur="toHideMeetingTimeText" value="10:00" />
+						<label on-click="toShowMeetingTimeText">{{attendance.time_start}}</label>                      
+                        <input class="meettimeStart" style="width:50px;height:30px;display:none" type="text" on-blur="toHideMeetingTimeText" value="{{attendance.time_start}}" />
                         -
-                        <label on-click="toShowMeetingTimeText">10:15</label>                      
-                        <input class="meettimeEnd" style="width:50px;height:30px;display:none" type="text" on-blur="toHideMeetingTimeText" value="10:15" />
+                        <label on-click="toShowMeetingTimeText">{{attendance.time_end}}</label>                      
+                        <input class="meettimeEnd" style="width:50px;height:30px;display:none" type="text" on-blur="toHideMeetingTimeText" value="{{attendance.time_end}}" />
                     </td>
 					<td colspan="14" id="meetingSpotTd">
                         <span>{{i18n_meetAttd_meetingspot}}:</span>
-                        <label on-click="toShowMeetingSpotText">{{i18n_meetAttd_teamboard}}</label>
-						<input style="width:50%;height:30px;display:none" type="text" on-blur="toHideMeetingSpotText" value="{{i18n_meetAttd_teamboard}}" />
+                        <label on-click="toShowMeetingSpotText">{{attendance.spot}}</label>
+						<input style="width:50%;height:30px;display:none" type="text" on-blur="toHideMeetingSpotText" value="{{attendance.spot}}" />
                     </td>
 					<td colspan="15" id="meetingHostTd">
-                        <span>Host/主持人:</span>
-                    	<label on-click="toShowMeetingHostText">Team Leader/班长</label>
-						<input style="width:50%;height:30px;display:none" type="text" on-blur="toHideMeetingHostText" value="Team Leader/班长" />
+                        <span>{{i18n_meetAttd_host}}:</span>
+                    	<label on-click="toShowMeetingHostText">{{attendance.host}}</label>
+						<input style="width:50%;height:30px;display:none" type="text" on-blur="toHideMeetingHostText" value="{{attendance.host}}" />
                     </td>
 				</tr>
 				<tr>
 				    <th width="2%"><input type="checkbox" on-click="checkAll" /><font>&nbsp;&nbsp;</font></th>
-					<th width="12%">Name姓名</th>
-					<th width="8%">Required/optional<br>必需(R)或可选(O)</th>
-					<th width="8%">Frequency<br>频次</th>
-					<th width="8%">Dept.部门</th>
-				   {{#each daysStructure.days}}
+					<th width="12%">{{i18n_meetAttd_name}}</th>
+					<th width="8%">{{i18n_meetAttd_required}}</th>
+					<th width="8%">{{i18n_meetAttd_frequency}}</th>
+					<th width="8%">{{i18n_meetAttd_dept}}</th>
+				   {{#each attendance.days}}
 					<th width="2%">{{d}}</th>
 	               {{/each}}
 				</tr>
@@ -165,23 +165,23 @@
                 {{/each}}				
 				<tr>
 					<td class="des" colspan="36" style="text-align: left;color: #000;font-weight: bold;font-size: 16px;">
-						<span style="margin-left: 0px;">[X] 出席Attend</span>
-						<span>[E] 请假Excused</span>
-						<span>[A] 未到Absent</span>
-						<span>[D] 代理Deputy</span>
-						<span>[\] 未邀No Invite</span>
-						<span>[L] 迟到Late</span>
+						<span style="margin-left: 0px;">[X] {{i18n_meetAttd_attend}}</span>
+						<span>[E] {{i18n_meetAttd_excused}}</span>
+						<span>[A] {{i18n_meetAttd_absent}}</span>
+						<span>[D] {{i18n_meetAttd_deputy}}</span>
+						<span>[\] {{i18n_meetAttd_noInvite}}</span>
+						<span>[L] {{i18n_meetAttd_late}}</span>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="36" style="text-align: left;color: #000;">
-						<p>议程/Agenda：1.会议开始前记录到会人员 --1分钟,Record attending person(1 min);</p>
+						<p>{{i18n_meetAttd_agenda}}：1.{{i18n_meetAttd_agenda1}};</p>
 			
-						<p style="padding-left: 114px">2.主要监控指标回顾 --3分钟,KPI review(3 min);</p>
+						<p style="padding-left: 68px">2.{{i18n_meetAttd_agenda2}};</p>
 			
-						<p style="padding-left: 114px">3.回顾前一天的问题 --6分钟,Reviw yesterdays's OPL(6 min);</p>
+						<p style="padding-left: 68px">3.{{i18n_meetAttd_agenda3}};</p>
 			
-						<p style="padding-left: 114px">4.历史开放问题回顾 --5分钟,Old open point review(5 min);</p>
+						<p style="padding-left: 68px">4.{{i18n_meetAttd_agenda4}};</p>
 					</td>
 				</tr>
 			</table>
