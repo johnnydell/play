@@ -36,6 +36,10 @@ public class ProductLine extends Model {
 	public static ProductLine findByName(String name) {
 		return find.where().eq("lineName", name).findUnique();
 	}
+	
+	public static ProductLine findById(String id){
+		return find.where().eq("id", id).findUnique();
+	}
 
 	public static void save(ProductLine productLine) {
 		Ebean.save(productLine);
