@@ -178,6 +178,20 @@ var manager = function() {
         }
         return days;
 	}
+	
+	//获取服务系统日期
+	function getSystemDate(){
+		var date;
+		$.ajax({
+			url: manager.root + "/common/getCurrDate",
+			type: "GET",
+			async:false,
+			success: function(data) {
+				date = data;
+			}
+		});
+		return date;
+	}
 
 	return {
 		init: renderLayout,
@@ -188,6 +202,7 @@ var manager = function() {
 		getDaysCnt:getDaysCnt,
 		getPV:getPV,
 		setMenuBar:setMenuBar,
+		getSystemDate:getSystemDate,
 		setLanguage:function(language){
 			setCookie("language", language);
 		},
