@@ -181,4 +181,28 @@ public class MetAttdController extends Controller  {
 		
 		return ok("{\"add\":\""+addDetailsLi.size()+"\",\"update\":\""+updatedDetailsLi.size()+"\"}");
 	}
+	
+	/**
+	 * 删除出席记录
+	 * @return
+	 */
+	@Transactional
+	public static Result deleteMeetingAttendanceDetails(){
+		JsonNode in = request().body().asJson();
+		JsonNode deletedAttendanceDetails = in.get("deletedAttendanceDetails");
+		ArrayList<MetAttdDetails> deleteDetailsLi = new ArrayList<MetAttdDetails>();
+		Iterator<JsonNode> b = deletedAttendanceDetails.iterator();
+		while(b.hasNext()){
+			 JsonNode node = b.next();
+			 String detailId = node.get("id").asText();
+			 MetAttdDetails detail = MetAttdDetails.find(detailId);
+			 deleteDetailsLi.add(detail);
+		}
+		
+		if(deleteDetailsLi.size() > 0){
+			MetAttdDetails.deleteList(deleteDetailsLi);
+		}
+		return ok("{\"delete\":\""+deleteDetailsLi.size()+"\"}");
+	}
+
 }
