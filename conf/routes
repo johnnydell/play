@@ -34,6 +34,7 @@ GET  /edashboard/opl/initOplData/:lineName/:selectedYear/:selectedMonth 		 contr
 GET  /edashboard/metAttd/getMetAtdanceInfo              controllers.MetAttdController.getMetAtdanceInfo(line_id:String,year:String,month:String)
 GET  /edashboard/metAttd/getMetAtdanceDetails           controllers.MetAttdController.getMetAtdanceDetails(attendance_id:String)
 POST /edashboard/metAttd/saveMeetingAttendance          controllers.MetAttdController.saveMeetingAttendance()
+POST /edashboard/metAttd/deleteMeetingAttendanceDetails controllers.MetAttdController.deleteMeetingAttendanceDetails()
 
 # UPLOADER
 POST /edashboard/views/upload/uploadFile/:fileType 		controllers.UploaderController.uploadFile(fileType : String)

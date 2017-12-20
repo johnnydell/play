@@ -95,6 +95,61 @@ var meetAttd = function(){
 			},
 			deleteAttendee:function(){
 				var deletedAttendanceDetails =[];
+				var deleteCnt = 0;
+				$(attendanceDetails).each(function(i,n){
+					if(n.checked){
+						if(n.id != '0'){
+							deletedAttendanceDetails.push(n);
+						}
+						deleteCnt++;
+					}
+				})
+				
+				if(deleteCnt > 0){
+					if(deletedAttendanceDetails.length > 0){
+						$.ajax({
+							url: manager.root + "/metAttd/deleteMeetingAttendanceDetails",
+							type: "POST",
+							dataType: "json",
+							data:JSON.stringify({deletedAttendanceDetails:deletedAttendanceDetails}),
+							contentType: "application/json",    
+							beforeSend: function() {
+								manager.block();
+							},
+							success: function(data) {
+								var i = attendanceDetails.length-1;
+								while (i >= 0){
+								  var temp = attendanceDetails[i];
+								  if(temp.checked){
+								      attendanceDetails.splice(i,1);	
+								  }
+								  i--;
+								}	
+								ractive.set("attendanceDetails",attendanceDetails);		
+								jAlert($.i18n.prop("i18n_delete_ok"), $.i18n.prop("i18n_info"));
+							},
+							error:function(){
+								jAlert($.i18n.prop("i18n_delete_error"), $.i18n.prop("i18n_error"));
+							},
+							complete: function() {
+								manager.unblock();
+							}
+						});						
+					} else {
+						var i = attendanceDetails.length-1;
+						while (i >= 0){
+						  var temp = attendanceDetails[i];
+						  if(temp.checked){
+						      attendanceDetails.splice(i,1);	
+						  }
+						  i--;
+						}	
+						ractive.set("attendanceDetails",attendanceDetails);		
+						jAlert($.i18n.prop("i18n_delete_ok"), $.i18n.prop("i18n_info"));
+					}
+				} else {
+					jAlert($.i18n.prop("i18n_select_to_delete"), $.i18n.prop("i18n_error"));
+				}  
 				var i = attendanceDetails.length-1;
 				while (i >= 0){
 				  var temp = attendanceDetails[i];
