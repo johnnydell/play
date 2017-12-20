@@ -193,6 +193,21 @@ var manager = function() {
 		return date;
 	}
 	
+	//获取系统参数
+	function getSystemParameters(){
+		var sysParams;
+		$.ajax({
+			url: manager.root + "/common/getSysParams",
+			type: "GET",
+			async:false,
+			success: function(data) {
+				console.log(data);
+				sysParams = data;
+			}
+		});
+		return sysParams;
+	}
+	
 	function getCurrentYear(){
 		var today = new Date();
 		return today.getFullYear();
@@ -224,6 +239,7 @@ var manager = function() {
 		getPV:getPV,
 		setMenuBar:setMenuBar,
 		getSystemDate:getSystemDate,
+		getSystemParams:getSystemParameters,
 		setLanguage:function(language){
 			setCookie("language", language);
 		},

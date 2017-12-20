@@ -6,6 +6,7 @@
 		<link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
 		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
 		<link rel="stylesheet" type="text/css" href="../../css/login.css"/>
+		<link rel="stylesheet" type="text/css" href="../../js/lib/alerts/jquery.alerts.css"/>	
 		<link rel="stylesheet" type="text/css" href="../../js/lib/datetimepicker/jquery.datetimepicker.css"/>	
 		<link rel="stylesheet" type="text/css" href="../../css/meetAttd.css"/>
 		
@@ -27,6 +28,8 @@
 	</body>
 	<script src="../../js/lib/jquery-1.10.1.min.js"></script>
 	<script src="../../js/lib/jquery.cookie.js"></script>
+	<script src="../../js/lib/alerts/jquery.alerts.js"></script>
+	<script src="../../js/lib/jquery.blockui.js"></script>
 	<script src="../../js/lib/ractive-legacy.js"></script>
 	<script src="../../js/lib/jquery.i18n.properties-1.0.9.js"></script>
 	<script src="../../js/lib/datetimepicker/jquery.datetimepicker.full.js"></script>
@@ -51,7 +54,7 @@
 	<div class="content">
 		<div class="content-box">
             <div class="toolbar">
-                <!--<button type="button" class="btn" on-click="test">测试</button>-->
+                <button type="button" class="btn" on-click="test">测试</button><!---->
 				<button type="button" class="btn" on-click="addAttendee">{{i18n_meetAttd_add}}</button>
 				<button type="button" class="btn" on-click="saveAttendee">{{i18n_meetAttd_save}}</button>
 				<button type="button" class="btn" on-click="deleteAttendee">{{i18n_meetAttd_delete}}</button>
@@ -114,23 +117,23 @@
 					<th width="2%">{{d}}</th>
 	               {{/each}}
 				</tr>
-                {{#each attendees:index}}
+                {{#each attendanceDetails:index}}
                 <tr class="attendeeTr" lang="{{index}}">
                    <td>
                    		<input class="opt" type="checkbox" checked="{{checked}}" />
-                   		{{#if id == '0'}}
+                   		{{#if id == '0' || updated == '1'}}
 				        <font color="red">*</font>
 				        {{else}}
 				        <font>&nbsp;</font>
 				        {{/if}}
                    </td>
 	               <td>
-	               		<label class="field" on-click="toShowColumnEditor">{{name}}</label>
-	               		<input class="field" type="text" maxlength="20" on-blur="toHideColumnEditor" style="display:none" value="{{name}}" />
+	               		<label class="field" on-click="toShowColumnEditor">{{meeting_attendee}}</label>
+	               		<input class="field" type="text" maxlength="20" on-blur="toHideColumnEditor" style="display:none" value="{{meeting_attendee}}" />
 	               </td>
 	               <td>
-	                    <label class="field" on-click="toShowColumnEditor">{{type}}</label>
-	                    <select class="field" style="display:none" value="{{type}}" on-blur="toHideColumnEditor">
+	                    <label class="field" on-click="toShowColumnEditor">{{required}}</label>
+	                    <select class="field" style="display:none" value="{{required}}" on-blur="toHideColumnEditor">
 			               <option value="R">R</option>
          				   <option value="O">O</option>
              			</select>

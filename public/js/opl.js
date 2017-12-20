@@ -1,10 +1,13 @@
 var opl = function(){
+	var currentYear = manager.currentYear();
+	var years = manager.years();
+	var months = manager.months;
+	var currentMonth = manager.currentMonth();
+	var lineName = manager.getPV("lineName");
+	var sysParams = manager.getSystemParams();
 	function init(){
 		var opl = [];
 		var deletedOPL =[];
-		var years = manager.years;
-		var months = manager.months;
-	
 		var ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
@@ -13,8 +16,9 @@ var opl = function(){
 				manager.loadProperties(this, "opl", "../../");
 				this.set("years",years);
 				this.set("months",months);
-				this.set("currYear","2017");
-				this.set("currMonth","12");
+				this.set("currYear",currentYear);
+				this.set("currMonth",currentMonth);
+				this.set("lineName", lineName);
 				var op1 = {
 						id:"1",
 						checked:false,
@@ -108,6 +112,9 @@ var opl = function(){
 					format:'H:i',
 					step:5
 				});
+				
+				getOplData();
+				ractive.update();
 			}
 		});
 		
@@ -123,12 +130,16 @@ var opl = function(){
 			},
 			toHideYearSelect:function(e){
 				$(e.node).hide().prev().show().text($(e.node).find("option:selected").text());
+				currentYear = $(e.node).find("option:selected").val();
+				getOplData();
 			},
 			toShowMonthSelect:function(e){
 				$(e.node).hide().next().show().focus();
 			},
 			toHideMonthSelect:function(e){
 				$(e.node).hide().prev().show().text($(e.node).find("option:selected").text());
+				currentMonth = $(e.node).find("option:selected").val();
+				getOplData();
 			},
 			toShowPageSelect:function(e){
 				$(e.node).hide().next().show().focus();
@@ -367,6 +378,42 @@ var opl = function(){
 	        	    });   
 			}
 		})
+	}
+	
+	function getOplData(){
+		console.log("lineName:" + lineName + ", currYear:" + currentYear + ",currMonth:" + currentMonth);
+		$.ajax({
+			url: manager.root + "/opl/initOplData/" + lineName + "/" + currentYear + "/" + currentMonth,
+			type: "GET",
+			async:false,
+			success: function(data) {
+				if (data !== "0"){
+					for (i = 0; i < data.length; i ++){
+						var op = {};
+						op.id=data[i].id;
+						op.checked=false;
+						op.date=data[i].oplDate;
+						op.refNo=data[i].refNo;
+						op.personFound=data[i].oplFounder.userName;
+						op.station=data[i].stationNo;
+						op.description=data[i].oplDesc;
+						op.dtFrom=data[i].oplStart;
+						op.dtTo=data[i].oplEnd;
+						op.timing=data[i].oplTiming;
+						op.amt=data[i].oplAmount;
+						op.rootCause=data[i].oplRootCause;
+						op.immediate=data[i].oplImmediate;
+						op.longTerm=data[i].oplLongTerm;
+						op.problemSolvingSheet=data[i].problemSolve;
+						op.pss=data[i].pssLink;
+						op.responsible=data[i].oplOwner.userName;
+						op.deadline=data[i].oplDeadline;
+						op.status=data[i].oplStatus;
+						opl.push(op);
+					}
+				}
+			}
+		});
 	}
 	
 	return {

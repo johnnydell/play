@@ -1,6 +1,6 @@
 var oee = function(){
 	function init(){
-		var years = manager.years;
+		var years = manager.years();
 		var months = manager.months;
 		var ractive = new Ractive({
 			el: ".container",

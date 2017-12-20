@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import com.avaje.ebean.Ebean;
+
 import play.db.ebean.Model;
 
 @Entity
@@ -48,6 +50,14 @@ public class MetAttd extends Model {
 	
 	public static MetAttd getMetAtdanceInfo(String lineId,String year,String month){
 		return find.where().eq("line_id", lineId).eq("meeting_year", year).eq("meeting_month", month).orderBy("").fetch("productLine").findUnique();
+	}
+	
+	public static void save(MetAttd metAttd){
+    	Ebean.save(metAttd);
+    }
+	
+	public static void update(MetAttd metAttd){
+	    Ebean.update(metAttd);
 	}
 
 }

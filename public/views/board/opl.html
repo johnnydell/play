@@ -63,7 +63,7 @@
 			    <tr>
 					<th class="title" rowspan="2" colspan="8">Open Point List  问题清单</th>
 					<th colspan="3" style="font-size: 20px;font-weight: bold;text-align:right;">Line生产线：</th>
-					<th style="background-color:white;color: #000;border: 1px solid #000;">FAG2</th>
+					<th style="background-color:white;color: #000;border: 1px solid #000;">{{lineName}}</th>
 					<th></th>
 					<th></th>
 					<th></th>
@@ -133,11 +133,11 @@
  				{{#each opl:index}}
 			    <tr class="cxttr" lang="{{index}}">
 				    <td>
-				        <input type="checkbox" checked="{{checked}}" />
+				        <input type="checkbox" checked="{{checked}}" value="{{id}}"/>
 				        {{#if id == '0'}}
-				        <font color="red">*</font>
+				        	<font color="red">*</font>
 				        {{else}}
-				        <font>&nbsp;</font>
+				        	<font>&nbsp;</font>
 				        {{/if}}
 				    </td>
 			        <td on-click="toShowColumnEditor">

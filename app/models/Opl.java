@@ -2,6 +2,7 @@ package models;
 
 import java.sql.Time;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -29,12 +30,19 @@ public class Opl extends Model {
 	@Id
 	public String id = UUID.randomUUID().toString().replace("-", "");
 	
+	@ManyToOne
+	@JoinColumn(name = "line_id")
+	public ProductLine productLine;
+	
 	@Column(name = "opl_date")
 	public Date oplDate;
 	
 	@ManyToOne
 	@JoinColumn(name="opl_found_id")
 	public User oplFounder;
+	
+	@Column(name = "ref_no")
+	public String refNo;
 	
 	@Column(name = "station_no")
 	public String stationNo;
@@ -47,6 +55,9 @@ public class Opl extends Model {
 	
 	@Column(name = "opl_end")
 	public Time oplEnd;
+	
+	@Column(name = "opl_timing")
+	public Integer oplTiming;
 	
 	@Column(name = "opl_amount")
 	public Integer oplAmount;
@@ -66,14 +77,15 @@ public class Opl extends Model {
 	@Column(name = "pss_link")
 	public String pssLink;
 	
-	@Column(name = "opl_owner_id")
+	@ManyToOne
+	@JoinColumn(name = "opl_owner_id")
 	public User oplOwner;
 	
 	@Column(name = "opl_deadline")
 	public Date oplDeadline;
 	
 	@Column(name = "opl_status")
-	public boolean oplStatus;
+	public short oplStatus;
 
 	public static Finder<String, Opl> find = new Finder<String, Opl>(String.class, Opl.class);
 
@@ -82,9 +94,14 @@ public class Opl extends Model {
 		return find.where().eq("id", oplId).orderBy("").fetch("oplFounder").fetch("oplOwner").findUnique();
 	}
 	
+public static List<Opl> findByParams(String lineName, Date oplStartDate, Date oplEndDate)  {
+		
+		return find.where().eq("productLine.lineName", lineName).between("oplDate", oplStartDate, oplEndDate).orderBy("").fetch("oplFounder").fetch("oplOwner").fetch("productLine").findList();
+	}
+	
 	public static Opl findByOplDesc(String oplDesc)  {
 		
-		return find.where().ilike("oplDesc", "%" + oplDesc + "%").orderBy("").fetch("oplFounder").fetch("oplOwner").findUnique();
+		return find.where().ilike("oplDesc", "%" + oplDesc + "%").orderBy("").fetch("oplFounder").fetch("oplOwner").fetch("productLine").findUnique();
 	}
 
 	public static void save(Opl base) {

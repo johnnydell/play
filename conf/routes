@@ -7,6 +7,7 @@ GET     /                           					controllers.Application.index()
 
 # Application
 GET     /edashboard/common/getCurrDate                  controllers.Application.getCurrDate()
+GET     /edashboard/common/getSysParams          		controllers.Application.getSystemParameters()
 
 # City page
 GET     /edashboard/city/show/:key      				controllers.CityController.show(key : String)
@@ -27,9 +28,12 @@ POST /edashboard/role/saveRole               			controllers.settings.RoleControl
 
 #OPL
 POST /edashboard/addPss/uploadFile 		                controllers.opl.AddPSSController.uploadFile()
+GET  /edashboard/opl/initOplData/:lineName/:selectedYear/:selectedMonth 		 controllers.opl.OplController.initOplData(lineName : String, selectedYear : String, selectedMonth : String)
 
 #Meeting Attendance
 GET  /edashboard/metAttd/getMetAtdanceInfo              controllers.MetAttdController.getMetAtdanceInfo(line_id:String,year:String,month:String)
+GET  /edashboard/metAttd/getMetAtdanceDetails           controllers.MetAttdController.getMetAtdanceDetails(attendance_id:String)
+POST /edashboard/metAttd/saveMeetingAttendance          controllers.MetAttdController.saveMeetingAttendance()
 
 # UPLOADER
 POST /edashboard/views/upload/uploadFile/:fileType 		controllers.UploaderController.uploadFile(fileType : String)
