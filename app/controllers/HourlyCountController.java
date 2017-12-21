@@ -77,7 +77,7 @@ public class HourlyCountController extends Controller {
 		base.teamLeaderSign1 = baseInfoNode.get("teamLeaderSign1").asText();
 		base.teamLeaderSign2 = baseInfoNode.get("teamLeaderSign2").asText();
 		base.teamLeaderSign3 = baseInfoNode.get("teamLeaderSign3").asText();
-		
+		base.planOplTotalOutput = baseInfoNode.get("planOplTotalOutput").asInt();
 		//save to DB
 		if(!isExistBase)
 			HourlyCountBase.save(base);

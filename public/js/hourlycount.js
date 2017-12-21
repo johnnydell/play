@@ -25,6 +25,9 @@ var hourlycount = function(){
 					else
 						return num;
 				},
+				percentage		: function(num){
+					return ( num *100 ).toFixed( 1 ) + ' %';
+				},
 				
 			},
 			
@@ -134,6 +137,10 @@ var hourlycount = function(){
 				hourlycounts_sub_total[1].group_plan = sub_total_g2;
 				hourlycounts_sub_total[2].group_plan = sub_total_g3;
 				hourlycounts_sub_total[3].group_plan = sub_total_g4;
+				hourlycounts_base.planOutputCount = sub_total;
+				if (hourlycounts_base.planOutputCount !== 0){
+					hourlycounts_base.actualOee = hourlycounts_base.actualOutputCount / hourlycounts_base.planOutputCount;
+				}
 				ractive.update();
 			},
 			/*calculate actual count, actual total count, hourly count*/
@@ -190,7 +197,11 @@ var hourlycount = function(){
 				//calculate hourly count percent
 				hourlycounts[rowIndex].productHourCount = val;
 				hourlycounts[rowIndex].productHourPercent = val / 240;
-	
+				hourlycounts_base.actualOutputCount = sub_total;
+				
+				if (hourlycounts_base.planOutputCount !== 0){
+					hourlycounts_base.actualOee = hourlycounts_base.actualOutputCount / hourlycounts_base.planOutputCount;
+				}
 				ractive.update();
 			},
 			/*popup remarks window*/
@@ -422,7 +433,7 @@ var hourlycount = function(){
 	/*Initial all of data*/
 	function initDataTemplate(){
 		hourlycounts = [];
-		hourlycounts_base = {teamLeaderSign1:"", teamLeaderSign2:"", teamLeaderSign3:"", groupLeaderSign:""};
+		hourlycounts_base = {teamLeaderSign1:"", teamLeaderSign2:"", teamLeaderSign3:"", groupLeaderSign:"", planOplTotalOutput:"", planOutputCount:0, actualOutputCount:0, actualOee:0};
 		for (i = 8; i < 24; i ++){
 			hourlycounts_item = {hourid: ((i - 1) + "-" + i),productHour: i,productHourIndex: (i - 7), lineName:"",productTypeName1:"",productCycle1:0,productTypeName2:"",productCycle2:0,planCount:0,planTotalCount:0,
 					actualCount:0,actualTotalCount:0,productHourCount:0,productHourPercent:0,
@@ -468,6 +479,7 @@ var hourlycount = function(){
 					hourlycounts_base.teamLeaderSign2 = listdata[0].hourlyCountBase.teamLeaderSign2;
 					hourlycounts_base.teamLeaderSign3 = listdata[0].hourlyCountBase.teamLeaderSign3;
 					hourlycounts_base.groupLeaderSign = listdata[0].hourlyCountBase.groupLeaderSign;
+					hourlycounts_base.planOplTotalOutput = listdata[0].hourlyCountBase.planOplTotalOutput;
 				}
 				var planTotalCount = 0;
 				var actualTotalCount = 0;
@@ -533,6 +545,12 @@ var hourlycount = function(){
 					}
 					
 				}
+				hourlycounts_base.planOutputCount = planTotalCount;
+				hourlycounts_base.actualOutputCount = actualTotalCount;
+				if (planTotalCount !== 0){
+					hourlycounts_base.actualOee = actualTotalCount / planTotalCount;
+				}
+				
 				ractive.set("hourlyCountV0", hourlycounts_base);
 				ractive.set("hourlyCountV1", hourlycounts);
 				ractive.set("hourlyCountsTotal", hourlycounts_sub_total);

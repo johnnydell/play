@@ -156,19 +156,19 @@
 				</tr>
 
 				<tr>
-					<td rowspan="2" width="4%">
+					<td rowspan="2" width="2%">
                          {{i18n_hourlycount_from_to}}
                     </td>
-					<td rowspan="2" width="4%">
+					<td rowspan="2" width="6%">
                          {{i18n_hourlycount_type1}}
                     </td>
-					<td rowspan="2" width="4%">
+					<td rowspan="2" width="2%">
                         {{i18n_hourlycount_cycle_time1}}
                     </td>
-					<td rowspan="2" width="4%">
+					<td rowspan="2" width="6%">
                         {{i18n_hourlycount_type2}}
                     </td>
-					<td rowspan="2" width="4%">
+					<td rowspan="2" width="2%">
                         {{i18n_hourlycount_cycle_time2}}
                     </td>
 					<td rowspan="2" width="2%">
@@ -183,25 +183,25 @@
 					<td rowspan="2" width="2%">
                         {{i18n_hourlycount_total_output}}
                     </td>
-					<td rowspan="2" width="2%">
+					<td rowspan="2" width="1%">
                         30
                     </td>
-					<td rowspan="2" width="2%">
+					<td rowspan="2" width="1%">
                         60
                     </td>
-					<td rowspan="2" width="2%">
+					<td rowspan="2" width="1%">
                         90
                     </td>
-					<td rowspan="2" width="2%">
+					<td rowspan="2" width="1%">
                         120
                     </td>
-					<td rowspan="2" width="2%">
+					<td rowspan="2" width="1%">
                         150
                     </td>
-					<td rowspan="2" width="2%">
+					<td rowspan="2" width="1%">
                         180
                     </td>
-					<td rowspan="2"width="2%" >
+					<td rowspan="2"width="1%" >
                         240
                     </td>
 					<td rowspan="1" width="2%">
@@ -487,21 +487,26 @@
 					<td>
 						&nbsp;
 					</td>
-					<td colspan="13">
+					<td colspan="6">
 						<label>{{i18n_hourlycount_plan_cpl_total_output}}</label>
+						
+					</td>
+					<td colspan="7" on-click="toShowColumnEditor">
+						<label>{{hourlyCountV0.planOplTotalOutput}}</label>
+						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV0.planOplTotalOutput}}" on-keyup="toValidateEditorOnlyNum"/>
 					</td>
 					
 					<td colspan="19">
 						&nbsp;
 					</td>
 					<td colspan="3">
-						<label>{{i18n_hourlycount_plan_moe_output}}</label>
+						<label>{{i18n_hourlycount_plan_moe_output}} {{hourlyCountV0.planOutputCount}}</label>
 					</td>
 					<td colspan="3">
-						<label>{{i18n_hourlycount_actual_output}}</label>
+						<label>{{i18n_hourlycount_actual_output}} {{hourlyCountV0.actualOutputCount}}</label>
 					</td>
 					<td colspan="2">
-						<label>{{i18n_hourlycount_actual_oee}}</label>
+						<label>{{i18n_hourlycount_actual_oee}} {{percentage(hourlyCountV0.actualOee)}}</label>
 					</td>
 				</tr>
 				<tr>
@@ -538,12 +543,12 @@
 					<td colspan="3">
 						<label>{{i18n_hourlycount_sign_group}}</label>
 					</td>
-					<td colspan="4" on-click="toShowLogin">
+					<td colspan="3" on-click="toShowLogin">
 						<label>{{hourlyCountV0.groupLeaderSign}}</label>
 						
 					</td>
 					<td colspan="2">
-						<label>{{i18n_hourlycount_target_oee}}</label>
+						<label>{{i18n_hourlycount_target_oee}} 85.0%</label>
 					</td>
 				</tr>
 			</table>

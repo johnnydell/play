@@ -49,6 +49,9 @@ public class HourlyCountBase extends Model {
 	
 	@Column(name = "group_leader_sign")
 	public String groupLeaderSign;
+	
+	@Column(name = "plan_opl_total_output")
+	public Integer planOplTotalOutput;
 
 	public static Finder<String, HourlyCountBase> find = new Finder<String, HourlyCountBase>(String.class, HourlyCountBase.class);
 
