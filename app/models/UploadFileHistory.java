@@ -39,7 +39,7 @@ public class UploadFileHistory extends Model {
 	
 	@ManyToOne
 	@JoinColumn(name="opl_id")
-	public Opl opl;
+	public OPL opl;
 
 	public static Finder<String, UploadFileHistory> find = new Finder<String, UploadFileHistory>(String.class, UploadFileHistory.class);
 

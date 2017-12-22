@@ -18,14 +18,8 @@ import play.db.ebean.Model;
 
 @Entity
 @Table(name = "edb_opl")
-public class Opl extends Model {
-
-	/**
-	 * 
-	 */
+public class OPL extends Model {
 	private static final long serialVersionUID = 1L;
-	
-	
 
 	@Id
 	public String id = UUID.randomUUID().toString().replace("-", "");
@@ -34,12 +28,14 @@ public class Opl extends Model {
 	@JoinColumn(name = "line_id")
 	public ProductLine productLine;
 	
-	@Column(name = "opl_date")
-	public Date oplDate;
+	@Column(name = "line_id")
+	public String lineId;
 	
-	@ManyToOne
-	@JoinColumn(name="opl_found_id")
-	public User oplFounder;
+	@Column(name = "date")
+	public String date;
+	
+	@Column(name="founder")
+	public String founder;
 	
 	@Column(name = "ref_no")
 	public String refNo;
@@ -47,67 +43,69 @@ public class Opl extends Model {
 	@Column(name = "station_no")
 	public String stationNo;
 	
-	@Column(name = "opl_desc")
-	public String oplDesc;
+	@Column(name = "desc")
+	public String desc;
 	
-	@Column(name = "opl_start")
-	public Time oplStart;
+	@Column(name = "start")
+	public String start;
 	
-	@Column(name = "opl_end")
-	public Time oplEnd;
+	@Column(name = "end")
+	public String end;
 	
-	@Column(name = "opl_timing")
-	public Integer oplTiming;
+	@Column(name = "timing")
+	public String timing;
 	
-	@Column(name = "opl_amount")
-	public Integer oplAmount;
+	@Column(name = "amount")
+	public String amount;
 	
-	@Column(name = "opl_root_cause")
-	public String oplRootCause;
+	@Column(name = "root_cause")
+	public String rootCause;
 	
-	@Column(name = "opl_immediate")
-	public String oplImmediate;
+	@Column(name = "immediate")
+	public String immediate;
 	
-	@Column(name = "opl_long_term")
-	public String oplLongTerm;
+	@Column(name = "long_term")
+	public String longTerm;
 	
 	@Column(name = "problem_solve")
-	public boolean problemSolve;
+	public String problemSolve;
 	
 	@Column(name = "pss_link")
 	public String pssLink;
 	
-	@ManyToOne
-	@JoinColumn(name = "opl_owner_id")
-	public User oplOwner;
+	@Column(name = "owner")
+	public String owner;
 	
-	@Column(name = "opl_deadline")
-	public Date oplDeadline;
+	@Column(name = "deadline")
+	public String deadline;
 	
-	@Column(name = "opl_status")
-	public short oplStatus;
+	@Column(name = "status")
+	public String status;
+	
+	@Column(name = "create_time")
+	public String createTime;
 
-	public static Finder<String, Opl> find = new Finder<String, Opl>(String.class, Opl.class);
+	public static Finder<String, OPL> find = new Finder<String, OPL>(String.class, OPL.class);
 
-	public static Opl findByOplId(String oplId)  {
+	public static OPL findByOplId(String oplId){
 		
 		return find.where().eq("id", oplId).orderBy("").fetch("oplFounder").fetch("oplOwner").findUnique();
 	}
 	
-public static List<Opl> findByParams(String lineName, Date oplStartDate, Date oplEndDate)  {
+	public static List<OPL> findByParams(String lineName, Date oplStartDate, Date oplEndDate){
 		
 		return find.where().eq("productLine.lineName", lineName).between("oplDate", oplStartDate, oplEndDate).orderBy("").fetch("oplFounder").fetch("oplOwner").fetch("productLine").findList();
 	}
 	
-	public static Opl findByOplDesc(String oplDesc)  {
-		
+	public static OPL findByOplDesc(String oplDesc){		
 		return find.where().ilike("oplDesc", "%" + oplDesc + "%").orderBy("").fetch("oplFounder").fetch("oplOwner").fetch("productLine").findUnique();
 	}
 
-	public static void save(Opl base) {
+	public static void save(OPL base) {
 		Ebean.save(base);
 	}
-	public static void update(Opl base) {
+	
+	public static void update(OPL base) {
 		Ebean.update(base);
 	}
 }

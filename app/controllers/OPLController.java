@@ -1,27 +1,35 @@
-package controllers.opl;
+package controllers;
 
 import java.io.File;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.alibaba.fastjson.JSONObject;
 import common.Constants;
 import common.util.FileUtil;
+
+import models.OPL;
+import play.libs.Json;
 import play.mvc.Controller;
+import play.mvc.Result;
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Http.MultipartFormData.FilePart;
-import play.mvc.Result;
 
-public class AddPSSController extends Controller {
-
-	private final static Logger logger = LoggerFactory.getLogger(AddPSSController.class);
+public class OPLController extends Controller {
+	
+	private static Log logger = LogFactory.getLog(OPLController.class);
 	
 	private final static DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
 	private final static DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-	public static Result uploadFile() {
+	public static Result addPSS() {
 		JSONObject json = new JSONObject();
 		MultipartFormData body = request().body().asMultipartFormData();
 		FilePart filePart = body.getFile("file");
@@ -68,6 +76,23 @@ public class AddPSSController extends Controller {
 		buffer.append(extension);
 		result = buffer.toString();
 		return result;
+	}
+	
+	public static Result getOPL(String lineName , String selectedYear, String selectedMonth) throws ParseException{
+		logger.info("line Name = " + lineName + ", selected Year = " + selectedYear + ", selectedMonth = " + selectedMonth);
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Date oplStartDate = df.parse(selectedYear + "-" + selectedMonth + "-1");
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(oplStartDate);
+		int days = calendar.getActualMaximum(Calendar.DATE);
+		Date oplEndDate = df.parse(selectedYear + "-" + selectedMonth + "-" + days);
+		List<OPL> oplList = OPL.findByParams(lineName, oplStartDate, oplEndDate);
+		logger.info("size = " + oplList.size());
+		if (null != oplList && oplList.size() > 0)
+			return ok(Json.toJson(oplList));
+		else
+			return ok("0");
 	}
 
 }
