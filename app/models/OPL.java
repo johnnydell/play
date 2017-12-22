@@ -9,18 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.avaje.ebean.Ebean;
 import play.db.ebean.Model;
 
 @Entity
 @Table(name = "edb_opl")
 public class OPL extends Model {
-	
-	private static Log logger = LogFactory.getLog(OPL.class);
 	
 	private static final long serialVersionUID = 1L;
 
@@ -103,8 +97,7 @@ public class OPL extends Model {
 
 	
 	
-	public static OPL findByOplId(String oplId){
-		
+	public static OPL findByOplId(String oplId){		
 		return find.where().eq("id", oplId).orderBy("").fetch("oplFounder").fetch("oplOwner").findUnique();
 	}
 	

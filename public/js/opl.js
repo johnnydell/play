@@ -23,6 +23,11 @@ var opl = function(){
 				condition.pages = [1,2,3];//总共多少页
 				this.set("condition", condition);
 				refreshOPL();
+
+				condition.pageSize = 10;//每页多少条
+				condition.page = 1;//当前页
+				condition.pages = [1,2,3];//总共多少页
+				this.set("condition", condition);
 				
 				var op1 = {
 						id:"1",
@@ -237,7 +242,7 @@ var opl = function(){
 							        // swf文件路径
 							        swf: manager.root + '/js/lib/webuploader-0.1.5/Uploader.swf',							
 							        // 文件接收服务端。
-							        server: manager.root + '/opl/addPSS',							
+							        server: manager.root + '/opl/addPSS',
 							        // 选择文件的按钮。可选。
 							        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
 							        pick: '#picker'//,
