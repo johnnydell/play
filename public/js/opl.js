@@ -1,10 +1,7 @@
 var opl = function(){
-	var currentYear = manager.currentYear();
 	var years = manager.years();
 	var months = manager.months;
-	var currentMonth = manager.currentMonth();
-	var lineName = manager.getPV("lineName");
-	var sysParams = manager.getSystemParams();
+	var condition = {};
 	function init(){
 		var opl = [];
 		var deletedOPL =[];
@@ -16,9 +13,17 @@ var opl = function(){
 				manager.loadProperties(this, "opl", "../../");
 				this.set("years",years);
 				this.set("months",months);
-				this.set("currYear",currentYear);
-				this.set("currMonth",currentMonth);
-				this.set("lineName", lineName);
+				var sys_date = manager.getSystemDate();
+				condition.line_id = "9336b6f78e7448e685bad5ba71c2e3f8";
+				condition.year = sys_date.split("-")[0];
+				condition.month = sys_date.split("-")[1];
+				condition.line_name = "FAG2";
+				condition.pageSize = 5;//每页多少条
+				condition.page = 2;//当前页
+				condition.pages = [1,2,3];//总共多少页
+				this.set("condition", condition);
+				refreshOPL();
+				
 				var op1 = {
 						id:"1",
 						checked:false,
@@ -38,53 +43,10 @@ var opl = function(){
 						pss:'',
 						responsible:'zhangsan',
 						deadline:'2017-04-02',
-						status:'N'						
+						status:'N',
+						updated:'0'
 					};
 				opl.push(op1);
-				var op2 = {
-						id:"2",
-						checked:false,
-						date:"2017-04-02",
-						refNo:"BH001",
-						personFound:"ZANSANG",
-						station:'001',
-						description:'sadfs dsaf a 你好！',
-						dtFrom:'18:15',
-						dtTo:'18:15',
-						timing:'3',
-						amt:'12',
-						rootCause:'sdafdasfdasfdasfdsfdsf',
-						immediate:'sdfasfdfexeafe sdfdfe ',
-						longTerm:'1111',
-						problemSolvingSheet:'N',
-						pss:'',
-						responsible:'zhangsan',
-						deadline:'2017-04-02',
-						status:'N'						
-					};
-				opl.push(op2);
-				var op3 = {
-						id:"3",
-						checked:false,
-						date:"2017-04-02",
-						refNo:"BH001",
-						personFound:"ZANSANG",
-						station:'001',
-						description:'sadfs dsaf a 你好！',
-						dtFrom:'18:15',
-						dtTo:'18:15',
-						timing:'3',
-						amt:'12',
-						rootCause:'sdafdasfdasfdasfdsfdsf',
-						immediate:'sdfasfdfexeafe sdfdfe ',
-						longTerm:'1111',
-						problemSolvingSheet:'Y',
-						pss:'',
-						responsible:'zhangsan',
-						deadline:'2017-04-02',
-						status:'N'						
-					};
-				opl.push(op3);
 				this.set("opl",opl);
 			},
 			oncomplete: function(){
@@ -113,8 +75,8 @@ var opl = function(){
 					step:5
 				});
 				
-				getOplData();
-				ractive.update();
+				//getOplData();
+				//ractive.update();
 			}
 		});
 		
@@ -131,7 +93,7 @@ var opl = function(){
 			toHideYearSelect:function(e){
 				$(e.node).hide().prev().show().text($(e.node).find("option:selected").text());
 				currentYear = $(e.node).find("option:selected").val();
-				getOplData();
+				//getOplData();
 			},
 			toShowMonthSelect:function(e){
 				$(e.node).hide().next().show().focus();
@@ -157,7 +119,7 @@ var opl = function(){
 				event.stopPropagation();
 			},
 			toHideColumnEditor:function(e){
-				var type = e.node.type;
+			    var type = e.node.type;
 				var txt;
 				if(type == 'select-one'){
 					txt = $(e.node).find("option:selected").text();
@@ -242,10 +204,13 @@ var opl = function(){
 				console.log("prepare to save");
 			},
 			test:function(){
-				console.log(opl[0].pss);
+				console.log(opl[0]);
 				/*console.log(deletedOPL);
 				console.log(manager);
 				manager.triggerLogin();*/
+			},
+			disableKeydown:function(){
+				return false;
 			},
 			showPss:function(e){
 			    var index = $(e.node).parent().parent().attr("lang");
@@ -266,17 +231,13 @@ var opl = function(){
 							        state = 'pending',
 							        uploader;
 							    
-							    uploader = WebUploader.create({
-							
+							    uploader = WebUploader.create({							
 							        // 不压缩image
-							        resize: false,
-							
+							        resize: false,							
 							        // swf文件路径
-							        swf: manager.root + '/js/lib/webuploader-0.1.5/Uploader.swf',
-							
+							        swf: manager.root + '/js/lib/webuploader-0.1.5/Uploader.swf',							
 							        // 文件接收服务端。
-							        server: manager.root + '/addPss/uploadFile',
-							
+							        server: manager.root + '/opl/addPSS',							
 							        // 选择文件的按钮。可选。
 							        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
 							        pick: '#picker'//,
@@ -355,39 +316,40 @@ var opl = function(){
 							    });        	            	   
 	        	            }
 	        	        });
-
-	        	        ractive2.on("login", function () {
-	        	            console.log("login");
-	        	        });
-	        	        
-	        	        ractive2.on("gotoView", function () {
-	        	        	console.log("currPss = " + currPss);
-	        	        	//window.open('staticpage.html?pageName=pss&oplLinkName=' + currPss);
-	        	        	window.location.href='staticpage.html?pageName=pss&oplLinkName=' + currPss;
-	        	        });
-	        	        
-	        	        ractive2.on("close", function () {
-	        	            $(".pss_popup").hide().html("");
-	        	            opl[index].pss = currPss;
-	        	            //ractive.update("opl");
-	        	            if(currPss != ''){
-	        	            	var txt = currPss.length>10?currPss.substring(0,10)+"....":currPss;
-	        	           	    _$target.parent().children(0).html(txt);
-	        	            }
-	        	        });
+	        	        	        	        
+	        	        ractive2.on({
+	        	        	gotoView:function () {
+		        	        	console.log("currPss = " + currPss);
+		        	        	//window.open('staticpage.html?pageName=pss&oplLinkName=' + currPss);
+		        	        	window.location.href='staticpage.html?pageName=pss&oplLinkName=' + currPss;
+		        	        },
+		        	        close:function () {
+		        	            $(".pss_popup").hide().html("");
+		        	            opl[index].pss = currPss;
+		        	            //ractive.update("opl");
+		        	            if(currPss != ''){
+		        	            	var txt = currPss.length>10?currPss.substring(0,10)+"....":currPss;
+		        	           	    _$target.parent().children(0).html(txt);
+		        	            }
+		        	        }
+	        	        })
 	        	    });   
 			}
 		})
 	}
 	
-	function getOplData(){
-		console.log("lineName:" + lineName + ", currYear:" + currentYear + ",currMonth:" + currentMonth);
+	//获取OPL信息根据产线和年月和分页参数condition
+	function getOPLByParamPagination(){
 		$.ajax({
-			url: manager.root + "/opl/initOplData/" + lineName + "/" + currentYear + "/" + currentMonth,
+			url: manager.root+"/opl/getOPLByParamPagination",
 			type: "GET",
 			async:false,
+			dataType:"json",
+			data:{line_id:condition.line_id,year:condition.year,month:condition.month,page:condition.page,pageSize:condition.pageSize},
+			async:false,
 			success: function(data) {
-				if (data !== "0"){
+				console.log(data.length);
+				/*if (data !== "0"){
 					for (i = 0; i < data.length; i ++){
 						var op = {};
 						op.id=data[i].id;
@@ -411,9 +373,14 @@ var opl = function(){
 						op.status=data[i].oplStatus;
 						opl.push(op);
 					}
-				}
+				}*/
 			}
 		});
+	}
+	
+	//刷新OPL
+	function refreshOPL(){
+		var opls = getOPLByParamPagination();
 	}
 	
 	return {

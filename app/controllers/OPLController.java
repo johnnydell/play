@@ -1,27 +1,35 @@
-package controllers.opl;
+package controllers;
 
 import java.io.File;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+
 import common.Constants;
 import common.util.FileUtil;
+import models.OPL;
 import play.mvc.Controller;
+import play.mvc.Result;
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Http.MultipartFormData.FilePart;
-import play.mvc.Result;
 
-public class AddPSSController extends Controller {
-
-	private final static Logger logger = LoggerFactory.getLogger(AddPSSController.class);
+public class OPLController extends Controller {
+	
+	private static Log logger = LogFactory.getLog(OPLController.class);
 	
 	private final static DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
 	private final static DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-	public static Result uploadFile() {
+	public static Result addPSS() {
 		JSONObject json = new JSONObject();
 		MultipartFormData body = request().body().asMultipartFormData();
 		FilePart filePart = body.getFile("file");
@@ -60,14 +68,31 @@ public class AddPSSController extends Controller {
 	private static String prepareFileName(Date now, String fileName){
 		String result = "";
 		StringBuffer buffer = new StringBuffer();
-		//String filePrefix = fileName.substring(0, fileName.lastIndexOf("."));
 		String extension = fileName.substring(fileName.lastIndexOf("."));
-		//buffer.append(filePrefix);
 		buffer.append("pss_");
 		buffer.append(df.format(now));
 		buffer.append(extension);
 		result = buffer.toString();
 		return result;
+	}
+	
+	/**
+	 * 根据分页等参数条件获取OPL信息
+	 * @param line_id
+	 * @param year
+	 * @param month
+	 * @param page
+	 * @param pageSize
+	 * @return
+	 * @throws ParseException
+	 */
+	public static Result getOPLByParamPagination(String line_id,String year,String month,String page,String pageSize) throws ParseException{
+		List<OPL> oplList = OPL.getOPLByParamPagination(line_id,year,month,page,pageSize);
+		if(oplList == null || oplList.size() == 0){
+			oplList = new ArrayList<OPL>();
+		}
+		String str = JSON.toJSONString(oplList);
+   	 	return ok(str);
 	}
 
 }

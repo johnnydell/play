@@ -54,7 +54,7 @@
 	<div class="content">
 		<div class="content-box">
             <div class="toolbar">
-                <!--<button type="button" class="btn" on-click="test">测试</button>-->
+                <button type="button" class="btn" on-click="test">测试</button><!---->
 				<button type="button" class="btn" on-click="addAttendee">{{i18n_meetAttd_add}}</button>
 				<button type="button" class="btn" on-click="saveAttendee">{{i18n_meetAttd_save}}</button>
 				<button type="button" class="btn" on-click="deleteAttendee">{{i18n_meetAttd_delete}}</button>
@@ -140,7 +140,7 @@
 	               </td>
 				   <td>
 	               		<label class="field" on-click="toShowColumnEditor">{{frequency}}</label>
-	               		<input class="field" type="text" maxlength="20" on-blur="toHideColumnEditor" style="display:none" value="{{frequency}}" />
+	               		<input class="field" type="text" maxlength="5" on-blur="toHideColumnEditor" style="display:none" value="{{frequency}}" />
 	               </td>
 	               <td>
 	               		<label class="field" on-click="toShowColumnEditor">{{dept}}</label>

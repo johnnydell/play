@@ -218,7 +218,6 @@ var meetAttd = function(){
 			},
 			test:function(){
 				console.log(attendanceDetails[0]);
-				console.log(deletedAttendanceDetails);
 			},
 			toShowColumnEditor:function(e){
 				var index = $(e.node).parent().parent().attr("lang");

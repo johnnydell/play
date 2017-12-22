@@ -27,8 +27,8 @@ GET  /edashboard/role/getList               			controllers.settings.RoleControll
 POST /edashboard/role/saveRole               			controllers.settings.RoleController.saveRole()
 
 #OPL
-POST /edashboard/addPss/uploadFile 		                controllers.opl.AddPSSController.uploadFile()
-GET  /edashboard/opl/initOplData/:lineName/:selectedYear/:selectedMonth 		 controllers.opl.OplController.initOplData(lineName : String, selectedYear : String, selectedMonth : String)
+POST /edashboard/opl/addPSS 		            		controllers.OPLController.addPSS()
+GET  /edashboard/opl/getOPLByParamPagination            controllers.OPLController.getOPLByParamPagination(line_id:String,year:String,month:String,page:String,pageSize:String)
 
 #Meeting Attendance
 GET  /edashboard/metAttd/getMetAtdanceInfo              controllers.MetAttdController.getMetAtdanceInfo(line_id:String,year:String,month:String)
