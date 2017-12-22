@@ -89,22 +89,22 @@
 			<table>
 				<tr>
 					<td colspan="7">
-                        <span>{{i18n_meetAttd_meetingtime}}:</span>  
-						<label on-click="toShowMeetingTimeText">{{attendance.time_start}}</label>                      
-                        <input class="meettimeStart" style="width:50px;height:30px;display:none" type="text" on-blur="toHideMeetingTimeText" value="{{attendance.time_start}}" />
-                        -
-                        <label on-click="toShowMeetingTimeText">{{attendance.time_end}}</label>                      
-                        <input class="meettimeEnd" style="width:50px;height:30px;display:none" type="text" on-blur="toHideMeetingTimeText" value="{{attendance.time_end}}" />
+                        <span style="width:50%;">{{i18n_meetAttd_meetingtime}}:</span>  
+						<label style="width:7%;" on-click="toShowMeetingTimeText">{{attendance.time_start}}</label>                      
+                        <input class="meettimeStart" style="width:7%;display:none" type="text" on-blur="toHideMeetingTimeText" value="{{attendance.time_start}}" />
+                        <label>-&nbsp;</label>
+                        <label style="width:7%;" on-click="toShowMeetingTimeText">{{attendance.time_end}}</label>                      
+                        <input class="meettimeEnd" style="width:7%;display:none" type="text" on-blur="toHideMeetingTimeText" value="{{attendance.time_end}}" />
                     </td>
 					<td colspan="14" id="meetingSpotTd">
-                        <span>{{i18n_meetAttd_meetingspot}}:</span>
-                        <label on-click="toShowMeetingSpotText">{{attendance.spot}}</label>
-						<input style="width:50%;height:30px;display:none" type="text" on-blur="toHideMeetingSpotText" value="{{attendance.spot}}" />
+                        <span style="width:37%;">{{i18n_meetAttd_meetingspot}}:</span>
+                        <label style="width:58%;" on-click="toShowMeetingSpotText">{{attendance.spot}}</label>
+						<input style="width:58%;display:none" type="text" on-blur="toHideMeetingSpotText" value="{{attendance.spot}}" />
                     </td>
 					<td colspan="15" id="meetingHostTd">
-                        <span>{{i18n_meetAttd_host}}:</span>
-                    	<label on-click="toShowMeetingHostText">{{attendance.host}}</label>
-						<input style="width:50%;height:30px;display:none" type="text" on-blur="toHideMeetingHostText" value="{{attendance.host}}" />
+                        <span style="width:25%;">{{i18n_meetAttd_host}}:</span>
+                    	<label style="width:70%;" on-click="toShowMeetingHostText">{{attendance.host}}</label>
+						<input style="width:70%;display:none" type="text" on-blur="toHideMeetingHostText" value="{{attendance.host}}" />
                     </td>
 				</tr>
 				<tr>

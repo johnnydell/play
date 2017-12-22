@@ -91,6 +91,18 @@
 	font-size: 16px;
 }
 
+.content-box table tr:first-child span{
+	float:left;
+	text-align: right;
+	height:30px;
+}
+
+.content-box table tr:first-child label,.content-box table tr:first-child input{
+	float:left;
+	text-align: left;
+	height:30px;
+}
+
 .content-box table td {
 	color: #0a05e8;
 	/* line-height: 30px; */
