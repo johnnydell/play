@@ -29,6 +29,8 @@ POST /edashboard/role/saveRole               			controllers.settings.RoleControl
 #OPL
 POST /edashboard/opl/addPSS 		            		controllers.OPLController.addPSS()
 GET  /edashboard/opl/getOPLByParamPagination            controllers.OPLController.getOPLByParamPagination(line_id:String,year:String,month:String,page:String,pageSize:String)
+POST /edashboard/opl/saveOPL                            controllers.OPLController.saveOPL()
+POST /edashboard/opl/deleteOPL                          controllers.OPLController.deleteOPL()
 
 #Meeting Attendance
 GET  /edashboard/metAttd/getMetAtdanceInfo              controllers.MetAttdController.getMetAtdanceInfo(line_id:String,year:String,month:String)

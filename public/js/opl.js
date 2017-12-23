@@ -2,87 +2,29 @@ var opl = function(){
 	var years = manager.years();
 	var months = manager.months;
 	var condition = {};
+	var opl = [];
+	var deletedOPL =[];
+	var sys_date = manager.getSystemDate();
 	function init(){
-		var opl = [];
-		var deletedOPL =[];
 		var ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
 			data: {root:manager.root},
 			onrender: function(){
 				manager.loadProperties(this, "opl", "../../");
+				manager.loadProperties(this, "common", "../../");
 				this.set("years",years);
 				this.set("months",months);
-				var sys_date = manager.getSystemDate();
 				condition.line_id = "9336b6f78e7448e685bad5ba71c2e3f8";
 				condition.year = sys_date.split("-")[0];
 				condition.month = sys_date.split("-")[1];
 				condition.line_name = "FAG2";
 				condition.pageSize = 5;//每页多少条
-				condition.page = 2;//当前页
-				condition.pages = [1,2,3];//总共多少页
-				this.set("condition", condition);
-				refreshOPL();
-
-				condition.pageSize = 10;//每页多少条
 				condition.page = 1;//当前页
-				condition.pages = [1,2,3];//总共多少页
-				this.set("condition", condition);
-				
-				var op1 = {
-						id:"1",
-						checked:false,
-						date:"2017-04-02",
-						refNo:"BH001",
-						personFound:"ZANSANG",
-						station:'001',
-						description:'sadfs dsaf a 你好！',
-						dtFrom:'18:15',
-						dtTo:'18:15',
-						timing:'3',
-						amt:'12',
-						rootCause:'sdafdasfdasfdasfdsfdsf',
-						immediate:'sdfasfdfexeafe sdfdfe ',
-						longTerm:'1111',
-						problemSolvingSheet:'Y',
-						pss:'',
-						responsible:'zhangsan',
-						deadline:'2017-04-02',
-						status:'N',
-						updated:'0'
-					};
-				opl.push(op1);
-				this.set("opl",opl);
+				condition.pages = [];//总共多少页
+				refreshOPL(this);
 			},
-			oncomplete: function(){
-				$('.cxttr .date').datetimepicker({
-					yearOffset:0,
-					timepicker:false,
-					format:'Y-m-d',
-					minDate:'2000/01/01', // yesterday is minimum date
-					maxDate:'2030/02/28' // and tommorow is maximum date calendar
-				});
-				$('.cxttr .deadline').datetimepicker({
-					yearOffset:0,
-					timepicker:false,
-					format:'Y-m-d',
-					minDate:'2000/01/01', // yesterday is minimum date
-					maxDate:'2030/02/28' // and tommorow is maximum date calendar
-				});
-				$(".cxttr .dtFrom").datetimepicker({
-					datepicker:false,
-					format:'H:i',
-					step:5
-				});
-				$(".cxttr .dtTo").datetimepicker({
-					datepicker:false,
-					format:'H:i',
-					step:5
-				});
-				
-				//getOplData();
-				//ractive.update();
-			}
+			oncomplete: function(){}
 		});
 		
 		ractive.on({
@@ -96,23 +38,24 @@ var opl = function(){
 				$(e.node).hide().next().show().focus();
 			},
 			toHideYearSelect:function(e){
-				$(e.node).hide().prev().show().text($(e.node).find("option:selected").text());
-				currentYear = $(e.node).find("option:selected").val();
-				//getOplData();
+				$(e.node).hide().prev().show();
+				condition.page = 1;//当前页
+				refreshOPL(ractive);
 			},
 			toShowMonthSelect:function(e){
 				$(e.node).hide().next().show().focus();
 			},
 			toHideMonthSelect:function(e){
-				$(e.node).hide().prev().show().text($(e.node).find("option:selected").text());
-				currentMonth = $(e.node).find("option:selected").val();
-				getOplData();
+				$(e.node).hide().prev().show();
+				condition.page = 1;//当前页
+				refreshOPL(ractive);
 			},
 			toShowPageSelect:function(e){
 				$(e.node).hide().next().show().focus();
 			},
 			toHidePageSelect:function(e){
-				$(e.node).hide().prev().show().text($(e.node).find("option:selected").text());
+				$(e.node).hide().prev().show();
+				refreshOPL(ractive);
 			},
 			toShowColumnEditor:function(e){
 				var event = e.original || window.event;
@@ -126,11 +69,11 @@ var opl = function(){
 			toHideColumnEditor:function(e){
 			    var type = e.node.type;
 				var txt;
+				var index = $(e.node).parent().parent().attr("lang");
 				if(type == 'select-one'){
 					txt = $(e.node).find("option:selected").text();
 				} else if(type == 'textarea') {
 					txt = $(e.node).val();
-					var index = $(e.node).parent().parent().attr("lang");
 					var colName = $(e.node).attr("colName");
 					if(colName != undefined && colName != ''){
 						opl[index][colName] = txt;
@@ -141,78 +84,166 @@ var opl = function(){
 				var old_txt = txt;
 				txt = txt.length>10?txt.substring(0,10)+"....":txt;
 				$(e.node).hide().prev().show().text(txt).attr("title",old_txt);
+				opl[index].updated = "1";
+				ractive.update("opl");
 			},
-			addOP:function(){				
+			addOP:function(){	
 				var op = {
 						id:"0",
 						checked:false,
-						date:"",
+						date:condition.year+'-'+condition.month+'-01',
 						refNo:"",
-						personFound:"",
+						founder:"",
 						station:'',
 						description:'',
-						dtFrom:'',
-						dtTo:'',
+						dtFrom:'10:00',
+						dtTo:'10:30',
 						timing:'',
 						amt:'',
 						rootCause:'',
 						immediate:' sdfdfe ',
 						longTerm:'',
 						problemSolvingSheet:'N',
-						pss:'',
+						pssLink:'',
 						responsible:'',
-						deadline:'',
-						status:'N'						
-					};
+						deadline:condition.year+'-'+condition.month+'-01',
+						status:'N',
+						updated:'0'
+				};
 				opl.unshift(op);
 				ractive.update("opl");
 				//对新增的行进行绑定时间选择事件
-				$('.cxttr:last .date').datetimepicker({
+				$('.cxttr:first .date').datetimepicker({
 					yearOffset:0,
 					timepicker:false,
 					format:'Y-m-d',
-					minDate:'2000/01/01', // yesterday is minimum date
-					maxDate:'2030/02/28' // and tommorow is maximum date calendar
+					minDate:condition.year+'/'+condition.month+'/01',
+					maxDate:condition.year+'/'+condition.month+'/31'
 				});
-				$('.cxttr:last .deadline').datetimepicker({
+				$('.cxttr:first .deadline').datetimepicker({
 					yearOffset:0,
 					timepicker:false,
 					format:'Y-m-d',
-					minDate:'2000/01/01', // yesterday is minimum date
+					minDate:condition.year+'/'+condition.month+'/01',
 					maxDate:'2030/02/28' // and tommorow is maximum date calendar
 				});
-				$(".cxttr:last .dtFrom").datetimepicker({
+				$(".cxttr:first .dtFrom").datetimepicker({
 					datepicker:false,
 					format:'H:i',
 					step:5
 				});
-				$(".cxttr:last .dtTo").datetimepicker({
+				$(".cxttr:first .dtTo").datetimepicker({
 					datepicker:false,
 					format:'H:i',
 					step:5
 				});
 			},
 			deleteOP:function(){
-			      var i = opl.length-1;
-			      while (i >= 0){
-			        var temp = opl[i];
-			        if(temp.checked){
-			            if(temp.id != '0'){
-			            	deletedOPL.push(temp);
-			            }
-			            opl.splice(i,1);	
-			        }
-				  	i--;
-				  }		      
+				var deletedOPL =[];
+				var deleteCnt = 0;
+				$(opl).each(function(i,n){
+					if(n.checked){
+						if(n.id != '0'){
+							deletedOPL.push(n);
+						}
+						deleteCnt++;
+					}
+				})
+				
+				if(deleteCnt > 0){
+					if(deletedOPL.length > 0){
+						$.ajax({
+							url: manager.root + "/opl/deleteOPL",
+							type: "POST",
+							dataType: "json",
+							data:JSON.stringify({deletedOPL:deletedOPL}),
+							contentType: "application/json",    
+							beforeSend: function() {
+								manager.block();
+							},
+							success: function(data) {
+								var i = opl.length-1;
+								while (i >= 0){
+								  var temp = opl[i];
+								  if(temp.checked){
+									  opl.splice(i,1);	
+								  }
+								  i--;
+								}	
+								ractive.set("opl",opl);		
+								jAlert($.i18n.prop("i18n_delete_ok"), $.i18n.prop("i18n_info"));
+							},
+							error:function(){
+								jAlert($.i18n.prop("i18n_delete_error"), $.i18n.prop("i18n_error"));
+							},
+							complete: function() {
+								manager.unblock();
+							}
+						});						
+					} else {
+						var i = opl.length-1;
+						while (i >= 0){
+						  var temp = opl[i];
+						  if(temp.checked){
+							  opl.splice(i,1);	
+						  }
+						  i--;
+						}	
+						ractive.set("opl",opl);		
+						jAlert($.i18n.prop("i18n_delete_ok"), $.i18n.prop("i18n_info"));
+					}
+				} else {
+					jAlert($.i18n.prop("i18n_select_to_delete"), $.i18n.prop("i18n_error"));
+				}        
 			},
 			saveOP:function(){
-				console.log("prepare to save");
+				var error = false;
+				//判断opl详细有没为空的
+				$(opl).each(function(i,n){
+					if(n.date == '' || n.refNo == '' || n.founder == '' || 
+							n.station == '' || n.dtFrom == '' || n.dtTo == '' ||
+							n.timing == '' || n.amt == '' || n.immediate == '' || n.responsible == '' || n.deadline == ''){	
+						jAlert($.i18n.prop("i18n_required"), $.i18n.prop("i18n_error"));
+						error = true;
+						return false;
+					}
+				})
+				
+				if(!error){
+					//整理出需要新增和更新的
+					var addOPL = [];
+					var updateOPL = [];
+					$(opl).each(function(i,n){
+						if(n.id == '0'){
+							addOPL.push(n);
+						} else if(n.updated == "1"){
+							updateOPL.push(n);
+						}
+					})
+					
+					if(addOPL.length > 0 || updateOPL.length > 0){
+						$.ajax({
+							url: manager.root + "/opl/saveOPL",
+							type: "POST",
+							dataType: "json",
+							data:JSON.stringify({condition:condition,addOPL:addOPL,updateOPL:updateOPL}),
+							contentType: "application/json",    
+							beforeSend: function() {
+								manager.block();
+							},
+							success: function(data) {
+								refreshOPL(ractive);	
+								jAlert($.i18n.prop("i18n_save_ok"), $.i18n.prop("i18n_info"));
+							},
+							complete: function() {
+								manager.unblock();
+							}
+						});		
+					}
+				}
 			},
 			test:function(){
 				console.log(opl[0]);
-				/*console.log(deletedOPL);
-				console.log(manager);
-				manager.triggerLogin();*/
 			},
 			disableKeydown:function(){
 				return false;
@@ -220,9 +251,11 @@ var opl = function(){
 			showPss:function(e){
 			    var index = $(e.node).parent().parent().attr("lang");
 			    var _$target = $(e.node);
+			    opl[index].updated = "1";
+				ractive.update("opl");
 				$(".pss_popup").show();  
     	    	  $.get(manager.root+"/views/tpl/board/addPSS.html", function (data) {
-    	    	        var currPss	= opl[index].pss;     
+    	    	        var currPss	= opl[index].pssLink;     
 	        	        var ractive2 = new Ractive({
 	        	            el: ".pss_popup",
 	        	            template: data,
@@ -325,12 +358,11 @@ var opl = function(){
 	        	        ractive2.on({
 	        	        	gotoView:function () {
 		        	        	console.log("currPss = " + currPss);
-		        	        	//window.open('staticpage.html?pageName=pss&oplLinkName=' + currPss);
 		        	        	window.location.href='staticpage.html?pageName=pss&oplLinkName=' + currPss;
 		        	        },
 		        	        close:function () {
 		        	            $(".pss_popup").hide().html("");
-		        	            opl[index].pss = currPss;
+		        	            opl[index].pssLink = currPss;
 		        	            //ractive.update("opl");
 		        	            if(currPss != ''){
 		        	            	var txt = currPss.length>10?currPss.substring(0,10)+"....":currPss;
@@ -343,8 +375,37 @@ var opl = function(){
 		})
 	}
 	
+	//绑定日期控件事件
+	function bindDatepicker(){
+		$('.cxttr .date').datetimepicker({
+			yearOffset:0,
+			timepicker:false,
+			format:'Y-m-d',
+			minDate:condition.year+'/'+condition.month+'/01',
+			maxDate:condition.year+'/'+condition.month+'/31'
+		});
+		$('.cxttr .deadline').datetimepicker({
+			yearOffset:0,
+			timepicker:false,
+			format:'Y-m-d',
+			minDate:condition.year+'/'+condition.month+'/01',
+			maxDate:'2030/02/28' // and tommorow is maximum date calendar
+		});
+		$(".cxttr .dtFrom").datetimepicker({
+			datepicker:false,
+			format:'H:i',
+			step:5
+		});
+		$(".cxttr .dtTo").datetimepicker({
+			datepicker:false,
+			format:'H:i',
+			step:5
+		});
+	}
+	
 	//获取OPL信息根据产线和年月和分页参数condition
 	function getOPLByParamPagination(){
+		var ret;
 		$.ajax({
 			url: manager.root+"/opl/getOPLByParamPagination",
 			type: "GET",
@@ -352,40 +413,56 @@ var opl = function(){
 			dataType:"json",
 			data:{line_id:condition.line_id,year:condition.year,month:condition.month,page:condition.page,pageSize:condition.pageSize},
 			async:false,
+			contentType: "application/json",
 			success: function(data) {
-				console.log(data.length);
-				/*if (data !== "0"){
-					for (i = 0; i < data.length; i ++){
-						var op = {};
-						op.id=data[i].id;
-						op.checked=false;
-						op.date=data[i].oplDate;
-						op.refNo=data[i].refNo;
-						op.personFound=data[i].oplFounder.userName;
-						op.station=data[i].stationNo;
-						op.description=data[i].oplDesc;
-						op.dtFrom=data[i].oplStart;
-						op.dtTo=data[i].oplEnd;
-						op.timing=data[i].oplTiming;
-						op.amt=data[i].oplAmount;
-						op.rootCause=data[i].oplRootCause;
-						op.immediate=data[i].oplImmediate;
-						op.longTerm=data[i].oplLongTerm;
-						op.problemSolvingSheet=data[i].problemSolve;
-						op.pss=data[i].pssLink;
-						op.responsible=data[i].oplOwner.userName;
-						op.deadline=data[i].oplDeadline;
-						op.status=data[i].oplStatus;
-						opl.push(op);
-					}
-				}*/
+				ret = data;
 			}
 		});
+		return ret;
 	}
 	
 	//刷新OPL
-	function refreshOPL(){
-		var opls = getOPLByParamPagination();
+	function refreshOPL(_ractive){
+		var ret = getOPLByParamPagination();
+		var line = ret.line;
+		var data = ret.data;
+		var pageCnt = (ret.pageCnt == 0 ? 1:ret.pageCnt);
+		opl = [];
+		condition.line_name = line.lineName;
+		var pages = [];
+		for(i = 1;i <= pageCnt;i++){
+			pages.push(i);
+		}
+		condition.pages = pages;
+		if(data.length > 0){
+			$(data).each(function(i,n){
+				var det = {};
+				det.id = n.id;
+				det.checked = false;
+				det.date = n.date;
+				det.refNo = n.refNo;
+				det.founder = n.founder;
+				det.station = n.station;
+				det.description = n.description;
+				det.dtFrom = n.start;
+				det.dtTo = n.end;
+				det.timing = n.timing;
+				det.amt = n.amount;
+				det.rootCause = n.rootCause;
+				det.immediate = n.immediate;
+				det.longTerm = n.longTerm;
+				det.problemSolvingSheet = n.problemSolve;
+				det.pssLink = n.pssLink;
+				det.responsible = n.owner;
+				det.deadline = n.deadline;
+				det.status = n.status;
+				det.updated = "0";
+				opl.push(det);
+			})			
+		}
+		_ractive.set("condition", condition);
+		_ractive.set("opl",opl);
+		bindDatepicker();
 	}
 	
 	return {

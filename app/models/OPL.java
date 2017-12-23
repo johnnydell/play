@@ -9,7 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 import com.avaje.ebean.Ebean;
+import com.avaje.ebean.Page;
+
 import play.db.ebean.Model;
 
 @Entity
@@ -22,7 +25,7 @@ public class OPL extends Model {
 	public String id = UUID.randomUUID().toString().replace("-", "");
 	
 	@ManyToOne
-	@JoinColumn(name = "line_id")
+	@JoinColumn(name = "line_id",insertable=false,updatable=false)
 	public ProductLine productLine;
 	
 	@Column(name = "line_id")
@@ -37,11 +40,11 @@ public class OPL extends Model {
 	@Column(name = "ref_no")
 	public String refNo;
 	
-	@Column(name = "station_no")
-	public String stationNo;
+	@Column(name = "station")
+	public String station;
 	
-	@Column(name = "desc")
-	public String desc;
+	@Column(name = "description")
+	public String description;
 	
 	@Column(name = "start")
 	public String start;
@@ -84,32 +87,31 @@ public class OPL extends Model {
 
 	public static Finder<String, OPL> find = new Finder<String, OPL>(String.class, OPL.class);
 		
-	public static List<OPL> getOPLByParamPagination(String line_id,String year,String month,String page,String pageSize){
-		Integer firstRow = (Integer.parseInt(page)-1)*Integer.parseInt(pageSize) == 0 ? 0:((Integer.parseInt(page)-1)*Integer.parseInt(pageSize)-1);
-		Integer maxRows = Integer.parseInt(pageSize)-1;
-		return find.where().eq("line_id", line_id).
+	public static Page<OPL> getOPLByParamPagination(String line_id,String year,String month,String page,String pageSize){
+		Page<OPL> pagination = find.where().eq("line_id", line_id).
 				between("date", year+"-"+month+"-01",  year+"-"+month+"-31").
-				orderBy("create_time asc").
-				setFirstRow(firstRow).
-				setMaxRows(maxRows).findList();
+				orderBy("create_time desc").
+				findPagingList(Integer.parseInt(pageSize)).setFetchAhead(false).getPage(Integer.parseInt(page)-1);
+		return pagination;
 	}
 	
-
-	
-	
-	public static OPL findByOplId(String oplId){		
-		return find.where().eq("id", oplId).orderBy("").fetch("oplFounder").fetch("oplOwner").findUnique();
+	public static OPL find(String id){
+		return Ebean.find(OPL.class, id);
 	}
 	
-	public static OPL findByOplDesc(String oplDesc){		
-		return find.where().ilike("oplDesc", "%" + oplDesc + "%").orderBy("").fetch("oplFounder").fetch("oplOwner").fetch("productLine").findUnique();
-	}
-
-	public static void save(OPL base) {
-		Ebean.save(base);
+	public static void saveList(List<OPL> li){
+    	Ebean.save(li);
+    }
+	
+	public static void updateList(List<OPL> li){
+		if(li != null && li.size() > 0){
+			for(OPL opl:li){
+				Ebean.update(opl);
+			}
+		}
 	}
 	
-	public static void update(OPL base) {
-		Ebean.update(base);
+	public static void deleteList(List<OPL> li){
+		Ebean.delete(li);
 	}
 }

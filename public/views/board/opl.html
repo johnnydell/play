@@ -6,6 +6,7 @@
 		<link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
 		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
 		<link rel="stylesheet" type="text/css" href="../../css/login.css"/>
+		<link rel="stylesheet" type="text/css" href="../../js/lib/alerts/jquery.alerts.css"/>
 		<link rel="stylesheet" type="text/css" href="../../js/lib/datetimepicker/jquery.datetimepicker.css"/>	
 		<link rel="stylesheet" type="text/css" href="../../css/opl.css"/>
 		<link rel="stylesheet" type="text/css" href="../../css/addPSS.css"/>
@@ -28,6 +29,8 @@
 	</body>
 	<script src="../../js/lib/jquery-1.10.1.min.js"></script>
 	<script src="../../js/lib/jquery.cookie.js"></script>
+	<script src="../../js/lib/alerts/jquery.alerts.js"></script>
+	<script src="../../js/lib/jquery.blockui.js"></script>
 	<script src="../../js/lib/ractive-legacy.js"></script>
 	<script src="../../js/lib/jquery.i18n.properties-1.0.9.js"></script>
 	<script src="../../js/lib/datetimepicker/jquery.datetimepicker.full.js"></script>
@@ -54,9 +57,9 @@
 		<div class="content-box">
             <div class="toolbar">
                 <button type="button" class="btn" on-click="test">测试</button><!---->
-				<button type="button" class="btn" on-click="addOP">增加</button>
-				<button type="button" class="btn" on-click="saveOP">保存</button>
-				<button type="button" class="btn" on-click="deleteOP">删除</button>
+				<button type="button" class="btn" on-click="addOP">{{i18n_opl_add}}</button>
+				<button type="button" class="btn" on-click="saveOP">{{i18n_opl_save}}</button>
+				<button type="button" class="btn" on-click="deleteOP">{{i18n_opl_delete}}</button>
             </div>
 			<div>
 				<table>
@@ -85,7 +88,7 @@
 					<th class="page" style="background-color:white;color: #000;border: 1px solid #000;">
 					{{i18n_opl_no}}
 					<label on-click="toShowPageSelect">{{condition.page}}</label>
- 					<select style="display:none;" on-blur="toHidePageSelect">
+ 					<select style="display:none;" on-blur="toHidePageSelect" value="{{condition.page}}">
 						 {{#each condition.pages:index}}
 						 <option value="{{condition.pages[index]}}">{{condition.pages[index]}}</option>
 				         {{/each}}
@@ -122,7 +125,7 @@
 			    <tr class="cxttr" lang="{{index}}">
 				    <td>
 				        <input type="checkbox" checked="{{checked}}" value="{{id}}"/>
-				        {{#if id == '0'}}
+				        {{#if id == '0' || updated == '1'}}
 				        	<font color="red">*</font>
 				        {{else}}
 				        	<font>&nbsp;</font>
@@ -137,8 +140,8 @@
                        <input class="field" type="text" style="display:none;" maxlength="10" on-blur="toHideColumnEditor" value="{{refNo}}" on-click="stopPropagation"/>
                     </td>
 			        <td on-click="toShowColumnEditor">
-                       <label class="field" >{{personFound}}</label>
-                       <input class="field" type="text" style="display:none;" maxlength="10" on-blur="toHideColumnEditor" value="{{personFound}}" on-click="stopPropagation"/>
+                       <label class="field" >{{founder}}</label>
+                       <input class="field" type="text" style="display:none;" maxlength="10" on-blur="toHideColumnEditor" value="{{founder}}" on-click="stopPropagation"/>
                     </td>
 			        <td on-click="toShowColumnEditor">
                        <label class="field" >{{station}}</label>
@@ -185,17 +188,17 @@
                     </td>
  					<td lang="{{index}}">
                        {{#if problemSolvingSheet == 'Y'}}
-							{{#if pss != ''}}
-								<label class="field" ><a class="link" href="javascript:void(0);" on-click="showPss">{{pss}}</a></label>
+							{{#if pssLink != ''}}
+								<label class="field" ><a class="link" href="javascript:void(0);" on-click="showPss">{{pssLink}}</a></label>
 								<label class="field" style="display:none;"><a class="link" href="javascript:void(0);" on-click="showPss">{{i18n_opl_add_pass}}</a></label>
 								<label class="field" style="display:none;"></label>
 							{{else}}
-								<label class="field" style="display:none;"><a class="link" href="javascript:void(0);" on-click="showPss">{{pss}}</a></label>
+								<label class="field" style="display:none;"><a class="link" href="javascript:void(0);" on-click="showPss">{{pssLink}}</a></label>
 								<label class="field" ><a class="link" href="javascript:void(0);" on-click="showPss">{{i18n_opl_add_pass}}</a></label>
 								<label class="field" style="display:none;"></label>
                       		{{/if}}
                        {{else}}
-                    		<label class="field" style="display:none;"><a class="link" href="javascript:void(0);" on-click="showPss">{{pss}}</a></label>
+                    		<label class="field" style="display:none;"><a class="link" href="javascript:void(0);" on-click="showPss">{{pssLink}}</a></label>
 							<label class="field" style="display:none;"><a class="link" href="javascript:void(0);" on-click="showPss">{{i18n_opl_add_pass}}</a></label>
 							<label class="field" ></label>
                        {{/if}}

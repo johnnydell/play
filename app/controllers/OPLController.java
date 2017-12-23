@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -13,10 +14,14 @@ import org.apache.commons.logging.LogFactory;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.avaje.ebean.Page;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import common.Constants;
 import common.util.FileUtil;
 import models.OPL;
+import models.ProductLine;
+import play.db.ebean.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Http.MultipartFormData;
@@ -87,12 +92,155 @@ public class OPLController extends Controller {
 	 * @throws ParseException
 	 */
 	public static Result getOPLByParamPagination(String line_id,String year,String month,String page,String pageSize) throws ParseException{
-		List<OPL> oplList = OPL.getOPLByParamPagination(line_id,year,month,page,pageSize);
+		Page<OPL> pagination = OPL.getOPLByParamPagination(line_id,year,month,page,pageSize);
+		Integer pageCnt = pagination.getTotalPageCount();
+		List<OPL> oplList = pagination.getList();
+		ProductLine line = ProductLine.findById(line_id);
 		if(oplList == null || oplList.size() == 0){
 			oplList = new ArrayList<OPL>();
 		}
-		String str = JSON.toJSONString(oplList);
-   	 	return ok(str);
+		String data = JSON.toJSONString(oplList);
+		String lineStr = JSON.toJSONString(line);
+   	 	return ok("{\"line\":"+lineStr+",\"pageCnt\":"+pageCnt+",\"data\":"+data+"}");
+	}
+	
+	/**
+	 * 保存opl的详细信息
+	 * @return
+	 */
+	@Transactional
+    public static Result saveOPL(){
+    	JsonNode in = request().body().asJson();
+    	JsonNode condition = in.get("condition");
+    	String lineId = condition.get("line_id").asText();
+    	
+    	//保存新增部分opl
+    	JsonNode addOPL = in.get("addOPL");
+    	ArrayList<OPL> addOPLLi = new ArrayList<OPL>();
+		Iterator<JsonNode> a = addOPL.iterator();
+		while(a.hasNext()){
+			JsonNode node = a.next();
+		    String date = node.get("date").asText();
+		    String refNo = node.get("refNo").asText();
+		    String founder = node.get("founder").asText();
+		    String station = node.get("station").asText();
+		    String description = node.get("description").asText();
+		    String dtFrom = node.get("dtFrom").asText();
+		    String dtTo = node.get("dtTo").asText();
+		    String timing = node.get("timing").asText();
+		    String amt = node.get("amt").asText();
+		    String rootCause = node.get("rootCause").asText();
+		    String immediate = node.get("immediate").asText();
+		    String longTerm = node.get("longTerm").asText();
+		    String problemSolvingSheet = node.get("problemSolvingSheet").asText();
+		    String pssLink = node.get("pssLink").asText();
+		    String responsible = node.get("responsible").asText();
+		    String deadline = node.get("deadline").asText();
+		    String status = node.get("status").asText();
+		    
+		    OPL opl = new OPL();
+		    opl.amount = amt;
+		    opl.createTime = df1.format(new Date());
+			opl.date = date;
+			opl.deadline = deadline;
+			opl.description = description;
+			opl.start = dtFrom;
+			opl.end = dtTo;
+			opl.founder = founder;
+			opl.immediate = immediate;
+			opl.lineId = lineId;
+			opl.longTerm = longTerm;
+			opl.owner = responsible;
+			opl.problemSolve = problemSolvingSheet;
+			opl.pssLink = pssLink;
+			opl.refNo = refNo;
+			opl.rootCause = rootCause;
+			opl.station = station;
+			opl.status = status;
+			opl.timing = timing;
+			addOPLLi.add(opl);
+		}
+		
+		if(addOPLLi.size() > 0){
+			OPL.saveList(addOPLLi);
+		}
+		
+		//保存更新部分opl
+    	JsonNode updateOPL = in.get("updateOPL");
+    	ArrayList<OPL> updateOPLLi = new ArrayList<OPL>();
+		Iterator<JsonNode> b = updateOPL.iterator();
+		while(b.hasNext()){
+			JsonNode node = b.next();
+			String id = node.get("id").asText();
+		    String date = node.get("date").asText();
+		    String refNo = node.get("refNo").asText();
+		    String founder = node.get("founder").asText();
+		    String station = node.get("station").asText();
+		    String description = node.get("description").asText();
+		    String dtFrom = node.get("dtFrom").asText();
+		    String dtTo = node.get("dtTo").asText();
+		    String timing = node.get("timing").asText();
+		    String amt = node.get("amt").asText();
+		    String rootCause = node.get("rootCause").asText();
+		    String immediate = node.get("immediate").asText();
+		    String longTerm = node.get("longTerm").asText();
+		    String problemSolvingSheet = node.get("problemSolvingSheet").asText();
+		    String pssLink = node.get("pssLink").asText();
+		    String responsible = node.get("responsible").asText();
+		    String deadline = node.get("deadline").asText();
+		    String status = node.get("status").asText();
+		    
+		    OPL opl = new OPL();
+		    opl.id = id;
+		    opl.amount = amt;
+		    opl.createTime = df1.format(new Date());
+			opl.date = date;
+			opl.deadline = deadline;
+			opl.description = description;
+			opl.start = dtFrom;
+			opl.end = dtTo;
+			opl.founder = founder;
+			opl.immediate = immediate;
+			opl.lineId = lineId;
+			opl.longTerm = longTerm;
+			opl.owner = responsible;
+			opl.problemSolve = problemSolvingSheet;
+			opl.pssLink = pssLink;
+			opl.refNo = refNo;
+			opl.rootCause = rootCause;
+			opl.station = station;
+			opl.status = status;
+			opl.timing = timing;
+			updateOPLLi.add(opl);
+		}
+		
+		if(updateOPLLi.size() > 0){
+			OPL.updateList(updateOPLLi);
+		}
+		return ok("{\"add\":\""+addOPLLi.size()+"\",\"update\":\""+updateOPLLi.size()+"\"}");
+    }
+	
+	/**
+	 * 删除opl记录
+	 * @return
+	 */
+	@Transactional
+	public static Result deleteOPL(){
+		JsonNode in = request().body().asJson();
+		JsonNode deletedOPL = in.get("deletedOPL");
+		ArrayList<OPL> deletedOPLLi = new ArrayList<OPL>();
+		Iterator<JsonNode> b = deletedOPL.iterator();
+		while(b.hasNext()){
+			 JsonNode node = b.next();
+			 String id = node.get("id").asText();
+			 OPL opl = OPL.find(id);
+			 deletedOPLLi.add(opl);
+		}
+		
+		if(deletedOPLLi.size() > 0){
+			OPL.deleteList(deletedOPLLi);
+		}
+		return ok("{\"delete\":\""+deletedOPLLi.size()+"\"}");
 	}
 
 }

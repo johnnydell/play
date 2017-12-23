@@ -149,18 +149,7 @@ var meetAttd = function(){
 					}
 				} else {
 					jAlert($.i18n.prop("i18n_select_to_delete"), $.i18n.prop("i18n_error"));
-				}  
-				var i = attendanceDetails.length-1;
-				while (i >= 0){
-				  var temp = attendanceDetails[i];
-				  if(temp.checked){
-				      if(temp.id != '0'){
-				         deletedAttendanceDetails.push(temp);
-				      }
-				      attendanceDetails.splice(i,1);	
-				  }
-				  i--;
-				}		      
+				} 		      
 			},
 			saveAttendee:function(){
 				var error = false;
