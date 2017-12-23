@@ -353,70 +353,72 @@
 					</td>
 					<td class="graycolor" >
 						<label>{{format(hourlyCountV1[index].qualityLoss)}}</label>
+						<input type="text" style="display:none" value="{{hourlyCountV1[index].qualityLoss}}"/>
 					</td>
 					<td on-click="toShowRemark">
-						<label>{{format(hourlyCountV1[index].breakdownCount)}}</label>
+						<label>{{format(hourlyCountV1[index].breakdownMin)}}</label>
 						
 					</td>
 					<td on-click="toShowRemark">
-						<label>{{format(hourlyCountV1[index].adjustmentCount)}}</label>
+						<label>{{format(hourlyCountV1[index].adjustmentMin)}}</label>
 						
 					</td>
 					<td class="graycolor">
 						<label>{{format(hourlyCountV1[index].technicalLoss)}}</label>
+						<input type="text" style="display:none" value="{{hourlyCountV1[index].technicalLoss}}"/>
+					</td>
+					<td on-click="toShowRemark">
+						<label>{{format(hourlyCountV1[index].planSetupMin)}}</label>
 						
 					</td>
 					<td on-click="toShowRemark">
-						<label>{{format(hourlyCountV1[index].planSetupCount)}}</label>
+						<label>{{format(hourlyCountV1[index].unplanSetupMin)}}</label>
 						
 					</td>
 					<td on-click="toShowRemark">
-						<label>{{format(hourlyCountV1[index].unplanSetupCount)}}</label>
-						
-					</td>
-					<td on-click="toShowRemark">
-						<label>{{format(hourlyCountV1[index].exchgToolCount)}}</label>
+						<label>{{format(hourlyCountV1[index].exchgToolMin)}}</label>
 						
 					</td>
 					<td class="graycolor"> 
 						<label>{{format(hourlyCountV1[index].changeoverLoss)}}</label>
+						<input type="text" style="display:none" value="{{hourlyCountV1[index].changeoverLoss}}"/>
 					</td>
 					<td on-click="toShowRemark">
-						<label>{{format(hourlyCountV1[index].lackPersonnelCount)}}</label>
+						<label>{{format(hourlyCountV1[index].lackPersonnelMin)}}</label>
 						
 					</td>
 					<td on-click="toShowRemark">
-						<label>{{format(hourlyCountV1[index].lackMaterialCount)}}</label>
+						<label>{{format(hourlyCountV1[index].lackMaterialMin)}}</label>
 						
 					</td>
 					<td on-click="toShowRemark">
-						<label>{{format(hourlyCountV1[index].testReleaseThreePartsCount)}}</label>
+						<label>{{format(hourlyCountV1[index].testReleaseThreePartsMin)}}</label>
 						
 					</td>
 
 					<td on-click="toShowRemark">
-						<label>{{format(hourlyCountV1[index].exchgMaterialCount)}}</label>
+						<label>{{format(hourlyCountV1[index].exchgMaterialMin)}}</label>
 						
 					</td>
 					<td on-click="toShowRemark">
-						<label>{{format(hourlyCountV1[index].unplanSampleCount)}}</label>
+						<label>{{format(hourlyCountV1[index].unplanSampleMin)}}</label>
 						
 					</td>
 					<td on-click="toShowRemark">
-						<label>{{format(hourlyCountV1[index].newOperatorCount)}}</label>
+						<label>{{format(hourlyCountV1[index].newOperatorMin)}}</label>
 						
 					</td>
 					<td on-click="toShowRemark">
-						<label>{{format(hourlyCountV1[index].unplanTpmCount)}}</label>
+						<label>{{format(hourlyCountV1[index].unplanTpmMin)}}</label>
 						
 					</td>
 					<td on-click="toShowRemark">
-						<label>{{format(hourlyCountV1[index].othersCount)}}</label>
+						<label>{{format(hourlyCountV1[index].othersMin)}}</label>
 						
 					</td>
 					<td class="graycolor">
 						<label>{{format(hourlyCountV1[index].orgnizationLoss)}}</label>
-
+						<input type="text" style="display:none" value="{{hourlyCountV1[index].orgnizationLoss}}"/>
 					</td>
 					
 					<td colspan="7">
@@ -520,32 +522,32 @@
 						
 					</td>
 					
-					<td colspan="3" on-click="toShowLogin">
+					<td colspan="3" on-click="toShowColumnEditor">
 						<label>{{hourlyCountV0.teamLeaderSign1}}</label>
-
+						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV0.teamLeaderSign1}}" />
 					</td>
 					<td colspan="4">
 						<label>{{i18n_hourlycount_sign_shift_2}}</label>
 					</td>
 					
-					<td colspan="4" on-click="toShowLogin">
+					<td colspan="4" on-click="toShowColumnEditor">
 						<label>{{hourlyCountV0.teamLeaderSign2}}</label>
-						
+						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV0.teamLeaderSign2}}" />
 					</td>
 					<td colspan="4">
 						<label>{{i18n_hourlycount_sign_shift_3}}</label>
 					</td>
 					
-					<td colspan="4" on-click="toShowLogin">
+					<td colspan="4" on-click="toShowColumnEditor">
 						<label>{{hourlyCountV0.teamLeaderSign3}}</label>
-						
+						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV0.teamLeaderSign3}}" />
 					</td>
 					<td colspan="3">
 						<label>{{i18n_hourlycount_sign_group}}</label>
 					</td>
-					<td colspan="3" on-click="toShowLogin">
+					<td colspan="3" on-click="toShowColumnEditor">
 						<label>{{hourlyCountV0.groupLeaderSign}}</label>
-						
+						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV0.groupLeaderSign}}" />
 					</td>
 					<td colspan="2">
 						<label>{{i18n_hourlycount_target_oee}} 85.0%</label>

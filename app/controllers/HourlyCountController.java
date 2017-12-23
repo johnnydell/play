@@ -163,6 +163,21 @@ public class HourlyCountController extends Controller {
 			detailObj.othersCount		 		= detailInfoNode.get(i).get("othersCount").asInt();
 			detailObj.orgnizationLoss	 		= detailInfoNode.get(i).get("orgnizationLoss").asInt();
 			detailObj.unplanTpmCount 	 		= detailInfoNode.get(i).get("unplanTpmCount").asInt();
+			
+			detailObj.breakdownMin 				= detailInfoNode.get(i).get("breakdownMin").asInt();
+			detailObj.adjustmentMin 			= detailInfoNode.get(i).get("adjustmentMin").asInt();
+			detailObj.planSetupMin 				= detailInfoNode.get(i).get("planSetupMin").asInt();
+			detailObj.unplanSetupMin 			= detailInfoNode.get(i).get("unplanSetupMin").asInt();
+			detailObj.exchgToolMin 				= detailInfoNode.get(i).get("exchgToolMin").asInt();
+			detailObj.lackPersonnelMin 			= detailInfoNode.get(i).get("lackPersonnelMin").asInt();
+			detailObj.lackMaterialMin 			= detailInfoNode.get(i).get("lackMaterialMin").asInt();
+			detailObj.testReleaseThreePartsMin 	= detailInfoNode.get(i).get("testReleaseThreePartsMin").asInt();
+			detailObj.exchgMaterialMin 			= detailInfoNode.get(i).get("exchgMaterialMin").asInt();
+			detailObj.unplanSampleMin 			= detailInfoNode.get(i).get("unplanSampleMin").asInt();
+			detailObj.newOperatorMin 			= detailInfoNode.get(i).get("newOperatorMin").asInt();
+			detailObj.othersMin		 			= detailInfoNode.get(i).get("othersMin").asInt();
+			detailObj.unplanTpmMin 	 			= detailInfoNode.get(i).get("unplanTpmMin").asInt();
+			
 			detailObj.performanceCount	 		= detailInfoNode.get(i).get("performanceCount").asInt();
 			detailObj.undefinedCount	 		= detailInfoNode.get(i).get("undefinedCount").asInt();
 			detailObj.remark				 	= detailInfoNode.get(i).get("remark").asText();
