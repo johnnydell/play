@@ -206,6 +206,7 @@ var hourlycount = function(){
 			},
 			/*popup remarks window*/
 			toShowRemark:function(e){
+				
 				var cellIndex = e.node.cellIndex;
 				var rowIndex = e.index.index;
 				var lossName = "";
@@ -257,6 +258,7 @@ var hourlycount = function(){
 					lossName = "O8";
 					break;
 				}
+				
 				//get remark content
 				var lossCount, lossReason;
 				var remarks = $(e.node).parent().children().last().prev().text();
@@ -270,6 +272,7 @@ var hourlycount = function(){
 							break;
 					}
 				}
+				/**/
 				var lossInfo = {lossNameV: lossName, lossCountV : lossCount,lossReasonV:lossReason };
 				$(".hourly_popup").show();  
   	    	  	$.get(manager.root+"/views/tpl/board/hourlypopup.html", function (data) {
@@ -328,8 +331,16 @@ var hourlycount = function(){
 	        	        		remarks += lossName + "-" + lossInfo.lossCountV + "-" + lossInfo.lossReasonV + ";";
 	        	        	}
 	        	        	
+	        	        	//check product1 and product2 cycle time if null or 0, else not update loss count
+	        	        	var baseCycle = 0;
+	        	        	if (!isNull(hourlycounts[rowIndex].productCycle1) && hourlycounts[rowIndex].productCycle1 !== 0){
+	        	        		baseCycle = hourlycounts[rowIndex].productCycle1;
+	        	        	}
+	        	        	else if (!isNull(hourlycounts[rowIndex].productCycle2) && hourlycounts[rowIndex].productCycle2 !== 0){
+	        	        		baseCycle = hourlycounts[rowIndex].productCycle2;
+	        	        	}
 	        	        	
-	        	        	//set loss count for current type
+	        	        	//set loss counts or minutes for current type
 	        	        	switch(cellIndex){
 	        				case 10:
 	        				default:
@@ -339,45 +350,101 @@ var hourlycount = function(){
 	        					hourlycounts[rowIndex].reworkCount = lossInfo.lossCountV;
 	        					break;
 	        				case 13:
-	        					hourlycounts[rowIndex].breakdownCount = lossInfo.lossCountV;
+	        					hourlycounts[rowIndex].breakdownMin = lossInfo.lossCountV;
+	        					if (baseCycle !== 0){
+	        						hourlycounts[rowIndex].breakdownCount = Math.ceil( (lossInfo.lossCountV * 60) / baseCycle) ;
+	        					}
 	        					break;
 	        				case 14:
-	        					hourlycounts[rowIndex].adjustmentCount = lossInfo.lossCountV;
+	        					hourlycounts[rowIndex].adjustmentMin = lossInfo.lossCountV;
+	        					if (baseCycle !== 0){
+	        						hourlycounts[rowIndex].adjustmentCount = Math.ceil( (lossInfo.lossCountV * 60) / baseCycle);
+	        					}
 	        					break;
 	        				case 16:
-	        					hourlycounts[rowIndex].planSetupCount = lossInfo.lossCountV;
+	        					hourlycounts[rowIndex].planSetupMin = lossInfo.lossCountV;
+	        					if (baseCycle !== 0){
+	        						hourlycounts[rowIndex].planSetupCount = Math.ceil( (lossInfo.lossCountV * 60) / baseCycle);
+	        					}
 	        					break;
 	        				case 17:
-	        					hourlycounts[rowIndex].unplanSetupCount = lossInfo.lossCountV;
+	        					hourlycounts[rowIndex].unplanSetupMin = lossInfo.lossCountV;
+	        					if (baseCycle !== 0){
+	        						hourlycounts[rowIndex].unplanSetupCount = Math.ceil( (lossInfo.lossCountV * 60) / baseCycle);
+	        					}
 	        					break;
 	        				case 18:
-	        					hourlycounts[rowIndex].exchgToolCount = lossInfo.lossCountV;
+	        					hourlycounts[rowIndex].exchgToolMin = lossInfo.lossCountV;
+	        					if (baseCycle !== 0){
+	        						hourlycounts[rowIndex].exchgToolCount = Math.ceil( (lossInfo.lossCountV * 60) / baseCycle);
+	        					}
 	        					break;
 	        				case 20:
-	        					hourlycounts[rowIndex].lackPersonnelCount = lossInfo.lossCountV;
+	        					hourlycounts[rowIndex].lackPersonnelMin = lossInfo.lossCountV;
+	        					if (baseCycle !== 0){
+	        						hourlycounts[rowIndex].lackPersonnelCount = Math.ceil( (lossInfo.lossCountV * 60) / baseCycle);
+	        					}
 	        					break;
 	        				case 21:
-	        					hourlycounts[rowIndex].lackMaterialCount = lossInfo.lossCountV;
+	        					hourlycounts[rowIndex].lackMaterialMin = lossInfo.lossCountV;
+	        					if (baseCycle !== 0){
+	        						hourlycounts[rowIndex].lackMaterialCount = Math.ceil( (lossInfo.lossCountV * 60) / baseCycle);
+	        					}
 	        					break;
 	        				case 22:
-	        					hourlycounts[rowIndex].testReleaseThreePartsCount = lossInfo.lossCountV;
+	        					hourlycounts[rowIndex].testReleaseThreePartsMin = lossInfo.lossCountV;
+	        					if (baseCycle !== 0){
+	        						hourlycounts[rowIndex].testReleaseThreePartsCount = Math.ceil( (lossInfo.lossCountV * 60) / baseCycle);
+	        					}
 	        					break;
 	        				case 23:
-	        					hourlycounts[rowIndex].exchgMaterialCount = lossInfo.lossCountV;
+	        					hourlycounts[rowIndex].exchgMaterialMin = lossInfo.lossCountV;
+	        					if (baseCycle !== 0){
+	        						hourlycounts[rowIndex].exchgMaterialCount = Math.ceil( (lossInfo.lossCountV * 60) / baseCycle);
+	        					}
 	        					break;
 	        				case 24:
-	        					hourlycounts[rowIndex].unplanSampleCount = lossInfo.lossCountV;
+	        					hourlycounts[rowIndex].unplanSampleMin = lossInfo.lossCountV;
+	        					if (baseCycle !== 0){
+	        						hourlycounts[rowIndex].unplanSampleCount = Math.ceil( (lossInfo.lossCountV * 60) / baseCycle);
+	        					}
 	        					break;
 	        				case 25:
-	        					hourlycounts[rowIndex].newOperatorCount = lossInfo.lossCountV;
+	        					hourlycounts[rowIndex].newOperatorMin = lossInfo.lossCountV;
+	        					if (baseCycle !== 0){
+	        						hourlycounts[rowIndex].newOperatorCount = Math.ceil( (lossInfo.lossCountV * 60) / baseCycle);
+	        					}
 	        					break;
 	        				case 26:
-	        					hourlycounts[rowIndex].unplanTpmCount = lossInfo.lossCountV;
+	        					hourlycounts[rowIndex].unplanTpmMin = lossInfo.lossCountV;
+	        					if (baseCycle !== 0){
+	        						hourlycounts[rowIndex].unplanTpmCount = Math.ceil( (lossInfo.lossCountV * 60) / baseCycle);
+	        					}
 	        					break;
 	        				case 27:
-	        					hourlycounts[rowIndex].othersCount = lossInfo.lossCountV;
+	        					hourlycounts[rowIndex].othersMin = lossInfo.lossCountV;
+	        					if (baseCycle !== 0){
+	        						hourlycounts[rowIndex].othersCount = Math.ceil( (lossInfo.lossCountV * 60) / baseCycle);
+	        					}
 	        					break;
 	        				}
+	        	        	
+	        	        	//calculate total loss count for each tyep
+	        	        	hourlycounts[rowIndex].qualityLoss = parseInt(hourlycounts[rowIndex].scrapCount) 
+	        	        										+ parseInt(hourlycounts[rowIndex].reworkCount);
+	        	        	hourlycounts[rowIndex].technicalLoss = parseInt(hourlycounts[rowIndex].breakdownCount) 
+	        	        											+ parseInt(hourlycounts[rowIndex].adjustmentCount);
+	        	        	hourlycounts[rowIndex].changeoverLoss = parseInt(hourlycounts[rowIndex].planSetupCount) 
+	        	        											+ parseInt(hourlycounts[rowIndex].unplanSetupCount)
+	        	        											+ parseInt(hourlycounts[rowIndex].exchgToolCount);
+	        	        	hourlycounts[rowIndex].orgnizationLoss = parseInt(hourlycounts[rowIndex].lackPersonnelCount) 
+	        	        											+ parseInt(hourlycounts[rowIndex].lackMaterialCount) 
+	        	        											+ parseInt(hourlycounts[rowIndex].testReleaseThreePartsCount) 
+	        	        											+ parseInt(hourlycounts[rowIndex].exchgMaterialCount)
+	        	        											+ parseInt(hourlycounts[rowIndex].unplanSampleCount) 
+	        	        											+ parseInt(hourlycounts[rowIndex].newOperatorCount)
+	        	        											+ parseInt(hourlycounts[rowIndex].unplanTpmCount) 
+	        	        											+ parseInt(hourlycounts[rowIndex].othersCount) ;
 	        	        	
 	        	        	hourlycounts[rowIndex].remark = remarks;
 	        	        	$(".hourly_popup").hide().html("");
@@ -435,23 +502,28 @@ var hourlycount = function(){
 		hourlycounts = [];
 		hourlycounts_base = {teamLeaderSign1:"", teamLeaderSign2:"", teamLeaderSign3:"", groupLeaderSign:"", planOplTotalOutput:"", planOutputCount:0, actualOutputCount:0, actualOee:0};
 		for (i = 8; i < 24; i ++){
-			hourlycounts_item = {hourid: ((i - 1) + "-" + i),productHour: i,productHourIndex: (i - 7), lineName:"",productTypeName1:"",productCycle1:0,productTypeName2:"",productCycle2:0,planCount:0,planTotalCount:0,
-					actualCount:0,actualTotalCount:0,productHourCount:0,productHourPercent:0,
+			hourlycounts_item = {hourid: ((i - 1) + "-" + i),productHour: i,productHourIndex: (i - 7), lineName:"",productTypeName1:"",productCycle1:0,productTypeName2:"",
+					productCycle2:0,planCount:0,planTotalCount:0,actualCount:0,actualTotalCount:0,productHourCount:0,productHourPercent:0,
 					scrapCount:0,reworkCount:0,qualityLoss:0,breakdownCount:0,adjustmentCount:0,technicalLoss:0,planSetupCount:0,unplanSetupCount:0,exchgToolCount:0,changeoverLoss:0,
 					lackPersonnelCount:0,lackMaterialCount:0, testReleaseThreePartsCount:0,exchgMaterialCount:0,unplanSampleCount:0,newOperatorCount:0,unplanTpmCount:0,othersCount:0,
-					orgnizationLoss:0,performanceCount:0, undefinedCount:0,remark:"",techDownCode:""};
+					breakdownMin:0,adjustmentMin:0,planSetupMin:0,unplanSetupMin:0,exchgToolMin:0,lackPersonnelMin:0,lackMaterialMin:0, testReleaseThreePartsMin:0,
+					exchgMaterialMin:0,unplanSampleMin:0,newOperatorMin:0,unplanTpmMin:0,othersMin:0,orgnizationLoss:0,performanceCount:0, undefinedCount:0,remark:"",techDownCode:""};
 			hourlycounts.push(hourlycounts_item);
 		}
-		hourlycounts_item = {hourid: "23-00",productHour:0,productHourIndex: 17, lineName:"",productTypeName1:"",productCycle1:0,productTypeName2:"",productCycle2:0,planCount:0,planTotalCount:0,actualCount:0,actualTotalCount:0,productHourCount:0,productHourPercent:0,
+		hourlycounts_item = {hourid: "23-00",productHour:0,productHourIndex: 17, lineName:"",productTypeName1:"",productCycle1:0,productTypeName2:"",productCycle2:0,planCount:0,
+				planTotalCount:0,actualCount:0,actualTotalCount:0,productHourCount:0,productHourPercent:0,
 				scrapCount:0,reworkCount:0,qualityLoss:0,breakdownCount:0,adjustmentCount:0,technicalLoss:0,planSetupCount:0,unplanSetupCount:0,exchgToolCount:0,changeoverLoss:0,
 				lackPersonnelCount:0,lackMaterialCount:0, testReleaseThreePartsCount:0,exchgMaterialCount:0,unplanSampleCount:0,newOperatorCount:0,unplanTpmCount:0,othersCount:0,
-				orgnizationLoss:0,performanceCount:0, undefinedCount:0,remark:"",techDownCode:""};
+				breakdownMin:0,adjustmentMin:0,planSetupMin:0,unplanSetupMin:0,exchgToolMin:0,lackPersonnelMin:0,lackMaterialMin:0, testReleaseThreePartsMin:0,
+				exchgMaterialMin:0,unplanSampleMin:0,newOperatorMin:0,unplanTpmMin:0,othersMin:0,orgnizationLoss:0,performanceCount:0, undefinedCount:0,remark:"",techDownCode:""};
 		hourlycounts.push(hourlycounts_item);
 		for (i = 1; i < 8; i ++){
-			hourlycounts_item = {hourid: ((i - 1) + "-" + i),productHour:i,productHourIndex: (i + 17),lineName:"",productTypeName1:"",productCycle1:0,productTypeName2:"",productCycle2:0,planCount:0,planTotalCount:0,actualCount:0,actualTotalCount:0,productHourCount:0,productHourPercent:0,
+			hourlycounts_item = {hourid: ((i - 1) + "-" + i),productHour:i,productHourIndex: (i + 17),lineName:"",productTypeName1:"",productCycle1:0,productTypeName2:"",productCycle2:0,
+					planCount:0,planTotalCount:0,actualCount:0,actualTotalCount:0,productHourCount:0,productHourPercent:0,
 					scrapCount:0,reworkCount:0,qualityLoss:0,breakdownCount:0,adjustmentCount:0,technicalLoss:0,planSetupCount:0,unplanSetupCount:0,exchgToolCount:0,changeoverLoss:0,
 					lackPersonnelCount:0,lackMaterialCount:0, testReleaseThreePartsCount:0,exchgMaterialCount:0,unplanSampleCount:0,newOperatorCount:0,unplanTpmCount:0,othersCount:0,
-					orgnizationLoss:0,performanceCount:0, undefinedCount:0,remark:"",techDownCode:""};
+					breakdownMin:0,adjustmentMin:0,planSetupMin:0,unplanSetupMin:0,exchgToolMin:0,lackPersonnelMin:0,lackMaterialMin:0, testReleaseThreePartsMin:0,
+					exchgMaterialMin:0,unplanSampleMin:0,newOperatorMin:0,unplanTpmMin:0,othersMin:0,orgnizationLoss:0,performanceCount:0, undefinedCount:0,remark:"",techDownCode:""};
 			hourlycounts.push(hourlycounts_item);
 		}
 		
@@ -511,6 +583,21 @@ var hourlycount = function(){
 					hourlycounts[i].othersCount 			= isNull(listdata[i].othersCount) ? 0 : parseInt(listdata[i].othersCount);
 					hourlycounts[i].orgnizationLoss 		= isNull(listdata[i].orgnizationLoss) ? 0 : parseInt(listdata[i].orgnizationLoss);
 					hourlycounts[i].unplanTpmCount 			= isNull(listdata[i].unplanTpmCount) ? 0 : parseInt(listdata[i].unplanTpmCount);
+					
+					hourlycounts[i].breakdownMin 			= isNull(listdata[i].breakdownMin) ? 0 : parseInt(listdata[i].breakdownMin);
+					hourlycounts[i].adjustmentMin 			= isNull(listdata[i].adjustmentMin) ? 0 : parseInt(listdata[i].adjustmentMin);
+					hourlycounts[i].planSetupMin 			= isNull(listdata[i].planSetupMin) ? 0 : parseInt(listdata[i].planSetupMin);
+					hourlycounts[i].unplanSetupMin 			= isNull(listdata[i].unplanSetupMin) ? 0 : parseInt(listdata[i].unplanSetupMin);
+					hourlycounts[i].exchgToolMin 			= isNull(listdata[i].exchgToolMin) ? 0 : parseInt(listdata[i].exchgToolMin);
+					hourlycounts[i].lackPersonnelMin 		= isNull(listdata[i].lackPersonnelMin) ? 0 : parseInt(listdata[i].lackPersonnelMin);
+					hourlycounts[i].lackMaterialMin 		= isNull(listdata[i].lackMaterialMin) ? 0 : parseInt(listdata[i].lackMaterialMin);
+					hourlycounts[i].testReleaseThreePartsMin = isNull(listdata[i].testReleaseThreePartsMin) ? 0 : parseInt(listdata[i].testReleaseThreePartsMin);
+					hourlycounts[i].exchgMaterialMin 		= isNull(listdata[i].exchgMaterialMin) ? 0 : parseInt(listdata[i].exchgMaterialMin);
+					hourlycounts[i].unplanSampleMin 		= isNull(listdata[i].unplanSampleMin) ? 0 : parseInt(listdata[i].unplanSampleMin);
+					hourlycounts[i].newOperatorMin 			= isNull(listdata[i].newOperatorMin) ? 0 : parseInt(listdata[i].newOperatorMin);
+					hourlycounts[i].othersMin 				= isNull(listdata[i].othersMin) ? 0 : parseInt(listdata[i].othersMin);
+					hourlycounts[i].unplanTpmMin 			= isNull(listdata[i].unplanTpmMin) ? 0 : parseInt(listdata[i].unplanTpmMin);
+					
 					hourlycounts[i].performanceCount 		= isNull(listdata[i].performanceCount) ? 0 : parseInt(listdata[i].performanceCount);
 					hourlycounts[i].undefinedCount 			= isNull(listdata[i].undefinedCount) ? 0 : parseInt(listdata[i].undefinedCount);
 					hourlycounts[i].remark 					= isNull(listdata[i].remark) ? "" : listdata[i].remark;

@@ -69,8 +69,14 @@ public class HourlyCountDetail extends Model {
 	@Column(name = "quality_loss")
 	public Integer qualityLoss;
 	
+	@Column(name = "breakdown_min")
+	public Integer breakdownMin;
+	
 	@Column(name = "breakdown_count")
 	public Integer breakdownCount;
+	
+	@Column(name = "adjustment_min")
+	public Integer adjustmentMin;
 	
 	@Column(name = "adjustment_count")
 	public Integer adjustmentCount;
@@ -78,11 +84,20 @@ public class HourlyCountDetail extends Model {
 	@Column(name = "technical_loss")
 	public Integer technicalLoss;
 	
+	@Column(name = "plan_setup_min")
+	public Integer planSetupMin;
+	
 	@Column(name = "plan_setup_count")
 	public Integer planSetupCount;
 	
+	@Column(name = "unplan_setup_min")
+	public Integer unplanSetupMin;
+	
 	@Column(name = "unplan_setup_count")
 	public Integer unplanSetupCount;
+	
+	@Column(name = "exchg_tool_min")
+	public Integer exchgToolMin;
 	
 	@Column(name = "exchg_tool_count")
 	public Integer exchgToolCount;
@@ -90,29 +105,53 @@ public class HourlyCountDetail extends Model {
 	@Column(name = "changeover_loss")
 	public Integer changeoverLoss;
 	
+	@Column(name = "lack_personnel_min")
+	public Integer lackPersonnelMin;
+	
 	@Column(name = "lack_personnel_count")
 	public Integer lackPersonnelCount;
+	
+	@Column(name = "lack_material_min")
+	public Integer lackMaterialMin;
 	
 	@Column(name = "lack_material_count")
 	public Integer lackMaterialCount;
 	
+	@Column(name = "test_release_three_parts_min")
+	public Integer testReleaseThreePartsMin;
+	
 	@Column(name = "test_release_three_parts_count")
 	public Integer testReleaseThreePartsCount;
+	
+	@Column(name = "exchg_material_min")
+	public Integer exchgMaterialMin;
 	
 	@Column(name = "exchg_material_count")
 	public Integer exchgMaterialCount;
 	
+	@Column(name = "unplan_sample_min")
+	public Integer unplanSampleMin;
+	
 	@Column(name = "unplan_sample_count")
 	public Integer unplanSampleCount;
 	
+	@Column(name = "new_operator_min")
+	public Integer newOperatorMin;
+	
 	@Column(name = "new_operator_count")
 	public Integer newOperatorCount;
+	
+	@Column(name = "others_min")
+	public Integer othersMin;
 	
 	@Column(name = "others_Count")
 	public Integer othersCount;
 	
 	@Column(name = "orgnization_loss")
 	public Integer orgnizationLoss;
+	
+	@Column(name = "unplan_tpm_min")
+	public Integer unplanTpmMin;
 	
 	@Column(name = "unplan_tpm_count")
 	public Integer unplanTpmCount;
