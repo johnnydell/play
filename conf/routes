@@ -43,6 +43,10 @@ POST /edashboard/views/staticpage/viewdoc/:fileName/:oplLinkName 	controllers.St
 # Hourly Count
 POST /edashboard/views/board/hourlycount/:LineName/:productDate		controllers.HourlyCountController.viewHourlyCountByLineName(LineName : String, productDate : String)
 POST /edashboard/views/board/hourlycount/saveResult		controllers.HourlyCountController.saveHourlyCount()
+
+# Report
+POST /edashboard/report/oee/yearlyOeeChart/:lineName    controllers.report.OeeController.getYearlyOeeReport(lineName : String)
+GET  /edashboard/report/oee/dailyOeeChart				controllers.report.OeeController.getDailyOeeReport(lineName : String,  yearValue:String,  monthValue:String,  dayCount:String)
 	
 
 # Map static resources from the /public folder to the /assets URL path

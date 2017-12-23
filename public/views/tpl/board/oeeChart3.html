@@ -4,70 +4,20 @@
    <table>
 		<tr>
 			<td width="14%"><hr class="line1" style="background-color:red "/><label>OEE-target</label></td>
-			<td width="2%">75%</td>
-			<td width="2%">75%</td>
-			<td width="2%">75%</td>
-			<td width="2%">75%</td>
-			<td width="2%">75%</td>
-			<td width="2%">75%</td>
-			<td width="2%">75%</td>
-			<td width="2%">75%</td>
-			<td width="2%">75%</td>
-			<td width="2%">75%</td>
-			<td width="2%">75%</td>
-			<td width="2%">75%</td>
-			<td width="2%">75%</td>
-			<td width="2%">75%</td>
-			<td width="2%">75%</td>
-			<td width="2%">75%</td>
-			<td width="2%">75%</td>
-			<td width="2%">75%</td>
-			<td width="2%">75%</td>
-			<td width="2%">75%</td>
-			<td width="2%">75%</td>
-			<td width="2%">75%</td>
-			<td width="2%">75%</td>
-			<td width="2%">75%</td>
-			<td width="2%">75%</td>
-			<td width="2%">75%</td>
-			<td width="2%">75%</td>
-			<td width="2%">75%</td>
-			<td width="2%">75%</td>
-			<td width="2%">75%</td>
+			{{#each targetList:index}}
+				<td>
+					<lable>{{targetList[index]}}%</lable>
+				</td>
+			{{/each}}	
 			
 		</tr>
 		<tr>
 			<td><hr class="line2" style="background-color:#3C3C4D "/><label>OEE-actual</label></td>
-			<td>86.2</td>
-			<td>68.2</td>
-			<td>83.3</td>
-			<td>81.4</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			{{#each actualList:index}}
+				<td>
+					<lable>{{actualList[index]}}%</lable>
+				</td>
+			{{/each}}	
 		</tr>
 	</table>
 </div>

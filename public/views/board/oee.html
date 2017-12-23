@@ -66,14 +66,14 @@
 					 <div class="val">
 						 <span class="fst">FAG2</span>
 						  <span class="dt">
-                             <label on-click="toShowYearSelect">{{currYear}} 年</label>                    
-							 <select style="display:none;" on-blur="toHideYearSelect" value="{{currYear}}">
+                             <label on-click="toShowYearSelect">{{oeeObj.currYear}} 年</label>                    
+							 <select style="display:none;" on-blur="toHideYearSelect" on-change="changeYear" value="{{oeeObj.currYear}}">
 		 					   {{#each years:index}}
 								 <option value="{{years[index]}}">{{years[index]}} 年</option>
 						       {{/each}}
 			             	 </select>
-                             <label on-click="toShowMonthSelect">{{currMonth}} 月</label>
-                             <select style="display:none" on-blur="toHideMonthSelect" value="{{currMonth}}">
+                             <label on-click="toShowMonthSelect">{{oeeObj.currMonth}} 月</label>
+                             <select style="display:none" on-blur="toHideMonthSelect" on-change="changeMonth" value="{{oeeObj.currMonth}}">
 				               {{#each months:index}}
 							    <option value="{{months[index]}}">{{months[index]}} 月</option>
 					           {{/each}}
