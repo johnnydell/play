@@ -17,14 +17,12 @@ var oee = function(){
 				
 				oeeobj.currYear = sys_date.split("-")[0];
 				oeeobj.currMonth = sys_date.split("-")[1];
-				//this.set("currYear",sys_date.split("-")[0]);
-				//this.set("currMonth",sys_date.split("-")[1]);
 				this.set("oeeObj",oeeobj);
 			},
 			oncomplete: function(){	
 				oeeChart1.init(lineName);
-				oeeChart2.init();
-				oeeChart3.init(lineName, sys_date.split("-")[0], sys_date.split("-")[1]);
+				oeeChart2.init(lineName, oeeobj.currYear);
+				oeeChart3.init(lineName, oeeobj.currYear, oeeobj.currMonth);
 			}
 		});
 		
@@ -46,12 +44,11 @@ var oee = function(){
 			},
 			changeYear:function(){
 				oeeChart1.init(lineName);
-				oeeChart2.init();
+				oeeChart2.init(lineName, oeeobj.currYear);
 				oeeChart3.init(lineName, oeeobj.currYear, oeeobj.currMonth);
 			},
 			changeMonth:function(){
 				oeeChart1.init(lineName);
-				oeeChart2.init();
 				oeeChart3.init(lineName, oeeobj.currYear, oeeobj.currMonth);
 			},
 		})

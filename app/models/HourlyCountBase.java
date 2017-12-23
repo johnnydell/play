@@ -71,17 +71,15 @@ public class HourlyCountBase extends Model {
 	}
 	
 	public static List<SqlRow> findYearlyOeeData(String name)  {
-	String sql = "select yearNo, sum(target_oee_total_output) as target_total, sum(actual_oee_total_output) as actual_total" 
-			+" from  (select distinct date_format(b.product_date, '%Y') as yearNo"
-			+ " from edb_hourly_count_base b) as a , edb_hourly_count_base c ,edb_line l "
-			+" where  date_format(c.product_date, '%Y') = a.yearNo "
-			+ " and c.product_line_id = l.id "  
-			+ " and l.line_name = :lineName "
-			+ " group by yearNo order by yearNo";
-	List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("lineName", name).findList();
-	return rows;
-		//return find.setRawSql(rawSql).setParameter("lineName", name).findList();
-		//return find.where().eq("productLine.lineName", name).eq("productDate", productDate).orderBy("").fetch("productLine").findList();
+		String sql = "select yearNo, sum(target_oee_total_output) as target_total, sum(actual_oee_total_output) as actual_total" 
+				+" from  (select distinct date_format(b.product_date, '%Y') as yearNo"
+				+ " from edb_hourly_count_base b) as a , edb_hourly_count_base c ,edb_line l "
+				+" where  date_format(c.product_date, '%Y') = a.yearNo "
+				+ " and c.product_line_id = l.id "  
+				+ " and l.line_name = :lineName "
+				+ " group by yearNo order by yearNo";
+		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("lineName", name).findList();
+		return rows;
 	}
 	
 	public static List<HourlyCountBase> findDailyOeeData(String lineName, Date startDate, Date endDate){

@@ -4,11 +4,11 @@
    <table>
 		<tr>
 			<td><hr style="background-color:#FF8000 "/><label>Performance/Undefined losses</label></td>
-			<td width="6%">5%</td>
-			<td width="6%">5%</td>
-			<td width="6%">5%</td>
-			<td width="7%">5%</td>
-			<td width="7%">5%</td>
+			<td width="6%"></td>
+			<td width="6%"></td>
+			<td width="6%"></td>
+			<td width="7%"></td>
+			<td width="7%"></td>
 			<td width="7%"></td>
 			<td width="7%"></td>
 			<td width="7%"></td>
@@ -19,93 +19,52 @@
 		</tr>
 		<tr>
 			<td><hr style="background-color:#D6A40E "/><label>Quality losses</label></td>
-			<td>1%</td>
-			<td>1%</td>
-			<td>1%</td>
-			<td>1%</td>
-			<td>1%</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			{{#each qualityLossTotal:index}}
+				<td>
+					<lable>{{qualityLossTotal[index]}}</lable>
+				</td>
+			{{/each}}
 		</tr>
 		<tr>
 			<td><hr style="background-color:#037C5E "/><label>Organizational losses</label></td>
-			<td>6%</td>
-			<td>6%</td>
-			<td>6%</td>
-			<td>6%</td>
-			<td>6%</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			{{#each orgnizationLossTotal:index}}
+				<td>
+					<lable>{{orgnizationLossTotal[index]}}</lable>
+				</td>
+			{{/each}}
 		</tr>
 		<tr>
 			<td><hr style="background-color:#1D0E5C "/><label>Technical losses</label></td>
-			<td>1%</td>
-			<td>1%</td>
-			<td>1%</td>
-			<td>1%</td>
-			<td>1%</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			{{#each technicalLossTotal:index}}
+				<td>
+					<lable>{{technicalLossTotal[index]}}</lable>
+				</td>
+			{{/each}}
 		</tr>
 		<tr>
 			<td><hr style="background-color:#98A398 "/><label>Changeover losses</label></td>
-			<td>3%</td>
-			<td>3%</td>
-			<td>3%</td>
-			<td>3%</td>
-			<td>3%</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td ><hr style="background-color:#41FB4A"/><label>OEE-actual</label></td>
-			<td>70%</td>
-			<td>70%</td>
-			<td>70%</td>
-			<td>70%</td>
-			<td>70%</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			{{#each changeoverLossTotal:index}}
+				<td>
+					<lable>{{changeoverLossTotal[index]}}</lable>
+				</td>
+			{{/each}}
 		</tr>
 		<tr>
 			<td ><hr class="line" style="background-color:red"/><label>OEE-target</label></td>
-			<td>80%</td>
-			<td>80%</td>
-			<td>80%</td>
-			<td>80%</td>
-			<td>80%</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			{{#each targetOeeTotal:index}}
+				<td>
+					<lable>{{targetOeeTotal[index]}}</lable>
+				</td>
+			{{/each}}
 		</tr>
+		<tr>
+			<td ><hr style="background-color:#41FB4A"/><label>OEE-actual</label></td>
+			{{#each actualOeeTotal:index}}
+				<td>
+					<lable>{{actualOeeTotal[index]}}</lable>
+				</td>
+			{{/each}}
+		</tr>
+		
 	</table>
 </div>

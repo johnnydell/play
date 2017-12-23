@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.avaje.ebean.Ebean;
+import com.avaje.ebean.SqlRow;
 
 import play.db.ebean.Model;
 
@@ -194,6 +195,20 @@ public class HourlyCountDetail extends Model {
 		for(HourlyCountDetail detail : lists){
 			Ebean.update(detail);
 		}
+	}
+	
+	public static List<SqlRow> findMonthlyLossData(String name, Date startDate, Date endDate)  {
+		String sql = "select date_format(b.product_date,'%m') months, sum(d.quality_loss) as quality_loss_total, sum(d.technical_loss) as technical_loss_total,"
+				+ " sum(d.changeover_loss) as changeover_loss_total, sum(d.orgnization_loss) as orgnization_loss_total,"
+				+ "  sum(distinct b.target_oee_total_output) as target_oee_total, sum(distinct b.actual_oee_total_output) as actual_oee_total"
+				+ " from edb_hourly_count_base b, edb_line l, edb_hourly_count_detail d"
+				+ " where b.product_line_id = l.id"
+				+ " and b.id = d.hourly_count_base_id"
+				+ " and l.line_name = :lineName"
+				+ " and b.product_date between :startDate and :endDate "
+				+ " group by months";
+		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("lineName", name).setParameter("startDate", startDate).setParameter("endDate", endDate).findList();
+		return rows;
 	}
 
 }

@@ -1,5 +1,12 @@
 var oeeChart2 = function(){
-	function init(){
+	var months;
+	var qualityLossTotal;
+	var technicalLossTotal;
+	var changeoverLossTotal;
+	var orgnizationLossTotal;
+	var targetOeeTotal;
+	var actualOeeTotal;
+	function init(lineName, currYear){
 	   //渲染chart1部分
 	   $.get(manager.root+"/views/tpl/board/oeeChart2.html", function (template) {
 	        var ractive = new Ractive({
@@ -7,7 +14,36 @@ var oeeChart2 = function(){
 	            data:{root:manager.root},
 	            template: template,
 	            oncomplete: function(){
-	           		bindChart();
+	           		//bindChart();
+	            	$.ajax({
+	        			url		: manager.root + '/report/oee/montlyOeeChart',
+	        			type	: 'GET',
+	        			dataType:"json",
+	        			data:{lineName:lineName,yearValue:currYear},
+	        			contentType: "application/json",
+	        			success: function(listdata)
+	        			{
+	        				months 				= listdata.monthList;
+	        				qualityLossTotal 	= listdata.qualityLossTotal;
+	        				technicalLossTotal 	= listdata.technicalLossTotal;
+	        				changeoverLossTotal = listdata.changeoverLossTotal;
+	        				orgnizationLossTotal = listdata.orgnizationLossTotal;
+	        				targetOeeTotal 		= listdata.targetOeeTotal;
+	        				actualOeeTotal 		= listdata.actualOeeTotal;
+	        				
+	        				//plot to chart
+	        				bindChart();
+	        				
+	        				//plot to table
+	        				ractive.set("months", months);
+	        				ractive.set("qualityLossTotal", qualityLossTotal);
+	        				ractive.set("technicalLossTotal", technicalLossTotal);
+	        				ractive.set("changeoverLossTotal", changeoverLossTotal);
+	        				ractive.set("orgnizationLossTotal", orgnizationLossTotal);
+	        				ractive.set("targetOeeTotal", targetOeeTotal);
+	        				ractive.set("actualOeeTotal", actualOeeTotal);
+	        			}
+	            	});
 	            }
 	        }); 
 	    });
@@ -22,7 +58,7 @@ var oeeChart2 = function(){
 	            enabled: false
 	        },
 	        xAxis: {
-	            categories: ['1', '2', '3', '4', '5','6', '7', '8', '9', '10','11','12']
+	            categories: months
 	        },
 	        yAxis: {
 	            title: {
@@ -43,38 +79,38 @@ var oeeChart2 = function(){
 	        series: [{
 	            type: 'column',
 	            name: 'Performance/Undefined losses',
-	            data: [10, 5, 10, 10, 5,0,0,0,0,0,0,0],
+	            data: [],
 	            color:'#FF8000'
 	        }, {
 	            type: 'column',
 	            name: 'Quality losses',
-	            data: [10, 5, 10, 5, 5,0,0,0,0,0,0,0],
+	            data: qualityLossTotal,
 	            color:'#D6A40E'
 	        }, {
 	            type: 'column',
 	            name: 'Organizational losses',
-	            data: [10, 10, 15, 10, 5,0,0,0,0,0,0,0],
+	            data: orgnizationLossTotal,
 	            color:'#037C5E'
 	        }, {
 	            type: 'column',
 	            name: 'Technical losses',
-	            data: [10, 10, 15, 10, 5,0,0,0,0,0,0,0],
+	            data: technicalLossTotal,
 	            color:'#1D0E5C'
 	        }, {
 	            type: 'column',
 	            name: 'Changeover losses',
-	            data: [10, 10, 10, 10, 20,0,0,0,0,0,0,0],
+	            data: changeoverLossTotal,
 	            color:'#98A398'
 	        }, {
 	            type: 'column',
 	            name: 'OEE-actual',
-	            data: [50, 60, 40, 55, 60,0,0,0,0,0,0,0],
+	            data: actualOeeTotal,
 	            color:'#41FB4A'
 	        },{
 	            type: 'spline',
 	            name: 'OEE-target',
 	            color:'red',
-	            data: [70, 70, 70, 70, 70],
+	            data: targetOeeTotal,
 	            marker: {
 	                enabled: false
 	            }
@@ -82,7 +118,8 @@ var oeeChart2 = function(){
 	            name: '降雨误差',
 	            type: 'errorbar',
 	            yAxis: 0,
-	            data: [[65, 70], [65, 73], [68, 75], [66, 80], [60, 71]],
+	            //data: [[65, 70], [65, 73], [68, 75], [66, 80], [60, 71]],
+	            data: [],
 	            tooltip: {
 	                pointFormat: '(误差范围: {point.low}-{point.high} mm)<br/>'
 	            }
