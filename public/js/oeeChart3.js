@@ -1,5 +1,10 @@
 var oeeChart3 = function(){
-	function init(){
+	var dayList; 
+	var targetList; 
+	var actualList;
+	
+	var actualData = [];
+	function init(lineName, curYear, curMonth){
 	   //渲染chart3部分
 	   $.get(manager.root+"/views/tpl/board/oeeChart3.html", function (template) {
 	        var ractive = new Ractive({
@@ -7,10 +12,53 @@ var oeeChart3 = function(){
 	            data:{root:manager.root},
 	            template: template,
 	            oncomplete: function(){
-	           		bindChart();
+	            	var totalDays = cntDays(curYear, curMonth);
+	            	$.ajax({
+	        			url		: manager.root + '/report/oee/dailyOeeChart',
+	        			type	: 'GET',
+	        			dataType:"json",
+	        			data:{lineName:lineName,yearValue:curYear,monthValue:curMonth,dayCount:totalDays},
+	        			contentType: "application/json",
+	        			success: function(listdata)
+	        			{
+	        				dayList = null;
+	        				targetList = null;
+	        				actualList = null;
+	        				actualData = [];
+	        				dayList = listdata.dayList;
+	        				targetList = listdata.targetList;
+	        				actualList = listdata.actualList;
+	        				
+	        				//try to make actual target series for chart
+	        				for(i = 0; i < actualList.length; i ++){
+	        					var tmpData = {};
+	        					tmpData.y = actualList[i];
+	        					var marker = {};
+	        					if (tmpData.y > 85)
+	        						marker.symbol = 'url('+manager.root+'/images/greenx.png)';
+	        					else
+	        						marker.symbol = 'url('+manager.root+'/images/redx.png)';
+	        					tmpData.marker = marker;
+	        					actualData.push(tmpData);
+	        				}
+	        				
+	        				//plot to chart
+	        				bindChart();
+	        				
+	        				//plot to table
+	        				ractive.set("targetList", targetList);
+	        				ractive.set("actualList", actualList);
+	        			}
+	            	});
+	           		
 	            }
 	        }); 
 	    });
+	}
+	
+	//根据年月返回天数
+	function cntDays(year,month){
+		return manager.getDaysCnt(year,month);
 	}
 	
 	function bindChart(){
@@ -22,9 +70,7 @@ var oeeChart3 = function(){
 		        enabled: false
 		    },
 		    xAxis: {
-		        categories: ['1', '2', '3', '4', '5','6','7','8','9','10',
-		                     '11', '12', '13', '14', '15','16','17','18','19','20',
-		                     '21', '22', '23', '24', '25','26','27','28','29','30','31']
+		        categories: dayList
 		    },
 		    yAxis: {
 		        title: {
@@ -40,170 +86,13 @@ var oeeChart3 = function(){
 		    series: [{
 		        type: 'line',
 		        name: 'OEE - actual',
-		        data: [{
-		            y: 86.2,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/greenx.png)'
-		            }
-		        }, {
-		            y: 68.2,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/redx.png)'
-		            }
-		        }, {
-		            y: 83.3,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/greenx.png)'
-		            }
-		        }, {
-		            y: 81.4,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/greenx.png)'
-		            }
-		        }, {
-		            y: 0,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/redx.png)'
-		            }
-		        },{
-		            y: 0,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/redx.png)'
-		            }
-		        }, {
-		            y: 0,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/greenx.png)'
-		            }
-		        }, {
-		            y: 0,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/greenx.png)'
-		            }
-		        }, {
-		            y: 0,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/greenx.png)'
-		            }
-		        }, {
-		            y: 0,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/redx.png)'
-		            }
-		        },{
-		            y: 0,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/redx.png)'
-		            }
-		        }, {
-		            y: 0,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/greenx.png)'
-		            }
-		        }, {
-		            y: 0,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/greenx.png)'
-		            }
-		        }, {
-		            y: 0,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/greenx.png)'
-		            }
-		        }, {
-		            y: 0,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/redx.png)'
-		            }
-		        },{
-		            y: 0,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/redx.png)'
-		            }
-		        }, {
-		            y: 0,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/greenx.png)'
-		            }
-		        }, {
-		            y: 0,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/greenx.png)'
-		            }
-		        }, {
-		            y: 0,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/greenx.png)'
-		            }
-		        }, {
-		            y: 0,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/redx.png)'
-		            }
-		        },{
-		            y: 0,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/redx.png)'
-		            }
-		        }, {
-		            y: 0,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/greenx.png)'
-		            }
-		        }, {
-		            y: 0,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/greenx.png)'
-		            }
-		        }, {
-		            y: 0,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/greenx.png)'
-		            }
-		        }, {
-		            y: 0,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/redx.png)'
-		            }
-		        },{
-		            y: 0,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/redx.png)'
-		            }
-		        }, {
-		            y: 0,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/greenx.png)'
-		            }
-		        }, {
-		            y: 0,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/greenx.png)'
-		            }
-		        }, {
-		            y: 0,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/greenx.png)'
-		            }
-		        }, {
-		            y: 0,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/redx.png)'
-		            }
-		        },{
-		            y: 0,
-		            marker: {
-		                symbol: 'url('+manager.root+'/images/redx.png)'
-		            }
-		        }],
+		        data: actualData,
 		        color:'#3C3C4D'
 		    }, {
 		        type: 'spline',
 		        name: 'OEE - target',
 		        color:'red',
-		        data: [75, 75, 75, 75, 75,75, 75, 75, 75, 75,75, 75, 75,
-		        	75, 75, 75, 75, 75,75, 75, 75, 75, 75,75, 75, 75,
-		        	75, 75, 75, 75, 75],
+		        data: targetList,
 		        marker: {
 		            enabled: false
 		        }

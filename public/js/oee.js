@@ -1,5 +1,9 @@
 var oee = function(){
+	var lineName = manager.getPV("lineName");
+	var oeeobj = {currYear:"", currMonth:""};
 	function init(){
+		
+		var sys_date = manager.getSystemDate();
 		var years = manager.years();
 		var months = manager.months;
 		var ractive = new Ractive({
@@ -10,13 +14,17 @@ var oee = function(){
 				manager.loadProperties(this, "oee", "../../");
 				this.set("years",years);
 				this.set("months",months);
-				this.set("currYear","2017");
-				this.set("currMonth","12");
+				
+				oeeobj.currYear = sys_date.split("-")[0];
+				oeeobj.currMonth = sys_date.split("-")[1];
+				//this.set("currYear",sys_date.split("-")[0]);
+				//this.set("currMonth",sys_date.split("-")[1]);
+				this.set("oeeObj",oeeobj);
 			},
 			oncomplete: function(){	
-				oeeChart1.init();
+				oeeChart1.init(lineName);
 				oeeChart2.init();
-				oeeChart3.init();
+				oeeChart3.init(lineName, sys_date.split("-")[0], sys_date.split("-")[1]);
 			}
 		});
 		
@@ -27,6 +35,7 @@ var oee = function(){
 			},
 			toHideYearSelect:function(e){
 				$(e.node).hide().prev().show().text($(e.node).find("option:selected").text());
+				
 			},
 			toShowMonthSelect:function(e){
 				$(e.node).hide().next().show().focus();	
@@ -34,9 +43,22 @@ var oee = function(){
 			toHideMonthSelect:function(e){
 				var _$select = $(e.node);
 				_$select.hide().prev().show().text(_$select.find("option:selected").text());
-			}
+			},
+			changeYear:function(){
+				oeeChart1.init(lineName);
+				oeeChart2.init();
+				oeeChart3.init(lineName, oeeobj.currYear, oeeobj.currMonth);
+			},
+			changeMonth:function(){
+				oeeChart1.init(lineName);
+				oeeChart2.init();
+				oeeChart3.init(lineName, oeeobj.currYear, oeeobj.currMonth);
+			},
 		})
 	}
+	
+
+	
 	
 	return {
 		init:init

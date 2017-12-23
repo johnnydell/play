@@ -1,5 +1,8 @@
 var oeeChart1 = function(){
-	function init(){
+	var yearNo = []; 
+	var targetTotal = []; 
+	var actualTotal = [];
+	function init(lineName){
 	   //渲染chart1部分
 	   $.get(manager.root+"/views/tpl/board/oeeChart1.html", function (template) {
 	        var ractive = new Ractive({
@@ -7,7 +10,29 @@ var oeeChart1 = function(){
 	            data:{root:manager.root},
 	            template: template,
 	            oncomplete: function(){
-	           		bindChart();
+	            	/**/
+	            	$.ajax({
+	        			url		: manager.root + '/report/oee/yearlyOeeChart/' + lineName,
+	        			type	: 'POST',
+	        			data	: '',
+	        			success: function(listdata)
+	        			{
+	        				yearNo = [];
+	        				targetTotal = []; 
+	        				actualTotal = [];
+	        				for(i = 0; i < listdata.length; i ++){
+	        					yearNo.push(listdata[i].yearno);
+	        					//target OEE always 85%
+	        					targetTotal.push(85);
+	        					//calculate actual OEE percentage
+	        					actualTotal.push(Math.ceil((listdata[i].actual_total / listdata[i].target_total) * 100));
+	        				}
+	        				bindChart();
+	        				ractive.set("targetTotal", targetTotal);
+	        				ractive.set("actualTotal", actualTotal);
+	        			}
+	            	});
+	           		
 	            }
 	        }); 
 	    });
@@ -22,7 +47,7 @@ var oeeChart1 = function(){
 	            enabled: false
 	        },
 	        xAxis: {
-	            categories: ['2013', ' 2014', '2015', '2016', '2017']
+	            categories: yearNo
 	        },
 	        yAxis: {
 	            title: {
@@ -38,13 +63,13 @@ var oeeChart1 = function(){
 	        series: [{
 	            type: 'column',
 	            name: 'OEE - actual',
-	            data: [90, 80, 88, 89, 82],
+	            data: actualTotal,
 	            color:'#3C3C4D'
 	        }, {
 	            type: 'spline',
 	            name: 'OEE - target',
 	            color:'red',
-	            data: [80, 80, 80, 80, 80],
+	            data: targetTotal,
 	            marker: {
 	                enabled: false
 	            }
@@ -53,7 +78,8 @@ var oeeChart1 = function(){
 	            enabled:false
 	        }
 	    });	
-	}	
+	}
+	
 		
 	return {
 		init:init
