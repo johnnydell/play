@@ -69,10 +69,10 @@
 					 <div class="val">
 						 <span class="fst">{{attendance.line_name}}</span>
 						 <span class="dt">
-                             <label on-click="toShowYearSelect">{{attendance.year}}</label>                    
+                             <label on-click="toShowYearSelect">{{attendance.year}} {{i18n_meetAttd_year}}</label>                    
 							 <select style="display:none;" on-blur="toHideYearSelect" on-change="changeYear" value="{{attendance.year}}">
 		 					   {{#each years:index}}
-								 <option value="{{years[index]}}">{{years[index]}}</option>
+								 <option value="{{years[index]}}">{{years[index]}} {{i18n_meetAttd_year}}</option>
 						       {{/each}}
 			             	 </select>
                              <label on-click="toShowMonthSelect">{{attendance.month}} {{i18n_meetAttd_yue}}</label>
