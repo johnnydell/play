@@ -38,27 +38,29 @@ public class OeeController extends Controller {
 		Date endDate = df.parse(yearValue + "-" + monthValue + "-" + dayCount);
 		List<HourlyCountBase> rows = HourlyCountBase.findDailyOeeData(lineName, startDate, endDate);
 		List<Integer> dayList = new ArrayList<Integer>();
-		List<Integer> targetCountList = new ArrayList<Integer>();
+		List<Float> targetCountList = new ArrayList<Float>();
 		List<Float> actualCountList = new ArrayList<Float>();
 		int totalDays = Integer.parseInt(dayCount);
 		for (int i = 1; i < (totalDays + 1); i ++){
 			dayList.add(i);
-			targetCountList.add(85);
-			String fullDayValue = yearValue + "-" + monthValue + "-" + i;
+			
+			String fullDayValue = yearValue + "-" + monthValue + "-" + String.format("%02d", i);
 			boolean isFound = false;
 			for (HourlyCountBase base : rows){
 				String historyDate = df.format(base.productDate);
 				if (fullDayValue.equals(historyDate)){
 					float tempValue = (float)(base.actualOeeTotalOutput * 100 / base.targetOeeTotalOutput) ;
-					float targetValue = (float)(Math.round(tempValue*100))/100; //保留2位小数
+					float targetValue = (float)(Math.round(tempValue*10))/10; //保留1位小数
 					actualCountList.add(targetValue);
 					isFound = true;
+					targetCountList.add(base.targetOeePercent);
 					break;
 				}
 			}
 			//totally no data for this day
 			if (!isFound){
 				actualCountList.add(0.0f);
+				targetCountList.add(85.0f);
 			}
 		}
 		JSONObject json = new JSONObject();

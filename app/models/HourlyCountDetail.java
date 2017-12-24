@@ -202,11 +202,22 @@ public class HourlyCountDetail extends Model {
 	
 	public static List<SqlRow> findMonthlyLossData(String name, Date startDate, Date endDate)  {
 		String sql = "select date_format(b.product_date,'%m') months, sum(d.quality_loss) as quality_loss_total, sum(d.technical_loss) as technical_loss_total,"
-				+ " sum(d.changeover_loss) as changeover_loss_total, sum(d.orgnization_loss) as orgnization_loss_total,"
-				+ "  sum(distinct b.target_oee_total_output) as target_oee_total, sum(distinct b.actual_oee_total_output) as actual_oee_total"
+				+ " sum(d.changeover_loss) as changeover_loss_total, sum(d.orgnization_loss) as orgnization_loss_total"
 				+ " from edb_hourly_count_base b, edb_line l, edb_hourly_count_detail d"
 				+ " where b.product_line_id = l.id"
 				+ " and b.id = d.hourly_count_base_id"
+				+ " and l.line_name = :lineName"
+				+ " and b.product_date between :startDate and :endDate "
+				+ " group by months";
+		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("lineName", name).setParameter("startDate", startDate).setParameter("endDate", endDate).findList();
+		return rows;
+	}
+	
+	public static List<SqlRow> findMonthlyOeeData(String name, Date startDate, Date endDate)  {
+		String sql = "select date_format(b.product_date,'%m') months, sum(b.target_oee_total_output) as target_oee_total, sum(b.actual_oee_total_output) as actual_oee_total,"
+				+ " avg(b.target_oee_percent) as target_oee_percent "
+				+ " from edb_hourly_count_base b, edb_line l"
+				+ " where b.product_line_id = l.id"
 				+ " and l.line_name = :lineName"
 				+ " and b.product_date between :startDate and :endDate "
 				+ " group by months";

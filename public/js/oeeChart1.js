@@ -1,5 +1,5 @@
 var oeeChart1 = function(){
-	var yearNo = []; 
+	var years = []; 
 	var targetTotal = []; 
 	var actualTotal = [];
 	function init(lineName){
@@ -17,15 +17,15 @@ var oeeChart1 = function(){
 	        			data	: '',
 	        			success: function(listdata)
 	        			{
-	        				yearNo = [];
+	        				years = [];
 	        				targetTotal = []; 
 	        				actualTotal = [];
 	        				for(i = 0; i < listdata.length; i ++){
-	        					yearNo.push(listdata[i].yearno);
+	        					years.push(listdata[i].years);
 	        					//target OEE always 85%
-	        					targetTotal.push(85);
+	        					targetTotal.push(listdata[i].target_oee_percent);
 	        					//calculate actual OEE percentage
-	        					actualTotal.push(Math.ceil((listdata[i].actual_total / listdata[i].target_total) * 100));
+	        					actualTotal.push(Math.ceil((listdata[i].actual_oee_total / listdata[i].target_oee_total) * 100));
 	        				}
 	        				bindChart();
 	        				ractive.set("targetTotal", targetTotal);
@@ -47,7 +47,7 @@ var oeeChart1 = function(){
 	            enabled: false
 	        },
 	        xAxis: {
-	            categories: yearNo
+	            categories: years
 	        },
 	        yAxis: {
 	            title: {

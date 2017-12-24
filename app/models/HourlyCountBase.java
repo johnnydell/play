@@ -12,8 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.avaje.ebean.Ebean;
-import com.avaje.ebean.RawSql;
-import com.avaje.ebean.RawSqlBuilder;
 import com.avaje.ebean.SqlRow;
 
 import play.db.ebean.Model;
@@ -74,13 +72,12 @@ public class HourlyCountBase extends Model {
 	}
 	
 	public static List<SqlRow> findYearlyOeeData(String name)  {
-		String sql = "select yearNo, sum(target_oee_total_output) as target_total, sum(actual_oee_total_output) as actual_total" 
-				+" from  (select distinct date_format(b.product_date, '%Y') as yearNo"
-				+ " from edb_hourly_count_base b) as a , edb_hourly_count_base c ,edb_line l "
-				+" where  date_format(c.product_date, '%Y') = a.yearNo "
-				+ " and c.product_line_id = l.id "  
+		String sql = "select date_format(b.product_date,'%Y') years, avg(b.target_oee_percent) as target_oee_percent," 
+				+" sum(b.target_oee_total_output) as target_oee_total, sum(b.actual_oee_total_output) as actual_oee_total "
+				+ " from edb_hourly_count_base b, edb_line l "
+				+" where b.product_line_id = l.id "
 				+ " and l.line_name = :lineName "
-				+ " group by yearNo order by yearNo";
+				+ " group by years order by years";
 		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("lineName", name).findList();
 		return rows;
 	}
