@@ -51,40 +51,47 @@
                   	 <ul>
 	                    <li	class="f50">
 	                        <h1>当前生产型号</h1>
-	                        <a on-click="toShowEditor" href="javascript:void(0);">{{data.currType}}</a>
-                            <input style="display:none;" on-blur="toHideEditor" type="text" value="{{data.currType}}"/>
+	                        <a  href="javascript:void(0);">{{displayData.currType}}</a>
+                            
 	                    </li>
 	                    <li class="f25">
-	                        <h1>节拍[S]</h1>
-	                        <a on-click="toShowEditor" href="javascript:void(0);">{{data.currJP}}</a>
-                            <input style="display:none;" on-blur="toHideEditor" type="text" value="{{data.currJP}}"/>
+	                        <h1>目标节拍[S]</h1>
+	                        <a  href="javascript:void(0);">{{displayData.currJP}}</a>
+                            
 	                    </li>
 	                    <li class="f25">
 	                    	<h1>人数</h1>
-	                        <a on-click="toShowEditor" href="javascript:void(0);">{{data.currRS}}</a>
-                            <input style="display:none;" on-blur="toHideEditor" type="text" value="{{data.currRS}}"/>
+	                        <a  href="javascript:void(0);">{{displayData.currRS}}</a>
+                           
 	                    </li>
 	                  </ul>
 	                  <ul>
-	                    <li	class="f25">
+	                    <li	class="f20">
 	                        <h1>计划产出</h1>
-	                        <a on-click="toShowEditor" href="javascript:void(0);">{{data.planCC}}</a>
-                            <input style="display:none;" on-blur="toHideEditor" type="text" value="{{data.planCC}}"/>
+	                        <a  href="javascript:void(0);">{{displayData.planCC}}</a>
+                            
 	                    </li>
-	                    <li	class="f25">
+						<li	class="f20">
+	                        <h1>当前计划产出</h1>
+	                       
+	                    </li>
+	                    <li	class="f20">
 	                        <h1>实际产出</h1>
-	                        <a on-click="toShowEditor" href="javascript:void(0);">{{data.actualCC}}</a>
-                            <input style="display:none;" on-blur="toHideEditor" type="text" value="{{data.actualCC}}"/>
+	                        <a  href="javascript:void(0);">{{displayData.actualCC}}</a>
+                            
 	                    </li>
-	                    <li class="f25">
+	                    <li class="f20">
 	                        <h1>偏差</h1>
-	                        <a on-click="toShowEditor" style="color:green" href="javascript:void(0);">{{data.diff}}</a>
-                            <input style="display:none;" on-blur="toHideEditor" type="text" value="{{data.diff}}"/>
+							{{#if data.diff > 0}}
+	                        	<a  style="color:green" href="javascript:void(0);">{{format(displayData.diff)}}</a>
+                            {{else}}
+								<a  style="color:red" href="javascript:void(0);">{{format(displayData.diff)}}</a>
+							{{/if}}
 	                    </li>
-	                    <li class="f25">
-	                    	<h1>OEE</h1>
-	                        <a on-click="toShowEditor" style="color:green" href="javascript:void(0);">{{data.oee}}</a>
-                            <input style="display:none;" on-blur="toHideEditor" type="text" value="{{data.oee}}"/>
+	                    <li class="f20">
+	                    	<h1>目标OEE</h1>
+	                        <a  style="color:green" href="javascript:void(0);">{{percentage(displayData.oee)}}</a>
+                            
 	                    </li>
 	                  </ul>
                    </div>
@@ -99,18 +106,18 @@
                       <ul>
                         <li	class="f50">
                             <h1>下一生产型号</h1>
-                            <a on-click="toShowEditor" href="javascript:void(0);">{{data.nextType}}</a>
-                            <input style="display:none;" on-blur="toHideEditor" type="text" value="{{data.nextType}}"/>
+                            <a on-click="toShowEditor" href="javascript:void(0);">{{displayData.nextType}}</a>
+                            
                         </li>
                         <li class="f25">
-                            <h1>节拍[S]</h1>
-                            <a on-click="toShowEditor" href="javascript:void(0);">{{data.nextJP}}</a>
-                            <input style="display:none;" on-blur="toHideEditor" type="text" value="{{data.nextJP}}"/>
+                            <h1>目标节拍[S]</h1>
+                            <a on-click="toShowEditor" href="javascript:void(0);">{{displayData.nextJP}}</a>
+                            
                         </li>
                         <li class="f25">
                         	<h1>人数</h1>
-                            <a on-click="toShowEditor" href="javascript:void(0);">{{data.nextRS}}</a>
-                            <input style="display:none;" on-blur="toHideEditor" type="text" value="{{data.nextRS}}"/>
+                            <a on-click="toShowEditor" href="javascript:void(0);">{{displayData.nextRS}}</a>
+                            
                         </li>
                       </ul>
                    </div>

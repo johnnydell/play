@@ -26,7 +26,6 @@ public class OeeLossController extends Controller {
 		Date startDate = df.parse(yearValue + "-01-01");
 		Date endDate = df.parse(yearValue + "-12-31");
 		List<SqlRow> rowsLoss = HourlyCountDetail.findMonthlyLossData(lineName, startDate, endDate);
-		List<SqlRow> rowsOee = HourlyCountDetail.findMonthlyOeeData(lineName, startDate, endDate);
 		List<Integer> months = new ArrayList<Integer>();
 		List<Integer> qualityLossTotal = new ArrayList<Integer>();
 		List<Integer> technicalLossTotal = new ArrayList<Integer>();
@@ -46,9 +45,13 @@ public class OeeLossController extends Controller {
 					technicalLossTotal.add(row.getInteger("technical_loss_total") == null ? 0 : row.getInteger("technical_loss_total"));
 					changeoverLossTotal.add(row.getInteger("changeover_loss_total") == null ? 0 : row.getInteger("changeover_loss_total"));
 					orgnizationLossTotal.add(row.getInteger("orgnization_loss_total") == null ? 0 : row.getInteger("orgnization_loss_total"));
-					//float tempValue = (float)(row.getInteger("actual_oee_total") * 100 / row.getInteger("target_oee_total")) ;
-					//float targetValue = (float)(Math.round(tempValue*100))/100; //保留2位小数
-					//actualOeeTotal.add(targetValue);
+					float tempValue = row.getFloat("target_oee_percent");
+					float targetValue = (float)(Math.round(tempValue*10))/10;//保留1位小数
+					targetOeeTotal.add(targetValue);
+					tempValue = (float)(row.getInteger("actual_oee_total") * 100 / row.getInteger("target_oee_total")) ;
+					targetValue = (float)(Math.round(tempValue*10))/10; //保留1位小数
+					actualOeeTotal.add(targetValue);
+					
 					break;
 				}
 			}
@@ -57,26 +60,11 @@ public class OeeLossController extends Controller {
 				technicalLossTotal.add(0);
 				changeoverLossTotal.add(0);
 				orgnizationLossTotal.add(0);
-				//actualOeeTotal.add(0.0f);
-			}
-			
-			boolean isFoundOee = false;
-			for (SqlRow row : rowsOee){
-				if (row.getString("months").equals(String.valueOf(i))){
-					isFoundOee = true;
-					float tempValue = row.getFloat("target_oee_percent");
-					float targetValue = (float)(Math.round(tempValue*10))/10;//保留1位小数
-					targetOeeTotal.add(targetValue);
-					tempValue = (float)(row.getInteger("actual_oee_total") * 100 / row.getInteger("target_oee_total")) ;
-					targetValue = (float)(Math.round(tempValue*10))/10; //保留1位小数
-					actualOeeTotal.add(targetValue);
-					break;
-				}
-			}
-			if (!isFoundOee){
 				targetOeeTotal.add(85.0f);
 				actualOeeTotal.add(0.0f);
 			}
+			
+			
 		}
 		
 		JSONObject json = new JSONObject();

@@ -239,6 +239,10 @@ var manager = function() {
 		}
 		return years;
 	}
+	
+	function isNull(arg1){
+	 return !arg1 && arg1!==0 && typeof arg1!=="boolean" ? true : false;
+	}
 
 	return {
 		init: renderLayout,
@@ -254,6 +258,7 @@ var manager = function() {
 		getSystemDate:getSystemDate,
 		getSystemTime:getSystemTime,
 		getSystemParams:getSystemParameters,
+		isNull:isNull,
 		setLanguage:function(language){
 			setCookie("language", language);
 		},

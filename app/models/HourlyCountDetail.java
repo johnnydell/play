@@ -1,5 +1,10 @@
 package models;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -42,6 +47,9 @@ public class HourlyCountDetail extends Model {
 	@JoinColumn(name="product_type_id_1")
 	public ProductType productType1;
 	
+	@Column(name = "product_persons_1")
+	public Integer productPersons1;
+	
 	@ManyToOne
 	@JoinColumn(name="product_type_id_2")
 	public ProductType productType2;
@@ -51,6 +59,9 @@ public class HourlyCountDetail extends Model {
 	
 	@Column(name = "product_cycle_2")
 	public Integer productCycle2;
+	
+	@Column(name = "product_persons_2")
+	public Integer productPersons2;
 	
 	@Column(name = "target_oee_percent")
 	public Float targetOeePercent;
@@ -202,6 +213,7 @@ public class HourlyCountDetail extends Model {
 	
 	public static List<SqlRow> findMonthlyLossData(String name, Date startDate, Date endDate)  {
 		String sql = "select date_format(b.product_date,'%m') months, sum(d.quality_loss) as quality_loss_total, sum(d.technical_loss) as technical_loss_total,"
+				+ "sum(b.target_oee_total_output) as target_oee_total, sum(b.actual_oee_total_output) as actual_oee_total,avg(b.target_oee_percent) as target_oee_percent,"
 				+ " sum(d.changeover_loss) as changeover_loss_total, sum(d.orgnization_loss) as orgnization_loss_total"
 				+ " from edb_hourly_count_base b, edb_line l, edb_hourly_count_detail d"
 				+ " where b.product_line_id = l.id"
@@ -213,17 +225,7 @@ public class HourlyCountDetail extends Model {
 		return rows;
 	}
 	
-	public static List<SqlRow> findMonthlyOeeData(String name, Date startDate, Date endDate)  {
-		String sql = "select date_format(b.product_date,'%m') months, sum(b.target_oee_total_output) as target_oee_total, sum(b.actual_oee_total_output) as actual_oee_total,"
-				+ " avg(b.target_oee_percent) as target_oee_percent "
-				+ " from edb_hourly_count_base b, edb_line l"
-				+ " where b.product_line_id = l.id"
-				+ " and l.line_name = :lineName"
-				+ " and b.product_date between :startDate and :endDate "
-				+ " group by months";
-		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("lineName", name).setParameter("startDate", startDate).setParameter("endDate", endDate).findList();
-		return rows;
-	}
+	
 	
 	public static List<SqlRow> findMonthlyQualityLossData(String name, Date startDate, Date endDate)  {
 		String sql = "select DATE_FORMAT(b.product_date,'%m') months, sum(d.scrap_count) as scrap_loss_total, sum(d.rework_count) as rework_loss_total"
@@ -312,5 +314,73 @@ public class HourlyCountDetail extends Model {
 		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("lineName", name).setParameter("startDate", startDate).setParameter("endDate", endDate).findList();
 		return rows;
 	}
+	
+	public static List<SqlRow> findHourlyData(String lineName, String productDate, int hourValue) throws ParseException{
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Date currentDate = df.parse(productDate);
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(currentDate);
+		Date nextDate = currentDate;
+		boolean isSameWorkDay = true;
+		if (hourValue == 23 ){
+			calendar.add(Calendar.DAY_OF_MONTH, 1);
+			nextDate = calendar.getTime();
+			isSameWorkDay = false;
+		}
+		List<SqlRow> rows = null;
+		StringBuffer sql = new StringBuffer();
+		if (isSameWorkDay){
+			sql.append("select tmp.*, t1.product_type_name as product_name1, t2.product_type_name as product_name2 from ( ");
+			sql.append("select d.product_hour, d.product_type_id_1, d.product_cycle_1,  d.product_persons_1, d.product_type_id_2,  ");
+			sql.append("d.product_cycle_2, d.product_persons_2, d.target_oee_percent, d.plan_count, d.product_hour_count ");
+			sql.append(" from edb_hourly_count_base b, edb_hourly_count_detail d,edb_line l   ");
+			sql.append(" where   d.hourly_count_base_id = b.id ");
+			sql.append( " and b.product_line_id = l.id ");
+			sql.append(" and l.line_name = :lineName ");
+			sql.append(" and b.product_date = :productDate ");
+			sql.append(" and d.product_hour in (:hours) ) as tmp ");
+			sql.append(" left join edb_product_type t1 on tmp.product_type_id_1 = t1.id");
+			sql.append(" left join edb_product_type t2 on tmp.product_type_id_2 = t2.id");
+			List<Integer> hours = new ArrayList<Integer>();
+			hours.add(hourValue);
+			hours.add(hourValue + 1);
+			rows =	Ebean.createSqlQuery(sql.toString()).setParameter("lineName", lineName).setParameter("productDate", productDate).setParameter("hours", hours).findList();
+		}
+		else{
+			sql.append("select tmp.*, t1.product_type_name as product_name1, t2.product_type_name as product_name2 from ( ");
+			sql.append("select d.product_hour, d.product_type_id_1, d.product_cycle_1,  d.product_persons_1, d.product_type_id_2,  ");
+			sql.append("d.product_cycle_2, d.product_persons_2, d.target_oee_percent, d.plan_count, d.product_hour_count ");
+			sql.append(" from edb_hourly_count_base b, edb_hourly_count_detail d,edb_line l   ");
+			sql.append(" where   d.hourly_count_base_id = b.id ");
+			sql.append( " and b.product_line_id = l.id ");
+			sql.append(" and l.line_name = :lineName ");
+			sql.append(" and b.product_date = :productDate_1 ");
+			sql.append(" and d.product_hour =:hour_1 ) as tmp ");
+			sql.append(" left join edb_product_type t1 on tmp.product_type_id_1 = t1.id");
+			sql.append(" left join edb_product_type t2 on tmp.product_type_id_2 = t2.id");
+			sql.append(" union ");
+			sql.append("select tmp.*, t1.product_type_name as product_name1, t2.product_type_name as product_name2 from ( ");
+			sql.append("select d.product_hour, d.product_type_id_1, d.product_cycle_1,  d.product_persons_1, d.product_type_id_2,  ");
+			sql.append("d.product_cycle_2, d.product_persons_2, d.target_oee_percent, d.plan_count, d.product_hour_count ");
+			sql.append(" from edb_hourly_count_base b, edb_hourly_count_detail d,edb_line l   ");
+			sql.append(" where   d.hourly_count_base_id = b.id ");
+			sql.append( " and b.product_line_id = l.id ");
+			sql.append(" and l.line_name = :lineName ");
+			sql.append(" and b.product_date = :productDate_2 ");
+			sql.append(" and d.product_hour = 0 ) as tmp ");
+			sql.append(" left join edb_product_type t1 on tmp.product_type_id_1 = t1.id");
+			sql.append(" left join edb_product_type t2 on tmp.product_type_id_2 = t2.id");
+			rows =	Ebean.createSqlQuery(sql.toString())
+					.setParameter("lineName", lineName)
+					.setParameter("productDate_1", productDate)
+					.setParameter("hour_1", hourValue)
+					.setParameter("productDate_2", nextDate)
+					.findList();
+		}
+		
+		return rows;
+	}
+	
+	
 
 }

@@ -79,6 +79,10 @@
     width:25%;
 }
 
+.content-box .f20 {
+    width:20%;
+}
+
 .content-box .f50 a,.content-box .f50 input {
 	width:72%;	
 }
