@@ -54,6 +54,9 @@ public class HourlyCountBase extends Model {
 	@Column(name = "group_leader_sign")
 	public String groupLeaderSign;
 	
+	@Column(name = "target_oee_percent")
+	public Float targetOeePercent;
+	
 	@Column(name = "plan_opl_total_output")
 	public Integer planOplTotalOutput;
 	

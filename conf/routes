@@ -45,6 +45,7 @@ POST /edashboard/views/staticpage/viewdoc/:fileName/:oplLinkName 	controllers.St
 
 # Hourly Count
 POST /edashboard/views/board/hourlycount/:LineName/:productDate		controllers.HourlyCountController.viewHourlyCountByLineName(LineName : String, productDate : String)
+GET  /edashboard/views/board/hourlycount/oeeLossChildChildName		controllers.HourlyCountController.getoeeLossChildChildName(oeeLossChildName:String)
 POST /edashboard/views/board/hourlycount/saveResult		controllers.HourlyCountController.saveHourlyCount()
 
 # Report - OEE

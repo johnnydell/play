@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import models.HourlyCountBase;
 import models.HourlyCountDetail;
+import models.OeeLossChildChildType;
 import models.ProductLine;
 import models.ProductType;
 import play.libs.Json;
@@ -201,7 +202,10 @@ public class HourlyCountController extends Controller {
 		return ok(ret);
 	}
 	
-	
+	public static Result getoeeLossChildChildName(String oeeLossChildName){
+		List<OeeLossChildChildType> list = OeeLossChildChildType.findByChildName(oeeLossChildName);
+		return ok(Json.toJson(list));
+	}
 	
 
 }

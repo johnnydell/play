@@ -286,25 +286,25 @@
 					<td on-click="toShowColumnEditor">
 						<label>{{hourlyCountV1[index].hourid}}</label>
 					</td>
-					<td on-click="toShowColumnEditor" >
+					<td  >
 						<label>{{hourlyCountV1[index].productTypeName1}}</label>
 						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV1[index].productTypeName1}}" />
 					</td>
-					<td on-click="toShowColumnEditor">
+					<td >
 						<label>{{format(hourlyCountV1[index].productCycle1)}}</label>
 						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV1[index].productCycle1}}" on-keyup="toValidateEditorOnlyNum"/>
 					</td>
-					<td on-click="toShowColumnEditor">
+					<td >
 						<label>{{hourlyCountV1[index].productTypeName2}}</label>
 						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV1[index].productTypeName2}}" />
 					</td>
-					<td on-click="toShowColumnEditor">
+					<td >
 						<label>{{format(hourlyCountV1[index].productCycle2)}}</label>
 						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV1[index].productCycle2}}" on-keyup="toValidateEditorOnlyNum"/>
 					</td>
-					<td on-click="toShowColumnEditor">
+					<td >
 						<label>{{format(hourlyCountV1[index].planCount)}}</label>
-						<input class="field plan" style="display:none;" on-blur="toHideColumnEditorWithCalculationForPlan" type="text" value="{{hourlyCountV1[index].planCount}}" on-keyup="toValidateEditorOnlyNum"/>
+						<input class="field plan" style="display:none;"  type="text" value="{{hourlyCountV1[index].planCount}}" on-keyup="toValidateEditorOnlyNum"/>
 					</td>
 					<td>
 						
@@ -550,7 +550,7 @@
 						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV0.groupLeaderSign}}" />
 					</td>
 					<td colspan="2">
-						<label>{{i18n_hourlycount_target_oee}} 85.0%</label>
+						<label>{{i18n_hourlycount_target_oee}} {{hourlyCountV0.targetOee}}</label>
 					</td>
 				</tr>
 			</table>

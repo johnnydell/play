@@ -210,6 +210,7 @@ var hourlycount = function(){
 				var cellIndex = e.node.cellIndex;
 				var rowIndex = e.index.index;
 				var lossName = "";
+				var lossChildName = "";
 				switch(cellIndex){
 				case 10:
 				default:
@@ -266,14 +267,15 @@ var hourlycount = function(){
 					remark = remarks.split(";");
 					for(i = 0; i < remark.length; i ++){
 						lossNameStr = remark[i].split("-")[0];
-						lossCount 	= remark[i].split("-")[1];
-						lossReason 	= remark[i].split("-")[2];
+						lossChildName = remark[i].split("-")[1];
+						lossCount 	= remark[i].split("-")[2];
+						lossReason 	= remark[i].split("-")[3];
 						if (lossName == lossNameStr)
 							break;
 					}
 				}
 				/**/
-				var lossInfo = {lossNameV: lossName, lossCountV : lossCount,lossReasonV:lossReason };
+				var lossInfo = {lossNameV: lossName, lossChildNameList:[], lossChildName:lossChildName, lossCountV : lossCount,lossReasonV:lossReason };
 				$(".hourly_popup").show();  
   	    	  	$.get(manager.root+"/views/tpl/board/hourlypopup.html", function (data) {
   	    	  			
@@ -289,7 +291,19 @@ var hourlycount = function(){
         	    				manager.loadProperties(this, "common", "../../");
         	    			},
 	        	            oncomplete: function () {
-	        	            	
+	        	            	$.ajax({
+	        	        			url		: manager.root + '/views/board/hourlycount/oeeLossChildChildName',
+	        	        			type	: 'GET',
+	        	        			dataType:"json",
+	        	        			data:{oeeLossChildName:lossName},
+	        	        			contentType: "application/json",
+	        	        			success: function(listdata)
+	        	        			{
+	        	        				lossInfo.lossChildNameList = listdata;
+	        	        				
+	        	        				ractive2.update();
+	        	        			}
+	        	            	});
 	        	            }
 	        	        });
 	        	        /*Only allow input number in text*/
@@ -320,15 +334,15 @@ var hourlycount = function(){
 	        	        		if (remarks.indexOf(lossName) > -1){
 	        	        			lossNameIndex = remarks.indexOf(lossName);
 	        	        			commaIndex = remarks.indexOf(";", lossNameIndex);
-	        	        			remarks = remarks.substr(0, lossNameIndex) + lossName + "-" + lossInfo.lossCountV + "-" + lossInfo.lossReasonV + ";" + remarks.substr(commaIndex + 1, remarks.length - 1);
+	        	        			remarks = remarks.substr(0, lossNameIndex) + lossName + "-" + lossInfo.lossChildName + "-" + lossInfo.lossCountV + "-" + lossInfo.lossReasonV + ";" + remarks.substr(commaIndex + 1, remarks.length - 1);
 	        	        		}
 	        	        		//add new loss info into remark
 	        	        		else{
-	        	        			remarks += lossName + "-" + lossInfo.lossCountV + "-" + lossInfo.lossReasonV + ";";
+	        	        			remarks += lossName + "-" + lossInfo.lossChildName + "-" + lossInfo.lossCountV + "-" + lossInfo.lossReasonV + ";";
 	        	        		}
 	        	        	}
 	        	        	else{
-	        	        		remarks += lossName + "-" + lossInfo.lossCountV + "-" + lossInfo.lossReasonV + ";";
+	        	        		remarks += lossName + "-" + lossInfo.lossChildName + "-" + lossInfo.lossCountV + "-" + lossInfo.lossReasonV + ";";
 	        	        	}
 	        	        	
 	        	        	//check product1 and product2 cycle time if null or 0, else not update loss count
@@ -500,7 +514,7 @@ var hourlycount = function(){
 	/*Initial all of data*/
 	function initDataTemplate(){
 		hourlycounts = [];
-		hourlycounts_base = {teamLeaderSign1:"", teamLeaderSign2:"", teamLeaderSign3:"", groupLeaderSign:"", planOplTotalOutput:"", planOutputCount:0, actualOutputCount:0, actualOee:0};
+		hourlycounts_base = {teamLeaderSign1:"", teamLeaderSign2:"", teamLeaderSign3:"", groupLeaderSign:"", planOplTotalOutput:"", planOutputCount:0, actualOutputCount:0, targetOee: 0, actualOee:0};
 		for (i = 8; i < 24; i ++){
 			hourlycounts_item = {hourid: ((i - 1) + "-" + i),productHour: i,productHourIndex: (i - 7), lineName:"",productTypeName1:"",productCycle1:0,productTypeName2:"",
 					productCycle2:0,planCount:0,planTotalCount:0,actualCount:0,actualTotalCount:0,productHourCount:0,productHourPercent:0,
@@ -547,11 +561,12 @@ var hourlycount = function(){
 				
 				//prepare hourly count base data
 				if (listdata.length > 0){
-					hourlycounts_base.teamLeaderSign1 = listdata[0].hourlyCountBase.teamLeaderSign1;
-					hourlycounts_base.teamLeaderSign2 = listdata[0].hourlyCountBase.teamLeaderSign2;
-					hourlycounts_base.teamLeaderSign3 = listdata[0].hourlyCountBase.teamLeaderSign3;
-					hourlycounts_base.groupLeaderSign = listdata[0].hourlyCountBase.groupLeaderSign;
+					hourlycounts_base.teamLeaderSign1 	= listdata[0].hourlyCountBase.teamLeaderSign1;
+					hourlycounts_base.teamLeaderSign2 	= listdata[0].hourlyCountBase.teamLeaderSign2;
+					hourlycounts_base.teamLeaderSign3 	= listdata[0].hourlyCountBase.teamLeaderSign3;
+					hourlycounts_base.groupLeaderSign 	= listdata[0].hourlyCountBase.groupLeaderSign;
 					hourlycounts_base.planOplTotalOutput = listdata[0].hourlyCountBase.planOplTotalOutput;
+					hourlycounts_base.targetOee			= listdata[0].hourlyCountBase.targetOeePercent;
 				}
 				var planTotalCount = 0;
 				var actualTotalCount = 0;
@@ -632,7 +647,7 @@ var hourlycount = function(){
 					}
 					
 				}
-				hourlycounts_base.planOutputCount = planTotalCount;
+				hourlycounts_base.planOutputCount = ( parseInt(planTotalCount) * 100 ) / hourlycounts_base.targetOee;
 				hourlycounts_base.actualOutputCount = actualTotalCount;
 				if (planTotalCount !== 0){
 					hourlycounts_base.actualOee = actualTotalCount / planTotalCount;

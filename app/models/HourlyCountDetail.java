@@ -52,6 +52,9 @@ public class HourlyCountDetail extends Model {
 	@Column(name = "product_cycle_2")
 	public Integer productCycle2;
 	
+	@Column(name = "target_oee_percent")
+	public Float targetOeePercent;
+	
 	@Column(name = "plan_count")
 	public Integer planCount;
 

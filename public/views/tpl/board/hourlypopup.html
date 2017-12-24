@@ -8,15 +8,28 @@
 		<form role="form" class="ng-pristine ng-valid">
 		<div class="form-group">
 		<table id="remarkTable" class="table">
-			<tbody><tr>
+			<tbody>
+			<tr>
 				<td>
-				    <label><strong>数量:</strong></label> 
+				    <label><strong>{{i18n_hourlycount_loss_sub_type}}:</strong></label> 
+				    
+				    <select  class='form-control' value='{{lossInfoObj.lossChildName}}'>
+				    	{{#each lossInfoObj.lossChildNameList:index}}
+								 <option value="{{lossInfoObj.lossChildNameList[index].lossTypeName}}">{{lossInfoObj.lossChildNameList[index].lossTypeName}}</option>
+						{{/each}}
+				    </select>
+				    
+			     </td>
+			</tr>
+			<tr>
+				<td>
+				    <label><strong>{{i18n_hourlycount_quantity}}:</strong></label> 
 				    <input type="text" id="remark_count" class="form-control" value="{{lossInfoObj.lossCountV}}" on-keyup="toValidateEditorOnlyNum"/>
 			     </td>
 			</tr>
 			<tr>
 				<td>
-				   <label><strong>原因: </strong></label>
+				   <label><strong>{{i18n_hourlycount_reason}}: </strong></label>
 				   <input type="text" id="remark_reason" class="form-control" value="{{lossInfoObj.lossReasonV}}"/> 
 				</td>
 			</tr>
