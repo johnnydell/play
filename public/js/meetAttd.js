@@ -218,9 +218,21 @@ var meetAttd = function(){
 				var index = $(e.node).parent().parent().attr("lang");
 				if(type == 'select-one'){
 					txt = $(e.node).find("option:selected").text();
+					var colName = $(e.node).attr("colName");
+					if(colName != undefined && colName == 'day'){
+						var flag = $(e.node).attr("flag");
+						var val = $(e.node).find("option:selected").val();
+						var bg = "white";
+						if(val == 'A'){
+							bg = "red";
+						} else if(val == 'E'){
+							bg = "yellow";
+						}
+						attendanceDetails[index]["days"][flag].bg=bg;
+					}
 				} else if(type == 'textarea') {
 					txt = $(e.node).val();
-					var colName = $(e.node).attr("colName");//专门针对textare赋值的，ractiveJS对textarea赋值不能双向绑定
+					var colName = $(e.node).attr("colName");
 					if(colName != undefined && colName != ''){
 						attendanceDetails[index][colName] = txt;
 					}
@@ -316,9 +328,15 @@ var meetAttd = function(){
 	    				for(i = 1;i <= daysCnt;i++){
 	    					var day = real_days[i-1];
 	    					if(day == undefined){
-	    						days.push({id:"0",d:i,v:"",s:verifyWeekend(attendance.year,attendance.month,i)+'',updated:"0"});//s标示是否为周末
+	    						days.push({id:"0",d:i,v:"",s:verifyWeekend(attendance.year,attendance.month,i)+'',bg:"white",updated:"0"});//s标示是否为周末
 	    					} else {
-	    						days.push({id:day.id,d:i,v:day.dayVal,s:day.dayWeekend,updated:"0"});//s标示是否为周末
+	    						var bg = "white";
+	    						if(day.dayVal == 'A'){
+	    							bg = "red";
+	    						} else if(day.dayVal == 'E'){
+	    							bg = "yellow";
+	    						}
+	    						days.push({id:day.id,d:i,v:day.dayVal,s:day.dayWeekend,bg:bg,updated:"0"});//s标示是否为周末
 	    					}
 	    				}
 	    				attendee.days = days;
@@ -341,7 +359,7 @@ var meetAttd = function(){
 		var days = [];
 		var daysCnt = cntDays(year,month);
 		for(i = 1;i <= daysCnt;i++){
-			days.push({id:"0",d:i,v:"",s:verifyWeekend(year,month,i)+'',updated:"0"});//s标示是否为周末
+			days.push({id:"0",d:i,v:"",s:verifyWeekend(year,month,i)+'',bg:"white",updated:"0"});//s标示是否为周末
 		}
 		return days;
 	}

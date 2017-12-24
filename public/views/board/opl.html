@@ -56,7 +56,7 @@
 	<div class="content">
 		<div class="content-box">
             <div class="toolbar">
-                <button type="button" class="btn" on-click="test">测试</button><!---->
+                <!--<button type="button" class="btn" on-click="test">测试</button>-->
 				<button type="button" class="btn" on-click="addOP">{{i18n_opl_add}}</button>
 				<button type="button" class="btn" on-click="saveOP">{{i18n_opl_save}}</button>
 				<button type="button" class="btn" on-click="deleteOP">{{i18n_opl_delete}}</button>
@@ -64,62 +64,57 @@
 			<div>
 				<table>
 			    <tr>
-					<th class="title" rowspan="2" colspan="8">{{i18n_opl_title}}</th>
-					<th colspan="3" style="font-size: 20px;font-weight: bold;text-align:right;">{{i18n_opl_line}}：</th>
+					<th class="title" rowspan="2" colspan="5">{{i18n_opl_title}}</th>
+					<th colspan="2" style="font-size: 20px;font-weight: bold;text-align:right;">{{i18n_opl_line}}：</th>
 					<th style="background-color:white;color: #000;border: 1px solid #000;">{{condition.line_name}}</th>
 					<th colspan="7"></th>
 				</tr>
 				<tr>
-					<th colspan="3" style="font-size: 20px;font-weight: bold;text-align:right;">{{i18n_opl_month}}：</th>
+					<th colspan="2" style="font-size: 20px;font-weight: bold;text-align:right;">{{i18n_opl_month}}：</th>
 					<th class="dt" width="11%" style="background-color:white;color: #000;border: 1px solid #000;text-align:left;">
 					<label on-click="toShowYearSelect">{{condition.year}} {{i18n_opl_year}}</label>                    
-					<select style="display:none;" on-blur="toHideYearSelect" value="{{condition.year}}">
- 						{{#each years:index}}
-						 <option value="{{years[index]}}">{{years[index]}} {{i18n_opl_year}}</option>
-				         {{/each}}
-	             	</select>
-                    <label on-click="toShowMonthSelect">{{condition.month}} {{i18n_opl_yue}}</label>
- 					<select style="display:none;" on-blur="toHideMonthSelect" value="{{condition.month}}">
-						 {{#each months:index}}
-						 <option value="{{months[index]}}">{{months[index]}} {{i18n_opl_yue}}</option>
-				         {{/each}}
-	             	</select>
+						<select style="display:none;" on-blur="toHideYearSelect" value="{{condition.year}}">
+	 						{{#each years:index}}
+							 <option value="{{years[index]}}">{{years[index]}} {{i18n_opl_year}}</option>
+					         {{/each}}
+		             	</select>
+	                    <label on-click="toShowMonthSelect">{{condition.month}} {{i18n_opl_yue}}</label>
+	 					<select style="display:none;" on-blur="toHideMonthSelect" value="{{condition.month}}">
+							 {{#each months:index}}
+							 <option value="{{months[index]}}">{{months[index]}} {{i18n_opl_yue}}</option>
+					         {{/each}}
+		             	</select>
                     </th>
 					<th class="page" style="background-color:white;color: #000;border: 1px solid #000;">
-					{{i18n_opl_no}}
-					<label on-click="toShowPageSelect">{{condition.page}}</label>
- 					<select style="display:none;" on-blur="toHidePageSelect" value="{{condition.page}}">
-						 {{#each condition.pages:index}}
-						 <option value="{{condition.pages[index]}}">{{condition.pages[index]}}</option>
-				         {{/each}}
-	             	</select>
-                    {{i18n_opl_page}}
+						{{i18n_opl_no}}
+						<label on-click="toShowPageSelect">{{condition.page}}</label>
+	 					<select style="display:none;" on-blur="toHidePageSelect" value="{{condition.page}}">
+							 {{#each condition.pages:index}}
+							 <option value="{{condition.pages[index]}}">{{condition.pages[index]}}</option>
+					         {{/each}}
+		             	</select>
+	                    {{i18n_opl_page}}
                     </th>
 					<th colspan="6"></th>
 				</tr>
 			    <tr>
 				    <th width="2%" rowspan="2"><input on-click="checkAll" type="checkbox" /> <font>&nbsp;</font></th>
-			        <th width="6%" rowspan="2">{{i18n_opl_date}}</th>
-			        <th width="4%" rowspan="2">{{i18n_opl_refNo}}</th>
+			        <th width="5%" rowspan="2">{{i18n_opl_date}}</th>
+			        <th width="8%" rowspan="2">{{i18n_opl_refNo}}</th>
 			        <th width="5%" rowspan="2">{{i18n_opl_personFound}}</th>
-			        <th width="4%" rowspan="2">{{i18n_opl_station}}</th>
-			        <th colspan="7">{{i18n_opl_deviation_problem}}</th>
+			        <th colspan="2">{{i18n_opl_deviation_problem}}</th>
 			        <th colspan="7">{{i18n_opl_corrective_action}}</th>
 			    </tr>
 			    <tr>
-			        <th width="10%">{{i18n_opl_description}}</th>
-			        <th width="4%">{{i18n_opl_qst_from}}</th>
-			        <th width="4%">{{i18n_opl_qst_to}}</th>
-			        <th width="3%">{{i18n_opl_timing}}</th>
-			        <th width="4%">{{i18n_opl_amt}}</th>
-			        <th width="11%" colspan="2">{{i18n_opl_root_cause}}</th>
-			        <th width="9%">{{i18n_opl_immediate}}</th>
+			        <th width="12%">{{i18n_opl_description}}</th>
+			        <th width="15%">{{i18n_opl_root_cause}}</th>
+			        <th width="12%">{{i18n_opl_immediate}}</th>
 			        <th width="12%">{{i18n_opl_long_term}}</th><!--(在关闭阶段需要同步更新FMEA,CP,WI,PRR,SP、STAB、5M1E等相关工艺文件及标准)-->
-			        <th width="3%">{{i18n_opl_problem_solving_sheet}}</th>
-					<th width="5%">{{i18n_opl_pss_linkage}}</th>
+			        <th width="8%">{{i18n_opl_problem_solving_sheet}}</th>
+					<th width="8%">{{i18n_opl_pss_linkage}}</th>
 			        <th width="4%">{{i18n_opl_person_rep}}</th>
 			        <th width="5%">{{i18n_opl_deadline}}</th>
-			        <th width="3%">{{i18n_opl_status}}</th>        
+			        <th width="4%">{{i18n_opl_status}}</th>        
 			    </tr>
  				{{#each opl:index}}
 			    <tr class="cxttr" lang="{{index}}">
@@ -143,31 +138,11 @@
                        <label class="field" >{{founder}}</label>
                        <input class="field" type="text" style="display:none;" maxlength="10" on-blur="toHideColumnEditor" value="{{founder}}" on-click="stopPropagation"/>
                     </td>
-			        <td on-click="toShowColumnEditor">
-                       <label class="field" >{{station}}</label>
-                       <input class="field" type="text" style="display:none;" maxlength="10" on-blur="toHideColumnEditor" value="{{station}}" on-click="stopPropagation"/>
-                    </td>
 			        <td on-click="toShowColumnEditor" >
 					   <label class="field" >{{description}}</label>
                        <textarea class="field" style="display:none;" colName="description" maxlength="100" on-blur="toHideColumnEditor" cols="80" rows="2" on-click="stopPropagation">{{description}}</textarea>
                     </td>
-			        <td on-click="toShowColumnEditor">
-					   <label class="field" >{{dtFrom}}</label>
-					   <input class="field dtFrom" on-keydown="disableKeydown" style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{dtFrom}}" on-click="stopPropagation"/>
-                    </td>
-			        <td on-click="toShowColumnEditor">
-                       <label class="field" >{{dtTo}}</label>
-					   <input class="field dtTo" on-keydown="disableKeydown" style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{dtTo}}" on-click="stopPropagation"/>
-                    </td>
-			        <td on-click="toShowColumnEditor">
-                       <label class="field" >{{timing}}</label>
-                       <input class="field" type="text" style="display:none;" maxlength="5" on-blur="toHideColumnEditor" value="{{timing}}" on-click="stopPropagation"/>
-                    </td>
-					<td on-click="toShowColumnEditor">
-                       <label class="field">{{amt}}</label>
-                       <input class="field" type="text" style="display:none;" maxlength="8" on-blur="toHideColumnEditor" value="{{amt}}" on-click="stopPropagation"/>
-                    </td>
-					<td colspan="2" on-click="toShowColumnEditor" >
+					<td on-click="toShowColumnEditor" >
 					   <label class="field">{{rootCause}}</label>
                        <textarea class="field" style="display:none;" maxlength="100" colName="rootCause" on-blur="toHideColumnEditor" cols="80" rows="2" on-click="stopPropagation">{{rootCause}}</textarea>
                     </td>
