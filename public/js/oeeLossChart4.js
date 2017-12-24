@@ -1,5 +1,7 @@
 var oeeLossChart4 = function(){
-	function init(){
+	var scrap_loss_total;
+	var rework_loss_total;
+	function init(lineName, curYear){
 	   //渲染chart4部分
 	   $.get(manager.root+"/views/tpl/board/oeeLossChart4.html", function (template) {
 	        var ractive = new Ractive({
@@ -7,7 +9,21 @@ var oeeLossChart4 = function(){
 	            data:{root:manager.root},
 	            template: template,
 	            oncomplete: function(){
-	           		bindChart();
+	            	$.ajax({
+	        			url		: manager.root + '/report/oeeloss/monthlyQualityLossChart',
+	        			type	: 'GET',
+	        			dataType:"json",
+	        			data:{lineName:lineName,yearValue:curYear},
+	        			contentType: "application/json",
+	        			success: function(listdata)
+	        			{
+	        				scrap_loss_total 	= listdata.scrap_loss_total;
+	        				rework_loss_total 	= listdata.rework_loss_total;
+	        				
+	        				//plot to chart
+	        				bindChart();
+	        			}
+	            	});
 	            }
 	        }); 
 	    });
@@ -59,7 +75,11 @@ var oeeLossChart4 = function(){
 	            tickPositions: [0, 200, 400, 600,800,1000,1200]// 指定竖轴坐标点的值
 	        },
 	        legend: {
-	            enabled: false
+	        	layout: 'vertical',
+	            align: 'right',
+	            verticalAlign: 'middle',
+	            floating: false,
+	            symbolRadius: 0
 	        },
 	        plotOptions: {
 	            series: {
@@ -67,12 +87,12 @@ var oeeLossChart4 = function(){
 	            }
 	        },
 	        series: [{
-	            name: '调试损失',
-	            data: [200, 150, 180, 350, 0,0,0,0,0,0,0,0],
+	            name: '报废损失',
+	            data: scrap_loss_total,
 	            color:'red'
 	        }, {
-	            name: '设备停机损失',
-	            data: [800, 700, 650, 550, 0,0,0,0,0,0,0,0],
+	            name: '返工损失',
+	            data: rework_loss_total,
 	            color:'#132F52'
 	        }],
 	        credits:{

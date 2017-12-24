@@ -1,5 +1,8 @@
 var oeeLossChart3 = function(){
-	function init(){
+	var plan_setup_loss_total;
+	var unplan_setup_loss_total;
+	var exchg_tool_loss_total;
+	function init(lineName, curYear){
 	   //渲染chart3部分
 	   $.get(manager.root+"/views/tpl/board/oeeLossChart3.html", function (template) {
 	        var ractive = new Ractive({
@@ -7,7 +10,21 @@ var oeeLossChart3 = function(){
 	            data:{root:manager.root},
 	            template: template,
 	            oncomplete: function(){
-	           		bindChart();
+	            	$.ajax({
+	        			url		: manager.root + '/report/oeeloss/monthlyChangeoverLossChart',
+	        			type	: 'GET',
+	        			dataType:"json",
+	        			data:{lineName:lineName,yearValue:curYear},
+	        			contentType: "application/json",
+	        			success: function(listdata)
+	        			{
+	        				plan_setup_loss_total 		= listdata.plan_setup_loss_total;
+	        				unplan_setup_loss_total 	= listdata.unplan_setup_loss_total;
+	        				exchg_tool_loss_total 		= listdata.exchg_tool_loss_total;
+	        				//plot to chart
+	        				bindChart();
+	        			}
+	            	});
 	            }
 	        }); 
 	    });
@@ -59,7 +76,11 @@ var oeeLossChart3 = function(){
 	            tickPositions: [0, 200, 400, 600,800,1000,1200,1400,1600]// 指定竖轴坐标点的值
 	        },
 	        legend: {
-	            enabled: false
+	        	layout: 'vertical',
+	            align: 'right',
+	            verticalAlign: 'middle',
+	            floating: false,
+	            symbolRadius: 0
 	        },
 	        plotOptions: {
 	            series: {
@@ -68,15 +89,15 @@ var oeeLossChart3 = function(){
 	        },
 	        series: [{
 	            name: '非计划换型损失',
-	            data: [300, 650, 110, 250, 0,0,0,0,0,0,0,0],
+	            data: unplan_setup_loss_total,
 	            color:'#7D9FC9'
 	        },{
 	            name: '电极刀片工具更换',
-	            data: [500, 300, 250, 300, 0,0,0,0,0,0,0,0],
+	            data: exchg_tool_loss_total,
 	            color:'red'
 	        }, {
 	            name: '计划换型损失',
-	            data: [800, 600, 500, 400, 0,0,0,0,0,0,0,0],
+	            data: plan_setup_loss_total,
 	            color:'#132F52'
 	        }],
 	        credits:{

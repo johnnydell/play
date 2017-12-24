@@ -1,5 +1,7 @@
 var oeeLossChart5 = function(){
-	function init(){
+	var performance_loss_total;
+	var undefined_loss_total;
+	function init(lineName, curYear){
 	   //渲染chart5部分
 	   $.get(manager.root+"/views/tpl/board/oeeLossChart5.html", function (template) {
 	        var ractive = new Ractive({
@@ -7,7 +9,21 @@ var oeeLossChart5 = function(){
 	            data:{root:manager.root},
 	            template: template,
 	            oncomplete: function(){
-	           		bindChart();
+	            	$.ajax({
+	        			url		: manager.root + '/report/oeeloss/monthlyPerformanceLossChart',
+	        			type	: 'GET',
+	        			dataType:"json",
+	        			data:{lineName:lineName,yearValue:curYear},
+	        			contentType: "application/json",
+	        			success: function(listdata)
+	        			{
+	        				performance_loss_total 	= listdata.performance_loss_total;
+	        				undefined_loss_total 	= listdata.undefined_loss_total;
+	        				
+	        				//plot to chart
+	        				bindChart();
+	        			}
+	            	});
 	            }
 	        }); 
 	    });
@@ -59,7 +75,11 @@ var oeeLossChart5 = function(){
 	            tickPositions: [0, 2, 4, 6,8,10,12]// 指定竖轴坐标点的值
 	        },
 	        legend: {
-	            enabled: false
+	        	layout: 'vertical',
+	            align: 'right',
+	            verticalAlign: 'middle',
+	            floating: false,
+	            symbolRadius: 0
 	        },
 	        plotOptions: {
 	            series: {
@@ -67,12 +87,12 @@ var oeeLossChart5 = function(){
 	            }
 	        },
 	        series: [{
-	            name: '调试损失',
-	            data: [0, 0, 0, 0, 0,0,0,0,0,0,0,0],
+	            name: '绩效损失',
+	            data: performance_loss_total,
 	            color:'red'
 	        }, {
-	            name: '设备停机损失',
-	            data: [0, 10, 3, 0, 0,0,0,0,0,0,0,0],
+	            name: '未定义损失',
+	            data: undefined_loss_total,
 	            color:'#132F52'
 	        }],
 	        credits:{

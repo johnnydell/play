@@ -3,15 +3,10 @@
 	border: 1px solid #b19f9f;
 }
 
-.top .rgt .icon {
-    width: 20%;
-	float: left;
-	height:100%;
-    text-align: left;
-}
+
 
 .top .rgt .chart {
-	width: 80%;
+	width: 100%;
 	float: left;
 	height:95%;
 }

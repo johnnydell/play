@@ -210,5 +210,93 @@ public class HourlyCountDetail extends Model {
 		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("lineName", name).setParameter("startDate", startDate).setParameter("endDate", endDate).findList();
 		return rows;
 	}
+	
+	public static List<SqlRow> findMonthlyQualityLossData(String name, Date startDate, Date endDate)  {
+		String sql = "select DATE_FORMAT(b.product_date,'%m') months, sum(d.scrap_count) as scrap_loss_total, sum(d.rework_count) as rework_loss_total"
+				+ " from edb_hourly_count_base b, edb_line l, edb_hourly_count_detail d"
+				+ " where b.product_line_id = l.id"
+				+ " and b.id = d.hourly_count_base_id"
+				+ " and l.line_name = :lineName"
+				+ " and b.product_date between :startDate and :endDate "
+				+ " group by months";
+		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("lineName", name).setParameter("startDate", startDate).setParameter("endDate", endDate).findList();
+		return rows;
+	}
+	
+	public static List<SqlRow> findMonthlyTechnicalLossData(String name, Date startDate, Date endDate)  {
+		String sql = "select DATE_FORMAT(b.product_date,'%m') months, sum(d.breakdown_count) as breakdown_loss_total, sum(d.adjustment_count) as adjustment_loss_total"
+				+ " from edb_hourly_count_base b, edb_line l, edb_hourly_count_detail d"
+				+ " where b.product_line_id = l.id"
+				+ " and b.id = d.hourly_count_base_id"
+				+ " and l.line_name = :lineName"
+				+ " and b.product_date between :startDate and :endDate "
+				+ " group by months";
+		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("lineName", name).setParameter("startDate", startDate).setParameter("endDate", endDate).findList();
+		return rows;
+	}
+	
+	public static List<SqlRow> findMonthlyChangeoverLossData(String name, Date startDate, Date endDate)  {
+		String sql = "select DATE_FORMAT(b.product_date,'%m') months, sum(d.plan_setup_count) as plan_setup_loss_total, sum(d.unplan_setup_count) as unplan_setup_loss_total, sum(d.exchg_tool_count) as exchg_tool_loss_total"
+				+ " from edb_hourly_count_base b, edb_line l, edb_hourly_count_detail d"
+				+ " where b.product_line_id = l.id"
+				+ " and b.id = d.hourly_count_base_id"
+				+ " and l.line_name = :lineName"
+				+ " and b.product_date between :startDate and :endDate "
+				+ " group by months";
+		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("lineName", name).setParameter("startDate", startDate).setParameter("endDate", endDate).findList();
+		return rows;
+	}
+	
+	public static List<SqlRow> findMonthlyOrgnizationLossData(String name, Date startDate, Date endDate)  {
+		String sql = "select DATE_FORMAT(b.product_date,'%m') months, sum(d.lack_personnel_count) as lack_personnel_loss_total, sum(d.lack_material_count) as lack_material_loss_total,"
+				+ " sum(d.test_release_three_parts_count) as test_release_three_parts_loss_total, sum(d.exchg_material_count) as exchg_material_loss_total,"
+				+ " sum(d.unplan_tpm_count) as unplan_tpm_loss_total, sum(d.unplan_sample_count) as unplan_sample_loss_total,"
+				+ " sum(d.new_operator_count) as new_operator_loss_total, sum(d.others_count) as others_loss_total "
+				+ " from edb_hourly_count_base b, edb_line l, edb_hourly_count_detail d"
+				+ " where b.product_line_id = l.id"
+				+ " and b.id = d.hourly_count_base_id"
+				+ " and l.line_name = :lineName"
+				+ " and b.product_date between :startDate and :endDate "
+				+ " group by months";
+		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("lineName", name).setParameter("startDate", startDate).setParameter("endDate", endDate).findList();
+		return rows;
+	}
+	
+	public static List<SqlRow> findMonthlyPerformanceLossData(String name, Date startDate, Date endDate)  {
+		String sql = "select DATE_FORMAT(b.product_date,'%m') months, sum(d.performance_count) as performance_loss_total, sum(d.undefined_count) as undefined_loss_total"
+				+ " from edb_hourly_count_base b, edb_line l, edb_hourly_count_detail d"
+				+ " where b.product_line_id = l.id"
+				+ " and b.id = d.hourly_count_base_id"
+				+ " and l.line_name = :lineName"
+				+ " and b.product_date between :startDate and :endDate "
+				+ " group by months";
+		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("lineName", name).setParameter("startDate", startDate).setParameter("endDate", endDate).findList();
+		return rows;
+	}
+	
+	public static List<SqlRow> findMonthlyAllLossData(String name, Date startDate, Date endDate)  {
+		String sql = "select DATE_FORMAT(b.product_date,'%m') months, "
+				//QualityLoss
+				+ " sum(d.scrap_count) as scrap_loss_total, sum(d.rework_count) as rework_loss_total,"
+				//TechnicalLoss
+				+ " sum(d.breakdown_count) as breakdown_loss_total, sum(d.adjustment_count) as adjustment_loss_total,"
+				//ChangeoverLoss
+				+ " sum(d.plan_setup_count) as plan_setup_loss_total, sum(d.unplan_setup_count) as unplan_setup_loss_total, sum(d.exchg_tool_count) as exchg_tool_loss_total,"
+				//OrgnizationLoss
+				+ " sum(d.lack_personnel_count) as lack_personnel_loss_total, sum(d.lack_material_count) as lack_material_loss_total,"
+				+ " sum(d.test_release_three_parts_count) as test_release_three_parts_loss_total, sum(d.exchg_material_count) as exchg_material_loss_total,"
+				+ " sum(d.unplan_tpm_count) as unplan_tpm_loss_total, sum(d.unplan_sample_count) as unplan_sample_loss_total,"
+				+ " sum(d.new_operator_count) as new_operator_loss_total, sum(d.others_count) as others_loss_total, "
+				//PerformanceLoss
+				+ " sum(d.performance_count) as performance_loss_total, sum(d.undefined_count) as undefined_loss_total " 
+				+ " from edb_hourly_count_base b, edb_line l, edb_hourly_count_detail d"
+				+ " where b.product_line_id = l.id"
+				+ " and b.id = d.hourly_count_base_id"
+				+ " and l.line_name = :lineName"
+				+ " and b.product_date between :startDate and :endDate "
+				+ " group by months";
+		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("lineName", name).setParameter("startDate", startDate).setParameter("endDate", endDate).findList();
+		return rows;
+	}
 
 }
