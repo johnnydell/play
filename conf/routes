@@ -6,7 +6,8 @@
 GET     /                           					controllers.Application.index()
 
 # Application
-GET     /edashboard/common/getCurrDate                  controllers.Application.getCurrDate()
+GET     /edashboard/common/getCurrDate             		controllers.Application.getCurrDate()
+GET     /edashboard/common/getCurrTime             		controllers.Application.getCurrTime()
 GET     /edashboard/common/getSysParams          		controllers.Application.getSystemParameters()
 
 # City page
@@ -58,6 +59,9 @@ GET  /edashboard/report/oeeloss/monthlyChangeoverLossChart	controllers.report.Oe
 GET  /edashboard/report/oeeloss/monthlyQualityLossChart		controllers.report.OeeLossController.getMonthlyQualityLossData(lineName : String,  yearValue:String)
 GET  /edashboard/report/oeeloss/monthlyPerformanceLossChart	controllers.report.OeeLossController.getMonthlyPerformanceLossData(lineName : String,  yearValue:String)
 GET  /edashboard/report/oeeloss/monthlyAllLossChart			controllers.report.OeeLossController.getMonthlyAllLossData(lineName : String,  yearValue:String)	
+
+# Screen Display
+GET  /edashboard/scr/getProductInfo						controllers.screen.ScreenDisplayController.getProductInfo(lineName : String,  yearValue:String,  monthValue:String,  dayValue:String, hourValue:String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /edashboard/*file               				controllers.Assets.at(path="/public", file)

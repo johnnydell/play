@@ -1,28 +1,21 @@
 var scr = function(){
+	var lineName = manager.getPV("lineName");
+	var sys_date = manager.getSystemDate();
+	var sys_time = manager.getSystemTime();
+	var data = {};
 	function init(){
 		var data;
 		var ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
-			data: {root:manager.root},
+			data: {root:manager.root, lineName: lineName},
 			onrender: function(){
 				manager.loadProperties(this, "scr", "../");
 				manager.setMenuBar("scr");
 			},
 			oncomplete: function(){	
-				data = {
-						currType:'8888888888-2Y8',
-						currJP:'15',
-						currRS:'12',
-						planCC:'500',
-						actualCC:'501',
-						diff:'+1',
-						oee:'85%',
-						nextType:'6666666666-6SB',
-						nextJP:'15',
-						nextRS:'12'
-				}
 				
+				getProductInfo();
 				this.set("data",data);
 				
 			}
@@ -35,7 +28,39 @@ var scr = function(){
 			toHideEditor:function(e){
 				$(e.node).hide().prev().text($(e.node).val()).show();
 			}
-		})
+		}),
+		
+		setInterval(getProductInfo,5000);
+		
+		ractive.update();
+	}
+	
+	function getProductInfo(){
+		currYear 	= sys_date.split("-")[0];
+		currMonth 	= sys_date.split("-")[1];
+		currDay 	= sys_date.split("-")[2];
+		currHour 	= sys_time.split(":")[0];
+		
+		$.ajax({
+			url		: manager.root + '/scr/getProductInfo',
+			type	: 'GET',
+			dataType:"json",
+			data:{lineName:lineName,yearValue:currYear, monthValue:currMonth, dayValue:currDay, hourValue:currHour},
+			contentType: "application/json",
+			success: function(listdata)
+			{
+				
+				data.currType = listdata.currType;
+				data.currJP = listdata.currJP;
+				data.currRS = listdata.currRS;
+				data.planCC = listdata.planCC;
+				data.actualCC = listdata.actualCC;
+				data.oee = listdata.oee;
+				data.nextType = listdata.nextType;
+				data.nextJP = listdata.nextJP;
+				data.nextRS = listdata.nextRS;
+			}
+    	});
 	}
 	
 	return {

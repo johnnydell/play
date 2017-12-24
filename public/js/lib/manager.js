@@ -104,7 +104,7 @@ var manager = function() {
 	              location.href = root+"/views/board/opl.html";
 	          },
 	          toScreen:function(){
-	          	  location.href = root+"/views/scr.html";
+	          	  location.href = root+"/views/scr.html?lineName=FAG2";
 	          },
 	          toLogin:triggerLogin
 	        })
@@ -193,6 +193,19 @@ var manager = function() {
 		return date;
 	}
 	
+	function getSystemTime(){
+		var date;
+		$.ajax({
+			url: manager.root + "/common/getCurrTime",
+			type: "GET",
+			async:false,
+			success: function(data) {
+				date = data;
+			}
+		});
+		return date;
+	}
+	
 	//获取系统参数
 	function getSystemParameters(){
 		var sysParams;
@@ -239,6 +252,7 @@ var manager = function() {
 		getPV:getPV,
 		setMenuBar:setMenuBar,
 		getSystemDate:getSystemDate,
+		getSystemTime:getSystemTime,
 		getSystemParams:getSystemParameters,
 		setLanguage:function(language){
 			setCookie("language", language);

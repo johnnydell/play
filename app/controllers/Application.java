@@ -28,6 +28,11 @@ public class Application extends Controller {
     	 return ok(df.format(new Date()));
     }
     
+    public static Result getCurrTime() {   
+    	SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");//设置日期格式
+    	 return ok(df.format(new Date()));
+    }
+    
     /**
      * @return System Parameters
      */
