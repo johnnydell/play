@@ -15,6 +15,8 @@ var scr = function(){
 						if (!manager.isNull(num) ){
 							if (num > 0)
 								return "+" + num;
+							else
+								return num;
 							
 						}
 					},
@@ -41,7 +43,8 @@ var scr = function(){
 			toHideEditor:function(e){
 				$(e.node).hide().prev().text($(e.node).val()).show();
 			}
-		})
+		}),
+		setInterval(getProductInfo, (5000 * 60));
 		
 	}
 	
