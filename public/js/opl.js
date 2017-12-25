@@ -69,9 +69,15 @@ var opl = function(){
 			toHideColumnEditor:function(e){
 			    var type = e.node.type;
 				var txt;
+				var enable_txt_set = true;
 				var index = $(e.node).parent().parent().attr("lang");
 				if(type == 'select-one'){
 					txt = $(e.node).find("option:selected").text();
+					var colName = $(e.node).attr("colName");
+					if(colName != undefined && colName == 'status'){
+						opl[index]["status_img"] = $(e.node).find("option:selected").val().toLowerCase();
+						enable_txt_set = false;
+					}
 				} else if(type == 'textarea') {
 					txt = $(e.node).val();
 					var colName = $(e.node).attr("colName");
@@ -83,7 +89,11 @@ var opl = function(){
 				}
 				var old_txt = txt;
 				txt = txt.length>10?txt.substring(0,10)+"....":txt;
-				$(e.node).hide().prev().show().text(txt).attr("title",old_txt);
+				if(enable_txt_set){
+					$(e.node).hide().prev().show().text(txt).attr("title",old_txt);
+				} else {
+					$(e.node).hide().prev().show();
+				}
 				opl[index].updated = "1";
 				ractive.update("opl");
 			},
@@ -108,6 +118,7 @@ var opl = function(){
 						responsible:'',
 						deadline:condition.year+'-'+condition.month+'-01',
 						status:'N',
+						status_img:'n',
 						updated:'0'
 				};
 				opl.unshift(op);
@@ -244,6 +255,7 @@ var opl = function(){
 			},
 			test:function(){
 				console.log(opl[0]);
+				ractive.update("opl");
 			},
 			disableKeydown:function(){
 				return false;
@@ -456,6 +468,7 @@ var opl = function(){
 				det.responsible = n.owner;
 				det.deadline = n.deadline;
 				det.status = n.status;
+				det.status_img = n.status.toLowerCase(),
 				det.updated = "0";
 				opl.push(det);
 			})			

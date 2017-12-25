@@ -56,7 +56,7 @@
 	<div class="content">
 		<div class="content-box">
             <div class="toolbar">
-                <!--<button type="button" class="btn" on-click="test">测试</button>-->
+                <button type="button" class="btn" on-click="test">测试</button><!---->
 				<button type="button" class="btn" on-click="addOP">{{i18n_opl_add}}</button>
 				<button type="button" class="btn" on-click="saveOP">{{i18n_opl_save}}</button>
 				<button type="button" class="btn" on-click="deleteOP">{{i18n_opl_delete}}</button>
@@ -187,8 +187,8 @@
                        <input class="field deadline" style="display:none;" on-keydown="disableKeydown" maxlength="10" on-blur="toHideColumnEditor" type="text" value="{{deadline}}" on-click="stopPropagation"/>
                     </td>
 			        <td  on-click="toShowColumnEditor">
-                       <label class="field">{{status}}</label>
-					   <select class="field" style="display:none;" on-blur="toHideColumnEditor" value="{{status}}" on-click="stopPropagation">
+                       <label class="field"><img style="width:30px;height:30px;" src="{{root}}/images/pdca_{{status_img}}.png"></label>
+					   <select class="field" colName="status" style="display:none;" on-blur="toHideColumnEditor" value="{{status}}" on-click="stopPropagation">
 						 <option value="P">P</option>
 						 <option value="D">D</option>
 						 <option value="C">C</option>
