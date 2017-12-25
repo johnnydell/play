@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.avaje.ebean.SqlRow;
@@ -25,14 +26,22 @@ public class ScreenDisplayController extends Controller {
 		
 		if (null != rows){
 			if (rows.size() == 1){
-				//check if this item is current hour
+				//only have 1 record
 				if (rows.get(0).getInteger("product_hour").equals(hourValue)){
-					json.put("currType", rows.get(0).getString("product_name1") == null ? rows.get(0).getString("product_name2") : rows.get(0).getString("product_name1"));
-					int currJP = rows.get(0).getInteger("product_cycle_1") == 0 ? rows.get(0).getInteger("product_cycle_2") : rows.get(0).getInteger("product_cycle_1");
-					json.put("currJP", currJP);
-					json.put("currRS", rows.get(0).getInteger("product_persons_1") == null ? rows.get(0).getInteger("product_persons_2") : rows.get(0).getInteger("product_persons_1") );
+					//current hour
+					String currType = rows.get(0).getString("product_name1");
+					currType = StringUtils.isEmpty(currType) ? rows.get(0).getString("product_name2") : currType;
+					json.put("currType", currType);
+					String currJP = rows.get(0).getString("product_cycle_1");
+					currJP = (StringUtils.isEmpty(currJP) || "0".equals(currJP)) ? rows.get(0).getString("product_cycle_2") : currJP;
+					int currJPInt = (StringUtils.isEmpty(currJP) || "0".equals(currJP)) ? 0 : Integer.parseInt(currJP);
+					json.put("currJP", currJPInt);
+					String currRS = rows.get(0).getString("product_persons_1");
+					currRS = (StringUtils.isEmpty(currRS) || "0".equals(currRS)) ? rows.get(0).getString("product_persons_2") : currRS;
+					int currRSInt = (StringUtils.isEmpty(currRS) || "0".equals(currRS)) ? 0 : Integer.parseInt(currRS);
+					json.put("currRS", currRSInt );
 					int planCC = rows.get(0).getInteger("plan_count");
-					int expectedCC = Math.round(planCC * (float)(minValue / 60));
+					int expectedCC = Math.round( (float)(planCC / 60) * minValue );
 					json.put("planCC", planCC);
 					json.put("expectedCC", expectedCC);
 					int actualCC = rows.get(0).getInteger("product_hour_count");
@@ -44,6 +53,7 @@ public class ScreenDisplayController extends Controller {
 					json.put("nextRS", "");
 				}
 				else{
+					//next hour
 					json.put("currType", "");
 					json.put("currJP", "");
 					json.put("currRS", "" );
@@ -52,9 +62,20 @@ public class ScreenDisplayController extends Controller {
 					json.put("actualCC", "");
 					json.put("diff", "");
 					json.put("oee", "");
-					json.put("currType", rows.get(0).getString("product_name1") == null ? rows.get(0).getString("product_name2") : rows.get(0).getString("product_name1"));
-					json.put("nextJP", rows.get(0).getInteger("product_cycle_1") == 0 ? rows.get(0).getInteger("product_cycle_2") : rows.get(0).getInteger("product_cycle_1"));
-					json.put("nextRS", rows.get(0).getInteger("product_persons_1") == null ? rows.get(0).getInteger("product_persons_2") : rows.get(0).getInteger("product_persons_1"));
+					
+					String nextType = rows.get(0).getString("product_name1");
+					nextType = StringUtils.isEmpty(nextType) ? rows.get(0).getString("product_name2") : nextType;
+					json.put("nextType", nextType);
+					String nextJP = rows.get(0).getString("product_cycle_1");
+					nextJP = (StringUtils.isEmpty(nextJP) || "0".equals(nextJP)) ? rows.get(0).getString("product_cycle_2") : nextJP;
+					int nextJPInt = (StringUtils.isEmpty(nextJP) || "0".equals(nextJP)) ? 0 : Integer.parseInt(nextJP);
+					json.put("nextJP", nextJPInt);
+					String nextRS = rows.get(0).getString("product_persons_1");
+					nextRS = (StringUtils.isEmpty(nextRS) || "0".equals(nextRS)) ? rows.get(0).getString("product_persons_2") : nextRS;
+					int nextRSInt = (StringUtils.isEmpty(nextRS) || "0".equals(nextRS)) ? 0 : Integer.parseInt(nextRS);
+					json.put("nextRS", nextRSInt );
+					
+					
 				}
 				
 			}
@@ -69,24 +90,38 @@ public class ScreenDisplayController extends Controller {
 					nextRow = rows.get(0);
 					currentRow = rows.get(1);
 				}
-				
-				json.put("currType", currentRow.getString("product_name1") == null ? currentRow.getString("product_name2") : currentRow.getString("product_name1"));
-				json.put("currJP", currentRow.getInteger("product_cycle_1") == 0 ? currentRow.getInteger("product_cycle_2") : currentRow.getInteger("product_cycle_1"));
-				json.put("currRS", currentRow.getInteger("product_persons_1") == null ? currentRow.getInteger("product_persons_2") : currentRow.getInteger("product_persons_1") );
+				String currType = currentRow.getString("product_name1");
+				currType = StringUtils.isEmpty(currType) ? currentRow.getString("product_name2") : currType;
+				json.put("currType", currType);
+				String currJP = currentRow.getString("product_cycle_1");
+				currJP = (StringUtils.isEmpty(currJP) || "0".equals(currJP)) ? currentRow.getString("product_cycle_2") : currJP;
+				int currJPInt = (StringUtils.isEmpty(currJP) || "0".equals(currJP)) ? 0 : Integer.parseInt(currJP);
+				json.put("currJP", currJPInt);
+				String currRS = currentRow.getString("product_persons_1");
+				currRS = (StringUtils.isEmpty(currRS) || "0".equals(currRS)) ? currentRow.getString("product_persons_2") : currRS;
+				int currRSInt = (StringUtils.isEmpty(currRS) || "0".equals(currRS)) ? 0 : Integer.parseInt(currRS);
+				json.put("currRS", currRSInt );
 				int planCC = currentRow.getInteger("plan_count");
-				int expectedCC = Math.round(planCC * (float)(minValue / 60));
+				int expectedCC = Math.round( (float)(planCC / 60) * minValue );
 				json.put("planCC", planCC);
 				json.put("expectedCC", expectedCC);
 				int actualCC = currentRow.getInteger("product_hour_count");
 				json.put("actualCC", actualCC);
 				json.put("diff", (actualCC - planCC));
 				json.put("oee", currentRow.getFloat("target_oee_percent"));
-				logger.info("nextRow.getString('product_name1')="  + nextRow.getString("product_name1"));
-				logger.info("nextRow.getString('product_name2')="  + nextRow.getString("product_name2"));
-				logger.info("nextRow.getInteger('product_cycle_1')="  + nextRow.getInteger("product_cycle_1"));
-				json.put("currType", nextRow.getString("product_name1") == null ? nextRow.getString("product_name2") : nextRow.getString("product_name1"));
-				json.put("nextJP", nextRow.getInteger("product_cycle_1") == 0 ? nextRow.getInteger("product_cycle_2") : nextRow.getInteger("product_cycle_1"));
-				json.put("nextRS", nextRow.getInteger("product_persons_1") == null ? nextRow.getInteger("product_persons_2") : nextRow.getInteger("product_persons_1"));
+				
+				String nextType = nextRow.getString("product_name1");
+				nextType = StringUtils.isEmpty(nextType) ? nextRow.getString("product_name2") : nextType;
+				json.put("nextType", nextType);
+				String nextJP = nextRow.getString("product_cycle_1");
+				nextJP = (StringUtils.isEmpty(nextJP) || "0".equals(nextJP)) ? nextRow.getString("product_cycle_2") : nextJP;
+				int nextJPInt = (StringUtils.isEmpty(nextJP) || "0".equals(nextJP)) ? 0 : Integer.parseInt(nextJP);
+				json.put("nextJP", nextJPInt);
+				String nextRS = nextRow.getString("product_persons_1");
+				nextRS = (StringUtils.isEmpty(nextRS) || "0".equals(nextRS)) ? nextRow.getString("product_persons_2") : nextRS;
+				int nextRSInt = (StringUtils.isEmpty(nextRS) || "0".equals(nextRS)) ? 0 : Integer.parseInt(nextRS);
+				json.put("nextRS", nextRSInt );
+				
 			}
 			else{
 				json.put("currType", "");

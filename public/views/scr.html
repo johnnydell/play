@@ -43,45 +43,45 @@
 	<div class="content">
 		<div class="content-box">
             <div class="toolbar">
-               	<h4>产线实时展示屏 - {{lineName}}</h4>
+               	<h4>{{i18n_scr_title}} - {{lineName}}</h4>
             </div>
             <div class="ctx">
                 <div class="curr">
                    <div class="info">
                   	 <ul>
 	                    <li	class="f50">
-	                        <h1>当前生产型号</h1>
+	                        <h1>{{i18n_current_prod_name}}</h1>
 	                        <a  href="javascript:void(0);">{{displayData.currType}}</a>
                             
 	                    </li>
 	                    <li class="f25">
-	                        <h1>目标节拍[S]</h1>
+	                        <h1>{{i18n_current_prod_cycle}}[S]</h1>
 	                        <a  href="javascript:void(0);">{{displayData.currJP}}</a>
                             
 	                    </li>
 	                    <li class="f25">
-	                    	<h1>人数</h1>
+	                    	<h1>{{i18n_current_prod_person}}</h1>
 	                        <a  href="javascript:void(0);">{{displayData.currRS}}</a>
                            
 	                    </li>
 	                  </ul>
 	                  <ul>
 	                    <li	class="f20">
-	                        <h1>计划产出</h1>
+	                        <h1{{i18n_current_prod_plan_output}}</h1>
 	                        <a  href="javascript:void(0);">{{displayData.planCC}}</a>
                             
 	                    </li>
 						<li	class="f20">
-	                        <h1>当前计划产出</h1>
-	                       
+	                        <h1>{{i18n_current_prod_plan_expect_output}}</h1>
+	                       <a  href="javascript:void(0);">{{displayData.expectedCC}}</a>
 	                    </li>
 	                    <li	class="f20">
-	                        <h1>实际产出</h1>
+	                        <h1>{{i18n_current_prod_plan_actual_output}}</h1>
 	                        <a  href="javascript:void(0);">{{displayData.actualCC}}</a>
                             
 	                    </li>
 	                    <li class="f20">
-	                        <h1>偏差</h1>
+	                        <h1>{{i18n_current_prod_diff}}</h1>
 							{{#if data.diff > 0}}
 	                        	<a  style="color:green" href="javascript:void(0);">{{format(displayData.diff)}}</a>
                             {{else}}
@@ -89,7 +89,7 @@
 							{{/if}}
 	                    </li>
 	                    <li class="f20">
-	                    	<h1>目标OEE</h1>
+	                    	<h1>{{i18n_current_prod_target_oee}}</h1>
 	                        <a  style="color:green" href="javascript:void(0);">{{percentage(displayData.oee)}}</a>
                             
 	                    </li>
@@ -105,17 +105,17 @@
                    <div class="info">
                       <ul>
                         <li	class="f50">
-                            <h1>下一生产型号</h1>
+                            <h1>{{i18n_next_prod_name}}</h1>
                             <a on-click="toShowEditor" href="javascript:void(0);">{{displayData.nextType}}</a>
                             
                         </li>
                         <li class="f25">
-                            <h1>目标节拍[S]</h1>
+                            <h1>{{i18n_current_prod_cycle}}[S]</h1>
                             <a on-click="toShowEditor" href="javascript:void(0);">{{displayData.nextJP}}</a>
                             
                         </li>
                         <li class="f25">
-                        	<h1>人数</h1>
+                        	<h1>{{i18n_current_prod_person}}</h1>
                             <a on-click="toShowEditor" href="javascript:void(0);">{{displayData.nextRS}}</a>
                             
                         </li>
