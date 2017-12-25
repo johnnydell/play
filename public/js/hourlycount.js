@@ -28,6 +28,9 @@ var hourlycount = function(){
 				percentage		: function(num){
 					return ( num *100 ).toFixed( 1 ) + ' %';
 				},
+				pointone		: function(num){
+					return ( num *1 ).toFixed( 1 ) ;
+				},
 				
 			},
 			
@@ -647,7 +650,7 @@ var hourlycount = function(){
 					}
 					
 				}
-				hourlycounts_base.planOutputCount = ( parseInt(planTotalCount) * 100 ) / hourlycounts_base.targetOee;
+				hourlycounts_base.planOutputCount = Math.round(( parseInt(planTotalCount) * 100 ) / hourlycounts_base.targetOee);
 				hourlycounts_base.actualOutputCount = actualTotalCount;
 				if (planTotalCount !== 0){
 					hourlycounts_base.actualOee = actualTotalCount / planTotalCount;
