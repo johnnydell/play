@@ -569,7 +569,7 @@ var hourlycount = function(){
 					hourlycounts_base.teamLeaderSign3 	= listdata[0].hourlyCountBase.teamLeaderSign3;
 					hourlycounts_base.groupLeaderSign 	= listdata[0].hourlyCountBase.groupLeaderSign;
 					hourlycounts_base.planOplTotalOutput = listdata[0].hourlyCountBase.planOplTotalOutput;
-					hourlycounts_base.targetOee			= listdata[0].hourlyCountBase.targetOeePercent;
+					hourlycounts_base.targetOeePercent	= listdata[0].hourlyCountBase.targetOeePercent;
 				}
 				var planTotalCount = 0;
 				var actualTotalCount = 0;

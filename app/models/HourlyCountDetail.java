@@ -189,12 +189,37 @@ public class HourlyCountDetail extends Model {
 	public static Finder<String, HourlyCountDetail> find = new Finder<String, HourlyCountDetail>(String.class, HourlyCountDetail.class);
 
 	public static List<HourlyCountDetail> findByLineName(String lineName, Date productDate) {
-		
-		return find.where().ilike("hourlyCountBase.productLine.lineName", "%" + lineName + "%").eq("hourlyCountBase.productDate", productDate).orderBy("productHourIndex").fetch("hourlyCountBase").fetch("productType1").fetch("productType2").findList();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(productDate);
+		calendar.add(Calendar.DAY_OF_MONTH, 1);
+		Date secondDay = calendar.getTime();
+		List<HourlyCountDetail> list_1 = find.where()
+				.ilike("hourlyCountBase.productLine.lineName", "%" + lineName + "%")
+				.eq("hourlyCountBase.productDate", productDate)
+				.le("productHourIndex", 16)
+				.orderBy("productHourIndex")
+				.fetch("hourlyCountBase")
+				.fetch("productType1")
+				.fetch("productType2").findList();
+		List<HourlyCountDetail> list_2 = find.where()
+				.ilike("hourlyCountBase.productLine.lineName", "%" + lineName + "%")
+				.eq("hourlyCountBase.productDate", secondDay)
+				.ge("productHourIndex", 17)
+				.le("productHourIndex", 24)
+				.orderBy("productHourIndex")
+				.fetch("hourlyCountBase")
+				.fetch("productType1")
+				.fetch("productType2").findList();
+		list_1.addAll(list_2);
+		return list_1;
 	}
 	
 	public static List<HourlyCountDetail> findByBaseId(String baseId){
 		return find.where().eq("hourlyCountBase.id", baseId).findList();
+	}
+	
+	public static List<HourlyCountDetail> findByBaseIdAndFilterHour(String baseId, int startHour, int endHour){
+		return find.where().eq("hourlyCountBase.id", baseId).ge("productHourIndex", startHour).le("productHourIndex", endHour).findList();
 	}
 
 	public static void save(HourlyCountDetail hourlyCountDetail) {

@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -52,15 +53,28 @@ public class HourlyCountController extends Controller {
 		logger.info("lineName = " + lineName + ",dateStr = " + dateStr);
 		JsonNode baseInfoNode = data.path("baseInfo");
 		logger.info("" + baseInfoNode.get("teamLeaderSign1").asText() + "," + baseInfoNode.get("teamLeaderSign2").asText() + "," + baseInfoNode.get("teamLeaderSign3").asText());
+		//current day
 		Date productDate = df.parse(dateStr);
+		//next day
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(productDate);
+		calendar.add(Calendar.DAY_OF_MONTH, 1);
+		Date nextDay = calendar.getTime();
+		
 		//get hourly base info
-		HourlyCountBase base = HourlyCountBase.findByLineNameAndDate(lineName, productDate);
-		boolean isExistBase = true;
+		HourlyCountBase base_1 = HourlyCountBase.findByLineNameAndDate(lineName, productDate);
+		HourlyCountBase base_2 = HourlyCountBase.findByLineNameAndDate(lineName, nextDay);
+		boolean isExistBase_1 = true;
+		boolean isExistBase_2 = true;
 		
 		//create new hourly base info if it's totally new record
-		if (null == base){
-			base = new HourlyCountBase();
-			isExistBase = false;
+		if (null == base_1){
+			base_1 = new HourlyCountBase();
+			isExistBase_1 = false;
+		}
+		if (null == base_2){
+			base_2 = new HourlyCountBase();
+			isExistBase_2 = false;
 		}
 		
 		//check if product line existed
@@ -72,26 +86,44 @@ public class HourlyCountController extends Controller {
 			ProductLine.save(line);
 		}
 		//set each properties
-		base.groupLeaderSign = baseInfoNode.get("groupLeaderSign").asText();
-		base.productDate = productDate;
-		base.productLine = line;
-		base.teamLeaderSign1 = baseInfoNode.get("teamLeaderSign1").asText();
-		base.teamLeaderSign2 = baseInfoNode.get("teamLeaderSign2").asText();
-		base.teamLeaderSign3 = baseInfoNode.get("teamLeaderSign3").asText();
-		base.planOplTotalOutput = baseInfoNode.get("planOplTotalOutput").asInt();
-		base.targetOeeTotalOutput = baseInfoNode.get("planOutputCount").asInt();
-		base.actualOeeTotalOutput = baseInfoNode.get("actualOutputCount").asInt();
+		base_1.groupLeaderSign = baseInfoNode.get("groupLeaderSign").asText();
+		base_1.productDate = productDate;
+		base_1.productLine = line;
+		base_1.teamLeaderSign1 = baseInfoNode.get("teamLeaderSign1").asText();
+		base_1.teamLeaderSign2 = baseInfoNode.get("teamLeaderSign2").asText();
+		base_1.teamLeaderSign3 = baseInfoNode.get("teamLeaderSign3").asText();
+		base_1.targetOeePercent = baseInfoNode.get("targetOeePercent").asDouble();
+		base_1.planOplTotalOutput = baseInfoNode.get("planOplTotalOutput").asInt();
+		base_1.targetOeeTotalOutput = baseInfoNode.get("planOutputCount").asInt();
+		base_1.actualOeeTotalOutput = baseInfoNode.get("actualOutputCount").asInt();
+		
+		base_2.groupLeaderSign = baseInfoNode.get("groupLeaderSign").asText();
+		base_2.productDate = nextDay;
+		base_2.productLine = line;
+		base_2.teamLeaderSign1 = baseInfoNode.get("teamLeaderSign1").asText();
+		base_2.teamLeaderSign2 = baseInfoNode.get("teamLeaderSign2").asText();
+		base_2.teamLeaderSign3 = baseInfoNode.get("teamLeaderSign3").asText();
+		base_2.targetOeePercent = baseInfoNode.get("targetOeePercent").asDouble();
+		base_2.planOplTotalOutput = baseInfoNode.get("planOplTotalOutput").asInt();
+		base_2.targetOeeTotalOutput = baseInfoNode.get("planOutputCount").asInt();
+		base_2.actualOeeTotalOutput = baseInfoNode.get("actualOutputCount").asInt();
 		//save to DB
-		if(!isExistBase)
-			HourlyCountBase.save(base);
+		if(!isExistBase_1)
+			HourlyCountBase.save(base_1);
 		else
-			HourlyCountBase.update(base);
+			HourlyCountBase.update(base_1);
+		
+		if(!isExistBase_2)
+			HourlyCountBase.save(base_2);
+		else
+			HourlyCountBase.update(base_2);
 		
 		//start to parse detail info
 		JsonNode detailInfoNode = data.path("dataGroup");
 		
 		//get hourly detail info by base id
-		List<HourlyCountDetail> details = HourlyCountDetail.findByBaseId(base.id);
+		List<HourlyCountDetail> details_1 = HourlyCountDetail.findByBaseIdAndFilterHour(base_1.id, 1, 16);
+		List<HourlyCountDetail> details_2 = HourlyCountDetail.findByBaseIdAndFilterHour(base_2.id, 17, 24);
 		
 		//define a new list to store to-be-saved items
 		List<HourlyCountDetail> toBeSavedDetails = new ArrayList<>();
@@ -104,10 +136,15 @@ public class HourlyCountController extends Controller {
 			nodeCount = detailInfoNode.size();
 		}
 		logger.info("detailInfoNode: " + detailInfoNode );
-		boolean isExisted = false;
-		if (null != details && !details.isEmpty()){
+		boolean isExisted_1 = false;
+		boolean isExisted_2 = false;
+		if (null != details_1 && !details_1.isEmpty()){
 			//already created details before, this time only need update each item
-			isExisted = true;
+			isExisted_1 = true;
+		}
+		if (null != details_2 && !details_2.isEmpty()){
+			//already created details before, this time only need update each item
+			isExisted_2 = true;
 		}
 
 		for (int i = 0; i < nodeCount; i++){
@@ -135,7 +172,10 @@ public class HourlyCountController extends Controller {
 			}
 			
 			//set properties
-			detailObj.hourlyCountBase 			= base;
+			if (i > 15)
+				detailObj.hourlyCountBase 			= base_2;
+			else
+				detailObj.hourlyCountBase 			= base_1;
 			detailObj.productType1 				= productType1;
 			detailObj.productCycle1 			= detailInfoNode.get(i).get("productCycle1").asInt();
 			detailObj.productType2 				= productType2;
@@ -185,12 +225,22 @@ public class HourlyCountController extends Controller {
 			detailObj.techDownCode				= detailInfoNode.get(i).get("techDownCode").asText();
 			
 			//prepare save list
-			if (!isExisted)
-				toBeSavedDetails.add(detailObj);
-			else{
-				detailObj.id = details.get(i).id;
-				toBeUpdatedDetails.add(detailObj);
+			if (i < 16){//first day
+				if (!isExisted_1)
+					toBeSavedDetails.add(detailObj);
+				else{
+					detailObj.id = details_1.get(i).id;
+					toBeUpdatedDetails.add(detailObj);
+				}
+			}else if (i > 15){//second day
+				if (!isExisted_2)
+					toBeSavedDetails.add(detailObj);
+				else{
+					detailObj.id = details_2.get(i - 16).id;
+					toBeUpdatedDetails.add(detailObj);
+				}
 			}
+			
 		}
 		if (toBeSavedDetails.size() > 0){
 			HourlyCountDetail.saveList(toBeSavedDetails);

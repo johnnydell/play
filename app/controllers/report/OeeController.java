@@ -38,7 +38,7 @@ public class OeeController extends Controller {
 		Date endDate = df.parse(yearValue + "-" + monthValue + "-" + dayCount);
 		List<HourlyCountBase> rows = HourlyCountBase.findDailyOeeData(lineName, startDate, endDate);
 		List<Integer> dayList = new ArrayList<Integer>();
-		List<Float> targetCountList = new ArrayList<Float>();
+		List<Double> targetCountList = new ArrayList<Double>();
 		List<Float> actualCountList = new ArrayList<Float>();
 		int totalDays = Integer.parseInt(dayCount);
 		for (int i = 1; i < (totalDays + 1); i ++){
@@ -60,7 +60,7 @@ public class OeeController extends Controller {
 			//totally no data for this day
 			if (!isFound){
 				actualCountList.add(0.0f);
-				targetCountList.add(85.0f);
+				targetCountList.add(85.0d);
 			}
 		}
 		JSONObject json = new JSONObject();
