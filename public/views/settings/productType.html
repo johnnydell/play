@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Settings-Product Type</title>
+		<link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/login.css"/>
+		<link rel="stylesheet" type="text/css" href="../../js/lib/alerts/jquery.alerts.css"/>	
+		<link rel="stylesheet" type="text/css" href="../../css/productType.css"/>
+	</head>
+	<body>
+		<div class="box">
+		    <!-- left menu -->
+			<div class="left fl"></div>
+			<div class="right">
+				<!-- right header -->
+				<header></header>
+				<div class="container">
+				    <!-- main template -->				    
+				</div>
+				<!-- right footer -->
+				<footer></footer>		
+			</div>
+		</div>
+	</body>
+	<script src="../../js/lib/jquery-1.10.1.min.js"></script>
+	<script src="../../js/lib/jquery.cookie.js"></script>
+	<script src="../../js/lib/jquery.blockui.js"></script>
+	<script src="../../js/lib/alerts/jquery.alerts.js"></script>
+	<script src="../../js/lib/ractive-legacy.js"></script>
+	<script src="../../js/lib/jquery.i18n.properties-1.0.9.js"></script>
+	<script src="../../js/lib/manager.js"></script>
+	<script src="../../js/productType.js"></script>
+	<script id="main-template" type="text/active">
+	<div class="position _clear title">
+		<h3>{{i18n_productType_title}}</h3>
+		<div class="fr">
+			<p>
+				<i class="icon icon-home"></i>
+				<a href="{{root}}/views/settings.html">{{i18n_productType_nav1}}</a>
+				<font color="#ccc">></font>
+				<span>{{i18n_productType_title}}</span>
+			</p>
+		</div>
+	</div>
+	<div class="content">
+		<div class="content-box">
+            <div class="toolbar">
+                <button type="button" class="btn" on-click="test">测试</button><!---->
+				<button type="button" class="btn" on-click="addType">{{i18n_productType_add}}</button>
+				<button type="button" class="btn" on-click="saveType">{{i18n_productType_save}}</button>
+				<button type="button" class="btn" on-click="deleteType">{{i18n_productType_delete}}</button>
+            </div>
+			<div class="header">
+				<table>
+			    <tr>
+					<th class="title" colspan="6">{{i18n_productType_list}}</th>
+				</tr>
+				<tr>
+					<th colspan="6">&nbsp;</th>
+				</tr>
+			    <tr>
+				    <th width="2%"><input type="checkbox" on-click="checkAll"/><font>&nbsp;</font></th>
+			        <th width="38%">{{i18n_productType_name}}</th>
+			        <th width="15%">{{i18n_productType_cycle_time}}</th>
+			        <th width="15%">{{i18n_productType_persons}}</th>
+			        <th width="15%">{{i18n_productType_plan_output}}</th>
+					<th width="15%">{{i18n_productType_target_output}}</th>
+			    </tr>
+ 				{{#each types:index}}
+			    <tr class="typetr" lang="{{index}}">
+				    <td>
+				    	<input type="checkbox" checked="{{checked}}" />
+				    	{{#if id == '0' || updated == '1'}}
+				        <font color="red">*</font>
+				        {{else}}
+				        <font>&nbsp;</font>
+				        {{/if}}
+				    </td>
+			        <td>
+                        <label on-click="toShowColumnEditor" class="field">{{name}}</label>
+                        <input class="field" style="display:none;" maxlength="10" on-blur="toHideColumnEditor" type="text" value="{{name}}"/>
+                    </td>
+			        <td>
+                       <label class="field" on-click="toShowColumnEditor">{{cycle_time}}</label>
+                       <input class="field" type="text" style="display:none;" maxlength="11" on-blur="toHideColumnEditor" value="{{cycle_time}}"/>
+                    </td>
+			        <td>
+                       <label class="field" on-click="toShowColumnEditor">{{persons}}</label>
+                       <input class="field" type="text" style="display:none;" maxlength="11" on-blur="toHideColumnEditor" value="{{persons}}"/>
+                    </td>
+ 					<td>
+                       <label class="field" on-click="toShowColumnEditor">{{plan_output}}</label>
+                       <input class="field" type="text" style="display:none;" maxlength="11" on-blur="toHideColumnEditor" value="{{plan_output}}"/>
+                    </td>
+					<td>
+                       <label class="field" on-click="toShowColumnEditor">{{target_output}}</label>
+                       <input class="field" type="text" style="display:none;" maxlength="11" on-blur="toHideColumnEditor" value="{{target_output}}"/>
+                    </td>
+			    </tr>
+				{{/each}}
+			</table>
+			</div>
+			<div class="footer">
+				<div class="lf">
+					<p class="title">Starter Motors and Generators</p>
+					<p>SG/BPS-CN | 2017. 11. 17 | V2.0</p>
+				</div>
+				<div class="rt">
+				   <img src="{{root}}/images/logo2.png" class="fr">
+				</div>
+			</div>			
+		</div>
+	</div>
+    </script>
+</html>

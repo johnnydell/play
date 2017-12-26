@@ -27,6 +27,11 @@ POST /edashboard/func/saveFunc               			controllers.settings.FuncControl
 GET  /edashboard/role/getList               			controllers.settings.RoleController.getList()
 POST /edashboard/role/saveRole               			controllers.settings.RoleController.saveRole()
 
+#Setting Product Type
+GET  /edashboard/productType/getList               		controllers.settings.ProductTypeController.getList()
+POST  /edashboard/productType/saveType               	controllers.settings.ProductTypeController.saveType()
+POST  /edashboard/productType/deleteType               controllers.settings.ProductTypeController.deleteType()
+
 #OPL
 POST /edashboard/opl/addPSS 		            		controllers.OPLController.addPSS()
 GET  /edashboard/opl/getOPLByParamPagination            controllers.OPLController.getOPLByParamPagination(line_id:String,year:String,month:String,page:String,pageSize:String)

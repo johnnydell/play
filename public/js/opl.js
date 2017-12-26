@@ -3,7 +3,6 @@ var opl = function(){
 	var months = manager.months;
 	var condition = {};
 	var opl = [];
-	var deletedOPL =[];
 	var sys_date = manager.getSystemDate();
 	function init(){
 		var ractive = new Ractive({
@@ -424,7 +423,6 @@ var opl = function(){
 			async:false,
 			dataType:"json",
 			data:{line_id:condition.line_id,year:condition.year,month:condition.month,page:condition.page,pageSize:condition.pageSize},
-			async:false,
 			contentType: "application/json",
 			success: function(data) {
 				ret = data;
@@ -468,7 +466,7 @@ var opl = function(){
 				det.responsible = n.owner;
 				det.deadline = n.deadline;
 				det.status = n.status;
-				det.status_img = n.status.toLowerCase(),
+				det.status_img = n.status.toLowerCase();
 				det.updated = "0";
 				opl.push(det);
 			})			

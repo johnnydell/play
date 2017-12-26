@@ -20,6 +20,9 @@ var settings = function(){
 			},
 			toUpload:function(){
 				location.href=manager.root+"/views/settings/uploader.html";
+			},
+			toProductType:function(){
+				location.href=manager.root+"/views/settings/productType.html";
 			}
 		})
 	}
