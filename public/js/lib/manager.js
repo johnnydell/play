@@ -193,6 +193,20 @@ var manager = function() {
 		return date;
 	}
 	
+	//获取服务器明天的日期
+	function getDateByOffset(offset){
+		var date;
+		$.ajax({
+			url: manager.root + "/common/getDateByOffset/"+offset,
+			type: "GET",
+			async:false,
+			success: function(data) {
+				date = data;
+			}
+		});
+		return date;
+	}
+	
 	function getSystemTime(){
 		var date;
 		$.ajax({
@@ -258,6 +272,7 @@ var manager = function() {
 		getSystemDate:getSystemDate,
 		getSystemTime:getSystemTime,
 		getSystemParams:getSystemParameters,
+		getDateByOffset:getDateByOffset,
 		isNull:isNull,
 		setLanguage:function(language){
 			setCookie("language", language);

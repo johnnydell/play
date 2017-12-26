@@ -23,6 +23,9 @@ var settings = function(){
 			},
 			toProductType:function(){
 				location.href=manager.root+"/views/settings/productType.html";
+			},
+			toHCConfig:function(){
+				location.href=manager.root+"/views/settings/hcConfig.html";
 			}
 		})
 	}

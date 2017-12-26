@@ -7,6 +7,7 @@ GET     /                           					controllers.Application.index()
 
 # Application
 GET     /edashboard/common/getCurrDate             		controllers.Application.getCurrDate()
+GET     /edashboard/common/getDateByOffset/:offset      controllers.Application.getDateByOffset(offset:String)
 GET     /edashboard/common/getCurrTime             		controllers.Application.getCurrTime()
 GET     /edashboard/common/getSysParams          		controllers.Application.getSystemParameters()
 
@@ -19,6 +20,9 @@ GET     /edashboard/city/addCity2   					controllers.CityController.addCity2(id:
 POST     /edashboard/city/addCity3   					controllers.CityController.addCity3()
 POST     /edashboard/city/addCity4   					controllers.CityController.addCity4()
 
+#Setting Product Line
+GET  /edashboard/line/getActiveList               		controllers.settings.ProductLineController.getActiveList()
+
 #Setting Func
 GET  /edashboard/func/getList               			controllers.settings.FuncController.getList()
 POST /edashboard/func/saveFunc               			controllers.settings.FuncController.saveFunc()
@@ -30,7 +34,11 @@ POST /edashboard/role/saveRole               			controllers.settings.RoleControl
 #Setting Product Type
 GET  /edashboard/productType/getList               		controllers.settings.ProductTypeController.getList()
 POST  /edashboard/productType/saveType               	controllers.settings.ProductTypeController.saveType()
-POST  /edashboard/productType/deleteType               controllers.settings.ProductTypeController.deleteType()
+POST  /edashboard/productType/deleteType                controllers.settings.ProductTypeController.deleteType()
+
+#Setting HC Config
+GET  /edashboard/hcConfig/getHCInfo              		controllers.settings.HCConfigController.getHCInfo(line_id:String,curr_date:String)
+
 
 #OPL
 POST /edashboard/opl/addPSS 		            		controllers.OPLController.addPSS()

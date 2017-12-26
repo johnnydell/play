@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Settings-HC Configuration</title>
+<link rel="stylesheet" type="text/css" href="../../css/reset.css" />
+<link rel="stylesheet" type="text/css" href="../../css/common.css" />
+<link rel="stylesheet" type="text/css" href="../../css/login.css" />
+<link rel="stylesheet" type="text/css"
+	href="../../js/lib/alerts/jquery.alerts.css" />
+<link rel="stylesheet" type="text/css"
+	href="../../js/lib/datetimepicker/jquery.datetimepicker.css" />
+<link rel="stylesheet" type="text/css" href="../../css/hcConfig.css" />
+</head>
+<body>
+	<div class="box">
+		<!-- left menu -->
+		<div class="left fl"></div>
+		<div class="right">
+			<!-- right header -->
+			<header></header>
+			<div class="container">
+				<!-- main template -->
+			</div>
+			<!-- right footer -->
+			<footer></footer>
+		</div>
+	</div>
+</body>
+<script src="../../js/lib/jquery-1.10.1.min.js"></script>
+<script src="../../js/lib/jquery.cookie.js"></script>
+<script src="../../js/lib/jquery.blockui.js"></script>
+<script src="../../js/lib/alerts/jquery.alerts.js"></script>
+<script src="../../js/lib/ractive-legacy.js"></script>
+<script src="../../js/lib/jquery.i18n.properties-1.0.9.js"></script>
+<script src="../../js/lib/datetimepicker/jquery.datetimepicker.full.js"></script>
+<script src="../../js/lib/manager.js"></script>
+<script src="../../js/hcConfig.js"></script>
+<script id="main-template" type="text/active">
+	<div class="position _clear title">
+		<h3>{{i18n_hcConfig_title}}</h3>
+		<div class="fr">
+			<p>
+				<i class="icon icon-home"></i>
+				<a href="{{root}}/views/settings.html">{{i18n_hcConfig_nav1}}</a>
+				<font color="#ccc">></font>
+				<span>{{i18n_hcConfig_title}}</span>
+			</p>
+		</div>
+	</div>
+	<div class="content">
+		<div class="content-box">
+            <div class="toolbar">
+                <button type="button" class="btn" on-click="test">测试</button><!---->
+				<button type="button" class="btn" on-click="addType">{{i18n_hcConfig_add}}</button>
+				<button type="button" class="btn" on-click="saveType">{{i18n_hcConfig_save}}</button>
+				<button type="button" class="btn" on-click="deleteType">{{i18n_hcConfig_delete}}</button>
+            </div>
+			<div class="header">
+				<table>
+			    <tr>
+					<th class="title" colspan="4">{{i18n_hcConfig_list}}</th>
+					<th style="font-size: 20px;font-weight: bold;text-align:right;">{{i18n_hcConfig_line}}：</th>
+					<th style="background-color:white;color: #000;border: 1px solid #000;">
+						<label on-click="toShowLineSelect">{{base1.line_name}}</label>                    
+						<select style="display:none;" on-blur="toHideLineSelect" value="{{base1.line_id}}">
+	 						{{#each lines}}
+							 <option value="{{id}}">{{lineName}}</option>
+					        {{/each}}
+		             	</select>
+                    </th>
+					<th style="font-size: 20px;font-weight: bold;text-align:right;">{{i18n_hcConfig_date}}：</th>
+					<th style="background-color:white;color: #000;border: 1px solid #000;">
+						<label on-click="toShowDateText">{{base1.date}}</label>                      
+                        <input class="date" on-keydown="disableKeydown" style="display:none;" type="text" on-blur="toHideDateText" value="{{base1.date}}" />
+                    </th>
+					<th></th>
+				</tr>
+				<tr>
+					<th colspan="4"></th>
+					<th style="font-size: 20px;font-weight: bold;text-align:right;">目标OEE百分比（%）：</th>
+					<th style="background-color:white;color: #000;border: 1px solid #000;">
+ 						<label on-click="toShowOEEPerctgText">{{base1.target_oee_percent}}</label>                      
+                        <input type="text" style="display:none;" maxlength="5" on-blur="toHideOEEPerctgText" value="{{base1.target_oee_percent}}" />
+                    </th>
+				    <th style="font-size: 20px;font-weight: bold;text-align:right;">计划（CLP）总产出：</th>
+					<th style="background-color:white;color: #000;border: 1px solid #000;">
+						<label on-click="toShowPlanCPLTOTText">{{base1.plan_opl_total_output}}</label>                      
+                        <input type="text" style="display:none;" maxlength="10" on-blur="toHidePlanCPLTOTText" value="{{base1.plan_opl_total_output}}" />
+                    </th>
+					<th colspan="1"></th>
+				</tr>
+			    <tr>
+			        <th>时间</th>
+			        <th colspan="6">产品</th>
+					<th colspan="2">计划产出(基于100%OEE)</th>
+			    </tr>
+ 				<tr>
+                    <th width="10%">从..到.</th>
+			        <th width="15%">型号1<font color="red">*</font></th>
+			        <th width="10%">节拍时间1 (秒)</th>
+			        <th width="8%">人数1</th>
+			        <th width="15%">型号2<font color="red">*</font></th>
+			        <th width="10%">节拍时间2 (秒)</th>
+			        <th width="12%">人数2</th>
+					<th width="10%">计划产出</th>
+			        <th width="10%">累计产出</th>
+			    </tr>
+ 				{{#each base1.details:index}}
+			    <tr class="hctr" lang="base1_{{index}}">
+			        <td>
+						<label class="field">{{prefix}} - {{product_hour}}</label>
+                    </td>
+					<td>
+                       <label class="field" on-click="toShowColumnEditor">{{product_type_name_1}}</label>
+                       <select colName="type1" class="field" style="display:none;" on-blur="toHideColumnEditor" value="{{product_type_id_1}}">
+							<option value=""></option>
+	 						{{#each types}}
+							 <option value="{{id}}">{{productTypeName}}</option>
+					        {{/each}}
+		             	</select>
+                    </td>
+			        <td>
+                       <label class="field">{{product_cycle_1}}</label>
+                    </td>
+ 					<td>
+                       <label class="field">{{product_persons_1}}</label>
+                    </td>
+    				<td>
+                       <label class="field" on-click="toShowColumnEditor">{{product_type_name_2}}</label>
+                       <select colName="type2" class="field" style="display:none;" on-blur="toHideColumnEditor" value="{{product_type_id_2}}">
+	 						<option value=""></option>
+							{{#each types}}
+							 <option value="{{id}}">{{productTypeName}}</option>
+					        {{/each}}
+		             	</select>
+                    </td>
+			        <td>
+                       <label class="field">{{product_cycle_2}}</label>
+                    </td>
+ 					<td>
+                       <label class="field">{{product_persons_2}}</label>
+                    </td>
+					<td>
+                       <label class="field">{{plan_count}}</label>
+                    </td>
+				    <td>
+                       <label class="field">{{actual_count}}</label>
+                    </td>
+			    </tr>
+                {{#if product_hour == '15'}}
+				<tr style="background-color:#bec2c3;font-weight: bolder">
+					<td>7 - 15</td>
+			        <td colspan="8"></td>
+			    </tr>
+                {{/if}}
+				{{#if product_hour == '19'}}
+				<tr style="background-color:#bec2c3;font-weight: bolder">
+					<td>7 - 19<br>(12小时班)</td>
+			        <td colspan="8"></td>
+			    </tr>
+                {{/if}}
+				{{#if product_hour == '23'}}
+				<tr style="background-color:#bec2c3;font-weight: bolder">
+					<td>15 - 23</td>
+			        <td colspan="8"></td>
+			    </tr>
+                {{/if}}
+				{{/each}}
+				{{#each base2.details:index}}
+			    <tr class="hctr" lang="base2_{{index}}">
+			        <td>
+                        <label class="field">{{prefix}} - {{product_hour}}</label>
+                    </td>
+			        <td>
+                       <label class="field" on-click="toShowColumnEditor">{{product_type_name_1}}</label>
+                       <select colName="type1" class="field" style="display:none;" on-blur="toHideColumnEditor" value="{{product_type_id_1}}">
+							<option value=""></option>
+	 						{{#each types}}
+							 <option value="{{id}}">{{productTypeName}}</option>
+					        {{/each}}
+		             	</select>
+                    </td>
+			        <td>
+                       <label class="field">{{product_cycle_1}}</label>
+                    </td>
+ 					<td>
+                       <label class="field">{{product_persons_1}}</label>
+                    </td>
+    				<td>
+                       <label class="field" on-click="toShowColumnEditor">{{product_type_name_2}}</label>
+                       <select colName="type2" class="field" style="display:none;" on-blur="toHideColumnEditor" value="{{product_type_id_2}}">
+	 						<option value=""></option>
+							{{#each types}}
+							 <option value="{{id}}">{{productTypeName}}</option>
+					        {{/each}}
+		             	</select>
+                    </td>
+			        <td>
+                       <label class="field">{{product_cycle_2}}</label>
+                    </td>
+ 					<td>
+                       <label class="field">{{product_persons_2}}</label>
+                    </td>
+					<td>
+                       <label class="field">{{plan_count}}</label>
+                    </td>
+				    <td>
+                       <label class="field">{{actual_count}}</label>
+                    </td>
+			    </tr>
+				{{/each}}
+				<tr style="background-color:#bec2c3;font-weight: bolder">
+					<td>23 - 07</td>
+			        <td colspan="8"></td>
+			    </tr>
+			</table>
+			</div>
+			<div class="footer">
+				<div class="lf">
+					<p class="title">Starter Motors and Generators</p>
+					<p>SG/BPS-CN | 2017. 11. 17 | V2.0</p>
+				</div>
+				<div class="rt">
+				   <img src="{{root}}/images/logo2.png" class="fr">
+				</div>
+			</div>			
+		</div>
+	</div>
+    </script>
+</html>

@@ -2,7 +2,9 @@ package controllers;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +33,21 @@ public class Application extends Controller {
     public static Result getCurrTime() {   
     	SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");//设置日期格式
     	 return ok(df.format(new Date()));
+    }
+    
+    /**
+     * 
+     * @return 明日的日期
+     */
+    @SuppressWarnings("static-access")
+	public static Result getDateByOffset(String offset) {   
+    	Date date=new Date();//取时间
+    	Calendar calendar = new GregorianCalendar();
+    	calendar.setTime(date);
+    	calendar.add(calendar.DATE,Integer.parseInt(offset));//整数往后推,负数往前移动
+    	date=calendar.getTime();	
+    	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+    	return ok(df.format(date));
     }
     
     /**

@@ -1,7 +1,6 @@
 var productType = function(){
 	
 	var types = [];
-	var deletedFunc =[];
 	function init(){	
 		var ractive = new Ractive({
 			el: ".container",
