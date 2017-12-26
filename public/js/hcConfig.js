@@ -5,6 +5,7 @@ var hcConfig = function(){
 	var lines = getAllLines();
 	var types = getAllProductType();
 	var years = manager.years();
+	var calc_val = [55,60,60,60,30,60,60,50,55,60,60,60,30,60,60,50,55,60,60,60,30,60,60,50];//based on hour sequence
 	function init(){	
 		var ractive = new Ractive({
 			el: ".container",
@@ -85,15 +86,20 @@ var hcConfig = function(){
 								base1.details[index]["product_type_name_2"] = txt;
 								base1.details[index]["product_cycle_2"] = type.cycle;
 								base1.details[index]["product_persons_2"] = type.persons;
-							}
-							
+							}							
 							var type1_Id = base1.details[index]["product_type_id_1"];
 							var type2_Id = base1.details[index]["product_type_id_2"];
+							var hour = base1.details[index]["product_hour"];
 							if(type2_Id !=''){
 								var type2 = getTypeObjById(type2_Id);
-								plan_output = 60*type2.calcValue/type2.cycle;
+								plan_output = Math.round(60*calc_val[hour]/type2.cycle);
+							} else if(type1_Id !=''){
+								var type1 = getTypeObjById(type1_Id);
+								plan_output = Math.round(60*calc_val[hour]/type1.cycle);
+							} else {
+								plan_output = "";
 							}
-							
+							base1.details[index]["plan_count"] = plan_output;
 							ractive.update("base1");	
 						} else if(base == "base2") {
 							if(colName == 'type1'){
@@ -105,6 +111,19 @@ var hcConfig = function(){
 								base2.details[index]["product_cycle_2"] = type.cycle;
 								base2.details[index]["product_persons_2"] = type.persons;
 							}
+							var type1_Id = base2.details[index]["product_type_id_1"];
+							var type2_Id = base2.details[index]["product_type_id_2"];
+							var hour = base2.details[index]["product_hour"];
+							if(type2_Id !=''){
+								var type2 = getTypeObjById(type2_Id);
+								plan_output = Math.round(60*calc_val[hour]/type2.cycle);
+							} else if(type1_Id !=''){
+								var type1 = getTypeObjById(type1_Id);
+								plan_output = Math.round(60*calc_val[hour]/type1.cycle);
+							} else {
+								plan_output = "";
+							}
+							base2.details[index]["plan_count"] = plan_output;
 							ractive.update("base2");	
 						}
 					}
@@ -324,8 +343,8 @@ var hcConfig = function(){
 				product_cycle_2:"",
 				product_persons_1:"",
 				product_persons_2:"",
-				plan_count:"",
-				actual_count:"",
+				plan_count:"0",
+				actual_count:"0",
 				updated:"0"
 			});
 		}
@@ -354,8 +373,8 @@ var hcConfig = function(){
 				product_cycle_2:"",
 				product_persons_1:"",
 				product_persons_2:"",
-				plan_count:"",
-				actual_count:"",
+				plan_count:"0",
+				actual_count:"0",
 				updated:"0"
 			});
 		}

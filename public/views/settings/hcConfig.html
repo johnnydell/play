@@ -170,7 +170,14 @@
 				{{#each base2.details:index}}
 			    <tr class="hctr" lang="base2_{{index}}">
 			        <td>
-                        <label class="field">{{prefix}} - {{product_hour}}</label>
+                        <label class="field">
+                         {{prefix}} - 
+                         {{#if product_hour == '0'}}
+                         00
+                         {{else}}
+                         {{product_hour}}
+						 {{/if}}
+                        </label>
                     </td>
 			        <td>
                        <label class="field" on-click="toShowColumnEditor">{{product_type_name_1}}</label>
