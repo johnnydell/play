@@ -44,7 +44,7 @@ public class ScreenDisplayController extends Controller {
 					int expectedCC = Math.round( (float)(planCC / 60) * minValue );
 					json.put("planCC", planCC);
 					json.put("expectedCC", expectedCC);
-					int actualCC = rows.get(0).getInteger("product_hour_count");
+					int actualCC = rows.get(0).getInteger("product_hour_count") == null ? 0:rows.get(0).getInteger("product_hour_count");
 					json.put("actualCC", actualCC);
 					json.put("diff", (actualCC - planCC));
 					json.put("oee", rows.get(0).getFloat("target_oee_percent"));
@@ -105,7 +105,7 @@ public class ScreenDisplayController extends Controller {
 				int expectedCC = Math.round( (float)(planCC / 60) * minValue );
 				json.put("planCC", planCC);
 				json.put("expectedCC", expectedCC);
-				int actualCC = currentRow.getInteger("product_hour_count");
+				int actualCC = currentRow.getInteger("product_hour_count") == null ? 0:currentRow.getInteger("product_hour_count");
 				json.put("actualCC", actualCC);
 				json.put("diff", (actualCC - planCC));
 				json.put("oee", currentRow.getFloat("target_oee_percent"));
