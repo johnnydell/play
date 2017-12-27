@@ -28,7 +28,6 @@
 	color: white;
     background-color: #003366;
 	font-size: 23px;
-	line-height: 34px;
 	font-weight: 700;
 }
 
@@ -37,10 +36,11 @@
 	border: 1px solid #0080ff;	
 }
 
-.content-box table tr th label {
+.content-box th .field {
 	width: 100%;
-	line-height: 36px;
-	display:inline-block;
+	display:block;
+	height:37px;
+	text-align: center;
 }
 
 .content-box table tr:nth-child(3) th,.content-box table tr:nth-child(4) th {     
@@ -48,15 +48,7 @@
     background: #bec2c3;
     border: 1px solid #000;	
     font-size: smaller;	
-    line-height: 25px;
-}
-
-.content-box table tr:nth-child(3) th{     
-	color: #000;
-    background: #bec2c3;
-    border: 1px solid #000;	
-    font-size: smaller;	
-    line-height: 34px;
+   /*  line-height: 25px; */
 }
 
 .content-box table td {

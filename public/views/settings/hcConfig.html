@@ -52,9 +52,7 @@
 		<div class="content-box">
             <div class="toolbar">
                 <button type="button" class="btn" on-click="test">测试</button><!---->
-				<button type="button" class="btn" on-click="addType">{{i18n_hcConfig_add}}</button>
-				<button type="button" class="btn" on-click="saveType">{{i18n_hcConfig_save}}</button>
-				<button type="button" class="btn" on-click="deleteType">{{i18n_hcConfig_delete}}</button>
+				<button type="button" class="btn" on-click="saveHCConfig">{{i18n_hcConfig_save}}</button>
             </div>
 			<div class="header">
 				<table>
@@ -62,8 +60,8 @@
 					<th class="title" colspan="4">{{i18n_hcConfig_list}}</th>
 					<th style="font-size: 20px;font-weight: bold;text-align:right;">{{i18n_hcConfig_line}}：</th>
 					<th style="background-color:white;color: #000;border: 1px solid #000;">
-						<label on-click="toShowLineSelect">{{base1.line_name}}</label>                    
-						<select style="display:none;" on-blur="toHideLineSelect" value="{{base1.line_id}}">
+						<label class="field" on-click="toShowLineSelect">{{base1.line_name}}</label>                    
+						<select class="field" style="display:none;" on-blur="toHideLineSelect" value="{{base1.line_id}}">
 	 						{{#each lines}}
 							 <option value="{{id}}">{{lineName}}</option>
 					        {{/each}}
@@ -71,40 +69,40 @@
                     </th>
 					<th style="font-size: 20px;font-weight: bold;text-align:right;">{{i18n_hcConfig_date}}：</th>
 					<th style="background-color:white;color: #000;border: 1px solid #000;">
-						<label on-click="toShowDateText">{{base1.date}}</label>                      
-                        <input class="date" on-keydown="disableKeydown" style="display:none;" type="text" on-blur="toHideDateText" value="{{base1.date}}" />
+						<label class="field" on-click="toShowDateText">{{base1.date}}</label>                      
+                        <input class="field date" on-keydown="disableKeydown" style="display:none;" type="text" on-blur="toHideDateText" value="{{base1.date}}" />
                     </th>
 					<th></th>
 				</tr>
 				<tr>
 					<th colspan="4"></th>
-					<th style="font-size: 20px;font-weight: bold;text-align:right;">目标OEE百分比（%）：</th>
+					<th style="font-size: 20px;font-weight: bold;text-align:right;">{{i18n_hcConfig_oee_perctag}}：</th>
 					<th style="background-color:white;color: #000;border: 1px solid #000;">
- 						<label on-click="toShowOEEPerctgText">{{base1.target_oee_percent}}</label>                      
-                        <input type="text" style="display:none;" maxlength="5" on-blur="toHideOEEPerctgText" value="{{base1.target_oee_percent}}" />
+ 						<label class="field" on-click="toShowOEEPerctgText">{{base1.target_oee_percent}}</label>                      
+                        <input class="field" type="text" style="display:none;" maxlength="5" on-blur="toHideOEEPerctgText" value="{{base1.target_oee_percent}}" />
                     </th>
-				    <th style="font-size: 20px;font-weight: bold;text-align:right;">计划（CLP）总产出：</th>
+				    <th style="font-size: 20px;font-weight: bold;text-align:right;">{{i18n_hcConfig_cpl_output}}：</th>
 					<th style="background-color:white;color: #000;border: 1px solid #000;">
-						<label on-click="toShowPlanCPLTOTText">{{base1.plan_opl_total_output}}</label>                      
-                        <input type="text" style="display:none;" maxlength="10" on-blur="toHidePlanCPLTOTText" value="{{base1.plan_opl_total_output}}" />
+						<label class="field" on-click="toShowPlanCPLTOTText">{{base1.plan_opl_total_output}}</label>                      
+                        <input class="field"  type="text" style="display:none;" maxlength="10" on-blur="toHidePlanCPLTOTText" value="{{base1.plan_opl_total_output}}" />
                     </th>
 					<th colspan="1"></th>
 				</tr>
 			    <tr>
-			        <th>时间</th>
-			        <th colspan="6">产品</th>
-					<th colspan="2">计划产出(基于100%OEE)</th>
+			        <th>{{i18n_hcConfig_time}}</th>
+			        <th colspan="6">{{i18n_hcConfig_product}}</th>
+					<th colspan="2">{{i18n_hcConfig_plan_oee_output}}</th>
 			    </tr>
  				<tr>
-                    <th width="10%">从..到.</th>
-			        <th width="15%">型号1<font color="red">*</font></th>
-			        <th width="10%">节拍时间1 (秒)</th>
-			        <th width="8%">人数1</th>
-			        <th width="15%">型号2<font color="red">*</font></th>
-			        <th width="10%">节拍时间2 (秒)</th>
-			        <th width="12%">人数2</th>
-					<th width="10%">计划产出</th>
-			        <th width="10%">累计产出</th>
+                    <th width="10%">{{i18n_hcConfig_from_to}}</th>
+			        <th width="15%">{{i18n_hcConfig_type1}}<font color="red">*</font></th>
+			        <th width="10%">{{i18n_hcConfig_cycle1}}</th>
+			        <th width="8%">{{i18n_hcConfig_person1}}</th>
+			        <th width="15%">{{i18n_hcConfig_type2}}<font color="red">*</font></th>
+			        <th width="10%">{{i18n_hcConfig_cycle2}}</th>
+			        <th width="12%">{{i18n_hcConfig_person2}}</th>
+					<th width="10%">{{i18n_hcConfig_plan_output}}</th>
+			        <th width="10%">{{i18n_hcConfig_actual_output}}</th>
 			    </tr>
  				{{#each base1.details:index}}
 			    <tr class="hctr" lang="base1_{{index}}">

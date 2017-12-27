@@ -4,16 +4,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
-
+import com.avaje.ebean.Ebean;
 import models.ProductLine;
 import play.db.ebean.Model;
 
@@ -27,7 +24,7 @@ public class HCConfigBase extends Model {
 	public String id = UUID.randomUUID().toString().replace("-", "");
 	
 	@ManyToOne
-	@JoinColumn(name="product_line_id")
+	@JoinColumn(name="product_line_id",insertable=false,updatable=false)
 	public ProductLine productLine;
 	
 	@Column(name = "product_line_id")
@@ -67,5 +64,17 @@ public class HCConfigBase extends Model {
 	
 	public static HCConfigBase getHCConfigBaseByParams(String line_id,String date){
 		return find.where().eq("product_line_id", line_id).eq("product_date", date).findUnique();
+	}
+	
+	public static HCConfigBase find(String id){
+		return Ebean.find(HCConfigBase.class, id);
+	}
+	
+	public static void save(HCConfigBase base){
+    	Ebean.save(base);
+    }
+	
+	public static void update(HCConfigBase base){
+	    Ebean.update(base);
 	}
 }

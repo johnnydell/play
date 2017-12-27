@@ -4,6 +4,7 @@ var hcConfig = function(){
 	var sys_date = manager.getSystemDate();
 	var lines = getAllLines();
 	var types = getAllProductType();
+	var active_types = getActiveProductType();
 	var years = manager.years();
 	var calc_val = [55,60,60,60,30,60,60,50,55,60,60,60,30,60,60,50,55,60,60,60,30,60,60,50];//based on hour sequence
 	function init(){	
@@ -15,7 +16,7 @@ var hcConfig = function(){
 				manager.loadProperties(this, "hcConfig", "../../");
 				manager.loadProperties(this, "common", "../../");
 				this.set("lines",lines);
-				this.set("types",types);
+				this.set("types",active_types);
 				base1.line_id = "9336b6f78e7448e685bad5ba71c2e3f8";
 				base1.date = sys_date;
 				refreshHCInfo(this);
@@ -90,17 +91,17 @@ var hcConfig = function(){
 							var type1_Id = base1.details[index]["product_type_id_1"];
 							var type2_Id = base1.details[index]["product_type_id_2"];
 							var hour = base1.details[index]["product_hour"];
-							if(type2_Id !=''){
+							if(type2_Id !='' && type2_Id != undefined){
 								var type2 = getTypeObjById(type2_Id);
 								plan_output = Math.round(60*calc_val[hour]/type2.cycle);
-							} else if(type1_Id !=''){
+							} else if(type1_Id !='' && type1_Id != undefined){
 								var type1 = getTypeObjById(type1_Id);
 								plan_output = Math.round(60*calc_val[hour]/type1.cycle);
 							} else {
 								plan_output = "";
 							}
 							base1.details[index]["plan_count"] = plan_output;
-							ractive.update("base1");	
+								
 						} else if(base == "base2") {
 							if(colName == 'type1'){
 								base2.details[index]["product_type_name_1"] = txt;
@@ -114,29 +115,40 @@ var hcConfig = function(){
 							var type1_Id = base2.details[index]["product_type_id_1"];
 							var type2_Id = base2.details[index]["product_type_id_2"];
 							var hour = base2.details[index]["product_hour"];
-							if(type2_Id !=''){
+							if(type2_Id !='' && type2_Id != undefined){
 								var type2 = getTypeObjById(type2_Id);
 								plan_output = Math.round(60*calc_val[hour]/type2.cycle);
-							} else if(type1_Id !=''){
+							} else if(type1_Id !='' && type1_Id != undefined){
 								var type1 = getTypeObjById(type1_Id);
 								plan_output = Math.round(60*calc_val[hour]/type1.cycle);
 							} else {
 								plan_output = "";
 							}
-							base2.details[index]["plan_count"] = plan_output;
-							ractive.update("base2");	
+							base2.details[index]["plan_count"] = plan_output;	
 						}
 					}
 				} 
+				calcActualOutput();
+				if(base == "base1"){
+					base1.details[index]["updated"] = "1";					
+				} else if(base == "base2") {
+					base2.details[index]["updated"] = "1";					
+				}
+				ractive.update("base1");
+				ractive.update("base2");
 				$(e.node).hide().prev().show();				
 			},
 			saveHCConfig:function(){
 				var error = false;
+				if($.trim(base1.target_oee_percent) == '' || $.trim(base1.plan_opl_total_output) == ''){
+					jAlert($.i18n.prop("i18n_required"), $.i18n.prop("i18n_error"));
+					error = true;
+					return;
+				}
+				
 				//判断opl详细有没为空的
-				$(opl).each(function(i,n){
-					if(n.date == '' || n.refNo == '' || n.founder == '' || 
-							n.station == '' || n.dtFrom == '' || n.dtTo == '' ||
-							n.timing == '' || n.amt == '' || n.immediate == '' || n.responsible == '' || n.deadline == ''){	
+				$(base1.details).each(function(i,n){
+					if(n.product_type_id_1 == '' && n.product_type_id_2 == ''){	
 						jAlert($.i18n.prop("i18n_required"), $.i18n.prop("i18n_error"));
 						error = true;
 						return false;
@@ -144,39 +156,58 @@ var hcConfig = function(){
 				})
 				
 				if(!error){
-					//整理出需要新增和更新的
-					var updateDetails = [];
-					$(opl).each(function(i,n){
+					//整理出BASE1需要新增和更新的
+					var base1_details_add = [];
+					var base1_details_update = [];
+					$(base1.details).each(function(i,n){
 						if(n.id == '0'){
-							addOPL.push(n);
+							base1_details_add.push(n);
 						} else if(n.updated == "1"){
-							updateOPL.push(n);
+							base1_details_update.push(n);
 						}
 					})
 					
-					if(addOPL.length > 0 || updateOPL.length > 0){
-						$.ajax({
-							url: manager.root + "/opl/saveOPL",
-							type: "POST",
-							dataType: "json",
-							data:JSON.stringify({condition:condition,addOPL:addOPL,updateOPL:updateOPL}),
-							contentType: "application/json",    
-							beforeSend: function() {
-								manager.block();
-							},
-							success: function(data) {
-								refreshOPL(ractive);	
-								jAlert($.i18n.prop("i18n_save_ok"), $.i18n.prop("i18n_info"));
-							},
-							complete: function() {
-								manager.unblock();
-							}
-						});		
-					}
+					//整理出BASE2需要新增和更新的
+					var base2_details_add = [];
+					var base2_details_update = [];
+					$(base2.details).each(function(i,n){
+						if(n.id == '0'){
+							base2_details_add.push(n);
+						} else if(n.updated == "1"){
+							base2_details_update.push(n);
+						}
+					})
+					var param = {
+							base1:base1,
+							base2:base2,
+							base1_details_add:base1_details_add,
+							base1_details_update:base1_details_update,
+							base2_details_add:base2_details_add,
+							base2_details_update:base2_details_update
+						}
+					
+					$.ajax({
+						url: manager.root + "/hcConfig/saveHCConfig",
+						type: "POST",
+						dataType: "json",
+						data:JSON.stringify(param),
+						contentType: "application/json",    
+						beforeSend: function() {
+							manager.block();
+						},
+						success: function(data) {
+							refreshHCInfo(ractive);	
+							jAlert($.i18n.prop("i18n_save_ok"), $.i18n.prop("i18n_info"));
+						},
+						complete: function() {
+							manager.unblock();
+						}
+					});	
 				}
 			},
 			test:function(){
 				console.log(base1);
+				console.log(base2);
 			}			
 		})
 	}
@@ -184,7 +215,7 @@ var hcConfig = function(){
 	//根据ID获得生产类型
 	function getTypeObjById(id){
 		var obj;
-		$(types).each(function(i,n){
+		$(types).each(function(i,n){			
 			if(n.id == id){
 				obj = n;
 				return false;
@@ -209,11 +240,11 @@ var hcConfig = function(){
 		return ret;
 	}
 	
-	//缺德所有有效的产品类型
+	//取得所有产品类型
 	function getAllProductType(){
 		var ret;
 		$.ajax({
-			url: manager.root + "/productType/getList",
+			url: manager.root + "/productType/getAllList",
 			type: "GET",
 			async:false,
 			dataType:"json",
@@ -223,6 +254,17 @@ var hcConfig = function(){
 			}
 		});
 		return ret;
+	}
+	
+	//取得所有有效的产品类型
+	function getActiveProductType(){
+		var active_types = [];
+		$(types).each(function(i,n){
+			if(n.active){
+				active_types.push(n);
+			}
+		})
+		return active_types;
 	}
 	
 	//获得当前日期的和明天的配置信息
@@ -254,30 +296,44 @@ var hcConfig = function(){
 			base1.id = _base1.id;
 			base1.target_oee_percent = _base1.targetOeePercent;
 			base1.plan_opl_total_output = _base1.planOplTotalOutput;
-			var details = []
+			var details = [];
 			if(_base1.hcConfigDetail != null && _base1.hcConfigDetail.length  > 0){
 				$(_base1.hcConfigDetail).each(function(i,n){
 					var detail = {};
 					detail.id = n.id;
 					detail.prefix = n.productHour - 1;
 					detail.product_hour = n.productHour;
-					detail.product_type_id_1 = n.productType1.id;
-					detail.product_type_id_2 = n.productType2.id;
-					detail.product_type_name_1 = n.productType1.productTypeName;
-					detail.product_type_name_2 = n.productType2.productTypeName;
-					detail.product_cycle_1 = n.productType1.cycle;
-					detail.product_cycle_2 = n.productType2.cycle;
-					detail.product_persons_1 = n.productType1.persons;
-					detail.product_persons_2 = n.productType2.persons;
+					if(n.product_type_id_1 == null || n.product_type_id_1 == ''){
+						detail.product_type_id_1 = "";
+						detail.product_type_name_1 = "";
+						detail.product_cycle_1 = "";
+						detail.product_persons_1 = "";
+					} else {
+						detail.product_type_id_1 = n.product_type_id_1;
+						detail.product_type_name_1 = getTypeObjById(n.product_type_id_1).productTypeName;
+						detail.product_cycle_1 = n.productCycle1;
+						detail.product_persons_1 = n.productPersons1;
+					}
+					if(n.product_type_id_2 == null || n.product_type_id_2 == ''){
+						detail.product_type_id_2 = "";
+						detail.product_type_name_2 = "";
+						detail.product_cycle_2 = "";
+						detail.product_persons_2 = "";
+					} else {
+						detail.product_type_id_2 = n.product_type_id_2;
+						detail.product_type_name_2 = getTypeObjById(n.product_type_id_2).productTypeName;
+						detail.product_cycle_2 = n.productCycle2;
+						detail.product_persons_2 = n.productPersons2;
+					}
 					detail.plan_count = n.planCount;
 					detail.actual_count = n.actualCount;
 					detail.updated = "0";
 					details.push(detail);
 				})
 			} else {
-				base1.details = formHCDetailPre();
+				details = formHCDetailPre();
 			}
-			base1.detail = details;	
+			base1.details = details;	
 		} else {
 			base1.id = "0";
 			base1.target_oee_percent = "";
@@ -288,12 +344,12 @@ var hcConfig = function(){
 		//绑定base2数据
 		if(_base2 != null){
 			base2.id = _base2.id;
-			var details = []
+			var details = [];
 			if(_base2.hcConfigDetail != null && _base2.hcConfigDetail.length  > 0){
 				$(_base2.hcConfigDetail).each(function(i,n){
 					var detail = {};
 					var prefix = i-1;
-					if(perfix == -1){
+					if(prefix == -1){
 						prefix = "23";
 					} else if(prefix == 0){
 						prefix = "00";
@@ -301,28 +357,42 @@ var hcConfig = function(){
 					detail.id = n.id;
 					detail.prefix = prefix;
 					detail.product_hour = n.productHour;
-					detail.product_type_id_1 = n.productType1.id;
-					detail.product_type_id_2 = n.productType2.id;
-					detail.product_type_name_1 = n.productType1.productTypeName;
-					detail.product_type_name_2 = n.productType2.productTypeName;
-					detail.product_cycle_1 = n.productType1.cycle;
-					detail.product_cycle_2 = n.productType2.cycle;
-					detail.product_persons_1 = n.productType1.persons;
-					detail.product_persons_2 = n.productType2.persons;
+					if(n.product_type_id_1 == null || n.product_type_id_1 == ''){
+						detail.product_type_id_1 = "";
+						detail.product_type_name_1 = "";
+						detail.product_cycle_1 = "";
+						detail.product_persons_1 = "";
+					} else {
+						detail.product_type_id_1 = n.product_type_id_1;
+						detail.product_type_name_1 = getTypeObjById(n.product_type_id_1).productTypeName;
+						detail.product_cycle_1 = n.productCycle1;
+						detail.product_persons_1 = n.productPersons1;
+					}
+					if(n.product_type_id_2 == null || n.product_type_id_2 == ''){
+						detail.product_type_id_2 = "";
+						detail.product_type_name_2 = "";
+						detail.product_cycle_2 = "";
+						detail.product_persons_2 = "";
+					} else {
+						detail.product_type_id_2 = n.product_type_id_2;
+						detail.product_type_name_2 = getTypeObjById(n.product_type_id_2).productTypeName;
+						detail.product_cycle_2 = n.productCycle2;
+						detail.product_persons_2 = n.productPersons2;
+					}
 					detail.plan_count = n.planCount;
 					detail.actual_count = n.actualCount;
 					detail.updated = "0";
 					details.push(detail);
 				})
 			} else {
-				base2.details = formHCDetailSuf();
+				details = formHCDetailSuf();
 			}
-			base2.detail = details;		
+			base2.details = details;		
 		} else {
 			base2.id = "0";
 			base2.details = formHCDetailSuf();
 		}
-		
+		calcActualOutput();
 		_ractive.set("base1",base1);
 		_ractive.set("base2",base2);
 	}
@@ -379,6 +449,22 @@ var hcConfig = function(){
 			});
 		}
 		return details;
+	}
+	
+	//计算累计输出
+	function calcActualOutput(){
+		var total = 0;		
+		$(base1.details).each(function(i,n){
+			var plan_output = n.plan_count;
+			n.actual_count = total*1 + plan_output*1;
+			total = n.actual_count;
+		})
+		
+		$(base2.details).each(function(i,n){
+			var plan_output = n.plan_count;
+			n.actual_count = total*1 + plan_output*1;
+			total = n.actual_count;
+		})
 	}
 	
 	return {

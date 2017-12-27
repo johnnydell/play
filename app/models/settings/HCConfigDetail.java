@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
+import com.avaje.ebean.Ebean;
 import models.ProductType;
 import play.db.ebean.Model;
 
@@ -23,7 +23,7 @@ public class HCConfigDetail extends Model {
 	public String id = UUID.randomUUID().toString().replace("-", "");
 	
 	@ManyToOne
-	@JoinColumn(name="hourly_count_base_id")
+	@JoinColumn(name="hourly_count_base_id",insertable=false,updatable=false)
 	public HCConfigBase hcConfigBase;
 	
 	@Column(name = "hourly_count_base_id")
@@ -36,24 +36,30 @@ public class HCConfigDetail extends Model {
 	public Integer productHourIndex;
 	
 	@ManyToOne
-	@JoinColumn(name="product_type_id_1")
+	@JoinColumn(name="product_type_id_1",insertable=false,updatable=false)
 	public ProductType productType1;
 	
+	@Column(name = "product_type_id_1")
+	public String product_type_id_1;
+	
 	@Column(name = "product_persons_1")
-	public Integer productPersons1;
+	public String productPersons1;
 	
 	@ManyToOne
-	@JoinColumn(name="product_type_id_2")
+	@JoinColumn(name="product_type_id_2",insertable=false,updatable=false)
 	public ProductType productType2;
+	
+	@Column(name = "product_type_id_2")
+	public String product_type_id_2;
 
 	@Column(name = "product_cycle_1")
-	public Integer productCycle1;
+	public String productCycle1;
 	
 	@Column(name = "product_cycle_2")
-	public Integer productCycle2;
+	public String productCycle2;
 	
 	@Column(name = "product_persons_2")
-	public Integer productPersons2;
+	public String productPersons2;
 	
 	@Column(name = "target_oee_percent")
 	public Float targetOeePercent;
@@ -185,6 +191,26 @@ public class HCConfigDetail extends Model {
 	//获得当前日期的后部分明细
 	public static List<HCConfigDetail> getHCConfigDetailSufByBaseId(String baseId){
 		return find.where().eq("hourly_count_base_id", baseId).between("product_hour_index", 17, 24).orderBy("product_hour_index asc").fetch("productType1").fetch("productType2").findList();
+	}
+	
+	public static HCConfigDetail find(String id){
+		return Ebean.find(HCConfigDetail.class,id);
+	}
+	
+	public static void save(HCConfigDetail detail){
+		Ebean.save(detail);
+	}
+	
+	public static void saveList(List<HCConfigDetail> details){
+    	Ebean.save(details);
+    }
+	
+	public static void updateList(List<HCConfigDetail> details){
+		if(details != null && details.size() > 0){
+			for(HCConfigDetail det:details){
+				Ebean.update(det);
+			}
+		}
 	}
 
 }

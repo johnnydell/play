@@ -35,10 +35,11 @@ POST /edashboard/role/saveRole               			controllers.settings.RoleControl
 GET  /edashboard/productType/getList               		controllers.settings.ProductTypeController.getList()
 POST  /edashboard/productType/saveType               	controllers.settings.ProductTypeController.saveType()
 POST  /edashboard/productType/deleteType                controllers.settings.ProductTypeController.deleteType()
+GET  /edashboard/productType/getAllList               		controllers.settings.ProductTypeController.getAllList()
 
 #Setting HC Config
 GET  /edashboard/hcConfig/getHCInfo              		controllers.settings.HCConfigController.getHCInfo(line_id:String,curr_date:String)
-
+POST /edashboard/hcConfig/saveHCConfig                  controllers.settings.HCConfigController.saveHCConfig()
 
 #OPL
 POST /edashboard/opl/addPSS 		            		controllers.OPLController.addPSS()

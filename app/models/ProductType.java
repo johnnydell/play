@@ -46,6 +46,10 @@ public class ProductType extends Model {
         return find.where().eq("active", true).findList();
 	}
 	
+	public static List<ProductType> getAllList() {
+        return find.findList();
+	}
+	
 	public static void saveList(List<ProductType> li){
     	Ebean.save(li);
     }

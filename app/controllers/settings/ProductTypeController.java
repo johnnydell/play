@@ -23,6 +23,16 @@ public class ProductTypeController extends Controller {
    }
    
    /**
+	 * 返回激活的产品类型列表
+	 * @return
+	 */
+  public static Result getAllList() {
+       List<ProductType> types = ProductType.getAllList();
+       String str = JSON.toJSONString(types);
+       return ok(str);
+  }
+   
+   /**
     * 保存types
     * @return
     */
