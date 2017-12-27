@@ -18,8 +18,15 @@ var settings = function(){
 			toRoleMgt:function(){
 				location.href=manager.root+"/views/settings/role.html";
 			},
+			/*
 			toUpload:function(){
 				location.href=manager.root+"/views/settings/uploader.html";
+			}
+			,
+			*/
+			
+			toSysConfig:function(){
+				location.href=manager.root+"/views/settings/sysconfig.html";
 			},
 			toProductType:function(){
 				location.href=manager.root+"/views/settings/productType.html";

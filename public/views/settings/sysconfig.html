@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/login.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/sysconfig.css"/>
+		
+	</head>
+	<body>
+		<div class="box">
+		    <!-- left menu -->
+			<div class="left fl"></div>
+			<div class="right">
+				<!-- right header -->
+				<header></header>
+				<div class="container">
+				    <!-- main template -->
+				</div>
+				<!-- right footer -->
+				<footer></footer>
+			</div>
+		</div>
+	</body>
+	<script src="../../js/lib/jquery-1.10.1.min.js"></script>
+	<script src="../../js/lib/jquery.cookie.js"></script>
+	<script src="../../js/lib/jquery.form.min.js"></script>
+	<script src="../../js/lib/ractive-legacy.js"></script>
+	<script src="../../js/lib/jquery.i18n.properties-1.0.9.js"></script>
+	<script src="../../js/lib/manager.js"></script>
+	<script src="../../js/sysconfig.js"></script>
+	<script src="../../js/oeeSubType.js"></script>
+	<script id="main-template" type="text/active">
+	<div class="position _clear title">
+		<h3>{{i18n_uploader_title}}</h3>
+		<div class="fr">
+			<p>
+				<i class="icon icon-home"></i>
+				<a href="../index.html">{{i18n_uploader_nav1}}</a>
+				<font color="#ccc">></font>
+				<a href="../lines.html">{{i18n_uploader_nav2}}</a>
+				
+			</p>
+		</div>
+	</div>
+	<div class="content">
+	    <ul id="tabs">
+	  		<li id="current"><a href="#" title="OeeSubType">OEE损失类别</a><img></li>	  
+			<li id=""><a href="#" title="screen">实时展示屏</a><img></li>	  
+		</ul>
+		<div class="maincontent" style="display: block;">
+	  		
+		</div>
+	</div>
+	
+	</script>
+</html>
