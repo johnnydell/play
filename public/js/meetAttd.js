@@ -2,6 +2,7 @@ var meetAttd = function(){
 	var attendanceDetails = [];	
 	var years = manager.years();
 	var months = manager.months;
+	var lines = getAllLines();
 	var attendance = {id:"0",year:"",month:"",line_id:"",line_name:"",time_start:"10:00",time_end:"10:30",spot:"Team Board",host:"Team Leader",daysCnt:0,days:[],updated:"0"};
 	function init(){
 		var ractive = new Ractive({
@@ -13,6 +14,7 @@ var meetAttd = function(){
 				manager.loadProperties(this, "common", "../../");
 				this.set("years",years);
 				this.set("months",months);
+				this.set("lines",lines);
 				attendance.line_id = "9336b6f78e7448e685bad5ba71c2e3f8";
 				var sys_date = manager.getSystemDate();
 				attendance.year = sys_date.split("-")[0];
@@ -37,6 +39,12 @@ var meetAttd = function(){
 		});
 		
 		ractive.on({
+			toShowLineSelect:function(e){
+				$(e.node).hide().next().show().focus();
+			},
+			toHideLineSelect:function(e){
+				$(e.node).hide().prev().show();
+			}, 
 			toShowYearSelect:function(e){
 				$(e.node).hide().next().show().focus();
 			},
@@ -49,6 +57,12 @@ var meetAttd = function(){
 			toHideMonthSelect:function(e){
 				var _$select = $(e.node);
 				_$select.hide().prev().show();
+			},
+			changeLine:function(){
+				refreshAttendance();
+				this.set("attendance",attendance);
+				refreshAttendanceDetails();
+				this.set("attendanceDetails",attendanceDetails);
 			},
 			changeYear:function(){
 				refreshAttendance();
@@ -251,6 +265,22 @@ var meetAttd = function(){
 				ractive.update("attendanceDetails");
 			}
 		})
+	}
+	
+	//取得所有有效的lines
+	function getAllLines(){
+		var ret;
+		$.ajax({
+			url: manager.root + "/line/getActiveList",
+			type: "GET",
+			async:false,
+			dataType:"json",
+			contentType: "application/json",
+			success: function(data) {
+				ret = data;
+			}
+		});
+		return ret;
 	}
 	
 	//根据产线和年月获取对应会议头信息

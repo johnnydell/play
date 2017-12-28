@@ -169,6 +169,17 @@
     border-radius: 4px;
 }
 
+.fst select,.fst label{
+	width: 100%;	
+	text-align: center;
+	height: 36px;
+	vertical-align: top;
+}
+
+.fst select{
+	border: 1px solid #0080ff;
+}
+
 .dt select,.dt label{
 	width: 50%;
 	float: left;	

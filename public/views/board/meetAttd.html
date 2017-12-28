@@ -67,7 +67,14 @@
 					   <span>{{i18n_meetAttd_month}}:</span>
 					 </div>
 					 <div class="val">
-						 <span class="fst">{{attendance.line_name}}</span>
+						 <span class="fst">
+							<label class="field" on-click="toShowLineSelect">{{attendance.line_name}}</label>                    
+							<select class="field" style="display:none;" on-change="changeLine" on-blur="toHideLineSelect" value="{{attendance.line_id}}">
+	 						{{#each lines}}
+							 <option value="{{id}}">{{lineName}}</option>
+					        {{/each}}
+		             		</select>
+                         </span>
 						 <span class="dt">
                              <label on-click="toShowYearSelect">{{attendance.year}} {{i18n_meetAttd_year}}</label>                    
 							 <select style="display:none;" on-blur="toHideYearSelect" on-change="changeYear" value="{{attendance.year}}">
