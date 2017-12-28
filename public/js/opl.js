@@ -318,7 +318,6 @@ var opl = function(){
 							              '</div>' +
 							            '</div>').appendTo( $li ).find('.progress-bar');
 							        }
-							
 							        $li.find('p.state').text('上传中');
 							
 							        $percent.css( 'width', percentage * 100 + '%' );

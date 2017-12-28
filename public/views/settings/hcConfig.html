@@ -51,7 +51,7 @@
 	<div class="content">
 		<div class="content-box">
             <div class="toolbar">
-                <button type="button" class="btn" on-click="test">测试</button><!---->
+                <!--<button type="button" class="btn" on-click="test">测试</button>-->
 				<button type="button" class="btn" on-click="saveHCConfig">{{i18n_hcConfig_save}}</button>
             </div>
 			<div class="header">
@@ -102,7 +102,7 @@
 			        <th width="10%">{{i18n_hcConfig_cycle2}}</th>
 			        <th width="12%">{{i18n_hcConfig_person2}}</th>
 					<th width="10%">{{i18n_hcConfig_plan_output}}</th>
-			        <th width="10%">{{i18n_hcConfig_actual_output}}</th>
+			        <th width="10%">{{i18n_hcConfig_plan_total_output}}</th>
 			    </tr>
  				{{#each base1.details:index}}
 			    <tr class="hctr" lang="base1_{{index}}">
@@ -143,7 +143,7 @@
                        <label class="field">{{plan_count}}</label>
                     </td>
 				    <td>
-                       <label class="field">{{actual_count}}</label>
+                       <label class="field">{{plan_total_count}}</label>
                     </td>
 			    </tr>
                 {{#if product_hour == '15'}}
@@ -211,7 +211,7 @@
                        <label class="field">{{plan_count}}</label>
                     </td>
 				    <td>
-                       <label class="field">{{actual_count}}</label>
+                       <label class="field">{{plan_total_count}}</label>
                     </td>
 			    </tr>
 				{{/each}}
