@@ -9,7 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 import com.avaje.ebean.Ebean;
+
 import models.ProductType;
 import play.db.ebean.Model;
 
@@ -66,6 +68,9 @@ public class HCConfigDetail extends Model {
 	
 	@Column(name = "plan_count")
 	public Integer planCount;
+	
+	@Column(name = "plan_total_count")
+	public Integer planTotalCount;
 
 	@Column(name = "actual_count")
 	public Integer actualCount;

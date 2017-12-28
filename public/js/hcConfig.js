@@ -128,7 +128,7 @@ var hcConfig = function(){
 						}
 					}
 				} 
-				calcActualOutput();
+				calcPlanTotalOutput();
 				if(base == "base1"){
 					base1.details[index]["updated"] = "1";					
 				} else if(base == "base2") {
@@ -326,7 +326,7 @@ var hcConfig = function(){
 						detail.product_persons_2 = n.productPersons2;
 					}
 					detail.plan_count = n.planCount;
-					detail.actual_count = n.actualCount;
+					detail.plan_total_count = n.planTotalCount;
 					detail.updated = "0";
 					details.push(detail);
 				})
@@ -380,7 +380,7 @@ var hcConfig = function(){
 						detail.product_persons_2 = n.productPersons2;
 					}
 					detail.plan_count = n.planCount;
-					detail.actual_count = n.actualCount;
+					detail.plan_total_count = n.planTotalCount;
 					detail.updated = "0";
 					details.push(detail);
 				})
@@ -392,7 +392,7 @@ var hcConfig = function(){
 			base2.id = "0";
 			base2.details = formHCDetailSuf();
 		}
-		calcActualOutput();
+		calcPlanTotalOutput();
 		_ractive.set("base1",base1);
 		_ractive.set("base2",base2);
 	}
@@ -414,7 +414,7 @@ var hcConfig = function(){
 				product_persons_1:"",
 				product_persons_2:"",
 				plan_count:"0",
-				actual_count:"0",
+				plan_total_count:"0",
 				updated:"0"
 			});
 		}
@@ -444,7 +444,7 @@ var hcConfig = function(){
 				product_persons_1:"",
 				product_persons_2:"",
 				plan_count:"0",
-				actual_count:"0",
+				plan_total_count:"0",
 				updated:"0"
 			});
 		}
@@ -452,18 +452,18 @@ var hcConfig = function(){
 	}
 	
 	//计算累计输出
-	function calcActualOutput(){
+	function calcPlanTotalOutput(){
 		var total = 0;		
 		$(base1.details).each(function(i,n){
 			var plan_output = n.plan_count;
-			n.actual_count = total*1 + plan_output*1;
-			total = n.actual_count;
+			n.plan_total_count = total*1 + plan_output*1;
+			total = n.plan_total_count;
 		})
 		
 		$(base2.details).each(function(i,n){
 			var plan_output = n.plan_count;
-			n.actual_count = total*1 + plan_output*1;
-			total = n.actual_count;
+			n.plan_total_count = total*1 + plan_output*1;
+			total = n.plan_total_count;
 		})
 	}
 	

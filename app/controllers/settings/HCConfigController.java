@@ -94,7 +94,7 @@ public class HCConfigController extends Controller {
 			String product_type_id_2 = node.get("product_type_id_2").asText().trim();
 			Integer product_hour_index = (Integer.parseInt(product_hour) - 7);			
 			String plan_count = node.get("plan_count").asText().trim();
-			String actual_count = node.get("actual_count").asText().trim();
+			String plan_total_count = node.get("plan_total_count").asText().trim();
 			
 			HCConfigDetail detail = new HCConfigDetail();
 			detail.base_id = base1.id;			
@@ -113,7 +113,7 @@ public class HCConfigController extends Controller {
 			detail.productHour = Integer.parseInt(product_hour);
 			detail.productHourIndex = product_hour_index;
 			detail.planCount = Integer.parseInt(plan_count);
-			detail.actualCount = Integer.parseInt(actual_count);
+			detail.planTotalCount = Integer.parseInt(plan_total_count);
 			if(detail.productHour.equals(8)){
 				HCConfigDetail.save(detail);
 			}
@@ -134,7 +134,7 @@ public class HCConfigController extends Controller {
 			String product_type_id_1 = node.get("product_type_id_1").asText().trim();
 			String product_type_id_2 = node.get("product_type_id_2").asText().trim();
 			String plan_count = node.get("plan_count").asText().trim();
-			String actual_count = node.get("actual_count").asText().trim();
+			String plan_total_count = node.get("plan_total_count").asText().trim();
 			
 			HCConfigDetail detail = HCConfigDetail.find(detailId);
 			if(StringUtils.isNotBlank(product_type_id_1)){
@@ -150,7 +150,7 @@ public class HCConfigController extends Controller {
 				detail.productPersons2 = type.persons;
 			}
 			detail.planCount = Integer.parseInt(plan_count);
-			detail.actualCount = Integer.parseInt(actual_count);
+			detail.planTotalCount = Integer.parseInt(plan_total_count);
 			updateBase1DetailsLi.add(detail);
 		}
 		
@@ -191,7 +191,7 @@ public class HCConfigController extends Controller {
 			String product_type_id_2 = node.get("product_type_id_2").asText().trim();
 			Integer product_hour_index = (Integer.parseInt(product_hour) + 17);
 			String plan_count = node.get("plan_count").asText().trim();
-			String actual_count = node.get("actual_count").asText().trim();
+			String plan_total_count = node.get("plan_total_count").asText().trim();
 			
 			HCConfigDetail detail = new HCConfigDetail();
 			detail.base_id = base2.id;
@@ -210,7 +210,7 @@ public class HCConfigController extends Controller {
 			detail.productHour = Integer.parseInt(product_hour);
 			detail.productHourIndex = product_hour_index;
 			detail.planCount = Integer.parseInt(plan_count);
-			detail.actualCount = Integer.parseInt(actual_count);
+			detail.planTotalCount = Integer.parseInt(plan_total_count);
 			addBase2DetailsLi.add(detail);
 		}
 		
@@ -228,7 +228,7 @@ public class HCConfigController extends Controller {
 			String product_type_id_1 = node.get("product_type_id_1").asText().trim();
 			String product_type_id_2 = node.get("product_type_id_2").asText().trim();
 			String plan_count = node.get("plan_count").asText().trim();
-			String actual_count = node.get("actual_count").asText().trim();
+			String plan_total_count = node.get("plan_total_count").asText().trim();
 			
 			HCConfigDetail detail = HCConfigDetail.find(detailId);
 			if(StringUtils.isNotBlank(product_type_id_1)){
@@ -244,7 +244,7 @@ public class HCConfigController extends Controller {
 				detail.productPersons2 = type.persons;
 			}
 			detail.planCount = Integer.parseInt(plan_count);
-			detail.actualCount = Integer.parseInt(actual_count);
+			detail.planTotalCount = Integer.parseInt(plan_total_count);
 			updateBase2DetailsLi.add(detail);
 		}
 		
