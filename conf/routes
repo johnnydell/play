@@ -41,6 +41,9 @@ GET  /edashboard/productType/getAllList               		controllers.settings.Pro
 GET  /edashboard/hcConfig/getHCInfo              		controllers.settings.HCConfigController.getHCInfo(line_id:String,curr_date:String)
 POST /edashboard/hcConfig/saveHCConfig                  controllers.settings.HCConfigController.saveHCConfig()
 
+#Setting System Config
+GET /edashboard/sysConfig/getOeeLossSubTypes 			controllers.settings.SysConfigController.getOeeLossSubTypes()
+
 #OPL
 POST /edashboard/opl/addPSS 		            		controllers.OPLController.addPSS()
 GET  /edashboard/opl/getOPLByParamPagination            controllers.OPLController.getOPLByParamPagination(line_id:String,year:String,month:String,page:String,pageSize:String)

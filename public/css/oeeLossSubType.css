@@ -1,0 +1,211 @@
+.oeeloss .header {
+	text-align: center;
+	background-color: #003366;
+	height: 55px;
+	color: white;
+}
+
+.oeeloss .header label{
+	float : left;
+	width : 25%;
+	font-size: 35px;
+}
+
+.oeeloss .header .title {
+	width: 50%;
+	height: 100%;
+	float: left;
+}
+
+.oeeloss .header .title  span {
+	font-size: 23px;
+	margin-left: 20px;
+	font-weight: 700;
+	color: white;
+}
+
+.oeeloss .header .info {
+	width: 50%;
+	height: 100%;
+	float: left;
+}
+
+.oeeloss .header .info .lb {
+	width: 20%;
+	height: 100%;
+	float: left;
+}
+
+.oeeloss .header .info .lb span {
+	width: 100%;
+	height: 50%;
+	float: left;
+	font-size: 20px;
+	font-weight: bold;
+	color: white;
+}
+
+.oeeloss .header .info .val {
+	width: 40%;
+	height: 100%;
+	float: left;
+}
+
+.oeeloss .header .info .val span {
+	width: 100%;
+	height: 50%;
+	float: left;
+	background-color: white;
+	text-align: center;
+	font-size: 23px;
+	font-weight: 700;
+	color: #000000;
+	border-bottom: #000000 1px solid;
+}
+
+.oeeloss .header .info .val select {
+	font-size: 19px;
+	font-weight: normal;
+}
+
+.oeeloss .header .info .fst {
+	border-top: #000000 1px solid;
+}
+
+.oeeloss p {
+	margin: 0;
+	padding: 0;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.oeeloss table {
+	width: 100%;
+	border-collapse: collapse;
+	border: 1px solid #000;
+}
+
+.oeeloss table th {
+	color: #000;
+	background: #bec2c3;
+	border: 1px solid #000;
+	font-weight: normal;
+}
+
+.oeeloss table tr:first-child td {
+	color: #000;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.oeeloss table tr:first-child span{
+	float:left;
+	text-align: right;
+	height:30px;
+}
+
+.oeeloss table tr:first-child label,.oeeloss table tr:first-child input{
+	float:left;
+	text-align: left;
+	height:30px;
+}
+
+.oeeloss table td {
+	color: #0a05e8;
+	/* line-height: 30px; */
+	height: 30px;
+	text-align: center;
+	border: 1px solid #000;
+	cursor: pointer;
+	font-size: smaller;	
+}
+
+.oeeloss table td:nth-child(2) {
+	color: #006bb7;
+	text-align: center;
+	border: 1px solid #000;
+}
+
+.oeeloss table td span {
+	margin-left: 20px;
+}
+
+.oeeloss .footer {
+	text-align: left;
+	background-color: #c0c0c0;
+	vertical-align:middle;
+    height: 70px;
+}
+
+.oeeloss .footer .lf {	
+    width: 80%;
+    float: left;
+}
+
+.oeeloss .footer .rt {	
+    float: left;
+    width: 20%;
+    height: 100%;
+    padding-right:15px;
+    padding-top: 15px;
+}		
+
+
+.oeeloss .footer p {
+	margin-left: 20px;
+	color: #000;
+	font-weight: normal;
+	font-size: 12px;
+}
+
+.oeeloss .footer .title {
+	font-weight: normal;
+	font-size: 16px;
+	margin-bottom: 3px;
+}
+
+.oeeloss .toolbar {
+	height: 40px;
+    text-align: right;
+}
+
+.oeeloss .btn {
+    padding: 6px 12px;
+    line-height: 1.42857143;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.fst select,.fst label{
+	width: 100%;	
+	text-align: center;
+	height: 36px;
+	vertical-align: top;
+}
+
+.fst select{
+	border: 1px solid #0080ff;
+}
+
+.dt select,.dt label{
+	width: 50%;
+	float: left;	
+	text-align: center;
+}
+
+.dt select{
+	border: 1px solid #0080ff;	
+	height: 36px;
+}
+
+.attendeeTr td .field{
+	width: 100%;
+	height:100%;
+	display:inline-block;
+	vertical-align: middle;
+	line-height: 30px;
+}
+
+table td input[type='text'],.attendeeTr td select,.attendeeTr td textarea {
+	border: 1px solid #0080ff;	
+}

@@ -1,0 +1,350 @@
+<div class="oeesubtype">
+	<div class="oeeloss">
+		<div class="header">
+			<p>
+				<label><input type="radio" name="oeelossname" value="质量损失" checked="checked" on-click="switchToQuality">质量损失</label>
+				<label><input type="radio" name="oeelossname" value="换型损失"  on-click="switchToChgOver">换型损失</label>
+				
+				<label><input type="radio" name="oeelossname" value="技术损失"  on-click="switchToTech">技术损失</label>
+				<label><input type="radio" name="oeelossname" value="组织损失" on-click="switchToOrg">组织损失</label>
+				
+			</p>
+		</div>
+		<div class="qualityLoss">
+			<table style="width: 100%; text-align: center">
+				<tr>
+					<td>Scrap</td>
+					<td>Rework</td>
+				</tr>
+				<tr>
+					<td style="text-align: right"><input type="button" value="new" class="btn"><input type="button" value="save" class="btn"></td>
+					<td style="text-align: right"><input type="button" value="new" class="btn"><input type="button" value="save" class="btn"></td>
+				</tr>
+				<tr>
+					<td>
+						<table style="width: 100%; text-align: center">
+							<tr>
+								<td>Index</td>
+								<td>Name</td>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>
+									<label class="field" on-click="toShowLineSelect">{{attendance.line_name}}</label> 
+									<input class="field" style="width:7%;display:none" type="text" on-blur="toHideMeetingTimeText" value="{{attendance.time_start}}" />
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>Scrap-2</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table style="width: 100%; text-align: center">
+							<tr>
+								<td>Index</td>
+								<td>Name</td>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>Rework-1</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>Rework-2</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="chgoverLoss" style="display : none">
+			<table style="width: 100%; text-align: center">
+				<tr>
+					<td>unplan_setup</td>
+					<td>plan_setup</td>
+					<td>exchange_tool</td>
+				</tr>
+				<tr>
+					<td style="text-align: right"><input type="button" value="new" class="btn"><input type="button" value="save" class="btn"></td>
+					<td style="text-align: right"><input type="button" value="new" class="btn"><input type="button" value="save" class="btn"></td>
+					<td style="text-align: right"><input type="button" value="new" class="btn"><input type="button" value="save" class="btn"></td>
+				</tr>
+				<tr>
+					<td>
+						<table style="width: 100%; text-align: center">
+							<tr>
+								<td>Index</td>
+								<td>Name</td>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>
+									<label class="field" on-click="toShowLineSelect">{{attendance.line_name}}</label> 
+									<input class="field" style="width:7%;display:none" type="text" on-blur="toHideMeetingTimeText" value="{{attendance.time_start}}" />
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>Scrap-2</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table style="width: 100%; text-align: center">
+							<tr>
+								<td>Index</td>
+								<td>Name</td>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>Rework-1</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>Rework-2</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table style="width: 100%; text-align: center">
+							<tr>
+								<td>Index</td>
+								<td>Name</td>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>Rework-1</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>Rework-2</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="techLoss" style="display : none">
+			<table style="width: 100%; text-align: center">
+				<tr>
+					<td>break_down</td>
+					<td>adjustment</td>
+					
+				</tr>
+				<tr>
+					<td style="text-align: right"><input type="button" value="new" class="btn"><input type="button" value="save" class="btn"></td>
+					<td style="text-align: right"><input type="button" value="new" class="btn"><input type="button" value="save" class="btn"></td>
+					
+				</tr>
+				<tr>
+					<td>
+						<table style="width: 100%; text-align: center">
+							<tr>
+								<td>Index</td>
+								<td>Name</td>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>
+									<label class="field" on-click="toShowLineSelect">{{attendance.line_name}}</label> 
+									<input class="field" style="width:7%;display:none" type="text" on-blur="toHideMeetingTimeText" value="{{attendance.time_start}}" />
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>Scrap-2</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table style="width: 100%; text-align: center">
+							<tr>
+								<td>Index</td>
+								<td>Name</td>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>Rework-1</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>Rework-2</td>
+							</tr>
+						</table>
+					</td>
+					
+				</tr>
+			</table>
+		</div>
+		
+		<div class="orgLoss" style="display : none">
+			<table style="width: 100%; text-align: center">
+				<tr>
+					<td>lack_person</td>
+					<td>lack_meterial</td>
+					<td>test_release</td>
+					<td>exchg_meterial</td>
+					<td>unplan_tpm</td>
+					<td>unplan_sample</td>
+					<td>new_operator</td>
+					<td>others</td>
+				</tr>
+				<tr>
+					<td style="text-align: right"><input type="button" value="new" class="btn"><input type="button" value="save" class="btn"></td>
+					<td style="text-align: right"><input type="button" value="new" class="btn"><input type="button" value="save" class="btn"></td>
+					<td style="text-align: right"><input type="button" value="new" class="btn"><input type="button" value="save" class="btn"></td>
+					<td style="text-align: right"><input type="button" value="new" class="btn"><input type="button" value="save" class="btn"></td>
+					<td style="text-align: right"><input type="button" value="new" class="btn"><input type="button" value="save" class="btn"></td>
+					<td style="text-align: right"><input type="button" value="new" class="btn"><input type="button" value="save" class="btn"></td>
+					<td style="text-align: right"><input type="button" value="new" class="btn"><input type="button" value="save" class="btn"></td>
+					<td style="text-align: right"><input type="button" value="new" class="btn"><input type="button" value="save" class="btn"></td>
+				</tr>
+				<tr>
+					<td>
+						<table style="width: 100%; text-align: center">
+							<tr>
+								<td>Index</td>
+								<td>Name</td>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>
+									<label class="field" on-click="toShowLineSelect">{{attendance.line_name}}</label> 
+									<input class="field" style="width:7%;display:none" type="text" on-blur="toHideMeetingTimeText" value="{{attendance.time_start}}" />
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>Scrap-2</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table style="width: 100%; text-align: center">
+							<tr>
+								<td>Index</td>
+								<td>Name</td>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>Rework-1</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>Rework-2</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table style="width: 100%; text-align: center">
+							<tr>
+								<td>Index</td>
+								<td>Name</td>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>
+									<label class="field" on-click="toShowLineSelect">{{attendance.line_name}}</label> 
+									<input class="field" style="width:7%;display:none" type="text" on-blur="toHideMeetingTimeText" value="{{attendance.time_start}}" />
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>Scrap-2</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table style="width: 100%; text-align: center">
+							<tr>
+								<td>Index</td>
+								<td>Name</td>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>Rework-1</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>Rework-2</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table style="width: 100%; text-align: center">
+							<tr>
+								<td>Index</td>
+								<td>Name</td>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>
+									<label class="field" on-click="toShowLineSelect">{{attendance.line_name}}</label> 
+									<input class="field" style="width:7%;display:none" type="text" on-blur="toHideMeetingTimeText" value="{{attendance.time_start}}" />
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>Scrap-2</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table style="width: 100%; text-align: center">
+							<tr>
+								<td>Index</td>
+								<td>Name</td>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>Rework-1</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>Rework-2</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table style="width: 100%; text-align: center">
+							<tr>
+								<td>Index</td>
+								<td>Name</td>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>
+									<label class="field" on-click="toShowLineSelect">{{attendance.line_name}}</label> 
+									<input class="field" style="width:7%;display:none" type="text" on-blur="toHideMeetingTimeText" value="{{attendance.time_start}}" />
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>Scrap-2</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table style="width: 100%; text-align: center">
+							<tr>
+								<td>Index</td>
+								<td>Name</td>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>Rework-1</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>Rework-2</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+	</div>
+</div>
