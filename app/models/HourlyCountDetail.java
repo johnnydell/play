@@ -68,6 +68,9 @@ public class HourlyCountDetail extends Model {
 	
 	@Column(name = "plan_count")
 	public Integer planCount;
+	
+	@Column(name = "plan_total_count")
+	public Integer planTotalCount;
 
 	@Column(name = "actual_count")
 	public Integer actualCount;

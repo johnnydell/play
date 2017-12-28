@@ -619,11 +619,11 @@ var hourlycount = function(){
 					hourlycounts[i].performanceCount 		= isNull(listdata[i].performanceCount) ? 0 : parseInt(listdata[i].performanceCount);
 					hourlycounts[i].undefinedCount 			= isNull(listdata[i].undefinedCount) ? 0 : parseInt(listdata[i].undefinedCount);
 					hourlycounts[i].remark 					= isNull(listdata[i].remark) ? "" : listdata[i].remark;
-					hourlycounts[i].techDownCode 			= isNull(listdata[i].remark) ? "" : listdata[i].techDownCode;
+					hourlycounts[i].techDownCode 			= isNull(listdata[i].techDownCode) ? "" : listdata[i].techDownCode;
 					hourlycounts[i].productHourPercent		= hourlycounts[i].productHourCount / 240;
-					planTotalCount 							+= hourlycounts[i].planCount;
+					//planTotalCount 							+= hourlycounts[i].planCount;
 					actualTotalCount 						+= hourlycounts[i].actualCount;
-					hourlycounts[i].planTotalCount			= planTotalCount;
+					hourlycounts[i].planTotalCount			= isNull(listdata[i].planTotalCount) ? "" : listdata[i].planTotalCount;
 					hourlycounts[i].actualTotalCount		= actualTotalCount;
 					
 					//calculate sub total count for group 1
