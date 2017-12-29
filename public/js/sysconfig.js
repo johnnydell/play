@@ -17,7 +17,7 @@ var sysconfig = function(){
 				
 			},
 			oncomplete: function(){	
-				oeeSubType.init();
+				oeeLossSubType.init();
 			}
 		});
 		

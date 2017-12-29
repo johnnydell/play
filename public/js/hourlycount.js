@@ -621,10 +621,11 @@ var hourlycount = function(){
 					hourlycounts[i].remark 					= isNull(listdata[i].remark) ? "" : listdata[i].remark;
 					hourlycounts[i].techDownCode 			= isNull(listdata[i].techDownCode) ? "" : listdata[i].techDownCode;
 					hourlycounts[i].productHourPercent		= hourlycounts[i].productHourCount / 240;
-					//planTotalCount 							+= hourlycounts[i].planCount;
-					actualTotalCount 						+= hourlycounts[i].actualCount;
 					hourlycounts[i].planTotalCount			= isNull(listdata[i].planTotalCount) ? "" : listdata[i].planTotalCount;
 					hourlycounts[i].actualTotalCount		= actualTotalCount;
+					planTotalCount 							+= hourlycounts[i].planCount;
+					actualTotalCount 						+= hourlycounts[i].actualCount;
+					
 					
 					//calculate sub total count for group 1
 					if (i < 8){
@@ -650,7 +651,7 @@ var hourlycount = function(){
 					}
 					
 				}
-				hourlycounts_base.planOutputCount = Math.round(( parseInt(planTotalCount) * 100 ) / hourlycounts_base.targetOee);
+				hourlycounts_base.planOutputCount = Math.round(( parseInt(planTotalCount) * 100 ) / hourlycounts_base.targetOeePercent);
 				hourlycounts_base.actualOutputCount = actualTotalCount;
 				if (planTotalCount !== 0){
 					hourlycounts_base.actualOee = actualTotalCount / planTotalCount;
