@@ -48,7 +48,12 @@ public class OeeLossController extends Controller {
 					float tempValue = row.getFloat("target_oee_percent");
 					float targetValue = (float)(Math.round(tempValue*10))/10;//保留1位小数
 					targetOeeTotal.add(targetValue);
-					tempValue = (float)(row.getInteger("actual_oee_total") * 100 / row.getInteger("target_oee_total")) ;
+					int targetOeeTotalVal = row.getInteger("target_oee_total");
+					if(targetOeeTotalVal == 0){
+						tempValue = 100f;
+					} else {
+						tempValue = (float)(row.getInteger("actual_oee_total") * 100 / row.getInteger("target_oee_total")) ;
+					}
 					targetValue = (float)(Math.round(tempValue*10))/10; //保留1位小数
 					actualOeeTotal.add(targetValue);
 					

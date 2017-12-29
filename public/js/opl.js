@@ -110,7 +110,7 @@ var opl = function(){
 						timing:'5',
 						amt:'5',
 						rootCause:'',
-						immediate:' sdfdfe ',
+						immediate:'',
 						longTerm:'',
 						problemSolvingSheet:'N',
 						pss:{id:'0',file_name:'',file_real_name:'',create_time:manager.getSystemDateTime(),has:false},

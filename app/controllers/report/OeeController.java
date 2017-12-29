@@ -49,7 +49,12 @@ public class OeeController extends Controller {
 			for (HourlyCountBase base : rows){
 				String historyDate = df.format(base.productDate);
 				if (fullDayValue.equals(historyDate)){
-					float tempValue = (float)(base.actualOeeTotalOutput * 100 / base.targetOeeTotalOutput) ;
+					float tempValue;
+					if(base.targetOeeTotalOutput == 0){
+						tempValue = 100f;
+					} else {
+						tempValue = (float)(base.actualOeeTotalOutput * 100 / base.targetOeeTotalOutput) ;
+					}
 					float targetValue = (float)(Math.round(tempValue*10))/10; //保留1位小数
 					actualCountList.add(targetValue);
 					isFound = true;
