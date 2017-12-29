@@ -9,8 +9,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-
-import models.MetAttdDetails;
 import models.ProductLine;
 import models.ProductType;
 import models.settings.HCConfigBase;

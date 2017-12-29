@@ -70,8 +70,12 @@ public class OPL extends Model {
 	@Column(name = "problem_solve")
 	public String problemSolve;
 	
-	@Column(name = "pss_link")
-	public String pssLink;
+	@Column(name = "pss_id")
+	public String pss_id;
+	
+	@ManyToOne
+	@JoinColumn(name = "pss_id",insertable=false,updatable=false)
+	public OPLPSS pss;
 	
 	@Column(name = "owner")
 	public String owner;
@@ -90,7 +94,7 @@ public class OPL extends Model {
 	public static Page<OPL> getOPLByParamPagination(String line_id,String year,String month,String page,String pageSize){
 		Page<OPL> pagination = find.where().eq("line_id", line_id).
 				between("date", year+"-"+month+"-01",  year+"-"+month+"-31").
-				orderBy("create_time desc").
+				orderBy("createTime desc").fetch("pss").
 				findPagingList(Integer.parseInt(pageSize)).setFetchAhead(false).getPage(Integer.parseInt(page)-1);
 		return pagination;
 	}

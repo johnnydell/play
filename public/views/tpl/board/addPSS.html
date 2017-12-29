@@ -9,23 +9,33 @@
 			<tr>
 				<td>
 				    <label><strong>当前PSS链接:</strong></label> 
-				    <label><a href="javascript:void(0);" on-click="gotoView">{{currPss}}</a></label>
+				    <label><a href="javascript:void(0);" lang="{{currPss.file_name}}" on-click="gotoView">{{currPss.file_real_name}}</a></label>
 			     </td>
 			</tr>
 			<tr>
 				<td>
+				    <label><strong>历史链接:</strong></label> 
+				    <ul class="ls">
+				      {{#each ls:index}}
+				      <li><a href="javascript:void(0);" lang="{{fileName}}" on-click="gotoView">{{fileRealName}}</a><label>{{createTime}}</label></li>
+				      {{/each}}
+				    </ul>
+			   </td>
+			</tr>
+			<tr>
+				<td>
 					<div id="uploader">
-				    <div id="thelist" class="uploader-list"></div>
-				    <div>
-				        <div id="picker" class="webuploader-container">
-					        <div class="webuploader-pick">选择文件</div>
-						        <div>
-							        <input name="file" class="webuploader-element-invisible" multiple="multiple" type="file">
+					    <div id="thelist" class="uploader-list"></div>
+					    <div>
+					        <div id="picker" class="webuploader-container">
+						        <div class="webuploader-pick">选择文件</div>
+							        <div>
+								        <input name="file" class="webuploader-element-invisible" multiple="multiple" type="file">
+							        </div>
 						        </div>
-					        </div>
-				        	<button id="ctlBtn" class="btn-ext btn-default">开始上传</button>
-				    </div>
-				</div>
+					        	<button id="ctlBtn" class="btn-ext btn-default">开始上传</button>
+					    </div>
+					</div>
 			     </td>
 			</tr>
 			</tbody>

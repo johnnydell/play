@@ -80,6 +80,10 @@
 	padding:8px;
 }
 
+.pss_popup .modal-body .table .ls label{
+	float: right;
+}
+
 .pss_popup .modal-body .table .form-control {
 	padding: 6px 12px;
 	width: 100%;

@@ -193,6 +193,20 @@ var manager = function() {
 		return date;
 	}
 	
+	//获取服务系统时间
+	function getSystemDateTime(){
+		var date_time;
+		$.ajax({
+			url: manager.root + "/common/getCurrDateTime",
+			type: "GET",
+			async:false,
+			success: function(data) {
+				date_time = data;
+			}
+		});
+		return date_time;
+	}
+	
 	//获取服务器明天的日期
 	function getDateByOffset(offset){
 		var date;
@@ -271,6 +285,7 @@ var manager = function() {
 		setMenuBar:setMenuBar,
 		getSystemDate:getSystemDate,
 		getSystemTime:getSystemTime,
+		getSystemDateTime:getSystemDateTime,
 		getSystemParams:getSystemParameters,
 		getDateByOffset:getDateByOffset,
 		isNull:isNull,

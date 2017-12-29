@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import common.Constants;
 import common.util.FileUtil;
 import models.OPL;
+import models.OPLPSS;
 import models.ProductLine;
 import play.db.ebean.Transactional;
 import play.mvc.Controller;
@@ -34,6 +35,12 @@ public class OPLController extends Controller {
 	private final static DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
 	private final static DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+	public static Result getListByOPLId(String opl_id){
+	   List<OPLPSS> pssLi = OPLPSS.getListByOPLId(opl_id);
+       String str = JSON.toJSONString(pssLi);
+       return ok(str);
+	}
+	
 	public static Result addPSS() {
 		JSONObject json = new JSONObject();
 		MultipartFormData body = request().body().asMultipartFormData();
@@ -58,6 +65,7 @@ public class OPLController extends Controller {
 			if (saveResult) {				
 				json.put("result", "OK");
 				json.put("newFileName", newFileName);
+				json.put("fileRealName", fileName);
 				json.put("info", "upload file Succeed!");
 			} else {
 				json.put("result", "FAIL");
@@ -133,7 +141,7 @@ public class OPLController extends Controller {
 		    String immediate = node.get("immediate").asText();
 		    String longTerm = node.get("longTerm").asText();
 		    String problemSolvingSheet = node.get("problemSolvingSheet").asText();
-		    String pssLink = node.get("pssLink").asText();
+		    JsonNode pssJson = node.get("pss");
 		    String responsible = node.get("responsible").asText();
 		    String deadline = node.get("deadline").asText();
 		    String status = node.get("status").asText();
@@ -152,7 +160,20 @@ public class OPLController extends Controller {
 			opl.longTerm = longTerm;
 			opl.owner = responsible;
 			opl.problemSolve = problemSolvingSheet;
-			opl.pssLink = pssLink;
+			
+			String file_name = pssJson.get("file_name").asText();
+			String file_real_name = pssJson.get("file_real_name").asText();
+			String create_time = pssJson.get("create_time").asText();
+			boolean has = pssJson.get("has").asBoolean();
+			if(opl.problemSolve.equals("Y") && has){
+				OPLPSS pss = new OPLPSS();
+				pss.oplId = opl.id;
+				pss.fileName = file_name;
+				pss.fileRealName = file_real_name;
+				pss.createTime = create_time;
+				OPLPSS.save(pss);
+				opl.pss_id = pss.id;
+			}
 			opl.refNo = refNo;
 			opl.rootCause = rootCause;
 			opl.station = station;
@@ -185,15 +206,13 @@ public class OPLController extends Controller {
 		    String immediate = node.get("immediate").asText();
 		    String longTerm = node.get("longTerm").asText();
 		    String problemSolvingSheet = node.get("problemSolvingSheet").asText();
-		    String pssLink = node.get("pssLink").asText();
+		    JsonNode pssJson = node.get("pss");
 		    String responsible = node.get("responsible").asText();
 		    String deadline = node.get("deadline").asText();
 		    String status = node.get("status").asText();
 		    
-		    OPL opl = new OPL();
-		    opl.id = id;
+		    OPL opl = OPL.find(id);
 		    opl.amount = amt;
-		    opl.createTime = df1.format(new Date());
 			opl.date = date;
 			opl.deadline = deadline;
 			opl.description = description;
@@ -205,7 +224,26 @@ public class OPLController extends Controller {
 			opl.longTerm = longTerm;
 			opl.owner = responsible;
 			opl.problemSolve = problemSolvingSheet;
-			opl.pssLink = pssLink;
+			
+			String pss_id = pssJson.get("id").asText();
+			String file_name = pssJson.get("file_name").asText();
+			String file_real_name = pssJson.get("file_real_name").asText();
+			String create_time = pssJson.get("create_time").asText();
+			boolean has = pssJson.get("has").asBoolean();
+			if(opl.problemSolve.equals("Y") && has){
+				OPLPSS pss = new OPLPSS();
+				if(pss_id.equals("0")){			
+					pss.oplId = opl.id;
+					pss.fileName = file_name;
+					pss.fileRealName = file_real_name;
+					pss.createTime = create_time;
+					OPLPSS.save(pss);
+					pss_id = pss.id;
+				} 
+				opl.pss_id = pss_id;
+			} else {
+				opl.pss_id = null;
+			}			
 			opl.refNo = refNo;
 			opl.rootCause = rootCause;
 			opl.station = station;

@@ -56,7 +56,7 @@
 	<div class="content">
 		<div class="content-box">
             <div class="toolbar">
-                <!--<button type="button" class="btn" on-click="test">测试</button>-->
+                <button type="button" class="btn" on-click="test">测试</button><!---->
 				<button type="button" class="btn" on-click="addOP">{{i18n_opl_add}}</button>
 				<button type="button" class="btn" on-click="saveOP">{{i18n_opl_save}}</button>
 				<button type="button" class="btn" on-click="deleteOP">{{i18n_opl_delete}}</button>
@@ -163,17 +163,17 @@
                     </td>
  					<td lang="{{index}}">
                        {{#if problemSolvingSheet == 'Y'}}
-							{{#if pssLink != ''}}
-								<label class="field" ><a class="link" href="javascript:void(0);" on-click="showPss">{{pssLink}}</a></label>
+							{{#if pss.has}}
+								<label class="field" ><a class="link" href="javascript:void(0);" on-click="showPss">{{pss.file_real_name}}</a></label>
 								<label class="field" style="display:none;"><a class="link" href="javascript:void(0);" on-click="showPss">{{i18n_opl_add_pass}}</a></label>
 								<label class="field" style="display:none;"></label>
 							{{else}}
-								<label class="field" style="display:none;"><a class="link" href="javascript:void(0);" on-click="showPss">{{pssLink}}</a></label>
+								<label class="field" style="display:none;"><a class="link" href="javascript:void(0);" on-click="showPss">{{pss.file_real_name}}</a></label>
 								<label class="field" ><a class="link" href="javascript:void(0);" on-click="showPss">{{i18n_opl_add_pass}}</a></label>
 								<label class="field" style="display:none;"></label>
                       		{{/if}}
                        {{else}}
-                    		<label class="field" style="display:none;"><a class="link" href="javascript:void(0);" on-click="showPss">{{pssLink}}</a></label>
+                    		<label class="field" style="display:none;"><a class="link" href="javascript:void(0);" on-click="showPss">{{pss.file_real_name}}</a></label>
 							<label class="field" style="display:none;"><a class="link" href="javascript:void(0);" on-click="showPss">{{i18n_opl_add_pass}}</a></label>
 							<label class="field" ></label>
                        {{/if}}

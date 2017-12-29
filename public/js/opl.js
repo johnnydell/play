@@ -113,7 +113,7 @@ var opl = function(){
 						immediate:' sdfdfe ',
 						longTerm:'',
 						problemSolvingSheet:'N',
-						pssLink:'',
+						pss:{id:'0',file_name:'',file_real_name:'',create_time:manager.getSystemDateTime(),has:false},
 						responsible:'',
 						deadline:condition.year+'-'+condition.month+'-01',
 						status:'N',
@@ -242,8 +242,8 @@ var opl = function(){
 								manager.block();
 							},
 							success: function(data) {
-								refreshOPL(ractive);	
 								jAlert($.i18n.prop("i18n_save_ok"), $.i18n.prop("i18n_info"));
+								refreshOPL(ractive);	
 							},
 							complete: function() {
 								manager.unblock();
@@ -254,7 +254,7 @@ var opl = function(){
 			},
 			test:function(){
 				console.log(opl[0]);
-				ractive.update("opl");
+				console.log(opl[1]);
 			},
 			disableKeydown:function(){
 				return false;
@@ -264,125 +264,151 @@ var opl = function(){
 			    var _$target = $(e.node);
 			    opl[index].updated = "1";
 				ractive.update("opl");
+    	        var currPss	= opl[index].pss; 
 				$(".pss_popup").show();  
-    	    	  $.get(manager.root+"/views/tpl/board/addPSS.html", function (data) {
-    	    	        var currPss	= opl[index].pssLink;     
-	        	        var ractive2 = new Ractive({
-	        	            el: ".pss_popup",
-	        	            template: data,
-	        	            data:{root:manager.root},
-	        	            oncomplete: function () {
-	        	                var _ractive = this;
-	        	                _ractive.set("currPss",currPss);
-	        	                
-	        	            	var $list = $('#thelist'),
-							        $btn = $('#ctlBtn'),
-							        state = 'pending',
-							        uploader;
-							    
-							    uploader = WebUploader.create({							
-							        // 不压缩image
-							        resize: false,							
-							        // swf文件路径
-							        swf: manager.root + '/js/lib/webuploader-0.1.5/Uploader.swf',							
-							        // 文件接收服务端。
-							        server: manager.root + '/opl/addPSS',
-							        // 选择文件的按钮。可选。
-							        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
-							        pick: '#picker'//,
-							       // accept: {
-									//	title: 'excel',
-									//	extensions: 'xls,xlsx',
-								//	mimeTypes: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-									//}
-							    });
-							
-							    // 当有文件添加进来的时候
-							    uploader.on( 'fileQueued', function( file ) {
-							     	$list.html('');
-							        $list.append( '<div id="' + file.id + '" class="item">' +
-							            '<h4 class="info">' + file.name + '</h4>' +
-							            '<p class="state">等待上传...</p>' +
-							        '</div>' );
-							    });
-							
-							    // 文件上传过程中创建进度条实时显示。
-							    uploader.on( 'uploadProgress', function( file, percentage ) {
-							        var $li = $( '#'+file.id ),
-							            $percent = $li.find('.progress .progress-bar');
-							
-							        // 避免重复创建
-							        if ( !$percent.length ) {
-							            $percent = $('<div class="progress progress-striped active">' +
-							              '<div class="progress-bar" role="progressbar" style="width: 0%">' +
-							              '</div>' +
-							            '</div>').appendTo( $li ).find('.progress-bar');
-							        }
-							        $li.find('p.state').text('上传中');
-							
-							        $percent.css( 'width', percentage * 100 + '%' );
-							    });
-							
-							    uploader.on( 'uploadSuccess', function( file,resp ) {
-							        $( '#'+file.id ).find('p.state').text('已上传');
-							        if(resp.result === 'OK'){
-							          currPss = resp.newFileName;
-							          _ractive.set("currPss",currPss);
-							        }
-							    });
-							
-							    uploader.on( 'uploadError', function( file ) {
-							        $( '#'+file.id ).find('p.state').text('上传出错');
-							    });
-							
-							    uploader.on( 'uploadComplete', function( file ) {
-							        $( '#'+file.id ).find('.progress').fadeOut();
-							    });
-							
-							    uploader.on( 'all', function( type ) {
-							        if ( type === 'startUpload' ) {
-							            state = 'uploading';
-							        } else if ( type === 'stopUpload' ) {
-							            state = 'paused';
-							        } else if ( type === 'uploadFinished' ) {
-							            state = 'done';
-							        }
-							
-							        if ( state === 'uploading' ) {
-							            $btn.text('暂停上传');
-							        } else {
-							            $btn.text('开始上传');
-							        }
-							    });
-							
-							    $btn.on( 'click', function() {
-							        if ( state === 'uploading' ) {
-							            uploader.stop();
-							        } else {
-							            uploader.upload();
-							        }
-							    });        	            	   
-	        	            }
-	        	        });
-	        	        	        	        
-	        	        ractive2.on({
-	        	        	gotoView:function () {
-		        	        	console.log("currPss = " + currPss);
-		        	        	window.location.href='staticpage.html?pageName=pss&oplLinkName=' + currPss;
-		        	        },
-		        	        close:function () {
-		        	            $(".pss_popup").hide().html("");
-		        	            opl[index].pssLink = currPss;
-		        	            //ractive.update("opl");
-		        	            if(currPss != ''){
-		        	            	var txt = currPss.length>10?currPss.substring(0,10)+"....":currPss;
-		        	           	    _$target.parent().children(0).html(txt);
-		        	            }
-		        	        }
-	        	        })
-	        	    });   
+	    	    $.get(manager.root+"/views/tpl/board/addPSS.html", function (data) {    
+        	        var ractive2 = new Ractive({
+        	            el: ".pss_popup",
+        	            template: data,
+        	            data:{root:manager.root},
+        	            oncomplete: function () {
+        	                var _ractive = this;
+        	                _ractive.set("currPss",currPss);
+        	                
+        	                var ls = getPssLS(opl[index].id);
+        	                _ractive.set("ls",ls);
+        	                
+        	            	var $list = $('#thelist'),
+						        $btn = $('#ctlBtn'),
+						        state = 'pending',
+						        uploader;
+						    
+						    uploader = WebUploader.create({							
+						        // 不压缩image
+						        resize: false,							
+						        // swf文件路径
+						        swf: manager.root + '/js/lib/webuploader-0.1.5/Uploader.swf',							
+						        // 文件接收服务端。
+						        server: manager.root + '/opl/addPSS',
+						        // 选择文件的按钮。可选。
+						        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+						        pick: '#picker'//,
+						       // accept: {
+								//	title: 'excel',
+								//	extensions: 'xls,xlsx',
+							//	mimeTypes: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+								//}
+						    });
+						
+						    // 当有文件添加进来的时候
+						    uploader.on( 'fileQueued', function( file ) {
+						     	$list.html('');
+						        $list.append( '<div id="' + file.id + '" class="item">' +
+						            '<h4 class="info">' + file.name + '</h4>' +
+						            '<p class="state">等待上传...</p>' +
+						        '</div>' );
+						    });
+						
+						    // 文件上传过程中创建进度条实时显示。
+						    uploader.on( 'uploadProgress', function( file, percentage ) {
+						        var $li = $( '#'+file.id ),
+						            $percent = $li.find('.progress .progress-bar');
+						
+						        // 避免重复创建
+						        if ( !$percent.length ) {
+						            $percent = $('<div class="progress progress-striped active">' +
+						              '<div class="progress-bar" role="progressbar" style="width: 0%">' +
+						              '</div>' +
+						            '</div>').appendTo( $li ).find('.progress-bar');
+						        }
+						        $li.find('p.state').text('上传中');
+						
+						        $percent.css( 'width', percentage * 100 + '%' );
+						    });
+						
+						    uploader.on( 'uploadSuccess', function( file,resp ) {
+						        $( '#'+file.id ).find('p.state').text('已上传');
+						        if(resp.result === 'OK'){
+						        	currPss.id = "0";
+						        	currPss.file_name = resp.newFileName;
+						        	currPss.file_real_name = resp.fileRealName;
+						        	currPss.create_time = resp.last_update_time;
+						        	currPss.has = true;
+						          _ractive.set("currPss",currPss);
+						        }
+						    });
+						
+						    uploader.on( 'uploadError', function( file ) {
+						        $( '#'+file.id ).find('p.state').text('上传出错');
+						    });
+						
+						    uploader.on( 'uploadComplete', function( file ) {
+						        $( '#'+file.id ).find('.progress').fadeOut();
+						    });
+						
+						    uploader.on( 'all', function( type ) {
+						        if ( type === 'startUpload' ) {
+						            state = 'uploading';
+						        } else if ( type === 'stopUpload' ) {
+						            state = 'paused';
+						        } else if ( type === 'uploadFinished' ) {
+						            state = 'done';
+						        }
+						
+						        if ( state === 'uploading' ) {
+						            $btn.text('暂停上传');
+						        } else {
+						            $btn.text('开始上传');
+						        }
+						    });
+						
+						    $btn.on( 'click', function() {
+						        if ( state === 'uploading' ) {
+						            uploader.stop();
+						        } else {
+						            uploader.upload();
+						        }
+						    });        	            	   
+        	            }
+        	        });
+        	        	        	        
+        	        ractive2.on({
+        	        	gotoView:function (e) {
+        	        		var fileName = $(e.node).attr("lang");
+	        	        	window.location.href='staticpage.html?pageName=pss&oplLinkName=' + fileName;
+	        	        },
+	        	        close:function () {
+	        	            $(".pss_popup").hide().html("");
+	        	            opl[index].pss = currPss;
+	        	            ractive.update("opl");
+	        	           /* var fileRealName = currPss.file_real_name;
+	        	            var txt = fileRealName.length>10?fileRealName.substring(0,10)+"....":fileRealName;
+        	           	    _$target.parent().children(0).html(fileRealName);
+        	           	    _$target.parent().children(0).attr("title",fileRealName);*/
+	        	        }
+        	        })
+        	     });   
 			}
 		})
+	}
+	
+	//根据OPLID获得Pss历史
+	function getPssLS(opl_id){
+		if(opl_id !='' && opl_id != null && opl_id != undefined){
+			var ret;
+			$.ajax({
+				url: manager.root+"/opl/getListByOPLId",
+				type: "GET",
+				async:false,
+				dataType:"json",
+				data:{opl_id:opl_id},
+				contentType: "application/json",
+				success: function(data) {
+					ret = data;
+				}
+			});
+			return ret;
+		}
 	}
 	
 	//绑定日期控件事件
@@ -443,6 +469,7 @@ var opl = function(){
 			pages.push(i);
 		}
 		condition.pages = pages;
+		var sys_datetime = manager.getSystemDateTime();
 		if(data.length > 0){
 			$(data).each(function(i,n){
 				var det = {};
@@ -461,7 +488,16 @@ var opl = function(){
 				det.immediate = n.immediate;
 				det.longTerm = n.longTerm;
 				det.problemSolvingSheet = n.problemSolve;
-				det.pssLink = n.pssLink;
+				var pss = {id:'0',opl_id:n.id,file_name:'',file_real_name:'',create_time:sys_datetime,has:false};
+				if(n.pss != null && n.pss != undefined){
+					pss.id = n.pss.id;
+					pss.opl_id = n.pss.oplId;
+					pss.file_name = n.pss.fileName;
+					pss.file_real_name = n.pss.fileRealName;
+					pss.create_time = n.pss.createTime;
+					pss.has = true;
+				}
+				det.pss = pss;
 				det.responsible = n.owner;
 				det.deadline = n.deadline;
 				det.status = n.status;

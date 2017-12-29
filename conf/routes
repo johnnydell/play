@@ -7,6 +7,7 @@ GET     /                           					controllers.Application.index()
 
 # Application
 GET     /edashboard/common/getCurrDate             		controllers.Application.getCurrDate()
+GET     /edashboard/common/getCurrDateTime             		controllers.Application.getCurrDateTime()
 GET     /edashboard/common/getDateByOffset/:offset      controllers.Application.getDateByOffset(offset:String)
 GET     /edashboard/common/getCurrTime             		controllers.Application.getCurrTime()
 GET     /edashboard/common/getSysParams          		controllers.Application.getSystemParameters()
@@ -43,6 +44,7 @@ POST /edashboard/hcConfig/saveHCConfig                  controllers.settings.HCC
 
 #OPL
 POST /edashboard/opl/addPSS 		            		controllers.OPLController.addPSS()
+GET  /edashboard/opl/getListByOPLId              		controllers.OPLController.getListByOPLId(opl_id:String)
 GET  /edashboard/opl/getOPLByParamPagination            controllers.OPLController.getOPLByParamPagination(line_id:String,year:String,month:String,page:String,pageSize:String)
 POST /edashboard/opl/saveOPL                            controllers.OPLController.saveOPL()
 POST /edashboard/opl/deleteOPL                          controllers.OPLController.deleteOPL()
