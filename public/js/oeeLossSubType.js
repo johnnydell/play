@@ -1,9 +1,6 @@
 var oeeLossSubType = function(){
 	var oeeLosses;
-	var technicalLoss = {id:"", name:""};
-	var changeoverLoss = {};
-	var qualityLoss;
-	var orgnizationLoss;
+	var oeeSubLosses;
 	function init(){
 	   //渲染chart1部分
 	   $.get(manager.root+"/views/tpl/setting/oeeLossSubType.html", function (template) {
@@ -19,13 +16,13 @@ var oeeLossSubType = function(){
 	        			data	: '',
 	        			success: function(listdata)
 	        			{
-	        				oeeLosses = listdata;
 	        				console.log(listdata);
-	        				//ractive.set("losses", oeeLosses['质量损失']);
-	        				technicalLoss.id = listdata["技术损失"];
-	        				changeoverLoss = listdata["换型损失"];
-	        				qualityLoss = listdata["质量损失"];
-	        				orgnizationLoss = listdata["组织损失"];
+	        				oeeLosses 			= listdata;
+	        				oeeSubLosses 		= oeeLosses[0].subTypes;
+	        				
+	        				ractive.set("oeeLosses", oeeLosses);
+	        				ractive.set("oeeSubLosses", oeeSubLosses);
+	        				
 	        			}
 	            	});
 	            	/**/
@@ -33,29 +30,11 @@ var oeeLossSubType = function(){
 	        }); 
 	        
 	        ractive.on({
-	        	switchToQuality: function(e){
-	        		$('.qualityLoss').show();
-	        		$('.chgoverLoss').hide();
-	        		$('.techLoss').hide();
-	        		$('.orgLoss').hide();
-	        	},
-	        	switchToChgOver: function(e){
-	        		$('.qualityLoss').hide();
-	        		$('.chgoverLoss').show();
-	        		$('.techLoss').hide();
-	        		$('.orgLoss').hide();
-	        	},
-	        	switchToTech : function(e){
-	        		$('.qualityLoss').hide();
-	        		$('.chgoverLoss').hide();
-	        		$('.techLoss').show();
-	        		$('.orgLoss').hide();
-	        	},
-	        	switchToOrg : function(e){
-	        		$('.qualityLoss').hide();
-	        		$('.chgoverLoss').hide();
-	        		$('.techLoss').hide();
-	        		$('.orgLoss').show();
+	        	switchOtherLoss: function(e){
+	        		var idx = $(e.node).val();
+	        		console.log(idx);
+	        		oeeSubLosses = oeeLosses[idx].subTypes;
+	        		ractive.set("oeeSubLosses", oeeSubLosses);
 	        	}
 	        });
 	    });

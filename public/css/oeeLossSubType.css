@@ -104,10 +104,10 @@
 	height:30px;
 }
 
-.oeeloss table tr:first-child label,.oeeloss table tr:first-child input{
+.oeeloss table tr:first-child input{
 	float:left;
 	text-align: left;
-	height:30px;
+	
 }
 
 .oeeloss table td {
@@ -198,14 +198,14 @@
 	height: 36px;
 }
 
-.attendeeTr td .field{
+.LossDetail td .field{
 	width: 100%;
 	height:100%;
 	display:inline-block;
 	vertical-align: middle;
-	line-height: 30px;
+	
 }
 
-table td input[type='text'],.attendeeTr td select,.attendeeTr td textarea {
-	border: 1px solid #0080ff;	
-}
+
+
+
