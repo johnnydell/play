@@ -22,17 +22,10 @@ var oeeLossSubType = function(){
 	        ractive.on({
 	        	switchOtherLoss: function(e){
 	        		lossIndex = $(e.node).val();
-	        		oeeSubLosses = oeeLosses[lossIndex].subTypes;
-	        		ractive.set("oeeSubLosses", oeeSubLosses);
-	        		var tableWidth = $(".LossDetail").css("width");
-					var subLossCount = oeeSubLosses.length;
-					var averageWidth = Math.ceil(parseInt(tableWidth) / subLossCount);
-					$(".subLossTitle").css("width", averageWidth);
-					//ractive.update();
+	        		refreshLossSubType(lossIndex,ractive);
 	        	},
 	        	addLoss: function(e){
 	        		var idx = e.index.idx;
-	        		console.log(idx);
 	        		var subSubLoss = {id:"", lossTypeName:"", oeeLossChildType: "", lossTypeCode: "", active: 1};
 	        		oeeSubLosses = oeeLosses[lossIndex].subTypes;
 	        		oeeSubLosses[idx].subSubTypes.push(subSubLoss);
@@ -50,9 +43,7 @@ var oeeLossSubType = function(){
 						type	: 'post',
 						data	: JSON.stringify(params),
 						contentType: "application/json", 
-						
-						success: function(ret)
-						{
+						success: function(ret){
 							if (ret == '0'){
 								jAlert($.i18n.map['i18n_save_error'], $.i18n.map['i18n_error']);	
 							}
@@ -69,7 +60,7 @@ var oeeLossSubType = function(){
 				},
 				/*hide text, show label*/
 				toHideColumnEditor:function(e){
-					$(e.node).hide().prev().show().text($(e.node).val());
+					$(e.node).hide().prev().show();//.text($(e.node).val());
 				},
 				test:function(){
 					console.log(oeeSubLosses);

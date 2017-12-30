@@ -23,9 +23,7 @@
 						<td style="text-align: right">
 							<input type="button" value="{{i18n_new}}" class="btn" on-click="addLoss">
 							<input type="button" value="{{i18n_save}}" class="btn" on-click="saveLoss">
-							<input type="button" value="TEST" class="btn" on-click="test">
 						</td>
-					
 					{{/each}}
 				</tr>
 				<tr>
@@ -38,11 +36,10 @@
 							</tr>
 							{{#each subSubTypes : idx2}}
 							<tr>
-								
 								<td>{{idx2 + 1}}</td>
 								<td on-click="toShowColumnEditor">
-									<label class="field" >{{subSubTypes[idx2].lossTypeName}}</label> 
-									<input class="field" style="display:none" type="text" on-blur="toHideColumnEditor" value="{{subSubTypes[idx2].lossTypeName}}" />
+									<span class="field">{{lossTypeName}}</span> 
+									<input class="field" style="display:none" type="text" on-blur="toHideColumnEditor" value="{{lossTypeName}}" />
 								</td>
 							</tr>
 							{{/each}}
