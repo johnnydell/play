@@ -8,6 +8,7 @@
 		<link rel="stylesheet" type="text/css" href="../../css/login.css"/>
 		<link rel="stylesheet" type="text/css" href="../../css/sysconfig.css"/>
 		<link rel="stylesheet" type="text/css" href="../../css/oeeLossSubType.css"/>
+		<link rel="stylesheet" type="text/css" href="../../js/lib/alerts/jquery.alerts.css"/>
 	</head>
 	<body>
 		<div class="box">
@@ -32,6 +33,7 @@
 	<script src="../../js/lib/manager.js"></script>
 	<script src="../../js/sysconfig.js"></script>
 	<script src="../../js/oeeLossSubType.js"></script>
+	<script src="../../js/lib/alerts/jquery.alerts.js"></script>
 	<script id="main-template" type="text/active">
 	<div class="position _clear title">
 		<h3>{{i18n_sysconfig_title}}</h3>
@@ -48,8 +50,8 @@
 	</div>
 	<div class="content">
 	    <ul id="tabs">
-	  		<li id="current"><a href="#" title="OeeSubType">{{i18n_sysconfig_oee_subtype_title}}</a><img></li>	  
-			<li id=""><a href="#" title="screen">{{i18n_sysconfig_scr_title}}</a><img></li>	  
+	  		<li id="current"><a href="#" title="OeeSubType" on-click="switchToSysConfig">{{i18n_sysconfig_oee_subtype_title}}</a><img></li>	  
+			<li id=""><a href="#" title="screen" on-click="switchToDisplay">{{i18n_sysconfig_scr_title}}</a><img></li>	  
 		</ul>
 		<div class="maincontent" style="display: block;">
 	  		

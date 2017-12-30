@@ -1,20 +1,26 @@
 .oeeloss .header {
 	text-align: center;
 	background-color: #003366;
-	height: 55px;
+	height: 45px;
 	color: white;
 }
 
 .oeeloss .header label{
 	float : left;
 	width : 25%;
-	font-size: 35px;
+	font-size: 30px;
 }
 
 .oeeloss .header .title {
 	width: 50%;
 	height: 100%;
 	float: left;
+}
+
+.oeeloss .subTitle{
+	font-size: 20px;
+	font-style: italic;
+    color: blue;
 }
 
 .oeeloss .header .title  span {
@@ -121,7 +127,7 @@
 }
 
 .oeeloss table td:nth-child(2) {
-	color: #006bb7;
+	
 	text-align: center;
 	border: 1px solid #000;
 }
@@ -201,7 +207,7 @@
 .LossDetail td .field{
 	width: 100%;
 	height:100%;
-	display:inline-block;
+	
 	vertical-align: middle;
 	
 }

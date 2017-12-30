@@ -1,85 +1,101 @@
 var oeeLossSubType = function(){
 	var oeeLosses;
 	var oeeSubLosses;
+	var lossIndex = 0;
+	var ractive = null;
 	function init(){
 	   //渲染chart1部分
 	   $.get(manager.root+"/views/tpl/setting/oeeLossSubType.html", function (template) {
-	        var ractive = new Ractive({
+	        ractive = new Ractive({
 	            el: '.content .maincontent',
 	            data:{root:manager.root},
 	            template: template,
+	            onrender: function(){
+					manager.loadProperties(this, "sysconfig", "../../");
+					manager.loadProperties(this, "common", "../../");
+					
+					
+					
+				},
 	            oncomplete: function(){
-	            	
-	            	$.ajax({
-	        			url		: manager.root + '/sysConfig/getOeeLossSubTypes',
-	        			type	: 'GET',
-	        			data	: '',
-	        			success: function(listdata)
-	        			{
-	        				console.log(listdata);
-	        				oeeLosses 			= listdata;
-	        				oeeSubLosses 		= oeeLosses[0].subTypes;
-	        				
-	        				ractive.set("oeeLosses", oeeLosses);
-	        				ractive.set("oeeSubLosses", oeeSubLosses);
-	        				
-	        			}
-	            	});
-	            	/**/
+	            	initLossData();
 	            }
 	        }); 
 	        
 	        ractive.on({
 	        	switchOtherLoss: function(e){
-	        		var idx = $(e.node).val();
-	        		console.log(idx);
-	        		oeeSubLosses = oeeLosses[idx].subTypes;
+	        		lossIndex = $(e.node).val();
+	        		oeeSubLosses = oeeLosses[lossIndex].subTypes;
 	        		ractive.set("oeeSubLosses", oeeSubLosses);
-	        	}
+	        		var tableWidth = $(".LossDetail").css("width");
+					var subLossCount = oeeSubLosses.length;
+					var averageWidth = Math.ceil(parseInt(tableWidth) / subLossCount);
+					$(".subLossTitle").css("width", averageWidth);
+					//ractive.update();
+	        	},
+	        	addLoss: function(e){
+	        		var idx = e.index.idx;
+	        		console.log(idx);
+	        		var subSubLoss = {id:"", lossTypeName:"", oeeLossChildType: "", lossTypeCode: "", active: 1};
+	        		oeeSubLosses = oeeLosses[lossIndex].subTypes;
+	        		oeeSubLosses[idx].subSubTypes.push(subSubLoss);
+	        		ractive.set("oeeSubLosses", oeeSubLosses);
+	        	},
+	        	saveLoss: function(e){
+	        		var idx = e.index.idx;
+	        		oeeSubLosses = oeeLosses[lossIndex].subTypes;
+	        		var params = {
+	        				oeeSubLosses 	: oeeSubLosses[idx],
+	        				lossId		:	oeeLosses[lossIndex].id
+					};
+					$.ajax({
+						url		: manager.root + '/sysConfig/saveLoss',
+						type	: 'post',
+						data	: JSON.stringify(params),
+						contentType: "application/json", 
+						
+						success: function(ret)
+						{
+							if (ret == '0'){
+								jAlert($.i18n.map['i18n_save_error'], $.i18n.map['i18n_error']);	
+							}
+							else{
+								jAlert($.i18n.map['i18n_save_ok'], $.i18n.map['i18n_info']);	
+								initLossData();
+							}
+							
+						}
+					})
+	        	},
+	        	toShowColumnEditor:function(e){
+					$(e.node).children(0).hide().next().show().focus().select();
+				},
+				/*hide text, show label*/
+				toHideColumnEditor:function(e){
+					$(e.node).hide().prev().show().text($(e.node).val());
+				}
 	        });
 	    });
 	}
 	
-	function bindChart(){
-		/*$('.top .lft .chart').highcharts({
-		    title: {
-	            text: ''
-	        },
-	        legend: {
-	            enabled: false
-	        },
-	        xAxis: {
-	            categories: years
-	        },
-	        yAxis: {
-	            title: {
-	                text: ''
-	            },
-	            tickPositions: [0, 10, 20, 30,40,50,60,70,80,90,100], // 指定竖轴坐标点的值
-	            labels: {
-	                formatter: function() {
-	                    return this.value + '%';
-	                },
-	            }	
-	        },
-	        series: [{
-	            type: 'column',
-	            name: 'OEE - actual',
-	            data: actualTotal,
-	            color:'#3C3C4D'
-	        }, {
-	            type: 'spline',
-	            name: 'OEE - target',
-	            color:'red',
-	            data: targetTotal,
-	            marker: {
-	                enabled: false
-	            }
-	        }],
-	        credits:{
-	            enabled:false
-	        }
-	    });	*/
+	function initLossData(){
+		$.ajax({
+			url		: manager.root + '/sysConfig/getOeeLossSubTypes',
+			type	: 'GET',
+			data	: '',
+			success: function(listdata)
+			{
+				console.log(listdata);
+				oeeLosses 			= listdata;
+				oeeSubLosses 		= oeeLosses[lossIndex].subTypes;
+				ractive.set("oeeLosses", oeeLosses);
+				ractive.set("oeeSubLosses", oeeSubLosses);
+				var tableWidth = $(".LossDetail").css("width");
+				var subLossCount = oeeSubLosses.length;
+				var averageWidth = Math.ceil(parseInt(tableWidth) / subLossCount);
+				$(".subLossTitle").css("width", averageWidth);
+			}
+    	});
 	}
 	
 		

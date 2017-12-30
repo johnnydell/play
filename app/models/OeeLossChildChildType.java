@@ -71,5 +71,22 @@ public class OeeLossChildChildType extends Model {
 	public static void save(OeeLossChildChildType oeeLossChildChildType) {
 		Ebean.save(oeeLossChildChildType);
 	}
+	
+	public static void saveList(List<OeeLossChildChildType> lists){
+		Ebean.save(lists);
+	}
+	
+	public static void updateList(List<OeeLossChildChildType> lists){
+		for(OeeLossChildChildType obj : lists){
+			Ebean.update(obj);
+		}
+	}
+	public static void deleteList(List<OeeLossChildChildType> lists){
+		for(OeeLossChildChildType obj : lists){
+			Ebean.delete(OeeLossChildChildType.class, obj.id);
+		}
+	}
+	
+	
 
 }

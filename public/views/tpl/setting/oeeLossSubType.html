@@ -15,13 +15,16 @@
 			<table style="width: 100%; text-align: center">
 				<tr>
 					{{#each oeeSubLosses : idx}}
-						<td><label class="field">{{oeeSubLosses[idx].subLoseTypeName}}</label></td>
+						<td class="subLossTitle"><label class="field subTitle">{{oeeSubLosses[idx].subLoseTypeName}}</label></td>
 					
 					{{/each}}
 				</tr>
 				<tr>
 					{{#each oeeSubLosses : idx}}
-						<td style="text-align: right"><input type="button" value="new" class="btn"><input type="button" value="save" class="btn"></td>
+						<td style="text-align: right">
+							<input type="button" value="{{i18n_new}}" class="btn" on-click="addLoss">
+							<input type="button" value="{{i18n_save}}" class="btn" on-click="saveLoss">
+						</td>
 					
 					{{/each}}
 				</tr>
@@ -30,16 +33,16 @@
 					<td>
 						<table style="width: 100%; text-align: center; height: 100%">
 							<tr>
-								<td>Index</td>
-								<td>Name</td>
+								<td style="width:50%">{{i18n_sysconfig_oee_subtype_index}}</td>
+								<td style="width:50%">{{i18n_sysconfig_oee_subtype_name}}</td>
 							</tr>
-							{{#each oeeSubLosses[idx].subSubTypes : idx2}}
+							{{#each subSubTypes : idx2}}
 							<tr>
 								
-								<td>{{idx2 + 1}}</td>
-								<td>
-									<label class="field" on-click="toShowLineSelect">{{oeeSubLosses[idx].subSubTypes[idx2].lossTypeName}}</label> 
-									<input class="field" style="width:7%;display:none" type="text" on-blur="toHideMeetingTimeText" value="{{oeeSubLosses[idx].subSubTypes[idx2].lossTypeName}}" />
+								<td style="width:50%">{{idx2 + 1}}</td>
+								<td style="width:50%" on-click="toShowColumnEditor">
+									<label class="field" >{{subSubTypes[idx2].lossTypeName}}</label> 
+									<input class="field" style="display:none" type="text" on-blur="toHideColumnEditor" value="{{subSubTypes[idx2].lossTypeName}}" />
 								</td>
 							</tr>
 							{{/each}}
