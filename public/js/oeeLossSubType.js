@@ -1,6 +1,6 @@
 var oeeLossSubType = function(){
-	var oeeLosses;
-	var oeeSubLosses;
+	var oeeLosses = [];
+	var oeeSubLosses = [];
 	var lossIndex = 0;
 	var ractive = null;
 	function init(){
@@ -13,13 +13,10 @@ var oeeLossSubType = function(){
 	            onrender: function(){
 					manager.loadProperties(this, "sysconfig", "../../");
 					manager.loadProperties(this, "common", "../../");
-					
-					
-					
+					initLossData();
+					refreshLossSubType(0,this);	
 				},
-	            oncomplete: function(){
-	            	initLossData();
-	            }
+	            oncomplete: function(){}
 	        }); 
 	        
 	        ractive.on({
@@ -73,31 +70,38 @@ var oeeLossSubType = function(){
 				/*hide text, show label*/
 				toHideColumnEditor:function(e){
 					$(e.node).hide().prev().show().text($(e.node).val());
+				},
+				test:function(){
+					console.log(oeeSubLosses);
 				}
 	        });
 	    });
 	}
 	
+	//取得默认结构数据
 	function initLossData(){
 		$.ajax({
 			url		: manager.root + '/sysConfig/getOeeLossSubTypes',
 			type	: 'GET',
 			data	: '',
-			success: function(listdata)
-			{
-				console.log(listdata);
-				oeeLosses 			= listdata;
-				oeeSubLosses 		= oeeLosses[lossIndex].subTypes;
-				ractive.set("oeeLosses", oeeLosses);
-				ractive.set("oeeSubLosses", oeeSubLosses);
-				var tableWidth = $(".LossDetail").css("width");
-				var subLossCount = oeeSubLosses.length;
-				var averageWidth = Math.ceil(parseInt(tableWidth) / subLossCount);
-				$(".subLossTitle").css("width", averageWidth);
+			async   : false,
+			success: function(listdata){
+				oeeLosses = listdata;
 			}
     	});
 	}
 	
+	//刷新
+	function refreshLossSubType(_lossIndex,_ractive){	
+		lossIndex = _lossIndex;
+		oeeSubLosses = oeeLosses[lossIndex].subTypes;
+		_ractive.set("oeeLosses", oeeLosses);
+		_ractive.set("oeeSubLosses", oeeSubLosses);
+		var tableWidth = $(".LossDetail").css("width");
+		var subLossCount = oeeSubLosses.length;
+		var averageWidth = Math.ceil(parseInt(tableWidth) / subLossCount);
+		$(".subLossTitle").css("width", averageWidth);
+	}
 		
 	return {
 		init:init

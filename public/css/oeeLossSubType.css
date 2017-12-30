@@ -8,7 +8,7 @@
 .oeeloss .header label{
 	float : left;
 	width : 25%;
-	font-size: 30px;
+	font-size: 27px;
 }
 
 .oeeloss .header .title {
@@ -124,6 +124,10 @@
 	border: 1px solid #000;
 	cursor: pointer;
 	font-size: smaller;	
+}
+
+.oeeloss  table .data{
+	vertical-align: top;
 }
 
 .oeeloss table td:nth-child(2) {

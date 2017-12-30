@@ -16,7 +16,6 @@
 				<tr>
 					{{#each oeeSubLosses : idx}}
 						<td class="subLossTitle"><label class="field subTitle">{{oeeSubLosses[idx].subLoseTypeName}}</label></td>
-					
 					{{/each}}
 				</tr>
 				<tr>
@@ -24,23 +23,24 @@
 						<td style="text-align: right">
 							<input type="button" value="{{i18n_new}}" class="btn" on-click="addLoss">
 							<input type="button" value="{{i18n_save}}" class="btn" on-click="saveLoss">
+							<input type="button" value="TEST" class="btn" on-click="test">
 						</td>
 					
 					{{/each}}
 				</tr>
 				<tr>
 					{{#each oeeSubLosses : idx}}
-					<td>
+					<td class="data">
 						<table style="width: 100%; text-align: center; height: 100%">
 							<tr>
-								<td style="width:50%">{{i18n_sysconfig_oee_subtype_index}}</td>
-								<td style="width:50%">{{i18n_sysconfig_oee_subtype_name}}</td>
+								<td style="width:20%">{{i18n_sysconfig_oee_subtype_index}}</td>
+								<td style="width:80%">{{i18n_sysconfig_oee_subtype_name}}</td>
 							</tr>
 							{{#each subSubTypes : idx2}}
 							<tr>
 								
-								<td style="width:50%">{{idx2 + 1}}</td>
-								<td style="width:50%" on-click="toShowColumnEditor">
+								<td>{{idx2 + 1}}</td>
+								<td on-click="toShowColumnEditor">
 									<label class="field" >{{subSubTypes[idx2].lossTypeName}}</label> 
 									<input class="field" style="display:none" type="text" on-blur="toHideColumnEditor" value="{{subSubTypes[idx2].lossTypeName}}" />
 								</td>
