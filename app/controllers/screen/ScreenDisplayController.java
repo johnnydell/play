@@ -46,7 +46,7 @@ public class ScreenDisplayController extends Controller {
 					json.put("expectedCC", expectedCC);
 					int actualCC = rows.get(0).getInteger("product_hour_count") == null ? 0:rows.get(0).getInteger("product_hour_count");
 					json.put("actualCC", actualCC);
-					json.put("diff", (actualCC - planCC));
+					json.put("diff", (actualCC - expectedCC));//(actualCC - planCC)
 					json.put("oee", rows.get(0).getFloat("target_oee_percent"));
 					json.put("nextType", "");
 					json.put("nextJP", "");
@@ -107,7 +107,7 @@ public class ScreenDisplayController extends Controller {
 				json.put("expectedCC", expectedCC);
 				int actualCC = currentRow.getInteger("product_hour_count") == null ? 0:currentRow.getInteger("product_hour_count");
 				json.put("actualCC", actualCC);
-				json.put("diff", (actualCC - planCC));
+				json.put("diff", (actualCC - expectedCC));//(actualCC - planCC)
 				json.put("oee", currentRow.getFloat("target_oee_percent"));
 				
 				String nextType = nextRow.getString("product_name1");

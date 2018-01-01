@@ -83,15 +83,14 @@
 	                    <li class="f20">
 	                        <h1>{{i18n_current_prod_diff}}</h1>
 							{{#if data.diff > 0}}
-	                        	<a  style="color:green" href="javascript:void(0);">{{format(displayData.diff)}}</a>
+	                        	<a  style="background-color:green;color:white" href="javascript:void(0);">{{format(displayData.diff)}}</a>
                             {{else}}
-								<a  style="color:red" href="javascript:void(0);">{{format(displayData.diff)}}</a>
+								<a  style="background-color:red;color:white" href="javascript:void(0);">{{format(displayData.diff)}}</a>
 							{{/if}}
 	                    </li>
 	                    <li class="f20">
 	                    	<h1>{{i18n_current_prod_target_oee}}</h1>
 	                        <a  style="color:green" href="javascript:void(0);">{{percentage(displayData.oee)}}</a>
-                            
 	                    </li>
 	                  </ul>
                    </div>
