@@ -39,6 +39,9 @@ var meetAttd = function(){
 		});
 		
 		ractive.on({
+			disableKeydown:function(){
+				return false;
+			},
 			toShowLineSelect:function(e){
 				$(e.node).hide().next().show().focus();
 			},

@@ -98,10 +98,10 @@
 					<td colspan="7">
                         <span style="width:50%;">{{i18n_meetAttd_meetingtime}}:</span>  
 						<label style="width:7%;" on-click="toShowMeetingTimeText">{{attendance.time_start}}</label>                      
-                        <input class="meettimeStart" style="width:7%;display:none" type="text" on-blur="toHideMeetingTimeText" value="{{attendance.time_start}}" />
+                        <input class="meettimeStart" on-keydown="disableKeydown" style="width:7%;display:none" type="text" on-blur="toHideMeetingTimeText" value="{{attendance.time_start}}" />
                         <label>-&nbsp;</label>
                         <label style="width:7%;" on-click="toShowMeetingTimeText">{{attendance.time_end}}</label>                      
-                        <input class="meettimeEnd" style="width:7%;display:none" type="text" on-blur="toHideMeetingTimeText" value="{{attendance.time_end}}" />
+                        <input class="meettimeEnd" on-keydown="disableKeydown" style="width:7%;display:none" type="text" on-blur="toHideMeetingTimeText" value="{{attendance.time_end}}" />
                     </td>
 					<td colspan="14" id="meetingSpotTd">
                         <span style="width:37%;">{{i18n_meetAttd_meetingspot}}:</span>
@@ -147,7 +147,7 @@
 	               </td>
 				   <td>
 	               		<label class="field" on-click="toShowColumnEditor">{{frequency}}</label>
-	               		<input class="field" type="text" maxlength="5" on-blur="toHideColumnEditor" style="display:none" value="{{frequency}}" />
+	               		<input class="field" type="text" maxlength="5" onkeyup="manager.keyupInt(event)" on-blur="toHideColumnEditor" style="display:none" value="{{frequency}}" />
 	               </td>
 	               <td>
 	               		<label class="field" on-click="toShowColumnEditor">{{dept}}</label>
