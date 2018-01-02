@@ -519,7 +519,7 @@ var hourlycount = function(){
 		hourlycounts = [];
 		hourlycounts_base = {teamLeaderSign1:"", teamLeaderSign2:"", teamLeaderSign3:"", groupLeaderSign:"", planOplTotalOutput:"", planOutputCount:0, actualOutputCount:0, targetOee: 0, actualOee:0};
 		for (i = 8; i < 24; i ++){
-			hourlycounts_item = {hourid: ((i - 1) + "-" + i),productHour: i,productHourIndex: (i - 7), lineName:"",productTypeName1:"",productCycle1:0,productTypeName2:"",
+			hourlycounts_item = {hourid: ((i - 1) + "-" + i),productHour: (i - 1),productHourIndex: (i - 7), lineName:"",productTypeName1:"",productCycle1:0,productTypeName2:"",
 					productCycle2:0,planCount:0,planTotalCount:0,actualCount:0,actualTotalCount:0,productHourCount:0,productHourPercent:0,
 					scrapCount:0,reworkCount:0,qualityLoss:0,breakdownCount:0,adjustmentCount:0,technicalLoss:0,planSetupCount:0,unplanSetupCount:0,exchgToolCount:0,changeoverLoss:0,
 					lackPersonnelCount:0,lackMaterialCount:0, testReleaseThreePartsCount:0,exchgMaterialCount:0,unplanSampleCount:0,newOperatorCount:0,unplanTpmCount:0,othersCount:0,
@@ -527,7 +527,7 @@ var hourlycount = function(){
 					exchgMaterialMin:0,unplanSampleMin:0,newOperatorMin:0,unplanTpmMin:0,othersMin:0,orgnizationLoss:0,performanceCount:0, undefinedCount:0,remark:"",techDownCode:""};
 			hourlycounts.push(hourlycounts_item);
 		}
-		hourlycounts_item = {hourid: "23-00",productHour:0,productHourIndex: 17, lineName:"",productTypeName1:"",productCycle1:0,productTypeName2:"",productCycle2:0,planCount:0,
+		hourlycounts_item = {hourid: "23-00",productHour:23,productHourIndex: 17, lineName:"",productTypeName1:"",productCycle1:0,productTypeName2:"",productCycle2:0,planCount:0,
 				planTotalCount:0,actualCount:0,actualTotalCount:0,productHourCount:0,productHourPercent:0,
 				scrapCount:0,reworkCount:0,qualityLoss:0,breakdownCount:0,adjustmentCount:0,technicalLoss:0,planSetupCount:0,unplanSetupCount:0,exchgToolCount:0,changeoverLoss:0,
 				lackPersonnelCount:0,lackMaterialCount:0, testReleaseThreePartsCount:0,exchgMaterialCount:0,unplanSampleCount:0,newOperatorCount:0,unplanTpmCount:0,othersCount:0,
@@ -535,7 +535,7 @@ var hourlycount = function(){
 				exchgMaterialMin:0,unplanSampleMin:0,newOperatorMin:0,unplanTpmMin:0,othersMin:0,orgnizationLoss:0,performanceCount:0, undefinedCount:0,remark:"",techDownCode:""};
 		hourlycounts.push(hourlycounts_item);
 		for (i = 1; i < 8; i ++){
-			hourlycounts_item = {hourid: ((i - 1) + "-" + i),productHour:i,productHourIndex: (i + 17),lineName:"",productTypeName1:"",productCycle1:0,productTypeName2:"",productCycle2:0,
+			hourlycounts_item = {hourid: ((i - 1) + "-" + i),productHour:(i - 1),productHourIndex: (i + 17),lineName:"",productTypeName1:"",productCycle1:0,productTypeName2:"",productCycle2:0,
 					planCount:0,planTotalCount:0,actualCount:0,actualTotalCount:0,productHourCount:0,productHourPercent:0,
 					scrapCount:0,reworkCount:0,qualityLoss:0,breakdownCount:0,adjustmentCount:0,technicalLoss:0,planSetupCount:0,unplanSetupCount:0,exchgToolCount:0,changeoverLoss:0,
 					lackPersonnelCount:0,lackMaterialCount:0, testReleaseThreePartsCount:0,exchgMaterialCount:0,unplanSampleCount:0,newOperatorCount:0,unplanTpmCount:0,othersCount:0,
