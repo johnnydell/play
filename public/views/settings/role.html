@@ -27,7 +27,7 @@
 	<script src="../../js/lib/jquery-1.10.1.min.js"></script>
 	<script src="../../js/lib/jquery.cookie.js"></script>
 	<script src="../../js/lib/jquery.blockui.js"></script>
-	<script src="../../js/lib/jquery.alerts.js"></script>
+	<script src="../../js/lib/alerts/jquery.alerts.js"></script>
 	<script src="../../js/lib/ractive-legacy.js"></script>
 	<script src="../../js/lib/jquery.i18n.properties-1.0.9.js"></script>
 	<script src="../../js/lib/manager.js"></script>
@@ -47,31 +47,30 @@
 	<div class="content">
 		<div class="content-box">
             <div class="toolbar">
-                <!--<button type="button" class="btn" on-click="test">测试</button>-->
-				<button type="button" class="btn" on-click="addRole">增加</button>
-				<button type="button" class="btn" on-click="saveRole">保存</button>
-				<button type="button" class="btn" on-click="deleteRole">删除</button>
+                <button type="button" class="btn" on-click="test">测试</button><!---->
+				<button type="button" class="btn" on-click="addRole">{{i18n_role_add}}</button>
+				<button type="button" class="btn" on-click="saveRole">{{i18n_role_save}}</button>
+				<button type="button" class="btn" on-click="deleteRole">{{i18n_role_delete}}</button>
             </div>
 			<div class="header">
 				<table>
 			    <tr>
-					<th class="title" colspan="5">角色列表</th>
+					<th class="title" colspan="4">{{i18n_role_list}}</th>
 				</tr>
 				<tr>
-					<th colspan="5">&nbsp;</th>
+					<th colspan="4">&nbsp;</th>
 				</tr>
 			    <tr>
 				    <th width="2%"><input type="checkbox" /><font>&nbsp;&nbsp;</font></th>
-			        <th width="39%">角色名称</th>
-			        <th width="39%">角色描述</th>
-			        <th width="14%">角色功能</th>
-			        <th width="6%">状态</th>
+			        <th width="39%">{{i18n_role_name}}</th>
+			        <th width="39%">{{i18n_role_desc}}</th>
+			        <th width="20%">{{i18n_role_func}}</th>
 			    </tr>
  				{{#each roles:index}}
 			    <tr class="roletr" lang="{{index}}">
 				    <td>				        
 				    	<input type="checkbox" checked="{{checked}}" />
-				    	{{#if id == '0'}}
+				    	{{#if id == '0' || updated == '1'}}
 				        <font color="red">*</font>
 				        {{else}}
 				        <font>&nbsp;</font>
@@ -87,24 +86,11 @@
                     </td>
 			        <td>
                        {{#if id != '0'}}
-							<label class="field" ><a class="link" href="javascript:void(0);" on-click="viewRoleFunc">查看</a></label>
-							<label class="field" ><a class="link" href="javascript:void(0);" on-click="editRoleFunc">编辑</a></label>
+							<label class="field" ><a class="link" href="javascript:void(0);" on-click="viewRoleFunc">{{i18n_role_func_view}}</a></label>
+							<label class="field" ><a class="link" href="javascript:void(0);" on-click="editRoleFunc">{{i18n_role_func_edit}}</a></label>
 					   {{else}}
                             <label class="field" ></label>        
                        {{/if}}
-                    </td>
-			        <td>
-                       <label class="field"  on-click="toShowColumnEditor">
-                       {{#if active == '1'}}
-                        Active
-                       {{else}}
-                        Inactive
-                       {{/if}}
-                       </label>
-                       <select class="field" style="display:none;" on-blur="toHideColumnEditor" value="{{active}}">
-						 <option value="1">Active</option>
-						 <option value="0">Inactive</option>
-	             	   </select>
                     </td>
 			    </tr>
 				{{/each}}

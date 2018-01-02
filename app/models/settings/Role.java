@@ -9,9 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 import com.avaje.ebean.Ebean;
-
 import play.db.ebean.Model;
 
 @Entity
@@ -29,7 +27,7 @@ public class Role extends Model {
 	@Column(name = "role_desc")
 	public String roleDesc;
 	
-	@OneToMany(mappedBy="role", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="role", cascade=CascadeType.REFRESH)
     public List<RoleFunc> roleFuncs; 
 	
 	@Column(name = "active")
@@ -38,9 +36,17 @@ public class Role extends Model {
 	public static Finder<String,Role> find = new Finder<String,Role>(String.class, Role.class);
 	
 	public static List<Role> getList() {
-	        return find.all();
+	        return find.where().eq("active", true).findList();
 	}
 	
+	public static List<Role> getAllList() {
+        return find.findList();
+	}	
+	
+	public static Role find(String id){
+		return Ebean.find(Role.class, id);
+	}
+		
 	public static void save(Role role){
     	Ebean.save(role);
     }
