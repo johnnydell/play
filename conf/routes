@@ -24,14 +24,19 @@ POST     /edashboard/city/addCity4   					controllers.CityController.addCity4()
 #Setting Product Line
 GET  /edashboard/line/getActiveList               		controllers.settings.ProductLineController.getActiveList()
 
+#Setting Module
+GET  /edashboard/module/getList               			controllers.settings.ModuleController.getList()
+GET  /edashboard/module/getListWithFuncs                controllers.settings.ModuleController.getListWithFuncs()
+
 #Setting Func
 GET  /edashboard/func/getList               			controllers.settings.FuncController.getList()
-GET  /edashboard/func/getModuleList               		controllers.settings.FuncController.getModuleList()
 POST /edashboard/func/saveFunc               			controllers.settings.FuncController.saveFunc()
 POST /edashboard/func/deleteFunc                        controllers.settings.FuncController.deleteFunc()
 
 #Setting Role
 GET  /edashboard/role/getList               			controllers.settings.RoleController.getList()
+GET  /edashboard/role/getListWithRoleFuncs              controllers.settings.RoleController.getListWithRoleFuncs()
+GET  /edashboard/role/getRoleFuncsByRoleId              controllers.settings.RoleController.getRoleFuncsByRoleId(roleId:String)
 POST /edashboard/role/saveRole               			controllers.settings.RoleController.saveRole()
 POST /edashboard/role/deleteRole                        controllers.settings.RoleController.deleteRole()
 

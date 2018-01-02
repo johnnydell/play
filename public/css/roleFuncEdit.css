@@ -16,9 +16,9 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    width: 600px;
+    width: 800px;
     margin-left: -350px;
-    margin-top: -300px;
+    margin-top: -350px;
     background: #fff;    
     text-align: left;
 }
@@ -66,20 +66,36 @@
 }
 
 /** body内部设置**/
+.func_edit_popup .form-group {
+	height:500px;
+	overflow-y:scroll;
+}
 
-.func_edit_popup .modal-body .table {
-    width: 100%;
+.func_edit_popup .form-group fieldset li {
+	float: left;
+    margin-left: 12px;
+}
+
+.func_edit_popup fieldset.s1 {
+    background: #eee none repeat scroll 0 0;
+    box-shadow: 3px 3px 10px #666;
+    border: 1px solid transparent;
     margin-bottom: 20px;
+    margin-right: 10px;
+    padding: 10px;
 }
 
-.func_edit_popup .modal-body .table>tbody>tr>td {
-	padding:8px;
+.func_edit_popup legend.s1 {
+	box-shadow: 2px 2px 4px #666;
+    background-color: #4f709f;
+    color: #fff;
+    padding: 5px 10px;
 }
 
-.func_edit_popup .modal-body .table .form-control {
-	padding: 6px 12px;
-	width: 100%;
-	border: 1px solid #ccc;
+.s1 li label {
+    display: inline-block;
+    width: 140px;
+    margin-left:3px;
 }
 
 

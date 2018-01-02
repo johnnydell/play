@@ -31,7 +31,11 @@ public class RoleFunc extends Model {
 	public static Finder<String,RoleFunc> find = new Finder<String,RoleFunc>(String.class, RoleFunc.class);
 	
 	public static List<RoleFunc> getList() {
-	        return find.all();
+	    return find.all();
+	}
+	
+	public static List<RoleFunc> getListByRoleId(String roleId){
+		return find.fetch("func").where().eq("role_id", roleId).findList();
 	}
 	
 	public static void save(RoleFunc roleFunc){

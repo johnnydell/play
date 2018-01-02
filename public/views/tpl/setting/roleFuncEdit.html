@@ -6,26 +6,26 @@
 	<div class="modal-body">
 		<form role="form" class="ng-pristine ng-valid">
 			<div class="form-group">
-				<table class="table">
-					<tbody>
-						<tr>
-							<td>
-							    <label><strong>User Name:</strong></label> 
-							    <input type="text" class="form-control">
-							</td>
-						</tr>
-						<tr>
-							<td>
-							    <label><strong>Password: </strong></label> 
-								<input type="text" class="form-control">
-							</td>
-						</tr>
-					</tbody>
-				</table>
+			    {{#each modules:index}}
+			    {{#if funcs}}
+				<fieldset class="s1">
+					<legend class="s1">{{moduleName}}</legend>
+					<ul>
+					 	{{#each funcs:idx}}
+						<li>
+							<input type="checkbox" checked="{{checked}}" />
+							<label>{{funcName}}</label>
+						</li>
+						{{/each}}
+					</ul>
+				</fieldset>
+				{{/if}}
+				{{/each}}
 			</div>
 		</form>
 	</div>
 	<div class="modal-footer">
-		<button type="button" class="btn" on-click="close">Close</button>
+		<button type="button" class="btn" on-click="save">{{i18n_role_func_edit_save}}</button>
+		<button type="button" class="btn" on-click="close">{{i18n_role_func_edit_close}}</button>
 	</div>
 </div>
