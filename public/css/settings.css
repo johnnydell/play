@@ -12,6 +12,7 @@
     vertical-align: middle;
     border: solid 3px #ececec;
     text-align: center;
+    cursor:pointer;
 }
 .content-box li:hover{
 	border-color: #ffc000;

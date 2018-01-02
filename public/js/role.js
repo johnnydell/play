@@ -1,5 +1,5 @@
 var role = function(){	
-	
+	var modules = [];
 	var roles = [];
 	function init(){	
 		var ractive = new Ractive({
@@ -11,7 +11,9 @@ var role = function(){
 				manager.loadProperties(this, "common", "../../");
 				refreshRole(this);
 			},
-			oncomplete: function(){}
+			oncomplete: function(){
+				modules = getModulesWithFuncs();
+			}
 		});
 		
 		ractive.on({
@@ -142,40 +144,46 @@ var role = function(){
 					}
 				}							
 			},
-			viewRoleFunc:function(){
+			viewRoleFunc:function(e){
+				var roleId=$(e.node).attr("lang");
 				$(".func_view_popup").show(); 
 				$.get(manager.root+"/views/tpl/setting/roleFuncView.html", function (data) {
-		  	        var ractive2 = new Ractive({
+		  	        var ractive_view = new Ractive({
 		  	            el: ".func_view_popup",
 		  	            template: data,
 		  	            data:{root:manager.root},
 		  				onrender: function(){
 		  					manager.loadProperties(this, "role", "../../");
 		  					manager.loadProperties(this, "common", "../../");
+		  					formModulesFuncsData(roleId);
+		  					this.set("modules",modules);
 		  				},
-		  	            oncomplete: function () {}
+		  	            oncomplete: function (){}
 		  	        });
 		  	        
-		  	        ractive2.on("close", function () {
+		  	      ractive_view.on("close", function () {
 		  	            $(".func_view_popup").hide().html("");
 		  	        });
 		  	    }); 				
 			},
-			editRoleFunc:function(){
+			editRoleFunc:function(e){
+				var roleId=$(e.node).attr("lang");
 				$(".func_edit_popup").show(); 
 				$.get(manager.root+"/views/tpl/setting/roleFuncEdit.html", function (data) {
-		  	        var ractive2 = new Ractive({
+		  	        var ractive_edit = new Ractive({
 		  	            el: ".func_edit_popup",
 		  	            template: data,
 		  	            data:{root:manager.root},
 		  				onrender: function(){
 		  					manager.loadProperties(this, "role", "../../");
 		  					manager.loadProperties(this, "common", "../../");
+		  					formModulesFuncsData(roleId);
+		  					this.set("modules",modules);
 		  				},
 		  	            oncomplete: function () {}
 		  	        });
 		  	        
-		  	        ractive2.on("close", function () {
+		  	      ractive_edit.on("close", function () {
 		  	            $(".func_edit_popup").hide().html("");
 		  	        });
 		  	    }); 
@@ -213,6 +221,53 @@ var role = function(){
 			});	
 		}		
 		_ractive.set("roles",roles);
+	}
+	
+	function getModulesWithFuncs(){
+		var ret;
+		$.ajax({
+			url: manager.root + "/module/getListWithFuncs",
+			type: "GET",
+			async:false,
+			dataType: "json",
+			contentType: "application/json", 
+			success: function(data) {
+				ret = data;
+			}
+		});
+		return ret;		
+	}
+	
+	function getRoleFuncsByRoleId(roleId){
+		var ret;
+		$.ajax({
+			url: manager.root + "/role/getRoleFuncsByRoleId",
+			type: "GET",
+			async:false,
+			data:{roleId:roleId},
+			dataType: "json",
+			contentType: "application/json", 
+			success: function(data) {
+				ret = data;
+			}
+		});
+		return ret;
+	}
+	
+	function formModulesFuncsData(roleId){
+		var role_funcs = getRoleFuncsByRoleId(roleId);
+		$(modules).each(function(i,n){
+			$(n.funcs).each(function(j,m){
+				var flag = false;
+				$(role_funcs).each(function(k,l){
+					if(m.id == l.func.id){
+						flag = true;
+						return false;
+					}
+				})
+				m.flag = flag;
+			})
+		})
 	}
 	
 	return {

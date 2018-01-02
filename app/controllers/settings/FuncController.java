@@ -3,9 +3,7 @@ package controllers.settings;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import models.settings.Func;
-import models.settings.Module;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
@@ -20,12 +18,6 @@ public class FuncController extends Controller {
     public static Result getList() {
         List<Func> funcs = Func.getList();
         String str = JSON.toJSONString(funcs,SerializerFeature.DisableCircularReferenceDetect);
-        return ok(str);
-    }
-    
-    public static Result getModuleList(){
-    	List<Module> modules = Module.getList();
-        String str = JSON.toJSONString(modules);
         return ok(str);
     }
    

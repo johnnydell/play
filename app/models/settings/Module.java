@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 import play.db.ebean.Model;
 
 @Entity
@@ -22,10 +23,15 @@ public class Module extends Model {
 	
 	@Column(name = "module_key")
 	public String moduleKey;
+	
+	@Column(name = "sort")
+	public String sort;
+	
+    public List<Func> funcs; 
 		
 	public static Finder<String,Module> find = new Finder<String,Module>(String.class, Module.class);
 	
 	public static List<Module> getList() {
-	    return find.all();
+	    return find.order("sort asc").findList();
 	}
 }

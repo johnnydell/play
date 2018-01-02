@@ -88,8 +88,8 @@
                     </td>
 			        <td>
                        {{#if id != '0'}}
-							<label class="field" ><a class="link" href="javascript:void(0);" on-click="viewRoleFunc">{{i18n_role_func_view}}</a></label>
-							<label class="field" ><a class="link" href="javascript:void(0);" on-click="editRoleFunc">{{i18n_role_func_edit}}</a></label>
+							<label class="field" ><a class="link" href="javascript:void(0);" lang="{{id}}" on-click="viewRoleFunc">{{i18n_role_func_view}}</a></label>
+							<label class="field" ><a class="link" href="javascript:void(0);" lang="{{id}}" on-click="editRoleFunc">{{i18n_role_func_edit}}</a></label>
 					   {{else}}
                             <label class="field" ></label>        
                        {{/if}}

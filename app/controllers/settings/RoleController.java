@@ -3,7 +3,9 @@ package controllers.settings;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 import models.settings.Role;
+import models.settings.RoleFunc;
 
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -21,6 +23,32 @@ public class RoleController extends Controller {
 	public static Result getList() {
 		List<Role> roles = Role.getList();
 		String str = JSON.toJSONString(roles);
+		return ok(str);
+	}
+	
+	/**
+	 * 返回带有角色功能的列表
+	 * @return
+	 */
+	public static Result getListWithRoleFuncs(){		
+		List<Role> roles = Role.getList();
+		if(roles != null && roles.size() > 0){
+			for(Role r:roles){
+				r.roleFuncs = RoleFunc.getListByRoleId(r.id);
+			}
+		}
+		String str = JSON.toJSONString(roles);
+		return ok(str);
+	}
+	
+	/**
+	 * 根据角色ID获取功能点
+	 * @param roleId
+	 * @return
+	 */
+	public static Result getRoleFuncsByRoleId(String roleId){
+		List<RoleFunc> li = RoleFunc.getListByRoleId(roleId);
+		String str = JSON.toJSONString(li);
 		return ok(str);
 	}
 

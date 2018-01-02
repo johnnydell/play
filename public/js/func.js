@@ -175,7 +175,8 @@ var func = function(){
 		if(data.length > 0){
 			$.each(data,function(i,n){
 				n.checked = false;
-				n.moduleName = "["+n.module.moduleKey+"]:"+n.module.moduleName;
+				var module = getModuleObjById(n.moduleId);
+				n.moduleName = "["+module.moduleKey+"]:"+module.moduleName;
 				n.updated = "0";//0 表示no changes ,1 updated
 				funcs.push(n);
 			});	
@@ -187,7 +188,7 @@ var func = function(){
 	function getModuleList(){
 		var ret;
 		$.ajax({
-			url: manager.root + "/func/getModuleList",
+			url: manager.root + "/module/getList",
 			type: "GET",
 			async:false,
 			dataType:"json",
@@ -198,6 +199,18 @@ var func = function(){
 		});
 		return ret;
 	}
+	
+	//根据ID获得生产类型
+	function getModuleObjById(id){
+		var obj;
+		$(modules).each(function(i,n){			
+			if(n.id == id){
+				obj = n;
+				return false;
+			}
+		})
+		return obj;
+	} 
 	
 	return {
 		init:init

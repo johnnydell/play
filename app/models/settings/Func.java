@@ -41,7 +41,11 @@ public class Func extends Model {
 	public static Finder<String,Func> find = new Finder<String,Func>(String.class, Func.class);
 	
 	public static List<Func> getList() {
-	        return find.fetch("module").where().eq("active", true).findList();
+	    return find.where().eq("active", true).findList();
+	}
+	
+	public static List<Func> getListByModuleId(String moduleId){
+		return find.where().eq("moduleId", moduleId).findList();
 	}
 	
 	public static Func find(String id){
