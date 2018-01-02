@@ -84,19 +84,19 @@
                     </td>
 			        <td>
                        <label class="field" on-click="toShowColumnEditor">{{cycle_time}}</label>
-                       <input class="field" type="text" style="display:none;" maxlength="11" on-blur="toHideColumnEditor" value="{{cycle_time}}"/>
+                       <input class="field" type="text" style="display:none;" maxlength="8" on-blur="toHideColumnEditor" onkeyup="manager.keyupInt(event)" value="{{cycle_time}}"/>
                     </td>
 			        <td>
                        <label class="field" on-click="toShowColumnEditor">{{persons}}</label>
-                       <input class="field" type="text" style="display:none;" maxlength="11" on-blur="toHideColumnEditor" value="{{persons}}"/>
+                       <input class="field" type="text" style="display:none;" maxlength="11" on-blur="toHideColumnEditor" onkeyup="manager.keyupInt(event)" value="{{persons}}"/>
                     </td>
  					<td>
                        <label class="field" on-click="toShowColumnEditor">{{plan_output}}</label>
-                       <input class="field" type="text" style="display:none;" maxlength="11" on-blur="toHideColumnEditor" value="{{plan_output}}"/>
+                       <input class="field" type="text" style="display:none;" maxlength="11" on-blur="toHideColumnEditor" onkeyup="manager.keyupInt(event)" value="{{plan_output}}"/>
                     </td>
 					<td>
                        <label class="field" on-click="toShowColumnEditor">{{target_output}}</label>
-                       <input class="field" type="text" style="display:none;" maxlength="11" on-blur="toHideColumnEditor" value="{{target_output}}"/>
+                       <input class="field" type="text" style="display:none;" maxlength="5" on-blur="toHideColumnEditor" onblur="manager.checkFloat(event)"  onkeyup="manager.keyupFloat(event)" value="{{target_output}}"/>
                     </td>
 			    </tr>
 				{{/each}}

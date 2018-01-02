@@ -269,7 +269,32 @@ var manager = function() {
 	}
 	
 	function isNull(arg1){
-	 return !arg1 && arg1!==0 && typeof arg1!=="boolean" ? true : false;
+		return !arg1 && arg1!==0 && typeof arg1!=="boolean" ? true : false;
+	}
+	
+	function checkFloat(e) { 
+		var event = e || window.event;
+		var target = event.srcElement || event.target;
+	    var re = /^\d+(?=\.{0,1}\d+$|$)/ 
+	    if (target.value != "") { 
+	        if (!re.test(target.value)) { 
+	            jAlert($.i18n.prop("i18n_incorrect_data_format"), $.i18n.prop("i18n_error"));
+	        	target.value = ""; 
+	        	target.focus();
+	        } 
+	    } 
+	}
+	
+	function keyupFloat(e){
+		var event = e || window.event;
+		var target = event.srcElement || event.target;
+		target.value = target.value.replace(/[^0-9.]/g,'');
+	}
+	
+	function keyupInt(e){
+		var event = e || window.event;
+		var target = event.srcElement || event.target;
+		target.value = target.value.replace(/[^0-9]/g,'');
 	}
 
 	return {
@@ -289,6 +314,9 @@ var manager = function() {
 		getSystemParams:getSystemParameters,
 		getDateByOffset:getDateByOffset,
 		isNull:isNull,
+		checkFloat:checkFloat,
+		keyupFloat:keyupFloat,
+		keyupInt:keyupInt,
 		setLanguage:function(language){
 			setCookie("language", language);
 		},

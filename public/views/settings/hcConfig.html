@@ -79,12 +79,12 @@
 					<th style="font-size: 20px;font-weight: bold;text-align:right;">{{i18n_hcConfig_oee_perctag}}：</th>
 					<th style="background-color:white;color: #000;border: 1px solid #000;">
  						<label class="field" on-click="toShowOEEPerctgText">{{base1.target_oee_percent}}</label>                      
-                        <input class="field" type="text" style="display:none;" maxlength="5" on-blur="toHideOEEPerctgText" value="{{base1.target_oee_percent}}" />
+                        <input class="field" type="text" style="display:none;" maxlength="5" on-blur="toHideOEEPerctgText" onblur="manager.checkFloat(event)"  onkeyup="manager.keyupFloat(event)" value="{{base1.target_oee_percent}}" />
                     </th>
 				    <th style="font-size: 20px;font-weight: bold;text-align:right;">{{i18n_hcConfig_cpl_output}}：</th>
 					<th style="background-color:white;color: #000;border: 1px solid #000;">
 						<label class="field" on-click="toShowPlanCPLTOTText">{{base1.plan_opl_total_output}}</label>                      
-                        <input class="field"  type="text" style="display:none;" maxlength="10" on-blur="toHidePlanCPLTOTText" value="{{base1.plan_opl_total_output}}" />
+                        <input class="field"  type="text" style="display:none;" maxlength="10" on-blur="toHidePlanCPLTOTText" onkeyup="manager.keyupInt(event)" value="{{base1.plan_opl_total_output}}" />
                     </th>
 					<th colspan="1"></th>
 				</tr>
