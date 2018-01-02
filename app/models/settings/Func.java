@@ -6,8 +6,9 @@ import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 import com.avaje.ebean.Ebean;
 
 import play.db.ebean.Model;
@@ -21,8 +22,12 @@ public class Func extends Model {
 	@Id
 	public String id = UUID.randomUUID().toString().replace("-", "");
 	
-	@Column(name = "module_name")
-	public String moduleName;
+	@ManyToOne
+	@JoinColumn(name="module_id",insertable=false,updatable=false)
+	public Module module;
+	
+	@Column(name = "module_id")
+	public String moduleId;
 	
 	@Column(name = "func_key")
 	public String funcKey;
@@ -36,7 +41,11 @@ public class Func extends Model {
 	public static Finder<String,Func> find = new Finder<String,Func>(String.class, Func.class);
 	
 	public static List<Func> getList() {
-	        return find.all();
+	        return find.fetch("module").where().eq("active", true).findList();
+	}
+	
+	public static Func find(String id){
+		return Ebean.find(Func.class, id);
 	}
 	
 	public static void save(Func func){

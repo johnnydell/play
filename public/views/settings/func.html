@@ -48,38 +48,42 @@
 		<div class="content-box">
             <div class="toolbar">
                 <!--<button type="button" class="btn" on-click="test">测试</button>-->
-				<button type="button" class="btn" on-click="addFunc">增加</button>
-				<button type="button" class="btn" on-click="saveFunc">保存</button>
-				<!--<button type="button" class="btn" on-click="deleteFunc">删除</button>-->
+				<button type="button" class="btn" on-click="addFunc">{{i18n_func_add}}</button>
+				<button type="button" class="btn" on-click="saveFunc">{{i18n_func_save}}</button>
+				<button type="button" class="btn" on-click="deleteFunc">{{i18n_func_delete}}</button><!---->
             </div>
 			<div class="header">
 				<table>
 			    <tr>
-					<th class="title" colspan="5">系统功能列表</th>
+					<th class="title" colspan="4">{{i18n_func_list}}</th>
 				</tr>
 				<tr>
-					<th colspan="5">&nbsp;</th>
+					<th colspan="4">&nbsp;</th>
 				</tr>
 			    <tr>
 				    <th width="2%"><input type="checkbox" /><font>&nbsp;</font></th>
-			        <th width="34%">模块名称</th>
-			        <th width="24%">功能KEY</th>
-			        <th width="34%">功能名称</th>
-			        <th width="6%">状态</th>
+			        <th width="30%">{{i18n_func_module}}</th>
+			        <th width="28%">{{i18n_func_key}}</th>
+			        <th width="40%">{{i18n_func_name}}</th>
 			    </tr>
  				{{#each funcs:index}}
 			    <tr class="functr" lang="{{index}}">
 				    <td>
 				    	<input type="checkbox" checked="{{checked}}" />
-				    	{{#if id == '0'}}
+				    	{{#if id == '0' || updated == '1'}}
 				        <font color="red">*</font>
 				        {{else}}
 				        <font>&nbsp;</font>
 				        {{/if}}
 				    </td>
 			        <td>
-                        <label on-click="toShowColumnEditor" class="field">{{moduleName}}</label>
-                        <input class="field" style="display:none;" maxlength="20" on-blur="toHideColumnEditor" type="text" value="{{moduleName}}"/>
+                        <label class="field" on-click="toShowColumnEditor">{{moduleName}}</label>
+                       	<select colName="module" class="field" style="display:none;" on-blur="toHideColumnEditor" value="{{moduleId}}">
+							<option value=""></option>
+	 						{{#each modules}}
+							 <option value="{{id}}">[{{moduleKey}}]:{{moduleName}}</option>
+					        {{/each}}
+		             	</select>
                     </td>
 			        <td>
                        <label class="field" on-click="toShowColumnEditor">{{funcKey}}</label>
@@ -88,19 +92,6 @@
 			        <td>
                        <label class="field" on-click="toShowColumnEditor">{{funcName}}</label>
                        <input class="field" type="text" style="display:none;" maxlength="20" on-blur="toHideColumnEditor" value="{{funcName}}"/>
-                    </td>
-			        <td>
-                       <label class="field" on-click="toShowColumnEditor">
-                       {{#if active == '1'}}
-                        Active
-                       {{else}}
-                        Inactive
-                       {{/if}}
-                       </label>
-                       <select class="field" style="display:none;" on-blur="toHideColumnEditor" value="{{active}}">
-						 <option value="1">Active</option>
-						 <option value="0">Inactive</option>
-	             	   </select>
                     </td>
 			    </tr>
 				{{/each}}

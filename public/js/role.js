@@ -17,7 +17,6 @@ var role = function(){
 		ractive.on({
 			toShowColumnEditor:function(e){
 				var index = $(e.node).parent().parent().attr("lang");
-				roles[index].updated = "1";
 				$(e.node).hide().next().show().focus();
 			},
 			toHideColumnEditor:function(e){

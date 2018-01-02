@@ -26,7 +26,9 @@ GET  /edashboard/line/getActiveList               		controllers.settings.Product
 
 #Setting Func
 GET  /edashboard/func/getList               			controllers.settings.FuncController.getList()
+GET  /edashboard/func/getModuleList               		controllers.settings.FuncController.getModuleList()
 POST /edashboard/func/saveFunc               			controllers.settings.FuncController.saveFunc()
+POST /edashboard/func/deleteFunc                        controllers.settings.FuncController.deleteFunc()
 
 #Setting Role
 GET  /edashboard/role/getList               			controllers.settings.RoleController.getList()
