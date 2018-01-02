@@ -44,7 +44,7 @@ var scr = function(){
 				$(e.node).hide().prev().text($(e.node).val()).show();
 			}
 		}),
-		setInterval(getProductInfo, (5000 * 60));
+		setInterval(getProductInfo, (1000 * 10));
 		
 	}
 	
