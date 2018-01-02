@@ -1,7 +1,6 @@
 package controllers;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -9,11 +8,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.alibaba.fastjson.JSONObject;
-
 import common.Constants;
 import models.SystemParam;
-import play.mvc.*;
+import play.libs.Json;
+import play.mvc.Controller;
+import play.mvc.Result;
 
 public class Application extends Controller {
 
@@ -55,57 +54,40 @@ public class Application extends Controller {
      * @return System Parameters
      */
 
-    @SuppressWarnings("unchecked")
 	public static Result getSystemParameters(){
     	//key = module name, value = map
-    	Map<String, Object> paramsAll 	= new HashMap<String, Object>();
+    	Map<String, Map<String, SystemParam>> paramsAll 	= new HashMap<String, Map<String, SystemParam>>();
     	//key = code name, value = param_List
-    	Map<String, List<String>> paramsSub 				= null;
-    	List<String> paramValues 							= null;
+    	Map<String, SystemParam> paramsSub 	= null;
     	
     	//get all of activated parameters
-    	List<SystemParam> listParams 						= SystemParam.findAllWithActive();
+    	List<SystemParam> listParams 	= SystemParam.findAllWithActive();
     	
     	for(SystemParam param : listParams){
-    		String paramValue 	= param.paramValue;
-    		String moduleName 	= param.systemCode.moduleName;
-    		String codeName 	= param.systemCode.codeName;
-    		
+    		String moduleName 	= param.moduleName;
+    		String paramName 	= param.paramName;
     		if (paramsAll.containsKey(moduleName)){
     			//same module
-    			if (((Map<String, List<String>>)paramsAll.get(moduleName)).containsKey(codeName)){
-    				//same code
-    				if (((Map<String, List<String>>) paramsAll.get(moduleName)).get(codeName).contains(paramValue)){
-    					//same param value, skip
-    					continue;
-    				}
-    				else{
-    					//different value
-    					((Map<String, List<String>>)paramsAll.get(moduleName)).get(codeName).add(paramValue);
-    				}
+    			if (((Map<String, SystemParam>)paramsAll.get(moduleName)).containsKey(paramName)){
+    				continue;
     			}
     			else{
-    				//different code
-    				paramsSub 		= new HashMap<String, List<String>>();
-        			paramValues		= new ArrayList<String>();
-        			paramValues.add(paramValue);
-        			paramsSub.put(codeName, paramValues);
-        			paramsAll.put(moduleName, paramsSub);
+    				
+    				paramsAll.get(moduleName).put(paramName, param);
     			}
     			
     		}
     		else{
     			//different module
-    			paramsSub 		= new HashMap<String, List<String>>();
-    			paramValues		= new ArrayList<String>();
-    			paramValues.add(paramValue);
-    			paramsSub.put(codeName, paramValues);
+    			paramsSub 		= new HashMap<String, SystemParam>();
+    			
+    			paramsSub.put(paramName, param);
     			paramsAll.put(moduleName, paramsSub);
     		}
     	}
     	
-    	JSONObject o = new JSONObject(paramsAll);
-    	return ok(o.toString());
+    	
+    	return ok(Json.toJson(paramsAll));
     }
     
     

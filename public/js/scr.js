@@ -2,6 +2,13 @@ var scr = function(){
 	var lineName = manager.getPV("lineName");
 	var sys_date = manager.getSystemDate();
 	var sys_time = manager.getSystemTime();
+	var sysParam = manager.getSystemParams();
+	var time_interval = 1000 * 10;//10 seconds
+	var intervalObj = null;
+	var color_yellow = {minvalue:0, maxvalue:0};
+	var color_green = {value:0};
+	var color_red = {value:0};
+	var color_selected = 0;
 	var display_data = {currType:"",currJP:"",currRS:"",planCC:"",expectedCC:"",actualCC:"",diff:"",oee:"",nextType:"",nextJP:"",nextRS:""};
 	var ractive = null;
 	function init(){
@@ -32,6 +39,15 @@ var scr = function(){
 			oncomplete: function(){	
 				getProductInfo();
 				
+				//check time interval if it's set or not
+				if (!manager.isNull(sysParam["SCREEN"])){
+					if (!manager.isNull(sysParam["SCREEN"]["TIME_INTERVAL"])){
+						time_interval = parseInt(sysParam["SCREEN"]["TIME_INTERVAL"].paramValue) * 1000;
+						clearInterval(intervalObj);
+						intervalObj = setInterval(getProductInfo, time_interval);
+            		}
+				}
+				
 				
 			}
 		});
@@ -44,7 +60,7 @@ var scr = function(){
 				$(e.node).hide().prev().text($(e.node).val()).show();
 			}
 		}),
-		setInterval(getProductInfo, (1000 * 10));
+		intervalObj = setInterval(getProductInfo, time_interval);
 		
 	}
 	
@@ -52,7 +68,7 @@ var scr = function(){
 		currYear 	= sys_date.split("-")[0];
 		currMonth 	= sys_date.split("-")[1];
 		currDay 	= sys_date.split("-")[2];
-		currHour 	= sys_time.split(":")[0];
+		currHour 	= parseInt(sys_time.split(":")[0] ) - 1;
 		currMin 	= sys_time.split(":")[1];
 		$.ajax({
 			url		: manager.root + '/scr/getProductInfo',
@@ -76,6 +92,40 @@ var scr = function(){
 				display_data.nextRS 	= listdata.nextRS;
 				
 				ractive.set("displayData", display_data);
+				
+				
+				if (!manager.isNull(sysParam["SCREEN"])){
+					if (!manager.isNull(sysParam["SCREEN"]["COLOR_GREEN"])){
+						color_green.value = sysParam["SCREEN"]["COLOR_GREEN"].paramValue;
+            		}
+				}
+				if (!manager.isNull(sysParam["SCREEN"])){
+					if (!manager.isNull(sysParam["SCREEN"]["COLOR_RED"])){
+						color_red.value = sysParam["SCREEN"]["COLOR_RED"].paramValue;
+            		}
+				}
+				if (!manager.isNull(sysParam["SCREEN"])){
+					if (!manager.isNull(sysParam["SCREEN"]["COLOR_RED"])){
+						color_yellow.min = sysParam["SCREEN"]["COLOR_RED"].paramValue.split(",")[0];
+						color_yellow.max = sysParam["SCREEN"]["COLOR_RED"].paramValue.split(",")[1];
+            		}
+				}
+				
+				//display light
+				if (!manager.isNull(display_data.planCC)){
+					var percentage = Math.ceil((display_data.actualCC * 100) / display_data.planCC);
+					if (percentage <= color_red.value){
+						color_selected = 2;//red
+					}
+					else if (percentage >= color_green.value){
+						color_selected = 0;//green
+					}
+					else if (percentage >= color_yellow.min && percentage < color_yellow.max ){
+						color_selected = 1;//yellow
+					}
+				}
+				
+				ractive.set("color_selected", color_selected);
 			}
     	});
 	}

@@ -271,6 +271,10 @@ var manager = function() {
 	function isNull(arg1){
 	 return !arg1 && arg1!==0 && typeof arg1!=="boolean" ? true : false;
 	}
+	
+	function onlyAcceptNumAndPoint(obj){
+		obj.value = obj.value.replace(/[^\d.]/g, "");//清除“数字”和“.”以外的字符
+	}
 
 	return {
 		init: renderLayout,
@@ -289,6 +293,7 @@ var manager = function() {
 		getSystemParams:getSystemParameters,
 		getDateByOffset:getDateByOffset,
 		isNull:isNull,
+		onlyAcceptNumAndPoint:onlyAcceptNumAndPoint,
 		setLanguage:function(language){
 			setCookie("language", language);
 		},

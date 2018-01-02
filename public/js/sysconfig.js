@@ -28,7 +28,7 @@ var sysconfig = function(){
 			switchToDisplay:function(e){
 				$("#tabs li").attr("id","");
 				$(e.node).parent().attr("id", "current");
-				
+				screenSetting.init();
 			},
 			
 		})

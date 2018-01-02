@@ -45,6 +45,7 @@ POST /edashboard/hcConfig/saveHCConfig                  controllers.settings.HCC
 #Setting System Config
 GET /edashboard/sysConfig/getOeeLossSubTypes 			controllers.settings.SysConfigController.getOeeLossSubTypes()
 POST /edashboard/sysConfig/saveLoss 					controllers.settings.SysConfigController.saveOeeLossSubType()
+POST /edashboard/sysConfig/saveScreenConfig				controllers.settings.SysConfigController.saveScreenConfig()
 
 #OPL
 POST /edashboard/opl/addPSS 		            		controllers.OPLController.addPSS()

@@ -350,7 +350,7 @@ public class HourlyCountDetail extends Model {
 		calendar.setTime(currentDate);
 		Date nextDate = currentDate;
 		boolean isSameWorkDay = true;
-		if (hourValue == 23 ){
+		if (hourValue == 22 ){
 			calendar.add(Calendar.DAY_OF_MONTH, 1);
 			nextDate = calendar.getTime();
 			isSameWorkDay = false;
@@ -395,7 +395,7 @@ public class HourlyCountDetail extends Model {
 			sql.append( " and b.product_line_id = l.id ");
 			sql.append(" and l.line_name = :lineName ");
 			sql.append(" and b.product_date = :productDate_2 ");
-			sql.append(" and d.product_hour = 0 ) as tmp ");
+			sql.append(" and d.product_hour = 23 ) as tmp ");
 			sql.append(" left join edb_product_type t1 on tmp.product_type_id_1 = t1.id");
 			sql.append(" left join edb_product_type t2 on tmp.product_type_id_2 = t2.id");
 			rows =	Ebean.createSqlQuery(sql.toString())

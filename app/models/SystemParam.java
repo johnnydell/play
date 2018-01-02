@@ -7,7 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.avaje.ebean.Ebean;
@@ -26,9 +25,11 @@ public class SystemParam extends Model {
 	@Id
 	public String id = UUID.randomUUID().toString().replace("-", "");
 
-	@ManyToOne
-	@JoinColumn(name = "code_id")
-	public SystemCode systemCode;
+	@JoinColumn(name = "module_name")
+	public String moduleName;
+	
+	@Column(name = "param_name")
+	public String paramName;
 
 	@Column(name = "param_value")
 	public String paramValue;
@@ -43,7 +44,7 @@ public class SystemParam extends Model {
 	public static Finder<String, SystemParam> find = new Finder<String, SystemParam>(String.class, SystemParam.class);
 
 	public static SystemParam findByName(String name) {
-		return find.where().ilike("systemCode.moduleName", "%" + name + "%").orderBy("").fetch("systemCode").findUnique();
+		return find.where().ilike("moduleName", "%" + name + "%").orderBy("").findUnique();
 	}
 	
 	public static List<SystemParam> findAll() {
@@ -60,6 +61,16 @@ public class SystemParam extends Model {
 
 	public static void save(SystemParam systemParam) {
 		Ebean.save(systemParam);
+	}
+	
+	public static void saveList(List<SystemParam> lists){
+		Ebean.save(lists);
+	}
+	
+	public static void updateList(List<SystemParam> lists){
+		for(SystemParam param : lists){
+			Ebean.update(param);
+		}
 	}
 
 }

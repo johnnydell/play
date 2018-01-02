@@ -1,0 +1,70 @@
+<div class="screenconfig">
+	<div class="screendisplay">
+		<div class="header">
+			<p>
+				{{i18n_sysconfig_scr_config_title}}
+			</p>
+		</div>
+		<div class="toolbar">
+				<button type="button" class="btn" on-click="saveScreenConfig">{{i18n_save}}</button>
+            </div>
+		<div class="configdetial">
+			<table style="width: 100%; text-align: center">
+				<tr>
+					<th rowspan="1" style="width: 40%">{{i18n_sysconfig_scr_time_interval}}</th>
+					<td style="width: 30% " >
+						<label class="field">{{i18n_sysconfig_scr_time_interval_sec}}</label>
+					</td>
+					<td style="width: 30% "  colspan="3" on-click="toShowColumnEditor" id="intervalTd">
+						<label class="field">{{timeInterval.value}}</label>
+						<input class="field" style="display:none;width:100%" type="text" on-blur="toHideColumnEditor" value="{{timeInterval.value}}" on-keyup="toValidateEditorOnlyNum"/>
+					</td>
+				</tr>
+				
+				<tr>
+					<th rowspan="3" style="width: 40%">{{i18n_sysconfig_scr_alarm_color}}</th>
+					<td style="width: 30%">
+						<label class="field" style="background-color:green; color:white">{{i18n_sysconfig_scr_alarm_color_green}}</label>
+					</td>
+					<td style="width: 30%" on-click="toShowColumnEditor" colspan="3" id="greenTd">
+						<label class="field">{{i18n_sysconfig_scr_alarm_great}} {{i18n_sysconfig_scr_alarm_equal}} {{colorGreen.value}}</label>
+						<input class="field" style="display:none; width:100%" type="text" on-blur="toHideColumnEditor" value="{{colorGreen.value}}"  on-keyup="toValidateEditorOnlyNum"/>
+					</td>
+					
+				</tr>
+				<tr>
+					
+					<td style="width: 30%">
+						<label class="field" style="background-color:yellow; color:gray">{{i18n_sysconfig_scr_alarm_color_yellow}}</label>
+					</td>
+					<td style="width: 14%" on-click="toShowColumnEditor" id="yellowMinTd">
+						<label class="field">{{colorYellow.value_min}}</label>
+						<input class="field" style="display:none; width:100%" type="text" on-blur="toHideColumnEditor" value="{{colorYellow.value_min}}" on-keyup="toValidateEditorOnlyNum"/>
+						
+					</td>
+					<td style="width: 2%">
+						<label class="field"> ~ </label>
+						
+					</td>
+					<td  style="width: 14%" on-click="toShowColumnEditor" id="yellowMaxTd">
+						<label class="field">{{colorYellow.value_max}}</label>
+						
+						<input class="field" style="display:none; width:100%" type="text" on-blur="toHideColumnEditor" value="{{colorYellow.value_max}}" on-keyup="toValidateEditorOnlyNum"/>
+					</td>
+				</tr>
+				<tr>
+					<td style="">
+						<label class="field" style="background-color:red; color:white">{{i18n_sysconfig_scr_alarm_color_red}}</label>
+					</td>
+					<td style=" " on-click="toShowColumnEditor" colspan="3" id="redTd">
+						<label class="field">{{i18n_sysconfig_scr_alarm_less}} {{i18n_sysconfig_scr_alarm_equal}} {{colorRed.value}}</label>
+						<input class="field" style="display:none; width:100%" type="text" on-blur="toHideColumnEditor" value="{{colorRed.value}}" on-keyup="toValidateEditorOnlyNum"/>
+					</td>
+				</tr>
+				
+			</table>
+		</div>
+		
+
+	</div>
+</div>

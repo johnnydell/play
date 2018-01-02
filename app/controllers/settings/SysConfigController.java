@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import models.OeeLossChildChildType;
 import models.OeeLossChildType;
 import models.OeeLossType;
+import models.SystemParam;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -173,6 +174,94 @@ public class SysConfigController extends Controller {
 			logger.error("" + e);
 			return ok("0");
 		}
+		
+		return ok("1");
+	}
+	
+	public static Result saveScreenConfig(){
+		try {
+			
+			JsonNode data = request().body().asJson();
+			logger.info("data= " + data);
+			JsonNode screenTimeInterval = data.path("screenTimeInterval");
+			JsonNode screenColorGreen = data.path("screenColorGreen");
+			JsonNode screenColorYellow = data.path("screenColorYellow");
+			JsonNode screenColorRed = data.path("screenColorRed");
+			
+			List<SystemParam> existedObjs = new ArrayList<SystemParam>();
+			List<SystemParam> newObjs = new ArrayList<SystemParam>();
+			
+			String timeIntervalId = screenTimeInterval.get("id").asText();
+			String timeInterval = screenTimeInterval.get("value").asText();
+			SystemParam param = new SystemParam();
+			param.moduleName = "SCREEN";
+			param.paramName = "TIME_INTERVAL";
+			param.paramValue = timeInterval;
+			param.active = true;
+			if (StringUtils.isEmpty(timeIntervalId)){
+				newObjs.add(param);
+			}else{
+				param.id = timeIntervalId;
+				existedObjs.add(param);
+			}
+			
+			String colorGreenId = screenColorGreen.get("id").asText();
+			String colorGreenValue = screenColorGreen.get("value").asText();
+			SystemParam param1 = new SystemParam();
+			param1.moduleName = "SCREEN";
+			param1.paramName = "COLOR_GREEN";
+			param1.paramValue = colorGreenValue;
+			param1.active = true;
+			if (StringUtils.isEmpty(colorGreenId)){
+				newObjs.add(param1);
+			}else{
+				param1.id = colorGreenId;
+				existedObjs.add(param1);
+			}
+			
+			String colorYellowId = screenColorYellow.get("id").asText();
+			String colorYellowMinValue = screenColorYellow.get("value_min").asText();		
+			String colorGreenMaxValue = screenColorYellow.get("value_max").asText();
+			SystemParam param2 = new SystemParam();
+			param2.moduleName = "SCREEN";
+			param2.paramName = "COLOR_YELLOW";
+			param2.paramValue = colorYellowMinValue + "," + colorGreenMaxValue;
+			param2.active = true;
+			if (StringUtils.isEmpty(colorYellowId)){
+				newObjs.add(param2);
+			}else{
+				param2.id = colorYellowId;
+				existedObjs.add(param2);
+			}
+			
+			String colorRedId = screenColorRed.get("id").asText();
+			String colorRedValue = screenColorRed.get("value").asText();
+			SystemParam param3 = new SystemParam();
+			param3.moduleName = "SCREEN";
+			param3.paramName = "COLOR_RED";
+			param3.paramValue = colorRedValue;
+			param3.active = true;
+			if (StringUtils.isEmpty(colorRedId)){
+				newObjs.add(param3);
+			}else{
+				param3.id = colorRedId;
+				existedObjs.add(param3);
+			}
+			
+			if (existedObjs.size() > 0){
+				SystemParam.updateList(existedObjs);
+			}
+			
+			if (newObjs.size() > 0){
+				SystemParam.saveList(newObjs);
+			}
+		} catch (Exception e) {
+			logger.error(" " + e);
+			return ok("0");
+		}
+		
+		
+		
 		
 		return ok("1");
 	}
