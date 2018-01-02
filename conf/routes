@@ -31,6 +31,7 @@ POST /edashboard/func/saveFunc               			controllers.settings.FuncControl
 #Setting Role
 GET  /edashboard/role/getList               			controllers.settings.RoleController.getList()
 POST /edashboard/role/saveRole               			controllers.settings.RoleController.saveRole()
+POST /edashboard/role/deleteRole                        controllers.settings.RoleController.deleteRole()
 
 #Setting Product Type
 GET  /edashboard/productType/getList               		controllers.settings.ProductTypeController.getList()

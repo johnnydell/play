@@ -1,0 +1,86 @@
+/*** 弹出框样式 ***/
+.func_view_popup {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+.func_view_popup .model{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 600px;
+    margin-left: -350px;
+    margin-top: -300px;
+    background: #fff;    
+    text-align: left;
+}
+
+.func_view_popup .modal-header {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.func_view_popup .modal-body {
+    position: relative;
+    padding: 20px;
+}
+
+.func_view_popup .modal-footer {
+    padding: 15px;
+    text-align: right;
+    border-top: 1px solid #e5e5e5;
+}
+
+.func_view_popup .modal-header .close {
+    margin-right: 10px;
+    float: right;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 0.8;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=20);
+    opacity: .2;
+}
+
+.func_view_popup .modal-header h4 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    font-weight: lighter;
+}
+
+.func_view_popup .modal-footer .btn {
+	padding: 6px 12px;
+	background: #DADADA;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+/** body内部设置**/
+
+.func_view_popup .modal-body .table {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.func_view_popup .modal-body .table>tbody>tr>td {
+	padding:8px;
+}
+
+.func_view_popup .modal-body .table .form-control {
+	padding: 6px 12px;
+	width: 100%;
+	border: 1px solid #ccc;
+}
+
+
+
