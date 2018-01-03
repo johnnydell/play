@@ -55,7 +55,7 @@ public class User extends Model {
 	}
 
 	public static List<User> getList() {
-        return find.where().eq("active", true).findList();
+        return find.where().eq("active", true).orderBy("").fetch("productLine").findList();
 	}
 	
 	public static List<User> getAllList() {

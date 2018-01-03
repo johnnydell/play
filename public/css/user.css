@@ -86,12 +86,12 @@
 	vertical-align: middle;
 }
 
-.usertr td:nth-child(4) .field {
+.usertr td:nth-child(5) .field {
 	width: 50%;
 	float:left;
 }
 
-.usertr td input[type='text'],.usertr td select,.usertr td textarea {
+.usertr td input[type='text'],.usertr td select,.usertr td textarea,.usertr td input[type='password'] {
 	border: 1px solid #0080ff;	
 }	
 

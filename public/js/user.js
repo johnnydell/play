@@ -1,4 +1,5 @@
 var user = function(){	
+	var lines = getAllLines();
 	var roles = getRolesList();
 	var users = [];
 	function init(){	
@@ -9,6 +10,7 @@ var user = function(){
 			onrender: function(){
 				manager.loadProperties(this, "user", "../../");
 				manager.loadProperties(this, "common", "../../");
+				this.set("lines",lines);
 				refreshUser(this);
 			},oncomplete: function(){}
 		});
@@ -26,11 +28,16 @@ var user = function(){
 			},
 			toHideColumnEditor:function(e){
 				var type = e.node.type;
-				if(type == 'select-one'){
-					
-				}
-				$(e.node).hide().prev().show();
 				var index = $(e.node).parent().parent().attr("lang");
+				if(type == 'select-one'){
+					var colName = $(e.node).attr("colName");
+					if(colName != undefined && colName == 'line'){
+						var txt = $(e.node).find("option:selected").text();
+						users[index]["lineName"]=txt;
+						users[index]["lineId"]=$(e.node).find("option:selected").val();
+					}
+				}
+				$(e.node).hide().prev().show();				
 				users[index].updated = "1";
 				ractive.update("users");
 			},
@@ -38,6 +45,7 @@ var user = function(){
 				var user = {
 						id:"0",
 						lineId:"",
+						lineName:"",
 						userName:"",
 						password:"",
 						userRoles:[],
@@ -201,7 +209,7 @@ var user = function(){
 	  						}
 	  					} else {
 	  						// 需要删除
-	  						if(m.role_func_id != '0'){
+	  						if(m.user_role_id != '0'){
 	  							deletedUserRoles.push(m);
 	  						}
 	  					}
@@ -231,6 +239,7 @@ var user = function(){
 				
 			},
 			test:function(){
+				console.log(users);
 			}			
 		})
 	}	
@@ -257,6 +266,7 @@ var user = function(){
 		users = [];
 		if(data.length > 0){
 			$.each(data,function(i,n){
+				n.lineName = n.productLine.lineName;
 				n.checked = false;
 				n.updated = "0";// 0 表示no changes ,1 updated
 				users.push(n);
@@ -305,7 +315,7 @@ var user = function(){
 			var checked = false;
 			var user_role_id = "0";
 			$(user_roles).each(function(k,l){
-				if(m.id == l.func.id){
+				if(m.id == l.role.id){
 					checked = true;
 					user_role_id = l.id;
 					return false;
@@ -314,6 +324,22 @@ var user = function(){
 			m.checked = checked;
 			m.user_role_id = user_role_id;
 		})
+	}
+	
+	//取得所有有效的lines
+	function getAllLines(){
+		var ret;
+		$.ajax({
+			url: manager.root + "/line/getActiveList",
+			type: "GET",
+			async:false,
+			dataType:"json",
+			contentType: "application/json",
+			success: function(data) {
+				ret = data;
+			}
+		});
+		return ret;
 	}
 	
 	return {
