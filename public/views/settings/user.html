@@ -49,7 +49,7 @@
 	<div class="content">
 		<div class="content-box">
             <div class="toolbar">
-                <!--<button type="button" class="btn" on-click="test">测试</button>-->
+                <button type="button" class="btn" on-click="test">测试</button><!---->
 				<button type="button" class="btn" on-click="addUser">{{i18n_user_add}}</button>
 				<button type="button" class="btn" on-click="saveUser">{{i18n_user_save}}</button>
 				<button type="button" class="btn" on-click="deleteUser">{{i18n_user_delete}}</button>
@@ -80,16 +80,32 @@
 				        {{/if}}
 				    </td>
 					<td>
-                        <label class="field"  on-click="toShowColumnEditor">{{lineName}}</label>
-                        <input class="field" style="display:none;" maxlength="20" on-blur="toHideColumnEditor" type="text" value="{{roleName}}"/>
+                        <label class="field" on-click="toShowColumnEditor">{{lineName}}</label>                    
+						<select class="field" style="display:none;" colName="line" on-blur="toHideColumnEditor" value="{{lineId}}">
+	 					{{#each lines}}
+						<option value="{{id}}">{{lineName}}</option>
+					    {{/each}}
+		             	</select>
                     </td>
 			        <td>
                         <label class="field"  on-click="toShowColumnEditor">{{userName}}</label>
-                        <input class="field" style="display:none;" maxlength="20" on-blur="toHideColumnEditor" type="text" value="{{userName}}"/>
+                        <input class="field" style="display:none;" maxlength="10" on-blur="toHideColumnEditor" type="text" value="{{userName}}"/>
                     </td>
 			        <td>
-                       <label class="field"  on-click="toShowColumnEditor">{{password}}</label>
-                       <input class="field" type="password" style="display:none;" maxlength="20" on-blur="toHideColumnEditor" value="{{password}}"/>
+                       {{#if id == '0'}}
+                       <label class="field" on-click="toShowColumnEditor">
+						{{#if password}}
+                       	●●●●●●●●●
+					   	{{/if}}
+                       </label>
+                       {{else}}
+					   <label class="field">
+						{{#if password}}
+                       	●●●●●●●●●
+					   	{{/if}}
+					   {{/if}}
+                       
+                       <input class="field" type="password" style="display:none;" maxlength="10" on-blur="toHideColumnEditor" value="{{password}}"/>
                     </td>
 			        <td>
                        {{#if id != '0'}}
@@ -115,8 +131,8 @@
 		</div>
 	</div>
 	<!-- 查看DIV -->
-	<div class="func_view_popup"></div>
+	<div class="role_view_popup"></div>
 	<!-- 编辑DIV -->
-	<div class="func_edit_popup"></div>
+	<div class="role_edit_popup"></div>
     </script>
 </html>

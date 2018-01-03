@@ -3,10 +3,15 @@ package controllers.settings;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 import models.settings.User;
 import models.settings.UserRole;
+
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.fasterxml.jackson.databind.JsonNode;
+import common.util.Md5Utils;
+
 import play.db.ebean.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -19,7 +24,12 @@ public class UserController extends Controller {
 	 */
 	public static Result getList() {
 		List<User> users = User.getList();
-		String str = JSON.toJSONString(users);
+		if(users != null && users.size() > 0){
+			for(User r:users){
+				r.password = "*********";
+			}
+		}
+		String str = JSON.toJSONString(users,SerializerFeature.DisableCircularReferenceDetect);
 		return ok(str);
 	}
 	
@@ -63,7 +73,7 @@ public class UserController extends Controller {
 			JsonNode node = a.next();
 			User user = new User();
 			user.userName = node.get("userName").asText();
-			user.password = node.get("password").asText();
+			user.password = Md5Utils.MD5(node.get("password").asText());
 			user.lineId = node.get("lineId").asText();
 			user.active = true;
 			addLi.add(user);
@@ -81,7 +91,7 @@ public class UserController extends Controller {
 			String id = node.get("id").asText();
 			User user = User.find(id);			
 			user.userName = node.get("userName").asText();
-			user.password = node.get("password").asText();
+			//user.password = node.get("password").asText();
 			user.lineId = node.get("lineId").asText();
 			user.active = true;
 			updateLi.add(user);
