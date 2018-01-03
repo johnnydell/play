@@ -300,6 +300,10 @@ var manager = function() {
 	function onlyAcceptNumAndPoint(obj){
 		obj.value = obj.value.replace(/[^\d.]/g, "");//清除“数字”和“.”以外的字符
 	}
+	
+	function onlyAcceptNumAndPoint(obj){
+		obj.value = obj.value.replace(/[^\d.]/g, "");//清除“数字”和“.”以外的字符
+	}
 
 	return {
 		init: renderLayout,
@@ -318,9 +322,12 @@ var manager = function() {
 		getSystemParams:getSystemParameters,
 		getDateByOffset:getDateByOffset,
 		isNull:isNull,
+<<<<<<< HEAD
 		checkFloat:checkFloat,
 		keyupFloat:keyupFloat,
 		keyupInt:keyupInt,
+=======
+>>>>>>> branch 'master' of https://github.com/johnnydell/play.git
 		onlyAcceptNumAndPoint:onlyAcceptNumAndPoint,
 		setLanguage:function(language){
 			setCookie("language", language);

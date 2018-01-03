@@ -95,9 +95,19 @@
 	                  </ul>
                    </div>
                    <div class="light">
-                     <div><img width="80px" height="80px" src="{{root}}/images/grn_light.png"/></div>
-                     <div><img width="80px" height="80px" src="{{root}}/images/ept_light.png"/></div>
-                     <div><img width="80px" height="80px" src="{{root}}/images/ept_light.png"/></div>
+					{{#if color_selected == 0}}
+                    	<div id="light_green"><img width="80px" height="80px" src="{{root}}/images/grn_light.png"/></div>
+                     	<div id="light_yellow"><img width="80px" height="80px" src="{{root}}/images/ept_light.png"/></div>
+                     	<div id="light_red"><img width="80px" height="80px" src="{{root}}/images/ept_light.png"/></div>
+					{{elseif color_selected == 1}}
+						<div id="light_green"><img width="80px" height="80px" src="{{root}}/images/ept_light.png"/></div>
+                     	<div id="light_yellow"><img width="80px" height="80px" src="{{root}}/images/yellow_light.png"/></div>
+                     	<div id="light_red"><img width="80px" height="80px" src="{{root}}/images/ept_light.png"/></div>
+					{{elseif color_selected == 2}}
+						<div id="light_green"><img width="80px" height="80px" src="{{root}}/images/ept_light.png"/></div>
+                     	<div id="light_yellow"><img width="80px" height="80px" src="{{root}}/images/ept_light.png"/></div>
+                     	<div id="light_red"><img width="80px" height="80px" src="{{root}}/images/red_light.png"/></div>
+					{{/if}}
                    </div>
                 </div>
                 <div class="next">
