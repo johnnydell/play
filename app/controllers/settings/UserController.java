@@ -11,7 +11,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import common.util.Md5Utils;
-
 import play.db.ebean.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
