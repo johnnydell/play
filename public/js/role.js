@@ -155,7 +155,7 @@ var role = function(){
 		  				onrender: function(){
 		  					manager.loadProperties(this, "role", "../../");
 		  					manager.loadProperties(this, "common", "../../");
-		  					formModulesFuncsData(roleId);
+		  					refreshModulesFuncsData(roleId);
 		  					this.set("modules",modules);
 		  				},
 		  	            oncomplete: function (){}
@@ -177,15 +177,55 @@ var role = function(){
 		  				onrender: function(){
 		  					manager.loadProperties(this, "role", "../../");
 		  					manager.loadProperties(this, "common", "../../");
-		  					formModulesFuncsData(roleId);
+		  					refreshModulesFuncsData(roleId);
 		  					this.set("modules",modules);
 		  				},
 		  	            oncomplete: function () {}
 		  	        });
 		  	        
 		  	      ractive_edit.on("close", function () {
-		  	            $(".func_edit_popup").hide().html("");
-		  	        });
+		  	           $(".func_edit_popup").hide().html("");
+		  	      });
+		  	      
+			  	  ractive_edit.on("save", function () {
+		  	          var addRoleFuncs = [];
+		  	          var deletedRoleFuncs = [];
+		  	          $(modules).each(function(i,n){
+		  				$(n.funcs).each(function(j,m){
+		  					if(m.checked){
+		  						// 需要新增
+		  						if(m.role_func_id == '0'){
+		  							addRoleFuncs.push(m);
+		  						}
+		  					} else {
+		  						// 需要删除
+		  						if(m.role_func_id != '0'){
+		  							deletedRoleFuncs.push(m);
+		  						}
+		  					}
+		  				})
+		  	          })
+		  	          
+		  	          if(addRoleFuncs.length > 0 || deletedRoleFuncs.length > 0){
+		  	        	$.ajax({
+							url: manager.root + "/role/saveRoleFunc",
+							type: "POST",
+							dataType: "json",
+							data:JSON.stringify({roleId:roleId,addRoleFuncs:addRoleFuncs,deletedRoleFuncs:deletedRoleFuncs}),
+							contentType: "application/json",    
+							beforeSend: function() {
+								manager.block();
+							},
+							success: function(data) {
+								refreshModulesFuncsData(roleId);
+								jAlert($.i18n.prop("i18n_save_ok"), $.i18n.prop("i18n_info"));
+							},
+							complete: function() {
+								manager.unblock();
+							}
+						});	
+		  	          }
+		  	      });
 		  	    }); 
 				
 			},
@@ -194,7 +234,7 @@ var role = function(){
 		})
 	}	
 	
-	//取得当前的角色列表
+	// 取得当前的角色列表
 	function getRoleList(){
 		var ret;
 		$.ajax({
@@ -216,7 +256,7 @@ var role = function(){
 		if(data.length > 0){
 			$.each(data,function(i,n){
 				n.checked = false;
-				n.updated = "0";//0 表示no changes ,1 updated
+				n.updated = "0";// 0 表示no changes ,1 updated
 				roles.push(n);
 			});	
 		}		
@@ -254,18 +294,21 @@ var role = function(){
 		return ret;
 	}
 	
-	function formModulesFuncsData(roleId){
+	function refreshModulesFuncsData(roleId){
 		var role_funcs = getRoleFuncsByRoleId(roleId);
 		$(modules).each(function(i,n){
 			$(n.funcs).each(function(j,m){
 				var checked = false;
+				var role_func_id = "0";
 				$(role_funcs).each(function(k,l){
 					if(m.id == l.func.id){
 						checked = true;
+						role_func_id = l.id;
 						return false;
 					}
 				})
 				m.checked = checked;
+				m.role_func_id = role_func_id;
 			})
 		})
 	}

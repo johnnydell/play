@@ -296,6 +296,10 @@ var manager = function() {
 		var target = event.srcElement || event.target;
 		target.value = target.value.replace(/[^0-9]/g,'');
 	}
+	
+	function onlyAcceptNumAndPoint(obj){
+		obj.value = obj.value.replace(/[^\d.]/g, "");//清除“数字”和“.”以外的字符
+	}
 
 	return {
 		init: renderLayout,
@@ -317,6 +321,7 @@ var manager = function() {
 		checkFloat:checkFloat,
 		keyupFloat:keyupFloat,
 		keyupInt:keyupInt,
+		onlyAcceptNumAndPoint:onlyAcceptNumAndPoint,
 		setLanguage:function(language){
 			setCookie("language", language);
 		},

@@ -39,11 +39,12 @@ GET  /edashboard/role/getListWithRoleFuncs              controllers.settings.Rol
 GET  /edashboard/role/getRoleFuncsByRoleId              controllers.settings.RoleController.getRoleFuncsByRoleId(roleId:String)
 POST /edashboard/role/saveRole               			controllers.settings.RoleController.saveRole()
 POST /edashboard/role/deleteRole                        controllers.settings.RoleController.deleteRole()
+POST /edashboard/role/saveRoleFunc               		controllers.settings.RoleController.saveRoleFunc()
 
 #Setting Product Type
 GET  /edashboard/productType/getList               		controllers.settings.ProductTypeController.getList()
-POST  /edashboard/productType/saveType               	controllers.settings.ProductTypeController.saveType()
-POST  /edashboard/productType/deleteType                controllers.settings.ProductTypeController.deleteType()
+POST /edashboard/productType/saveType               	controllers.settings.ProductTypeController.saveType()
+POST /edashboard/productType/deleteType                controllers.settings.ProductTypeController.deleteType()
 GET  /edashboard/productType/getAllList               		controllers.settings.ProductTypeController.getAllList()
 
 #Setting HC Config
@@ -53,6 +54,7 @@ POST /edashboard/hcConfig/saveHCConfig                  controllers.settings.HCC
 #Setting System Config
 GET /edashboard/sysConfig/getOeeLossSubTypes 			controllers.settings.SysConfigController.getOeeLossSubTypes()
 POST /edashboard/sysConfig/saveLoss 					controllers.settings.SysConfigController.saveOeeLossSubType()
+POST /edashboard/sysConfig/saveScreenConfig				controllers.settings.SysConfigController.saveScreenConfig()
 
 #OPL
 POST /edashboard/opl/addPSS 		            		controllers.OPLController.addPSS()

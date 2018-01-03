@@ -118,5 +118,45 @@ public class RoleController extends Controller {
 		return ok("{\"delete\":\""+deletedRoleLi.size()+"\"}");
 	}
 	
+	/**
+	    * 保存rolesfunc
+	    * @return
+	 */
+	@Transactional
+	public static Result saveRoleFunc() {
+		JsonNode in = request().body().asJson();
+		String roleId = in.get("roleId").asText();
+		JsonNode addRoleFuncs = in.get("addRoleFuncs");
+		ArrayList<RoleFunc> addLi = new ArrayList<RoleFunc>();
+		Iterator<JsonNode> a = addRoleFuncs.iterator();
+		while (a.hasNext()) {
+			JsonNode node = a.next();
+			RoleFunc roleFunc = new RoleFunc();
+			roleFunc.roleId = roleId;
+			roleFunc.funcId = node.get("id").asText();
+			addLi.add(roleFunc);
+		}
+
+		if (addLi.size() > 0) {
+			RoleFunc.saveList(addLi);
+		}
+
+		JsonNode deletedRoleFuncs = in.get("deletedRoleFuncs");
+		ArrayList<RoleFunc> deleteLi = new ArrayList<RoleFunc>();
+		Iterator<JsonNode> b = deletedRoleFuncs.iterator();
+		while (b.hasNext()) {
+			JsonNode node = b.next();
+			String id = node.get("role_func_id").asText();
+			RoleFunc roleFunc = RoleFunc.find(id);
+			deleteLi.add(roleFunc);
+		}
+		
+		if (deleteLi.size() > 0) {
+			RoleFunc.deleteList(deleteLi);
+		}
+
+		return ok("{\"add\":\""+addLi.size()+"\",\"delete\":\""+deleteLi.size()+"\"}");
+	}
+	
 	
 }
