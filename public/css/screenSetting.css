@@ -1,0 +1,202 @@
+.screenconfig .header {
+	text-align: center;
+	background-color: #003366;
+	height: 45px;
+	color: white;
+}
+
+.screenconfig .header label{
+	float : left;
+	width : 25%;
+	font-size: 27px;
+}
+
+.screenconfig .header .title {
+	width: 50%;
+	height: 100%;
+	float: left;
+}
+
+.screenconfig .subTitle{
+	font-size: 20px;
+	font-style: italic;
+    color: blue;
+}
+
+.screenconfig .header .title  span {
+	font-size: 23px;
+	margin-left: 20px;
+	font-weight: 700;
+	color: white;
+}
+
+.screenconfig .header .info {
+	width: 50%;
+	height: 100%;
+	float: left;
+}
+
+.screenconfig .header .info .lb {
+	width: 20%;
+	height: 100%;
+	float: left;
+}
+
+.screenconfig .header .info .lb span {
+	width: 100%;
+	height: 50%;
+	float: left;
+	font-size: 20px;
+	font-weight: bold;
+	color: white;
+}
+
+.screenconfig .header .info .val {
+	width: 40%;
+	height: 100%;
+	float: left;
+}
+
+.screenconfig .header .info .val span {
+	width: 100%;
+	height: 50%;
+	float: left;
+	background-color: white;
+	text-align: center;
+	font-size: 23px;
+	font-weight: 700;
+	color: #000000;
+	border-bottom: #000000 1px solid;
+}
+
+.screenconfig .header .info .val select {
+	font-size: 19px;
+	font-weight: normal;
+}
+
+.screenconfig .header .info .fst {
+	border-top: #000000 1px solid;
+}
+
+.screenconfig p {
+	margin: 0;
+	padding: 0;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.screenconfig table {
+	width: 100%;
+	border-collapse: collapse;
+	border: 1px solid #000;
+}
+
+.screenconfig table th {
+	color: #000;
+	background: #bec2c3;
+	border: 1px solid #000;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+
+
+.screenconfig table td {
+	color: #0a05e8;
+	/* line-height: 30px; */
+	height: 30px;
+	text-align: center;
+	border: 1px solid #000;
+	cursor: pointer;
+	font-size: smaller;	
+}
+
+.screenconfig  table .data{
+	vertical-align: top;
+}
+
+
+
+.screenconfig table td span {
+	margin-left: 20px;
+}
+
+.screenconfig .footer {
+	text-align: left;
+	background-color: #c0c0c0;
+	vertical-align:middle;
+    height: 70px;
+}
+
+.screenconfig .footer .lf {	
+    width: 80%;
+    float: left;
+}
+
+.screenconfig .footer .rt {	
+    float: left;
+    width: 20%;
+    height: 100%;
+    padding-right:15px;
+    padding-top: 15px;
+}		
+
+
+.screenconfig .footer p {
+	margin-left: 20px;
+	color: #000;
+	font-weight: normal;
+	font-size: 12px;
+}
+
+.screenconfig .footer .title {
+	font-weight: normal;
+	font-size: 16px;
+	margin-bottom: 3px;
+}
+
+.screenconfig .toolbar {
+	height: 40px;
+    text-align: right;
+}
+
+.screenconfig .btn {
+    padding: 6px 12px;
+    line-height: 1.42857143;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.fst select,.fst label{
+	width: 100%;	
+	text-align: center;
+	height: 36px;
+	vertical-align: top;
+}
+
+.fst select{
+	border: 1px solid #0080ff;
+}
+
+.dt select,.dt label{
+	width: 50%;
+	float: left;	
+	text-align: center;
+}
+
+.dt select{
+	border: 1px solid #0080ff;	
+	height: 36px;
+}
+
+.LossDetail td .field{
+	width: 100%;
+	height:100%;
+	
+	vertical-align: middle;
+	
+}
+
+
+
+

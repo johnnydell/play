@@ -300,6 +300,10 @@ var manager = function() {
 	function onlyAcceptNumAndPoint(obj){
 		obj.value = obj.value.replace(/[^\d.]/g, "");//清除“数字”和“.”以外的字符
 	}
+	
+	function onlyAcceptNumAndPoint(obj){
+		obj.value = obj.value.replace(/[^\d.]/g, "");//清除“数字”和“.”以外的字符
+	}
 
 	return {
 		init: renderLayout,

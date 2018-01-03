@@ -17,6 +17,12 @@ var role = function(){
 		});
 		
 		ractive.on({
+			checkAll:function(e){
+				$(roles).each(function(i,n){
+					n.checked = $(e.node).is(':checked');
+				});				
+				ractive.update("roles");
+			},
 			toShowColumnEditor:function(e){
 				var index = $(e.node).parent().parent().attr("lang");
 				$(e.node).hide().next().show().focus();
