@@ -44,5 +44,21 @@ public class ProductLine extends Model {
 	public static void save(ProductLine productLine) {
 		Ebean.save(productLine);
 	}
+	
+	public static void saveList(List<ProductLine> lists){
+		Ebean.save(lists);
+	}
+	
+	public static void updateList(List<ProductLine> lists){
+		for(ProductLine line : lists){
+			Ebean.update(line);
+		}
+	}
+	
+	public static void deleteList(List<ProductLine> lists){
+		for(ProductLine line : lists){
+			Ebean.delete(ProductLine.class, line.id);
+		}
+	}
 
 }
