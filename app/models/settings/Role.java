@@ -62,6 +62,4 @@ public class Role extends Model {
     		}
     	}
     }
-	
-
 }

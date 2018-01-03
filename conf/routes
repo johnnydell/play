@@ -41,6 +41,14 @@ POST /edashboard/role/saveRole               			controllers.settings.RoleControl
 POST /edashboard/role/deleteRole                        controllers.settings.RoleController.deleteRole()
 POST /edashboard/role/saveRoleFunc               		controllers.settings.RoleController.saveRoleFunc()
 
+#Setting User
+GET  /edashboard/user/getList               			controllers.settings.UserController.getList()
+GET  /edashboard/user/getListWithUserRoles              controllers.settings.UserController.getListWithUserRoles()
+GET  /edashboard/user/getUserRolesByUserId              controllers.settings.UserController.getUserRolesByUserId(userId:String)
+POST /edashboard/user/saveUser               			controllers.settings.UserController.saveUser()
+POST /edashboard/user/deleteUser                        controllers.settings.UserController.deleteUser()
+POST /edashboard/user/saveUserRole               		controllers.settings.UserController.saveUserRole()
+
 #Setting Product Type
 GET  /edashboard/productType/getList               		controllers.settings.ProductTypeController.getList()
 POST /edashboard/productType/saveType               	controllers.settings.ProductTypeController.saveType()

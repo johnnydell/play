@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>系统设置</title>
+		<title>Settings</title>
 		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
 		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
 		<link rel="stylesheet" type="text/css" href="../css/login.css"/>
@@ -43,13 +43,13 @@
 		<div class="content-box">
 			<ul>
 				<li class="bg-e1f8c9">
-					<h4 on-click="toFuncMgt">功能管理</h4>
+					<h4 on-click="toFuncMgt">{{i18n_settings_funcMgt}}</h4>
 				</li>
 				<li class="bg-f4b183">
-					<h4 on-click="toRoleMgt">角色管理</h4>
+					<h4 on-click="toRoleMgt">{{i18n_settings_roleMgt}}</h4>
 				</li>
 				<li class="bg-72b3f6">
-					<h4>用户管理</h4>
+					<h4 on-click="toUserMgt">{{i18n_settings_userMgt}}</h4>
 				</li>
 <!--
 				<li class="bg-c2f094">
@@ -57,13 +57,13 @@
 				</li>
 -->
 				<li class="bg-c2f094">
-					<h4 on-click="toSysConfig">系统参数管理</h4>
+					<h4 on-click="toSysConfig">{{i18n_settings_sysCfgMgt}}</h4>
 				</li>
 				<li class="bg-92d050">
-					<h4 on-click="toProductType">产品类型管理</h4>
+					<h4 on-click="toProductType">{{i18n_settings_productTypeMgt}}</h4>
 				</li>
 				<li class="bg-b8d9fb">
-					<h4 on-click="toHCConfig">小时产量配置管理</h4>
+					<h4 on-click="toHCConfig">{{i18n_settings_hcCfgMgt}}</h4>
 				</li>
 			</ul>
 		</div>

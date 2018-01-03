@@ -18,6 +18,9 @@ var settings = function(){
 			toRoleMgt:function(){
 				location.href=manager.root+"/views/settings/role.html";
 			},
+			toUserMgt:function(){
+				location.href=manager.root+"/views/settings/user.html";
+			},
 			/*
 			toUpload:function(){
 				location.href=manager.root+"/views/settings/uploader.html";

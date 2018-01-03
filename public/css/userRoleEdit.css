@@ -1,0 +1,102 @@
+/*** 弹出框样式 ***/
+.role_edit_popup {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+.role_edit_popup .model{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 800px;
+    margin-left: -350px;
+    margin-top: -350px;
+    background: #fff;    
+    text-align: left;
+}
+
+.role_edit_popup .modal-header {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.role_edit_popup .modal-body {
+    position: relative;
+    padding: 20px;
+}
+
+.role_edit_popup .modal-footer {
+    padding: 15px;
+    text-align: right;
+    border-top: 1px solid #e5e5e5;
+}
+
+.role_edit_popup .modal-header .close {
+    margin-right: 10px;
+    float: right;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 0.8;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=20);
+    opacity: .2;
+}
+
+.role_edit_popup .modal-header h4 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    font-weight: lighter;
+}
+
+.role_edit_popup .modal-footer .btn {
+	padding: 6px 12px;
+	background: #DADADA;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+/** body内部设置**/
+.role_edit_popup .form-group {
+	height:500px;
+	overflow-y:scroll;
+}
+
+.role_edit_popup .form-group fieldset li {
+	float: left;
+    margin-left: 12px;
+}
+
+.role_edit_popup fieldset.s1 {
+    background: #eee none repeat scroll 0 0;
+    box-shadow: 3px 3px 10px #666;
+    border: 1px solid transparent;
+    margin-bottom: 20px;
+    margin-right: 10px;
+    padding: 10px;
+}
+
+.role_edit_popup legend.s1 {
+	box-shadow: 2px 2px 4px #666;
+    background-color: #4f709f;
+    color: #fff;
+    padding: 5px 10px;
+}
+
+.s1 li label {
+    display: inline-block;
+    width: 140px;
+    margin-left:3px;
+}
+
+
+

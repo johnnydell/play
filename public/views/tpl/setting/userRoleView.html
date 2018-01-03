@@ -1,0 +1,26 @@
+<div class="model">
+	<div class="modal-header">
+		<button type="button" class="close" on-click="close">×</button>
+		<h4>{{i18n_user_role_view_title}}</h4>
+	</div>
+	<div class="modal-body">
+		<form role="form" class="ng-pristine ng-valid">
+			<div class="form-group">
+				<fieldset class="s1">
+					<legend class="s1">{{i18n_user_role}}</legend>
+					<ul>
+					 	{{#each roles:idx}}
+						<li>
+							<input type="checkbox" disabled checked="{{checked}}" />
+							<label>{{roleName}}</label>
+						</li>
+						{{/each}}
+					</ul>
+				</fieldset>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn" on-click="close">{{i18n_user_role_view_close}}</button>
+	</div>
+</div>
