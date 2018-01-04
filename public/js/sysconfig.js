@@ -30,6 +30,11 @@ var sysconfig = function(){
 				$(e.node).parent().attr("id", "current");
 				screenSetting.init();
 			},
+			switchToLine:function(e){
+				$("#tabs li").attr("id","");
+				$(e.node).parent().attr("id", "current");
+				lineSetting.init();
+			},
 			
 		})
 	}

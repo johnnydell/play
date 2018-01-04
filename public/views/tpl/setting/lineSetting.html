@@ -1,0 +1,34 @@
+<div class="linesetting">
+	<div class="lines">
+		<div class="header">
+			<p>
+				<label>{{i18n_sysconfig_line_title}}</label>
+			</p>
+		</div>
+		<div class="toolbar">
+				<button type="button" class="btn" on-click="newLineConfig">{{i18n_new}}</button>
+				<button type="button" class="btn" on-click="saveLineConfig">{{i18n_save}}</button>
+        </div>
+		<div class="lineDetail">
+			<table style="width: 100%; text-align: center">
+				<tr>
+					<td style="width:20%">{{i18n_sysconfig_oee_subtype_index}}</td>
+					<td style="width:80%">{{i18n_sysconfig_oee_subtype_name}}</td>
+				</tr>
+				
+				{{#each lineData : idx}}
+				<tr>
+						<td>{{idx + 1}}</td>
+						<td on-click="toShowColumnEditor">
+							<span class="field">{{lineName}}</span> 
+							<input class="field" style="display:none;width:100%" type="text" on-blur="toHideColumnEditor" value="{{lineName}}" />
+						</td>
+				</tr>
+				{{/each}}
+				
+			</table>
+		</div>
+		
+
+	</div>
+</div>

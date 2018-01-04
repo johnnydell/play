@@ -1,0 +1,223 @@
+.linesetting .header {
+	text-align: center;
+	background-color: #003366;
+	height: 45px;
+	color: white;
+}
+
+.linesetting .header label{
+	float : left;
+	width : 100%;
+	font-size: 27px;
+}
+
+.linesetting .header .title {
+	width: 50%;
+	height: 100%;
+	float: left;
+}
+
+.linesetting .subTitle{
+	font-size: 20px;
+	font-style: italic;
+    color: blue;
+}
+
+.linesetting .header .title  span {
+	font-size: 23px;
+	margin-left: 20px;
+	font-weight: 700;
+	color: white;
+}
+
+.linesetting .header .info {
+	width: 50%;
+	height: 100%;
+	float: left;
+}
+
+.linesetting .header .info .lb {
+	width: 20%;
+	height: 100%;
+	float: left;
+}
+
+.linesetting .header .info .lb span {
+	width: 100%;
+	height: 50%;
+	float: left;
+	font-size: 20px;
+	font-weight: bold;
+	color: white;
+}
+
+.linesetting .header .info .val {
+	width: 40%;
+	height: 100%;
+	float: left;
+}
+
+.linesetting .header .info .val span {
+	width: 100%;
+	height: 50%;
+	float: left;
+	background-color: white;
+	text-align: center;
+	font-size: 23px;
+	font-weight: 700;
+	color: #000000;
+	border-bottom: #000000 1px solid;
+}
+
+.linesetting .header .info .val select {
+	font-size: 19px;
+	font-weight: normal;
+}
+
+.linesetting .header .info .fst {
+	border-top: #000000 1px solid;
+}
+
+.linesetting p {
+	margin: 0;
+	padding: 0;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.linesetting table {
+	width: 100%;
+	border-collapse: collapse;
+	border: 1px solid #000;
+}
+
+.linesetting table th {
+	color: #000;
+	background: #bec2c3;
+	border: 1px solid #000;
+	font-weight: normal;
+}
+
+.linesetting table tr:first-child td {
+	color: #000;
+	font-weight: bold;
+	font-size: 18px;
+	background: #bec2c3;
+	
+}
+
+.linesetting table tr:first-child span{
+	float:left;
+	text-align: right;
+	height:30px;
+}
+
+.linesetting table tr:first-child input{
+	float:left;
+	text-align: left;
+	
+}
+
+.linesetting table td {
+	color: #0a05e8;
+	/* line-height: 30px; */
+	height: 30px;
+	text-align: center;
+	border: 1px solid #000;
+	cursor: pointer;
+	font-size: smaller;	
+}
+
+.linesetting  table .data{
+	vertical-align: top;
+}
+
+.linesetting table td:nth-child(2) {
+	
+	text-align: center;
+	border: 1px solid #000;
+}
+
+.linesetting table td span {
+	margin-left: 20px;
+}
+
+.linesetting .footer {
+	text-align: left;
+	background-color: #c0c0c0;
+	vertical-align:middle;
+    height: 70px;
+}
+
+.linesetting .footer .lf {	
+    width: 80%;
+    float: left;
+}
+
+.linesetting .footer .rt {	
+    float: left;
+    width: 20%;
+    height: 100%;
+    padding-right:15px;
+    padding-top: 15px;
+}		
+
+
+.linesetting .footer p {
+	margin-left: 20px;
+	color: #000;
+	font-weight: normal;
+	font-size: 12px;
+}
+
+.linesetting .footer .title {
+	font-weight: normal;
+	font-size: 16px;
+	margin-bottom: 3px;
+}
+
+.linesetting .toolbar {
+	height: 40px;
+    text-align: right;
+}
+
+.linesetting .btn {
+    padding: 6px 12px;
+    line-height: 1.42857143;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.fst select,.fst label{
+	width: 100%;	
+	text-align: center;
+	height: 36px;
+	vertical-align: top;
+}
+
+.fst select{
+	border: 1px solid #0080ff;
+}
+
+.dt select,.dt label{
+	width: 50%;
+	float: left;	
+	text-align: center;
+}
+
+.dt select{
+	border: 1px solid #0080ff;	
+	height: 36px;
+}
+
+.LossDetail td .field{
+	width: 100%;
+	height:100%;
+	
+	vertical-align: middle;
+	
+}
+
+
+
+

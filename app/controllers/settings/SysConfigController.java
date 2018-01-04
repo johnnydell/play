@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import models.OeeLossChildChildType;
 import models.OeeLossChildType;
 import models.OeeLossType;
+import models.ProductLine;
 import models.SystemParam;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -122,7 +123,7 @@ public class SysConfigController extends Controller {
 			JsonNode lossIndex = data.path("lossId");
 			JsonNode oeeSubLosses = data.path("oeeSubLosses");
 			
-			logger.info("oeeSubLosses = " + oeeSubLosses);
+			logger.info("saveOeeLossSubType = " + oeeSubLosses);
 			String lossId = lossIndex.asText();
 			String subLossId = oeeSubLosses.get("id").asText();
 			JsonNode oeeSubSubLosses = oeeSubLosses.path("subSubTypes");
@@ -182,7 +183,7 @@ public class SysConfigController extends Controller {
 		try {
 			
 			JsonNode data = request().body().asJson();
-			logger.info("data= " + data);
+			logger.info("saveScreenConfig= " + data);
 			JsonNode screenTimeInterval = data.path("screenTimeInterval");
 			JsonNode screenColorGreen = data.path("screenColorGreen");
 			JsonNode screenColorYellow = data.path("screenColorYellow");
@@ -260,8 +261,57 @@ public class SysConfigController extends Controller {
 			return ok("0");
 		}
 		
-		
-		
+		return ok("1");
+	}
+	
+	public static Result getProductLine(){
+		List<ProductLine> lists = ProductLine.getActiveList();
+		return ok(Json.toJson(lists));
+	}
+	
+	public static Result saveLineConfig(){
+		JsonNode data = request().body().asJson();
+		logger.info("saveLineConfig= " + data);
+		try {
+			JsonNode lineData = data.path("lineData");
+			int nodeCount = lineData.size();
+			
+			List<ProductLine> existed = new ArrayList<ProductLine>();
+			List<ProductLine> newObjs = new ArrayList<ProductLine>();
+			List<ProductLine> deleted = new ArrayList<ProductLine>();
+			
+			for (int i = 0; i < nodeCount; i ++){
+				String id = lineData.get(i).get("id").asText();
+				String lineName = lineData.get(i).get("lineName").asText();
+				ProductLine line = new ProductLine();
+				line.lineName = lineName;
+				line.active = true;
+				if (!StringUtils.isEmpty(id) && !StringUtils.isEmpty(lineName)){
+					line.id = id;
+					existed.add(line);
+				}
+				else if (StringUtils.isEmpty(id) && !StringUtils.isEmpty(lineName)){
+					newObjs.add(line);
+				}
+				else if (!StringUtils.isEmpty(id) && StringUtils.isEmpty(lineName)){
+					line.id = id;
+					deleted.add(line);
+				}
+			}
+			
+			if (existed.size() > 0){
+				ProductLine.updateList(existed);
+			}
+			if (newObjs.size() > 0){
+				ProductLine.saveList(newObjs);
+			}
+			if (deleted.size() > 0){
+				ProductLine.deleteList(deleted);
+			}
+		} catch (Exception e) {
+			logger.error("" + e);
+			return ok("0");
+		}
 		
 		return ok("1");
 	}
