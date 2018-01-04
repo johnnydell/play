@@ -43,97 +43,81 @@
 	<div class="content">
 		<div class="content-box">
             <div class="toolbar">
-               	<h4>{{i18n_scr_title}} - {{lineName}}</h4>
+               	<h4>{{i18n_scr_title}} - 
+							<label class="field" on-click="toShowLineSelect">{{lineName}}</label>                    
+							<select class="field" style="display:none;" on-change="changeLine" on-blur="toHideLineSelect" >
+	 						{{#each lines:idx}}
+							 <option value="{{lines[idx].lineName}}">{{lines[idx].lineName}}</option>
+					        {{/each}}
+		             		</select>
+                         </h4>
             </div>
             <div class="ctx">
                 <div class="curr">
                    <div class="info">
-                  	 <ul>
-	                    <li	class="f50">
-	                        <h1>{{i18n_current_prod_name}}</h1>
-	                        <a  href="javascript:void(0);">{{displayData.currType}}</a>
-                            
-	                    </li>
-	                    <li class="f25">
-	                        <h1>{{i18n_current_prod_cycle}}[S]</h1>
-	                        <a  href="javascript:void(0);">{{displayData.currJP}}</a>
-                            
-	                    </li>
-	                    <li class="f25">
-	                    	<h1>{{i18n_current_prod_person}}</h1>
-	                        <a  href="javascript:void(0);">{{displayData.currRS}}</a>
-                           
-	                    </li>
-	                  </ul>
-	                  <ul>
-	                    <li	class="f20">
-	                        <h1>{{i18n_current_prod_plan_output}}</h1>
-	                        <a  href="javascript:void(0);">{{displayData.planCC}}</a>
-                            
-	                    </li>
-						<li	class="f20">
-	                        <h1>{{i18n_current_prod_plan_expect_output}}</h1>
-	                       <a  href="javascript:void(0);">{{displayData.expectedCC}}</a>
-	                    </li>
-	                    <li	class="f20">
-	                        <h1>{{i18n_current_prod_plan_actual_output}}</h1>
-	                        <a  href="javascript:void(0);">{{displayData.actualCC}}</a>
-                            
-	                    </li>
-	                    <li class="f20">
-	                        <h1>{{i18n_current_prod_diff}}</h1>
+					<table style="width: 100%; text-align:center;height:100%">
+						<tr>
+							<td colspan="3"> <h1>{{i18n_current_prod_name}}</h1></td>
+							<td> <h1>{{i18n_current_prod_cycle}}[S]</h1></td>
+							<td> <h1>{{i18n_current_prod_person}}</h1></td>
+							<td rowspan="4" style="border-left: 3px solid #1852BD;"> 
+								{{#if color_selected == 0}}
+                    				<div id="light_green"><img width="80px" height="80px" src="{{root}}/images/grn_light.png"/></div>
+                     				<div id="light_yellow"><img width="80px" height="80px" src="{{root}}/images/ept_light.png"/></div>
+                     				<div id="light_red"><img width="80px" height="80px" src="{{root}}/images/ept_light.png"/></div>
+								{{elseif color_selected == 1}}
+									<div id="light_green"><img width="80px" height="80px" src="{{root}}/images/ept_light.png"/></div>
+                     				<div id="light_yellow"><img width="80px" height="80px" src="{{root}}/images/yellow_light.png"/></div>
+                     				<div id="light_red"><img width="80px" height="80px" src="{{root}}/images/ept_light.png"/></div>
+								{{elseif color_selected == 2}}
+									<div id="light_green"><img width="80px" height="80px" src="{{root}}/images/ept_light.png"/></div>
+                     				<div id="light_yellow"><img width="80px" height="80px" src="{{root}}/images/ept_light.png"/></div>
+                     				<div id="light_red"><img width="80px" height="80px" src="{{root}}/images/red_light.png"/></div>
+								{{/if}}
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3"><a  href="javascript:void(0);" style="width:90%">{{displayData.currType}}</a></td>
+							<td><a  href="javascript:void(0);">{{displayData.currJP}}</a></td>
+							<td><a  href="javascript:void(0);">{{displayData.currRS}}</a></td>
+						</tr>
+						<tr>
+							<td><h1>{{i18n_current_prod_plan_output}}</h1></td>
+							<td><h1>{{i18n_current_prod_plan_expect_output}}</h1></td>
+							<td><h1>{{i18n_current_prod_plan_actual_output}}</h1></td>
+							<td><h1>{{i18n_current_prod_diff}}</h1></td>
+							<td><h1>{{i18n_current_prod_target_oee}}</h1></td>
+						</tr>
+						<tr>
+							<td><a  href="javascript:void(0);">{{displayData.planCC}}</a></td>
+							<td><a  href="javascript:void(0);">{{displayData.expectedCC}}</a></td>
+							<td><a  href="javascript:void(0);">{{displayData.actualCC}}</a></td>
+							<td>
 							{{#if data.diff > 0}}
-	                        	<a  style="background-color:green;color:white" href="javascript:void(0);">{{format(displayData.diff)}}</a>
+	                        	<a  style="color:green" href="javascript:void(0);">{{format(displayData.diff)}}</a>
                             {{else}}
-								<a  style="background-color:red;color:white" href="javascript:void(0);">{{format(displayData.diff)}}</a>
+								<a  style="color:red" href="javascript:void(0);">{{format(displayData.diff)}}</a>
 							{{/if}}
-	                    </li>
-	                    <li class="f20">
-	                    	<h1>{{i18n_current_prod_target_oee}}</h1>
-	                        <a  style="color:green" href="javascript:void(0);">{{percentage(displayData.oee)}}</a>
-	                    </li>
-	                  </ul>
+							</td>
+							<td><a   href="javascript:void(0);">{{percentage(displayData.oee)}}</a></td>
+						</tr>
+						<tr>
+							<td style="width:100%; border-top: 3px solid #1852BD;" colspan="6">
+							</td>
+						</tr>
+						<tr >
+							<td colspan="3"><h1>{{i18n_next_prod_name}}</h1></td>
+							<td> <h1>{{i18n_current_prod_cycle}}[S]</h1></td>
+							<td> <h1>{{i18n_current_prod_person}}</h1></td>
+						</tr>
+						<tr >
+							<td colspan="3"><a on-click="toShowEditor" href="javascript:void(0);" style="width:90%">{{displayData.nextType}}</a></td>
+							<td><a on-click="toShowEditor" href="javascript:void(0);">{{displayData.nextJP}}</a></td>
+							<td><a on-click="toShowEditor" href="javascript:void(0);">{{displayData.nextRS}}</a></td>
+						</tr>
+					</table>
+
                    </div>
-                   <div class="light">
-					{{#if color_selected == 0}}
-                    	<div id="light_green"><img width="80px" height="80px" src="{{root}}/images/grn_light.png"/></div>
-                     	<div id="light_yellow"><img width="80px" height="80px" src="{{root}}/images/ept_light.png"/></div>
-                     	<div id="light_red"><img width="80px" height="80px" src="{{root}}/images/ept_light.png"/></div>
-					{{elseif color_selected == 1}}
-						<div id="light_green"><img width="80px" height="80px" src="{{root}}/images/ept_light.png"/></div>
-                     	<div id="light_yellow"><img width="80px" height="80px" src="{{root}}/images/yellow_light.png"/></div>
-                     	<div id="light_red"><img width="80px" height="80px" src="{{root}}/images/ept_light.png"/></div>
-					{{elseif color_selected == 2}}
-						<div id="light_green"><img width="80px" height="80px" src="{{root}}/images/ept_light.png"/></div>
-                     	<div id="light_yellow"><img width="80px" height="80px" src="{{root}}/images/ept_light.png"/></div>
-                     	<div id="light_red"><img width="80px" height="80px" src="{{root}}/images/red_light.png"/></div>
-					{{/if}}
-                   </div>
-                </div>
-                <div class="next">
-                   <div class="info">
-                      <ul>
-                        <li	class="f50">
-                            <h1>{{i18n_next_prod_name}}</h1>
-                            <a on-click="toShowEditor" href="javascript:void(0);">{{displayData.nextType}}</a>
-                            
-                        </li>
-                        <li class="f25">
-                            <h1>{{i18n_current_prod_cycle}}[S]</h1>
-                            <a on-click="toShowEditor" href="javascript:void(0);">{{displayData.nextJP}}</a>
-                            
-                        </li>
-                        <li class="f25">
-                        	<h1>{{i18n_current_prod_person}}</h1>
-                            <a on-click="toShowEditor" href="javascript:void(0);">{{displayData.nextRS}}</a>
-                            
-                        </li>
-                      </ul>
-                   </div>
-                   <div class="light"></div>
-                </div>
-            </div>
-		</div>
-	</div>
+
     </script>
 </html>

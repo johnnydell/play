@@ -11,6 +11,7 @@ var scr = function(){
 	var color_selected = 0;
 	var display_data = {currType:"",currJP:"",currRS:"",planCC:"",expectedCC:"",actualCC:"",diff:"",oee:"",nextType:"",nextJP:"",nextRS:""};
 	var ractive = null;
+	var lines = getAllLines();
 	function init(){
 		var data;
 		ractive = new Ractive({
@@ -35,6 +36,7 @@ var scr = function(){
 			onrender: function(){
 				manager.loadProperties(this, "scr", "../");
 				manager.setMenuBar("scr");
+				this.set("lines",lines);
 			},
 			oncomplete: function(){	
 				getProductInfo();
@@ -58,7 +60,20 @@ var scr = function(){
 			},
 			toHideEditor:function(e){
 				$(e.node).hide().prev().text($(e.node).val()).show();
-			}
+			},
+			toShowLineSelect:function(e){
+				$(e.node).hide().next().show().focus();
+			},
+			toHideLineSelect:function(e){
+				$(e.node).hide().prev().show();
+			},
+			changeLine:function(e){
+				//console.log("linename = " + $(e.node).val());
+				lineName = $(e.node).val();
+				console.log("linename = " + lineName);
+				getProductInfo();
+				this.set("lineName", lineName);
+			},
 		}),
 		intervalObj = setInterval(getProductInfo, time_interval);
 		
@@ -130,7 +145,21 @@ var scr = function(){
     	});
 	}
 	
-	
+	//取得所有有效的lines
+	function getAllLines(){
+		var ret;
+		$.ajax({
+			url: manager.root + "/line/getActiveList",
+			type: "GET",
+			async:false,
+			dataType:"json",
+			contentType: "application/json",
+			success: function(data) {
+				ret = data;
+			}
+		});
+		return ret;
+	}
 	
 	return {
 		init:init
