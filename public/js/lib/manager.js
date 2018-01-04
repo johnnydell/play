@@ -332,6 +332,16 @@ var manager = function() {
 		getLanguage:function(){
 			return getCookie("language");
 		},
+		getLoginUserInfo:function(){
+			var str = getCookie("user_info");
+			if(str == undefined){
+				return {
+					user_id:"0",
+					user_name:""
+				}
+			}
+			return $.parseJSON(str);
+		},
 		block: function() {
         	$.blockUI({
                 message: '<div style="font-size: 14px;font-weight: bold;color: #f60;height: 40px;width: 250px;line-height: 40px;text-align: center;margin: 0 auto;"><img alt="" src="' + root + '/images/loading.gif"></div>',

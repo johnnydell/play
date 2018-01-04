@@ -9,7 +9,9 @@ import models.settings.UserRole;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.avaje.ebean.SqlRow;
 import com.fasterxml.jackson.databind.JsonNode;
+
 import common.util.Md5Utils;
 import play.db.ebean.Transactional;
 import play.mvc.Controller;
@@ -57,10 +59,21 @@ public class UserController extends Controller {
 		String str = JSON.toJSONString(li);
 		return ok(str);
 	}
+	
+	/**
+	 * 根据用户ID获取拥有的功能权限
+	 * @param userId
+	 * @return
+	 */
+	public static Result getUserRoleFuncsByUserId(String userId){
+		List<SqlRow> li =User.getUserFuncsByUserId(userId);
+		String str = JSON.toJSONString(li);
+		return ok(str);
+	}
 
-	 /**
-	    * 保存users
-	    * @return
+    /**
+     * 保存users
+     * @return
 	 */
 	@Transactional
 	public static Result saveUser() {

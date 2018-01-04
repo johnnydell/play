@@ -20,6 +20,28 @@ public class FuncController extends Controller {
         String str = JSON.toJSONString(funcs,SerializerFeature.DisableCircularReferenceDetect);
         return ok(str);
     }
+    
+    /**
+     * 根据模块ID获取所有权限
+     * @param moduleId
+     * @return
+     */
+    public static Result getListByModuleId(String moduleId){
+    	List<Func> funcs = Func.getListByModuleId(moduleId);
+    	String str = JSON.toJSONString(funcs,SerializerFeature.DisableCircularReferenceDetect);
+        return ok(str);
+    }
+    
+    /**
+     * 根据模块ID获取所有权限
+     * @param moduleId
+     * @return
+     */
+    public static Result getListByModuleKey(String moduleKey){
+    	List<Func> funcs = Func.getListByModuleKey(moduleKey);
+    	String str = JSON.toJSONString(funcs,SerializerFeature.DisableCircularReferenceDetect);
+        return ok(str);
+    }
    
     /**
 	    * 保存roles

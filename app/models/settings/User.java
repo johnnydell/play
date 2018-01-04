@@ -14,6 +14,7 @@ import models.Department;
 import models.ProductLine;
 
 import com.avaje.ebean.Ebean;
+import com.avaje.ebean.SqlRow;
 
 import play.db.ebean.Model;
 
@@ -84,5 +85,19 @@ public class User extends Model {
 				Ebean.update(users.get(i));
 			}
 		}
+	}
+	
+	public static List<SqlRow> getUserFuncsByUserId(String userId)  {
+		String sql = "select  func.id,func.func_key,func.func_name,func.module_id,module.module_key "
+				+ " from edb_role_func role_func "
+				+ " left join edb_func func on role_func.func_id = func.id "
+				+ " left join edb_module module on func.module_id = module.id "
+				+ " where role_func.role_id in ( "
+				+ " select user_role.role_id " 
+				+ " from edb_user_role user_role "
+				+ " where user_role.user_id = :userId "
+				+ " )";
+		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("userId", userId).findList();
+		return rows;
 	}
 }

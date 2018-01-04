@@ -48,6 +48,10 @@ public class Func extends Model {
 		return find.where().eq("moduleId", moduleId).findList();
 	}
 	
+	public static List<Func> getListByModuleKey(String moduleKey){
+		return find.where().eq("module.moduleKey", moduleKey).findList();
+	}
+	
 	public static Func find(String id){
 		return Ebean.find(Func.class, id);
 	}

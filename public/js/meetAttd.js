@@ -4,6 +4,8 @@ var meetAttd = function(){
 	var months = manager.months;
 	var lines = getAllLines();
 	var attendance = {id:"0",year:"",month:"",line_id:"",line_name:"",time_start:"10:00",time_end:"10:30",spot:"Team Board",host:"Team Leader",daysCnt:0,days:[],updated:"0"};
+	var limits = permission.load("meeting_attendance");
+	console.log(limits.view);
 	function init(){
 		var ractive = new Ractive({
 			el: ".container",

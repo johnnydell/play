@@ -18,8 +18,8 @@ GET     /edashboard/city/set      						controllers.CityController.set()
 GET     /edashboard/city/allCities   					controllers.CityController.allCities()
 GET     /edashboard/city/addCity   						controllers.CityController.addCity()
 GET     /edashboard/city/addCity2   					controllers.CityController.addCity2(id:String,name:String)
-POST     /edashboard/city/addCity3   					controllers.CityController.addCity3()
-POST     /edashboard/city/addCity4   					controllers.CityController.addCity4()
+POST    /edashboard/city/addCity3   					controllers.CityController.addCity3()
+POST    /edashboard/city/addCity4   					controllers.CityController.addCity4()
 
 #Setting Product Line
 GET  /edashboard/line/getActiveList               		controllers.settings.ProductLineController.getActiveList()
@@ -32,6 +32,8 @@ GET  /edashboard/module/getListWithFuncs                controllers.settings.Mod
 GET  /edashboard/func/getList               			controllers.settings.FuncController.getList()
 POST /edashboard/func/saveFunc               			controllers.settings.FuncController.saveFunc()
 POST /edashboard/func/deleteFunc                        controllers.settings.FuncController.deleteFunc()
+GET  /edashboard/func/getListByModuleId                 controllers.settings.FuncController.getListByModuleId(moduleId:String)
+GET  /edashboard/func/getListByModuleKey                controllers.settings.FuncController.getListByModuleKey(moduleKey:String)
 
 #Setting Role
 GET  /edashboard/role/getList               			controllers.settings.RoleController.getList()
@@ -49,6 +51,7 @@ POST /edashboard/user/saveUser               			controllers.settings.UserControl
 POST /edashboard/user/deleteUser                        controllers.settings.UserController.deleteUser()
 POST /edashboard/user/saveUserRole               		controllers.settings.UserController.saveUserRole()
 POST /edashboard/user/pwdChange               		    controllers.settings.UserController.pwdChange()
+GET  /edashboard/user/getUserRoleFuncsByUserId              controllers.settings.UserController.getUserRoleFuncsByUserId(userId:String)
 
 #Setting Product Type
 GET  /edashboard/productType/getList               		controllers.settings.ProductTypeController.getList()

@@ -34,6 +34,7 @@
 	<script src="../../js/lib/jquery.i18n.properties-1.0.9.js"></script>
 	<script src="../../js/lib/datetimepicker/jquery.datetimepicker.full.js"></script>
 	<script src="../../js/lib/manager.js"></script>
+	<script src="../../js/lib/permission.js"></script>
 	<script src="../../js/meetAttd.js"></script>
 	<script id="main-template" type="text/active">
 	<div class="position _clear title">
@@ -146,7 +147,7 @@
 	               </td>
 				   <td>
 	               		<label class="field" on-click="toShowColumnEditor">{{frequency}}</label>
-	               		<input class="field" type="text" maxlength="5" onkeyup="manager.keyupInt(event)" on-blur="toHideColumnEditor" style="display:none" value="{{frequency}}" />
+	               		<input class="field" type="text" maxlength="5" on-blur="toHideColumnEditor" style="display:none" value="{{frequency}}" />
 	               </td>
 	               <td>
 	               		<label class="field" on-click="toShowColumnEditor">{{dept}}</label>
