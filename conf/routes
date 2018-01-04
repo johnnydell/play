@@ -73,7 +73,7 @@ POST /edashboard/sysConfig/saveLineConfig				controllers.settings.SysConfigContr
 #OPL
 POST /edashboard/opl/addPSS 		            		controllers.OPLController.addPSS()
 GET  /edashboard/opl/getListByOPLId              		controllers.OPLController.getListByOPLId(opl_id:String)
-GET  /edashboard/opl/getOPLByParamPagination            controllers.OPLController.getOPLByParamPagination(line_id:String,year:String,month:String,page:String,pageSize:String)
+GET  /edashboard/opl/getOPLByParamPagination            controllers.OPLController.getOPLByParamPagination(line_id:String,year:String,month:String,status:String,page:String,pageSize:String)
 POST /edashboard/opl/saveOPL                            controllers.OPLController.saveOPL()
 POST /edashboard/opl/deleteOPL                          controllers.OPLController.deleteOPL()
 

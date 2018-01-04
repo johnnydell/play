@@ -55,7 +55,7 @@ public class MetAttdDetails extends Model {
 	public static Finder<String,MetAttdDetails> find = new Finder<String,MetAttdDetails>(String.class, MetAttdDetails.class);
 	
 	public static List<MetAttdDetails> getMetAtdanceDetailsByAtdId(String meetingAttendanceId){
-		return find.where().eq("meeting_attendance_id", meetingAttendanceId).orderBy("create_time asc").findList();
+		return find.where().eq("meeting_attendance_id", meetingAttendanceId).orderBy("create_time desc").findList();
 	}
 	
 	public static MetAttdDetails find(String detailId){

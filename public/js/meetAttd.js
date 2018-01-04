@@ -109,7 +109,7 @@ var meetAttd = function(){
 			},
 			addAttendee:function(){		
 				var attendee = {id:"0",checked:false,meeting_attendee:"",required:"R",frequency:"",dept:"",days:formDays(attendance.year,attendance.month),updated:"0"};
-				attendanceDetails.unshift(attendee);
+				attendanceDetails.push(attendee);
 				ractive.set("attendanceDetails",attendanceDetails);
 			},
 			deleteAttendee:function(){
