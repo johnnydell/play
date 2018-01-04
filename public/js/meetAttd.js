@@ -15,7 +15,7 @@ var meetAttd = function(){
 				this.set("years",years);
 				this.set("months",months);
 				this.set("lines",lines);
-				attendance.line_id = "9336b6f78e7448e685bad5ba71c2e3f8";
+				attendance.line_id = lines[0].id;
 				var sys_date = manager.getSystemDate();
 				attendance.year = sys_date.split("-")[0];
 				attendance.month = sys_date.split("-")[1];
