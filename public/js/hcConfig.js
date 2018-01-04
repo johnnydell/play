@@ -17,7 +17,7 @@ var hcConfig = function(){
 				manager.loadProperties(this, "common", "../../");
 				this.set("lines",lines);
 				this.set("types",active_types);
-				base1.line_id = "9336b6f78e7448e685bad5ba71c2e3f8";
+				base1.line_id = lines[0].id;
 				base1.date = sys_date;
 				refreshHCInfo(this);
 			},
@@ -146,14 +146,19 @@ var hcConfig = function(){
 					return;
 				}
 				
+				if(parseFloat($.trim(base1.target_oee_percent))>100){
+					jAlert($.i18n.prop("i18n_incorrect_data_format"), $.i18n.prop("i18n_error"));
+					error = true;
+					return;
+				}
 				//判断opl详细有没为空的
-				$(base1.details).each(function(i,n){
+				/*$(base1.details).each(function(i,n){
 					if(n.product_type_id_1 == '' && n.product_type_id_2 == ''){	
 						jAlert($.i18n.prop("i18n_required"), $.i18n.prop("i18n_error"));
 						error = true;
 						return false;
 					}
-				})
+				})*/
 				
 				if(!error){
 					//整理出BASE1需要新增和更新的
@@ -204,6 +209,9 @@ var hcConfig = function(){
 						}
 					});	
 				}
+			},
+			gotoHC:function(){
+				location.href=manager.root+"/views/board/hourlyCount.html?lineName="+base1.line_name+"&lineId="+base1.line_id;
 			},
 			test:function(){
 				console.log(base1);
@@ -336,7 +344,7 @@ var hcConfig = function(){
 			base1.details = details;	
 		} else {
 			base1.id = "0";
-			base1.target_oee_percent = "";
+			base1.target_oee_percent = "85";
 			base1.plan_opl_total_output = "";
 			base1.details = formHCDetailPre();
 		}

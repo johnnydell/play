@@ -95,7 +95,25 @@
 		             	</select>
 	                    {{i18n_opl_page}}
                     </th>
-					<th colspan="6"></th>
+					<th style="font-size: 20px;font-weight: bold;text-align:right;">Status：</th>
+					<th style="background-color:white;color: #000;border: 1px solid #000;text-align:left;">
+						<label style="display: inline-block;width:100%;text-align:center;" on-click="toShowStatusSelect">
+						{{#if condition.status}}
+                        <img style="width:30px;height:30px;margin-bottom: 1px;" src="{{root}}/images/pdca_{{condition.status}}.png">
+                        {{else}}
+                        {{i18n_opl_all}}
+                        {{/if}}
+                        </label>
+					   	<select style="display:none;width:100%" on-blur="toHideStatusSelect" value="{{condition.status}}">
+						 <option value=""></option>
+						 <option value="p">P</option>
+						 <option value="d">D</option>
+						 <option value="c">C</option>
+						 <option value="a">A</option>
+						 <option value="n">N</option>
+	             	    </select>
+                    </th>
+					<th colspan="2"></th>
 				</tr>
 			    <tr>
 				    <th width="2%" rowspan="2"><input on-click="checkAll" type="checkbox" /> <font>&nbsp;</font></th>

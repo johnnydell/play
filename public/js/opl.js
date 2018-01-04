@@ -20,6 +20,7 @@ var opl = function(){
 				condition.year = sys_date.split("-")[0];
 				condition.month = sys_date.split("-")[1];
 				condition.line_name = lineName;
+				condition.status = "";
 				condition.pageSize = 5;//每页多少条
 				condition.page = 1;//当前页
 				condition.pages = [];//总共多少页
@@ -56,6 +57,15 @@ var opl = function(){
 			},
 			toHidePageSelect:function(e){
 				$(e.node).hide().prev().show();
+				refreshOPL(ractive);
+			},
+			toShowStatusSelect:function(e){
+				console.log("asdfads");
+				$(e.node).hide().next().show().focus();
+			},
+			toHideStatusSelect:function(e){
+				$(e.node).hide().prev().show();
+				condition.page = 1;//当前页
 				refreshOPL(ractive);
 			},
 			toShowColumnEditor:function(e){
@@ -102,7 +112,7 @@ var opl = function(){
 				var op = {
 						id:"0",
 						checked:false,
-						date:condition.year+'-'+condition.month+'-01',
+						date:sys_date,
 						refNo:"",
 						founder:"",
 						station:'temp',
@@ -449,7 +459,7 @@ var opl = function(){
 			type: "GET",
 			async:false,
 			dataType:"json",
-			data:{line_id:condition.line_id,year:condition.year,month:condition.month,page:condition.page,pageSize:condition.pageSize},
+			data:{line_id:condition.line_id,year:condition.year,month:condition.month,status:condition.status,page:condition.page,pageSize:condition.pageSize},
 			contentType: "application/json",
 			success: function(data) {
 				ret = data;

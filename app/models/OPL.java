@@ -10,7 +10,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.avaje.ebean.Ebean;
+import com.avaje.ebean.ExpressionList;
 import com.avaje.ebean.Page;
 
 import play.db.ebean.Model;
@@ -91,10 +94,12 @@ public class OPL extends Model {
 
 	public static Finder<String, OPL> find = new Finder<String, OPL>(String.class, OPL.class);
 		
-	public static Page<OPL> getOPLByParamPagination(String line_id,String year,String month,String page,String pageSize){
-		Page<OPL> pagination = find.where().eq("line_id", line_id).
-				between("date", year+"-"+month+"-01",  year+"-"+month+"-31").
-				orderBy("createTime desc").fetch("pss").
+	public static Page<OPL> getOPLByParamPagination(String line_id,String year,String month,String status,String page,String pageSize){
+		ExpressionList<OPL> eLi = find.where().eq("line_id", line_id).between("date", year+"-"+month+"-01",  year+"-"+month+"-31");
+		if(StringUtils.isNotBlank(status)){
+			eLi.eq("status", status);
+		}
+		Page<OPL> pagination = eLi.orderBy("createTime desc").fetch("pss").
 				findPagingList(Integer.parseInt(pageSize)).setFetchAhead(false).getPage(Integer.parseInt(page)-1);
 		return pagination;
 	}

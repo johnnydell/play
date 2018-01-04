@@ -99,8 +99,8 @@ public class OPLController extends Controller {
 	 * @return
 	 * @throws ParseException
 	 */
-	public static Result getOPLByParamPagination(String line_id,String year,String month,String page,String pageSize) throws ParseException{
-		Page<OPL> pagination = OPL.getOPLByParamPagination(line_id,year,month,page,pageSize);
+	public static Result getOPLByParamPagination(String line_id,String year,String month,String status,String page,String pageSize) throws ParseException{
+		Page<OPL> pagination = OPL.getOPLByParamPagination(line_id,year,month,status,page,pageSize);
 		Integer pageCnt = pagination.getTotalPageCount();
 		List<OPL> oplList = pagination.getList();
 		ProductLine line = ProductLine.findById(line_id);
