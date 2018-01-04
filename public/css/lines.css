@@ -23,17 +23,17 @@
 .content-box li a{
 	display: inline-block;
 	margin-bottom: 10px;
-	width: 45%;
-	height: 80px;
+	width: 100%;
+	height: 100%;
 	line-height: 80px;
-	font-size: 18px;
+	font-size: 38px;
 	background: #00b050;
 	text-align: center;
 	border: solid 1px #ccc;
 }
 .content-box li a:hover,
 .content-box li a.active{
-	background: #f00;
+	background: #674288b3;
 	/* border-color: #00ffff;
 	border-width: 2px; */
 	color: #fff;

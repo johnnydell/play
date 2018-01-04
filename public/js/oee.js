@@ -1,5 +1,6 @@
 var oee = function(){
 	var lineName = manager.getPV("lineName");
+	var lineId = manager.getPV("lineId");
 	var oeeobj = {currYear:"", currMonth:""};
 	function init(){
 		
@@ -9,7 +10,7 @@ var oee = function(){
 		var ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
-			data: {root:manager.root},
+			data: {root:manager.root, lineName:lineName, lineId:lineId},
 			onrender: function(){
 				manager.loadProperties(this, "oee", "../../");
 				this.set("years",years);

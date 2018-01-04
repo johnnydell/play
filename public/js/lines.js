@@ -1,6 +1,8 @@
 var lines = function(){
+	var lineData;
+	var ractive = null;
 	function init(){
-		var ractive = new Ractive({
+		ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
 			data: {},
@@ -8,7 +10,7 @@ var lines = function(){
 				manager.loadProperties(this, "lines", "../");
 			},
 			oncomplete: function(){
-				console.log("sdfsdf");
+				initLineData();
 			}
 		});
 		
@@ -17,6 +19,20 @@ var lines = function(){
 		     location.href = "kpi.html";
 		   }
 		})
+	}
+	
+	//取得默认结构数据
+	function initLineData(){
+		$.ajax({
+			url		: manager.root + '/sysConfig/getProductLine',
+			type	: 'GET',
+			data	: '',
+			async   : false,
+			success: function(listdata){
+				lineData = listdata;
+				ractive.set("lineData",lineData);
+			}
+    	});
 	}
 	
 	return {

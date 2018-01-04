@@ -1,4 +1,6 @@
 var opl = function(){
+	var lineName = manager.getPV("lineName");
+	var lineId = manager.getPV("lineId");
 	var years = manager.years();
 	var months = manager.months;
 	var condition = {};
@@ -8,16 +10,16 @@ var opl = function(){
 		var ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
-			data: {root:manager.root},
+			data: {root:manager.root, lineName:lineName,lineId:lineId},
 			onrender: function(){
 				manager.loadProperties(this, "opl", "../../");
 				manager.loadProperties(this, "common", "../../");
 				this.set("years",years);
 				this.set("months",months);
-				condition.line_id = "9336b6f78e7448e685bad5ba71c2e3f8";
+				condition.line_id = lineId;
 				condition.year = sys_date.split("-")[0];
 				condition.month = sys_date.split("-")[1];
-				condition.line_name = "FAG2";
+				condition.line_name = lineName;
 				condition.pageSize = 5;//每页多少条
 				condition.page = 1;//当前页
 				condition.pages = [];//总共多少页

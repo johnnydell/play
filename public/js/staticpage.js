@@ -2,13 +2,17 @@ var staticpage = function(){
 	function init(){
 		var pagename = manager.getPV("pageName");
 		var oplLink = manager.getPV("oplLinkName");
+		var lineName = manager.getPV("lineName");
+		var lineId = manager.getPV("lineId");
 		var root=manager.root;
 		var ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
 			data: {
 				root:manager.root,
-				pageName : pagename
+				pageName : pagename,
+				lineName : lineName,
+				lineId	 : lineId
 				},
 			onrender: function(){
 				manager.loadProperties(this, "staticpage", "../../");

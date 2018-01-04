@@ -2,7 +2,7 @@ var hourlycount = function(){
 	
 	var hourlycounts_base, hourlycounts = [], hourlycounts_sub_total = [];
 	var lineName =  manager.getPV("lineName");;
-	
+	var lineId = manager.getPV("lineId");
 	var dateTodayStr = null;
 	
 	var ractive = null;
@@ -19,6 +19,7 @@ var hourlycount = function(){
 				root		: manager.root,
 				lineName 	: lineName,
 				dateToday	: dateTodayStr,
+				lineId		: lineId,
 				format		: function(num){
 					if ( null == num || num == 0 || num == '' ) 
 						return '';

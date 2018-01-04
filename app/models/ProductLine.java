@@ -30,7 +30,7 @@ public class ProductLine extends Model {
 	public static Finder<String, ProductLine> find = new Finder<String, ProductLine>(String.class, ProductLine.class);
 	
 	public static List<ProductLine> getActiveList(){
-		return find.where().eq("active", true).findList();
+		return find.where().eq("active", true).orderBy("lineName").findList();
 	}
 	
 	public static ProductLine findByName(String name) {

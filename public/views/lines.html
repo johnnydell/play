@@ -50,6 +50,14 @@
 		</div>
 		<div class="content-box">
 			<ul>
+			{{#each lineData:idx}}
+				
+				<li class="bg-b8d9fb">
+					
+					<a href="board1.html?lineName={{lineData[idx].lineName}}&lineId={{lineData[idx].id}}">{{lineData[idx].lineName}}</a>
+				</li>
+			{{/each}}
+				<!--
 				<li class="bg-b8d9fb">
 					<h4>FAG2</h4>
 					<a href="board1.html">S</a>
@@ -92,6 +100,7 @@
 					<a href="board1.html">D</a>
 					<a href="board1.html">C</a>
 				</li>
+				-->
 			</ul>
 		</div>
 	</div>	
