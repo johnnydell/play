@@ -167,5 +167,20 @@ public class UserController extends Controller {
 		return ok("{\"add\":\""+addLi.size()+"\",\"delete\":\""+deleteLi.size()+"\"}");
 	}
 	
+	/**
+	 * 密码修改
+	 * @return
+	 */
+	@Transactional
+	public static Result pwdChange(){
+		JsonNode in = request().body().asJson();
+		String userId = in.get("userId").asText();
+		String newPwd = in.get("newPwd").asText();
+		User user = User.find(userId);
+		user.password = Md5Utils.MD5(newPwd);
+		User.save(user);
+		return ok("saved");
+	}
+	
 	
 }

@@ -48,6 +48,7 @@ GET  /edashboard/user/getUserRolesByUserId              controllers.settings.Use
 POST /edashboard/user/saveUser               			controllers.settings.UserController.saveUser()
 POST /edashboard/user/deleteUser                        controllers.settings.UserController.deleteUser()
 POST /edashboard/user/saveUserRole               		controllers.settings.UserController.saveUserRole()
+POST /edashboard/user/pwdChange               		    controllers.settings.UserController.pwdChange()
 
 #Setting Product Type
 GET  /edashboard/productType/getList               		controllers.settings.ProductTypeController.getList()
@@ -63,6 +64,8 @@ POST /edashboard/hcConfig/saveHCConfig                  controllers.settings.HCC
 GET /edashboard/sysConfig/getOeeLossSubTypes 			controllers.settings.SysConfigController.getOeeLossSubTypes()
 POST /edashboard/sysConfig/saveLoss 					controllers.settings.SysConfigController.saveOeeLossSubType()
 POST /edashboard/sysConfig/saveScreenConfig				controllers.settings.SysConfigController.saveScreenConfig()
+GET /edashboard/sysConfig/getProductLine				controllers.settings.SysConfigController.getProductLine()
+POST /edashboard/sysConfig/saveLineConfig				controllers.settings.SysConfigController.saveLineConfig()
 
 #OPL
 POST /edashboard/opl/addPSS 		            		controllers.OPLController.addPSS()

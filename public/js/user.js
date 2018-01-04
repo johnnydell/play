@@ -238,6 +238,61 @@ var user = function(){
 		  	    }); 
 				
 			},
+			changePwd:function(e){
+				var userId=$(e.node).attr("lang");
+				$(".pwd_edit_popup").show(); 
+				$.get(manager.root+"/views/tpl/setting/pwdChange.html", function (data) {
+					var pwd = {new_pwd:"",confirm_pwd:""};
+		  	        var ractive_pwd_edit = new Ractive({
+		  	            el: ".pwd_edit_popup",
+		  	            template: data,
+		  	            data:{root:manager.root,pwd:pwd},
+		  				onrender: function(){
+		  					manager.loadProperties(this, "user", "../../");
+		  					manager.loadProperties(this, "common", "../../");
+		  				},
+		  	            oncomplete: function () {}
+		  	        });
+		  	        
+		  	      ractive_pwd_edit.on("close", function () {
+		  	           $(".pwd_edit_popup").hide().html("");
+		  	      });
+		  	      
+		  	      ractive_pwd_edit.on("save", function () {
+		  	    	  var error = false;
+		  	          if(pwd.new_pwd ==''  ||  pwd.confirm_pwd ==''){
+		  	        	jAlert($.i18n.prop("i18n_required"), $.i18n.prop("i18n_error"));
+						error = true;
+						return false;
+		  	          }
+		  	          
+		  	          if(pwd.new_pwd != pwd.confirm_pwd){
+		  	        	jAlert($.i18n.prop("i18n_user_pwd_edit_pwd_confirm_not_match"), $.i18n.prop("i18n_error"));
+		  	        	error = true;
+						return false;
+		  	          }
+		  	          
+		  	          if(!error){
+		  	        	$.ajax({
+							url: manager.root + "/user/pwdChange",
+							type: "POST",
+							dataType: "text",
+							data:JSON.stringify({userId:userId,newPwd:pwd.new_pwd}),
+							contentType: "application/json",    
+							beforeSend: function() {
+								manager.block();
+							},
+							success: function(data) {
+								jAlert($.i18n.prop("i18n_save_ok"), $.i18n.prop("i18n_info"));
+							},
+							complete: function() {
+								manager.unblock();
+							}
+						});	
+		  	          }
+		  	      });
+		  	    }); 
+			},
 			test:function(){
 				console.log(users);
 			}			

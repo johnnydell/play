@@ -10,6 +10,7 @@
 		<link rel="stylesheet" type="text/css" href="../../css/user.css"/>
 		<link rel="stylesheet" type="text/css" href="../../css/userRoleView.css"/>
 		<link rel="stylesheet" type="text/css" href="../../css/userRoleEdit.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/pwdChange.css"/>
 	</head>
 	<body>
 		<div class="box">
@@ -95,16 +96,15 @@
                        {{#if id == '0'}}
                        <label class="field" on-click="toShowColumnEditor">
 						{{#if password}}
-                       	●●●●●●●●●
+                       	<span>●●●●●●●●●</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					   	{{/if}}
                        </label>
                        {{else}}
 					   <label class="field">
-						{{#if password}}
-                       	●●●●●●●●●
-					   	{{/if}}
+                       	<span>●●●●●●●●●</span>
+                        <img src="{{root}}/images/eraser.png" lang="{{id}}" on-click="changePwd" style="cursor:pointer"/>  
+					   </label>
 					   {{/if}}
-                       
                        <input class="field" type="password" style="display:none;" maxlength="10" on-blur="toHideColumnEditor" value="{{password}}"/>
                     </td>
 			        <td>
@@ -134,5 +134,7 @@
 	<div class="role_view_popup"></div>
 	<!-- 编辑DIV -->
 	<div class="role_edit_popup"></div>
+	<!-- 修改密码DIV -->
+	<div class="pwd_edit_popup"></div>
     </script>
 </html>
