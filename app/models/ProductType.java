@@ -71,7 +71,7 @@ public class ProductType extends Model {
 	}
 
 	public static ProductType findByName(String name) {
-		return find.where().eq("productTypeName", name).findUnique();
+		return find.where().eq("productTypeName", name).eq("active", true).findUnique();
 	}
 
 	public static List<ProductType> findAll() {
