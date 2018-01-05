@@ -10,12 +10,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 import com.avaje.ebean.Ebean;
+
 import models.ProductLine;
 import play.db.ebean.Model;
+import com.avaje.ebean.annotation.*;
 
 @Entity
 @Table(name = "edb_hourly_count_base")
+@EntityConcurrencyMode(ConcurrencyMode.NONE)
 public class HCConfigBase extends Model {
 	
 	private static final long serialVersionUID = 1L;
