@@ -11,12 +11,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.avaje.ebean.Ebean;
+import com.avaje.ebean.annotation.ConcurrencyMode;
+import com.avaje.ebean.annotation.EntityConcurrencyMode;
 
 import models.ProductType;
 import play.db.ebean.Model;
 
 @Entity
 @Table(name = "edb_hourly_count_detail")
+@EntityConcurrencyMode(ConcurrencyMode.NONE)
 public class HCConfigDetail extends Model {
 	
 	private static final long serialVersionUID = 1L;
