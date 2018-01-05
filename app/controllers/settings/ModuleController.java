@@ -15,7 +15,7 @@ public class ModuleController extends Controller {
     
     public static Result getList(){
     	List<Module> modules = Module.getList();
-        String str = JSON.toJSONString(modules,SerializerFeature.DisableCircularReferenceDetect);
+        String str = JSON.toJSONString(modules);
         return ok(str);
     }
     
