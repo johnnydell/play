@@ -119,6 +119,7 @@ var hcConfig = function(){
 							var type1_Id = base2.details[index]["product_type_id_1"];
 							var type2_Id = base2.details[index]["product_type_id_2"];
 							var hour = base2.details[index]["product_hour"];
+							console.log(type2_Id+":"+type1_Id);
 							if(type2_Id !='' && type2_Id != undefined && checkExistType(type2_Id)){
 								var type2 = getTypeObjById(type2_Id);
 								plan_output = Math.round(60*calc_val[hour]/type2.cycle);

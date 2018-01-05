@@ -26,7 +26,7 @@ public class ModuleController extends Controller {
     			md.funcs = Func.getListByModuleId(md.id);
     		}
     	}
-        String str = JSON.toJSONString(modules,SerializerFeature.DisableCircularReferenceDetect);
+        String str = JSON.toJSONString(modules);
         return ok(str);
     }
 }
