@@ -34,6 +34,20 @@ var productType = function(){
 				types[index].updated = "1";
 				ractive.update("types");
 			},
+			validatePercentValue:function(e){
+				var value = $(e.node).val();
+				if(!manager.percentNumFormat(value)){
+					
+					$("#msgInfo").html($.i18n.prop("i18n_incorrect_data_format")).css("color", "red");
+					$(e.node).focus().select();
+				}
+				else{
+					$(e.node).hide().prev().show().text($(e.node).val());
+					$("#msgInfo").html("");
+				}
+					
+				
+			},
 			addType:function(){				
 				var type = {
 						id:"0",

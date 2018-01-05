@@ -46,7 +46,10 @@
 	</div>
 	<div class="content">
 		<div class="content-box">
-            <div class="toolbar">
+			<div style="float:left; width:50%">
+				<span id="msgInfo"></span>
+			</div>
+            <div class="toolbar" style="float:right">
                 <!--<button type="button" class="btn" on-click="test">测试</button>-->
 				<button type="button" class="btn" on-click="addType">{{i18n_productType_add}}</button>
 				<button type="button" class="btn" on-click="saveType">{{i18n_productType_save}}</button>
@@ -96,7 +99,7 @@
                     </td>
 					<td>
                        <label class="field" on-click="toShowColumnEditor">{{target_output}}</label>
-                       <input class="field" type="text" style="display:none;" maxlength="5" on-blur="toHideColumnEditor" onblur="manager.checkFloat(event)"  onkeyup="manager.keyupFloat(event)" value="{{target_output}}"/>
+                       <input class="field" type="text" style="display:none;" maxlength="5" on-blur="validatePercentValue"    value="{{target_output}}"/>
                     </td>
 			    </tr>
 				{{/each}}

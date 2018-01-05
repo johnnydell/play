@@ -50,7 +50,10 @@
 	</div>
 	<div class="content">
 		<div class="content-box">
-            <div class="toolbar">
+			<div style="float:left; width:50%">
+				<span id="msgInfo"></span>
+			</div>
+            <div class="toolbar" style="float:right">
                 <button type="button" class="btn" on-click="test">测试</button><!---->
 				<button type="button" class="btn" on-click="saveHCConfig">{{i18n_hcConfig_save}}</button>
 				<button type="button" class="btn" on-click="gotoHC">{{i18n_hcConfig_gotohc}}</button>
@@ -80,7 +83,7 @@
 					<th style="font-size: 20px;font-weight: bold;text-align:right;">{{i18n_hcConfig_oee_perctag}}：</th>
 					<th style="background-color:white;color: #000;border: 1px solid #000;">
  						<label class="field" on-click="toShowOEEPerctgText">{{base1.target_oee_percent}}</label>                      
-                        <input class="field" type="text" style="display:none;" maxlength="5" on-blur="toHideOEEPerctgText" onblur="manager.checkFloat(event)"  onkeyup="manager.keyupFloat(event)" value="{{base1.target_oee_percent}}" />
+                        <input class="field" type="text" style="display:none;" maxlength="5" on-blur="validatePercentValue" value="{{base1.target_oee_percent}}" />
                     </th>
 				    <th style="font-size: 20px;font-weight: bold;text-align:right;">{{i18n_hcConfig_cpl_output}}：</th>
 					<th style="background-color:white;color: #000;border: 1px solid #000;">

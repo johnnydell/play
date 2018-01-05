@@ -67,6 +67,20 @@ var hcConfig = function(){
 			toShowColumnEditor:function(e){	
 				$(e.node).hide().next().show().focus();
 			},
+			validatePercentValue:function(e){
+				var value = $(e.node).val();
+				if(!manager.percentNumFormat(value)){
+					
+					$("#msgInfo").html($.i18n.prop("i18n_incorrect_data_format")).css("color", "red");
+					$(e.node).focus().select();
+				}
+				else{
+					$(e.node).hide().prev().show().text($(e.node).val());
+					$("#msgInfo").html("");
+				}
+					
+				
+			},
 			toHideColumnEditor:function(e){
 				var type = e.node.type;
 				var lang = $(e.node).parent().parent().attr("lang");

@@ -297,13 +297,23 @@ var manager = function() {
 		target.value = target.value.replace(/[^0-9]/g,'');
 	}
 	
-	function onlyAcceptNumAndPoint(obj){
-		obj.value = obj.value.replace(/[^\d.]/g, "");//清除“数字”和“.”以外的字符
+	function percentNumFormat(obj) { 
+		
+	    var re = /^(((\d|[1-9]\d)(\.\d{1,2})?)|100|100.0|100.00)$/
+	    if (obj != "") { 
+	        if (!re.test(obj)) { 
+	            return false;
+	        } 
+	        else
+	        	return true;
+	    } 
 	}
 	
 	function onlyAcceptNumAndPoint(obj){
 		obj.value = obj.value.replace(/[^\d.]/g, "");//清除“数字”和“.”以外的字符
 	}
+	
+	
 
 	return {
 		init: renderLayout,
@@ -326,6 +336,7 @@ var manager = function() {
 		keyupFloat:keyupFloat,
 		keyupInt:keyupInt,
 		onlyAcceptNumAndPoint:onlyAcceptNumAndPoint,
+		percentNumFormat:percentNumFormat,
 		setLanguage:function(language){
 			setCookie("language", language);
 		},
