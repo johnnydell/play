@@ -91,14 +91,18 @@ var hcConfig = function(){
 							var type1_Id = base1.details[index]["product_type_id_1"];
 							var type2_Id = base1.details[index]["product_type_id_2"];
 							var hour = base1.details[index]["product_hour"];
-							if(type2_Id !='' && type2_Id != undefined){
+							if(type2_Id !='' && type2_Id != undefined && checkExistType(type2_Id)){
 								var type2 = getTypeObjById(type2_Id);
 								plan_output = Math.round(60*calc_val[hour]/type2.cycle);
-							} else if(type1_Id !='' && type1_Id != undefined){
+							} else if(type1_Id !='' && type1_Id != undefined && checkExistType(type1_Id)){
 								var type1 = getTypeObjById(type1_Id);
 								plan_output = Math.round(60*calc_val[hour]/type1.cycle);
 							} else {
-								plan_output = "";
+								plan_output = "0";
+								base1.details[index]["product_type_id_1"] = "";
+								base1.details[index]["product_type_name_1"] = "";
+								base1.details[index]["product_type_id_2"] = "";
+								base1.details[index]["product_type_name_2"] = "";
 							}
 							base1.details[index]["plan_count"] = plan_output;
 								
@@ -115,14 +119,18 @@ var hcConfig = function(){
 							var type1_Id = base2.details[index]["product_type_id_1"];
 							var type2_Id = base2.details[index]["product_type_id_2"];
 							var hour = base2.details[index]["product_hour"];
-							if(type2_Id !='' && type2_Id != undefined){
+							if(type2_Id !='' && type2_Id != undefined && checkExistType(type2_Id)){
 								var type2 = getTypeObjById(type2_Id);
 								plan_output = Math.round(60*calc_val[hour]/type2.cycle);
-							} else if(type1_Id !='' && type1_Id != undefined){
+							} else if(type1_Id !='' && type1_Id != undefined && checkExistType(type1_Id)){
 								var type1 = getTypeObjById(type1_Id);
 								plan_output = Math.round(60*calc_val[hour]/type1.cycle);
 							} else {
-								plan_output = "";
+								plan_output = "0";
+								base2.details[index]["product_type_id_1"] = "";
+								base2.details[index]["product_type_name_1"] = "";
+								base2.details[index]["product_type_id_2"] = "";
+								base2.details[index]["product_type_name_2"] = "";
 							}
 							base2.details[index]["plan_count"] = plan_output;	
 						}
@@ -269,6 +277,18 @@ var hcConfig = function(){
 			}
 		})
 		return active_types;
+	}
+	
+	//判断ID是否为有效的producty type
+	function checkExistType(typeId){
+		var flag = false;
+		$(active_types).each(function(i,n){
+			if(n.id == typeId){
+				flag = true;
+				return false;
+			}
+		})
+		return flag;
 	}
 	
 	//获得当前日期的和明天的配置信息

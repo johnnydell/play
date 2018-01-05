@@ -35,6 +35,11 @@
     width: 100%;
 }
 
+.content-box .lossfont  {
+    padding-left : 10px;
+    padding-right: 10px;
+}
+
 .content-box .header .title {
 	width: 50%;
 	height: 100%;

@@ -63,7 +63,7 @@ var hourlycount = function(){
 		ractive.on({
 			/*hide label, show text*/
 			toShowColumnEditor:function(e){
-				$(e.node).children(0).hide().next().show().focus();
+				$(e.node).children(0).hide().next().show().focus().select();
 			},
 			/*hide text, show label*/
 			toHideColumnEditor:function(e){
@@ -92,7 +92,7 @@ var hourlycount = function(){
 			},
 			/*Calculate plan count, plan total count*/
 			toHideColumnEditorWithCalculationForPlan:function(e){
-				var val = parseInt($(e.node).val());
+				var val = isNull($(e.node).val()) ? "" : parseInt($(e.node).val());
 				
 				var val1 = null;
 				var sub_total_g1 = 0;
@@ -149,7 +149,7 @@ var hourlycount = function(){
 			},
 			/*calculate actual count, actual total count, hourly count*/
 			toHideColumnEditorWithCalculationForActual:function(e){
-				var val = parseInt($(e.node).val());
+				var val = isNull($(e.node).val()) ? "" : parseInt($(e.node).val());
 				var rowIndex = e.index.index;
 				var val1 = null;
 				var sub_total_g1 = 0;
@@ -521,7 +521,7 @@ var hourlycount = function(){
 		hourlycounts_base = {teamLeaderSign1:"", teamLeaderSign2:"", teamLeaderSign3:"", groupLeaderSign:"", planOplTotalOutput:"", planOutputCount:0, actualOutputCount:0, targetOee: 0, actualOee:0};
 		for (i = 8; i < 24; i ++){
 			hourlycounts_item = {hourid: ((i - 1) + "-" + i),productHour: (i - 1),productHourIndex: (i - 7), lineName:"",productTypeName1:"",productCycle1:0,productTypeName2:"",
-					productCycle2:0,planCount:0,planTotalCount:0,actualCount:0,actualTotalCount:0,productHourCount:0,productHourPercent:0,
+					productCycle2:0,planCount:0,planTotalCount:0,actualCount:"",actualTotalCount:"",productHourCount:"",productHourPercent:0,
 					scrapCount:0,reworkCount:0,qualityLoss:0,breakdownCount:0,adjustmentCount:0,technicalLoss:0,planSetupCount:0,unplanSetupCount:0,exchgToolCount:0,changeoverLoss:0,
 					lackPersonnelCount:0,lackMaterialCount:0, testReleaseThreePartsCount:0,exchgMaterialCount:0,unplanSampleCount:0,newOperatorCount:0,unplanTpmCount:0,othersCount:0,
 					breakdownMin:0,adjustmentMin:0,planSetupMin:0,unplanSetupMin:0,exchgToolMin:0,lackPersonnelMin:0,lackMaterialMin:0, testReleaseThreePartsMin:0,
@@ -529,7 +529,7 @@ var hourlycount = function(){
 			hourlycounts.push(hourlycounts_item);
 		}
 		hourlycounts_item = {hourid: "23-00",productHour:23,productHourIndex: 17, lineName:"",productTypeName1:"",productCycle1:0,productTypeName2:"",productCycle2:0,planCount:0,
-				planTotalCount:0,actualCount:0,actualTotalCount:0,productHourCount:0,productHourPercent:0,
+				planTotalCount:0,actualCount:"",actualTotalCount:"",productHourCount:"",productHourPercent:0,
 				scrapCount:0,reworkCount:0,qualityLoss:0,breakdownCount:0,adjustmentCount:0,technicalLoss:0,planSetupCount:0,unplanSetupCount:0,exchgToolCount:0,changeoverLoss:0,
 				lackPersonnelCount:0,lackMaterialCount:0, testReleaseThreePartsCount:0,exchgMaterialCount:0,unplanSampleCount:0,newOperatorCount:0,unplanTpmCount:0,othersCount:0,
 				breakdownMin:0,adjustmentMin:0,planSetupMin:0,unplanSetupMin:0,exchgToolMin:0,lackPersonnelMin:0,lackMaterialMin:0, testReleaseThreePartsMin:0,
@@ -537,7 +537,7 @@ var hourlycount = function(){
 		hourlycounts.push(hourlycounts_item);
 		for (i = 1; i < 8; i ++){
 			hourlycounts_item = {hourid: ((i - 1) + "-" + i),productHour:(i - 1),productHourIndex: (i + 17),lineName:"",productTypeName1:"",productCycle1:0,productTypeName2:"",productCycle2:0,
-					planCount:0,planTotalCount:0,actualCount:0,actualTotalCount:0,productHourCount:0,productHourPercent:0,
+					planCount:0,planTotalCount:0,actualCount:"",actualTotalCount:"",productHourCount:"",productHourPercent:0,
 					scrapCount:0,reworkCount:0,qualityLoss:0,breakdownCount:0,adjustmentCount:0,technicalLoss:0,planSetupCount:0,unplanSetupCount:0,exchgToolCount:0,changeoverLoss:0,
 					lackPersonnelCount:0,lackMaterialCount:0, testReleaseThreePartsCount:0,exchgMaterialCount:0,unplanSampleCount:0,newOperatorCount:0,unplanTpmCount:0,othersCount:0,
 					breakdownMin:0,adjustmentMin:0,planSetupMin:0,unplanSetupMin:0,exchgToolMin:0,lackPersonnelMin:0,lackMaterialMin:0, testReleaseThreePartsMin:0,
@@ -565,10 +565,10 @@ var hourlycount = function(){
 				
 				//prepare hourly count base data
 				if (listdata.length > 0){
-					hourlycounts_base.teamLeaderSign1 	= listdata[0].hourlyCountBase.teamLeaderSign1;
-					hourlycounts_base.teamLeaderSign2 	= listdata[0].hourlyCountBase.teamLeaderSign2;
-					hourlycounts_base.teamLeaderSign3 	= listdata[0].hourlyCountBase.teamLeaderSign3;
-					hourlycounts_base.groupLeaderSign 	= listdata[0].hourlyCountBase.groupLeaderSign;
+					hourlycounts_base.teamLeaderSign1 	= isNull(listdata[0].hourlyCountBase.teamLeaderSign1) ? "" : listdata[0].hourlyCountBase.teamLeaderSign1;
+					hourlycounts_base.teamLeaderSign2 	= isNull(listdata[0].hourlyCountBase.teamLeaderSign2) ? "" : listdata[0].hourlyCountBase.teamLeaderSign2;
+					hourlycounts_base.teamLeaderSign3 	= isNull(listdata[0].hourlyCountBase.teamLeaderSign3) ? "" : listdata[0].hourlyCountBase.teamLeaderSign3;
+					hourlycounts_base.groupLeaderSign 	= isNull(listdata[0].hourlyCountBase.groupLeaderSign) ? "" : listdata[0].hourlyCountBase.groupLeaderSign;
 					hourlycounts_base.planOplTotalOutput = listdata[0].hourlyCountBase.planOplTotalOutput;
 					hourlycounts_base.targetOeePercent	= listdata[0].hourlyCountBase.targetOeePercent;
 				}
@@ -581,7 +581,7 @@ var hourlycount = function(){
 					hourlycounts[i].productTypeName2 		= isNull(listdata[i].productType2) ? "" : listdata[i].productType2.productTypeName;
 					hourlycounts[i].productCycle2 			= isNull(listdata[i].productCycle2 ) ? 0 : parseInt(listdata[i].productCycle2);
 					hourlycounts[i].planCount 				= isNull(listdata[i].planCount) ? 0 : parseInt(listdata[i].planCount);
-					hourlycounts[i].actualCount 			= isNull(listdata[i].actualCount) ? 0 : parseInt(listdata[i].actualCount);
+					hourlycounts[i].actualCount 			= isNull(listdata[i].actualCount) ? "" : parseInt(listdata[i].actualCount);
 					hourlycounts[i].productHourCount 		= isNull(listdata[i].productHourCount) ? 0 : parseInt(listdata[i].productHourCount);
 					hourlycounts[i].scrapCount 				= isNull(listdata[i].scrapCount) ? 0 : parseInt(listdata[i].scrapCount);
 					hourlycounts[i].reworkCount 			= isNull(listdata[i].reworkCount) ? 0 : parseInt(listdata[i].reworkCount);
@@ -652,7 +652,7 @@ var hourlycount = function(){
 					}
 					
 				}
-				hourlycounts_base.planOutputCount = Math.round(( parseInt(planTotalCount) * 100 ) / hourlycounts_base.targetOeePercent);
+				hourlycounts_base.planOutputCount = Math.round( parseInt(planTotalCount) * (hourlycounts_base.targetOeePercent / 100));
 				hourlycounts_base.actualOutputCount = actualTotalCount;
 				if (planTotalCount !== 0){
 					hourlycounts_base.actualOee = actualTotalCount / planTotalCount;

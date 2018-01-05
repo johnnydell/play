@@ -109,7 +109,8 @@ public class HCConfigController extends Controller {
 				detail.productCycle1 = type.cycle;
 				detail.productPersons1 = type.persons;
 				detail.targetOeePercent = Float.parseFloat(type.targetOutput);
-			}			
+			}
+			
 			if(StringUtils.isNotBlank(product_type_id_2)){
 				ProductType type = ProductType.find(product_type_id_2);
 				detail.product_type_id_2 = product_type_id_2;
@@ -117,6 +118,17 @@ public class HCConfigController extends Controller {
 				detail.productPersons2 = type.persons;
 				detail.targetOeePercent = Float.parseFloat(type.targetOutput);
 			}
+			
+			if(StringUtils.isBlank(product_type_id_1) && StringUtils.isBlank(product_type_id_2)){
+				detail.product_type_id_1 = null;
+				detail.productCycle1 = null;
+				detail.productPersons1 = null;
+				detail.product_type_id_2 = null;
+				detail.productCycle2 = null;
+				detail.productPersons2 = null;
+				detail.targetOeePercent = 0f;
+			}
+			
 			detail.productHour = Integer.parseInt(product_hour);
 			detail.productHourIndex = product_hour_index;
 			detail.planCount = Integer.parseInt(plan_count);
@@ -193,6 +205,15 @@ public class HCConfigController extends Controller {
 				detail.productCycle2 = type.cycle;
 				detail.productPersons2 = type.persons;
 				detail.targetOeePercent = Float.parseFloat(type.targetOutput);
+			}
+			if(StringUtils.isBlank(product_type_id_1) && StringUtils.isBlank(product_type_id_2)){
+				detail.product_type_id_1 = null;
+				detail.productCycle1 = null;
+				detail.productPersons1 = null;
+				detail.product_type_id_2 = null;
+				detail.productCycle2 = null;
+				detail.productPersons2 = null;
+				detail.targetOeePercent = 0f;
 			}
 			detail.productHour = Integer.parseInt(product_hour);
 			detail.productHourIndex = product_hour_index;
