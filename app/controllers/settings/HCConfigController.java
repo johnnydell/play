@@ -82,11 +82,13 @@ public class HCConfigController extends Controller {
     	} 
     	
     	//保存base1明细新增部分
-    	JsonNode addBase1Details = in.get("base1_details_add");
+    	JsonNode base1_detail = base1_json.get("details");
     	ArrayList<HCConfigDetail> addBase1DetailsLi = new ArrayList<HCConfigDetail>();
-		Iterator<JsonNode> a = addBase1Details.iterator();
+    	ArrayList<HCConfigDetail> updateBase1DetailsLi = new ArrayList<HCConfigDetail>();
+		Iterator<JsonNode> a = base1_detail.iterator();
 		while(a.hasNext()){
 			JsonNode node = a.next();
+			String detailId = node.get("id").asText().trim();
 			String product_hour = node.get("product_hour").asText().trim();
 			String product_type_id_1 = node.get("product_type_id_1").asText().trim();
 			String product_type_id_2 = node.get("product_type_id_2").asText().trim();
@@ -94,8 +96,13 @@ public class HCConfigController extends Controller {
 			String plan_count = node.get("plan_count").asText().trim();
 			String plan_total_count = node.get("plan_total_count").asText().trim();
 			
-			HCConfigDetail detail = new HCConfigDetail();
-			detail.base_id = base1.id;			
+			HCConfigDetail detail;
+			if(StringUtils.isNotBlank(detailId) && !detailId.equals("0")){
+				detail = HCConfigDetail.find(detailId);
+			} else {
+				detail = new HCConfigDetail();
+				detail.base_id = base1.id;
+			}		
 			if(StringUtils.isNotBlank(product_type_id_1)){
 				ProductType type = ProductType.find(product_type_id_1);
 				detail.product_type_id_1 = product_type_id_1;
@@ -113,53 +120,22 @@ public class HCConfigController extends Controller {
 			detail.productHour = Integer.parseInt(product_hour);
 			detail.productHourIndex = product_hour_index;
 			detail.planCount = Integer.parseInt(plan_count);
-			detail.planTotalCount = Integer.parseInt(plan_total_count);
-			if(detail.productHour.equals(8)){
-				HCConfigDetail.save(detail);
-			}
-			addBase1DetailsLi.add(detail);
+			detail.planTotalCount = Integer.parseInt(plan_total_count);		
+			if(StringUtils.isNotBlank(detailId) && !detail.equals("0")){
+				updateBase1DetailsLi.add(detail);
+			} else {
+				addBase1DetailsLi.add(detail);
+			}	
+			
 		}
 		
 		if(addBase1DetailsLi.size() > 0){
 			HCConfigDetail.saveList(addBase1DetailsLi);
 		}
 		
-		//保存base1明细更新部分
-    	JsonNode updateBase1Details = in.get("base1_details_update");
-    	ArrayList<HCConfigDetail> updateBase1DetailsLi = new ArrayList<HCConfigDetail>();
-		Iterator<JsonNode> b = updateBase1Details.iterator();
-		while(b.hasNext()){
-			JsonNode node = b.next();
-			String detailId = node.get("id").asText();			
-			String product_type_id_1 = node.get("product_type_id_1").asText().trim();
-			String product_type_id_2 = node.get("product_type_id_2").asText().trim();
-			String plan_count = node.get("plan_count").asText().trim();
-			String plan_total_count = node.get("plan_total_count").asText().trim();
-			
-			HCConfigDetail detail = HCConfigDetail.find(detailId);
-			if(StringUtils.isNotBlank(product_type_id_1)){
-				ProductType type = ProductType.find(product_type_id_1);
-				detail.product_type_id_1 = product_type_id_1;
-				detail.productCycle1 = type.cycle;
-				detail.productPersons1 = type.persons;
-				detail.targetOeePercent = Float.parseFloat(type.targetOutput);
-			}			
-			if(StringUtils.isNotBlank(product_type_id_2)){
-				ProductType type = ProductType.find(product_type_id_2);
-				detail.product_type_id_2 = product_type_id_2;
-				detail.productCycle2 = type.cycle;
-				detail.productPersons2 = type.persons;
-				detail.targetOeePercent = Float.parseFloat(type.targetOutput);
-			}
-			detail.planCount = Integer.parseInt(plan_count);
-			detail.planTotalCount = Integer.parseInt(plan_total_count);
-			updateBase1DetailsLi.add(detail);
-		}
-		
 		if(updateBase1DetailsLi.size() > 0){
 			HCConfigDetail.updateList(updateBase1DetailsLi);
 		}
-		
 		
 		//保存base2部分
     	JsonNode base2_json = in.get("base2");
@@ -182,21 +158,28 @@ public class HCConfigController extends Controller {
         	HCConfigBase.save(base2);
     	} 
     	
-    	//保存base2明细新增部分
-    	JsonNode addBase2Details = in.get("base2_details_add");
+    	//保存base1明细部分
+    	JsonNode base2_detail = base2_json.get("details");
     	ArrayList<HCConfigDetail> addBase2DetailsLi = new ArrayList<HCConfigDetail>();
-		Iterator<JsonNode> c = addBase2Details.iterator();
-		while(c.hasNext()){
-			JsonNode node = c.next();
+    	ArrayList<HCConfigDetail> updateBase2DetailsLi = new ArrayList<HCConfigDetail>();
+		Iterator<JsonNode> b = base2_detail.iterator();
+		while(b.hasNext()){
+			JsonNode node = b.next();
+			String detailId = node.get("id").asText().trim();
 			String product_hour = node.get("product_hour").asText().trim();
 			String product_type_id_1 = node.get("product_type_id_1").asText().trim();
 			String product_type_id_2 = node.get("product_type_id_2").asText().trim();
-			Integer product_hour_index = (Integer.parseInt(product_hour) + 17);
+			Integer product_hour_index = (Integer.parseInt(product_hour) + 17);			
 			String plan_count = node.get("plan_count").asText().trim();
 			String plan_total_count = node.get("plan_total_count").asText().trim();
 			
-			HCConfigDetail detail = new HCConfigDetail();
-			detail.base_id = base2.id;
+			HCConfigDetail detail;
+			if(StringUtils.isNotBlank(detailId) && !detailId.equals("0")){
+				detail = HCConfigDetail.find(detailId);
+			} else {
+				detail = new HCConfigDetail();
+				detail.base_id = base2.id;
+			}		
 			if(StringUtils.isNotBlank(product_type_id_1)){
 				ProductType type = ProductType.find(product_type_id_1);
 				detail.product_type_id_1 = product_type_id_1;
@@ -214,44 +197,17 @@ public class HCConfigController extends Controller {
 			detail.productHour = Integer.parseInt(product_hour);
 			detail.productHourIndex = product_hour_index;
 			detail.planCount = Integer.parseInt(plan_count);
-			detail.planTotalCount = Integer.parseInt(plan_total_count);
-			addBase2DetailsLi.add(detail);
+			detail.planTotalCount = Integer.parseInt(plan_total_count);		
+			if(StringUtils.isNotBlank(detailId) && !detail.equals("0")){
+				updateBase2DetailsLi.add(detail);
+			} else {
+				addBase2DetailsLi.add(detail);
+			}	
+			
 		}
 		
 		if(addBase2DetailsLi.size() > 0){
 			HCConfigDetail.saveList(addBase2DetailsLi);
-		}
-		
-		//保存base2明细更新部分
-    	JsonNode updateBase2Details = in.get("base2_details_update");
-    	ArrayList<HCConfigDetail> updateBase2DetailsLi = new ArrayList<HCConfigDetail>();
-		Iterator<JsonNode> d = updateBase2Details.iterator();
-		while(d.hasNext()){
-			JsonNode node = d.next();
-			String detailId = node.get("id").asText();
-			String product_type_id_1 = node.get("product_type_id_1").asText().trim();
-			String product_type_id_2 = node.get("product_type_id_2").asText().trim();
-			String plan_count = node.get("plan_count").asText().trim();
-			String plan_total_count = node.get("plan_total_count").asText().trim();
-			
-			HCConfigDetail detail = HCConfigDetail.find(detailId);
-			if(StringUtils.isNotBlank(product_type_id_1)){
-				ProductType type = ProductType.find(product_type_id_1);
-				detail.product_type_id_1 = product_type_id_1;
-				detail.productCycle1 = type.cycle;
-				detail.productPersons1 = type.persons;
-				detail.targetOeePercent = Float.parseFloat(type.targetOutput);
-			}			
-			if(StringUtils.isNotBlank(product_type_id_2)){
-				ProductType type = ProductType.find(product_type_id_2);
-				detail.product_type_id_2 = product_type_id_2;
-				detail.productCycle2 = type.cycle;
-				detail.productPersons2 = type.persons;
-				detail.targetOeePercent = Float.parseFloat(type.targetOutput);
-			}
-			detail.planCount = Integer.parseInt(plan_count);
-			detail.planTotalCount = Integer.parseInt(plan_total_count);
-			updateBase2DetailsLi.add(detail);
 		}
 		
 		if(updateBase2DetailsLi.size() > 0){

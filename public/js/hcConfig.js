@@ -184,11 +184,7 @@ var hcConfig = function(){
 					})
 					var param = {
 							base1:base1,
-							base2:base2,
-							base1_details_add:base1_details_add,
-							base1_details_update:base1_details_update,
-							base2_details_add:base2_details_add,
-							base2_details_update:base2_details_update
+							base2:base2
 						}
 					
 					$.ajax({

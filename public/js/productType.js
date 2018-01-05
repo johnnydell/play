@@ -115,6 +115,12 @@ var productType = function(){
 						error = true;
 						return false;
 					}
+					
+					if(parseFloat($.trim(n.target_output))>100){
+						jAlert($.i18n.prop("i18n_incorrect_data_format"), $.i18n.prop("i18n_error"));
+						error = true;
+						return;
+					}
 				})
 				
 				if(!error){

@@ -17,7 +17,7 @@ public class FuncController extends Controller {
  
     public static Result getList() {
         List<Func> funcs = Func.getList();
-        String str = JSON.toJSONString(funcs);
+        String str = JSON.toJSONString(funcs,SerializerFeature.DisableCircularReferenceDetect);
         return ok(str);
     }
     
