@@ -37,17 +37,25 @@
 				<tr>
 					<th>{{i18n_day}}</th>
 					{{#each safetyObj.days}}
-						<th width="3%">{{d}}</th>
+						
+						<th width="3%">
+							{{d}}
+							{{#if updated=='1'}}
+								 <font color="red">*</font>
+							{{else}}
+								 <font >&nbsp;</font>
+							{{/if}}
+						</th>
 	               	{{/each}}
 				</tr>
 				<tr>
 					<th>{{i18n_actual}}</th>
 					{{#each safetyObj.days:flag}}
 						{{#if s =='0'}}	
-					<td>			   
-					 	<label class="field" style="background: {{bg}}"  on-click="toShowColumnEditor">{{v}}</label>
+					<td on-click="toShowColumnEditor">			   
+					 	<label class="field" style="background: {{bg}}"  >{{v1}}</label>
 						
-             			<input type="text" style="display:none" value="{{v}}" on-blur="toHideColumnEditor">
+             			<input type="text" style="display:none; width:100%" value="{{v1}}" on-blur="toHideColumnEditor" on-keyup="onlyAcceptNum">
                     </td>
                    {{else}}
 						<td style="background: #bec2c3;"><label class="field"></label></td>
@@ -58,24 +66,20 @@
 					<th>{{i18n_target}}</th>
 					{{#each safetyObj.days:flag}}
 						{{#if s =='0'}}	
-					<td>			   
-					 	<label class="field" style="background: {{bg}}" >0</label>
-                    </td>
+						<td on-click="toShowColumnEditor">			   
+						 	<label class="field" style="background: {{bg}}"  >{{v2}}</label>
+							
+	             			<input type="text" style="display:none; width:100%" value="{{v2}}" on-blur="toHideColumnEditor" on-keyup="onlyAcceptNum">
+	                    </td>
                    {{else}}
-						<td style="background: #bec2c3;"><label class="field">0</label></td>
+						<td style="background: #bec2c3;"><label class="field"></label></td>
 				   {{/if}}
 					{{/each}}
 				</tr>
 				<tr>
 					<th>{{i18n_accumulation}}</th>
 					{{#each safetyObj.days:flag}}
-						{{#if s =='0'}}	
-					<td>			   
-					 	<label class="field" style="background: {{bg}}" >0</label>
-                    </td>
-                   {{else}}
-						<td style="background: #bec2c3;"><label class="field">0</label></td>
-				   {{/if}}
+						<td style="background: #bec2c3;"><label class="field">{{v3}}</label></td>
 					{{/each}}
 				</tr>
 				
