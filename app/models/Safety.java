@@ -67,5 +67,9 @@ public class Safety extends Model {
 			Ebean.delete(Safety.class, line.id);
 		}
 	}
+	
+	public static List<Safety> getSafetiesByLineAndDate(String lineName, Date startDate, Date endDate){
+		return find.where().eq("productLine.lineName", lineName).between("safetyDate", startDate, endDate).orderBy("safetyDate").findList();
+	}
 
 }
