@@ -135,7 +135,7 @@ public class HCConfigController extends Controller {
 			detail.productHourIndex = product_hour_index;
 			detail.planCount = Integer.parseInt(plan_count);
 			detail.planTotalCount = Integer.parseInt(plan_total_count);		
-			if(StringUtils.isNotBlank(detailId) && !detail.equals("0")){
+			if(StringUtils.isNotBlank(detailId) && !detailId.equals("0")){
 				updateBase1DetailsLi.add(detail);
 			} else {
 				addBase1DetailsLi.add(detail);
@@ -225,7 +225,7 @@ public class HCConfigController extends Controller {
 			detail.productHourIndex = product_hour_index;
 			detail.planCount = Integer.parseInt(plan_count);
 			detail.planTotalCount = Integer.parseInt(plan_total_count);		
-			if(StringUtils.isNotBlank(detailId) && !detail.equals("0")){
+			if(StringUtils.isNotBlank(detailId) && !detailId.equals("0")){
 				updateBase2DetailsLi.add(detail);
 			} else {
 				addBase2DetailsLi.add(detail);
