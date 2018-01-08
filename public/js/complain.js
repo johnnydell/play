@@ -2,6 +2,7 @@ var complain = function(){
 	var lineName = manager.getPV("lineName");
 	var lineId = manager.getPV("lineId");
 	var lines = getAllLines();
+	var types = getComplainType();
 	function init(){
 		var ractive = new Ractive({
 			el: ".container",
@@ -28,6 +29,22 @@ var complain = function(){
 				//complainOut.init();
 			}
 		})
+	}	
+
+	//取得所有的投诉类型
+	function getComplainType(){		
+		var ret;
+		$.ajax({
+			url: manager.root + "/complain/getComplainType",
+			type: "GET",
+			async:false,
+			dataType:"json",
+			contentType: "application/json",
+			success: function(data) {
+				ret = data;
+			}
+		});	
+		return ret; 
 	}
 	
 	//取得所有有效的lines
@@ -48,7 +65,8 @@ var complain = function(){
 	
 	return {
 		init:init,
-		lines:lines
+		lines:lines,
+		types:types
 	}
 }();
 $(document).ready(complain.init);

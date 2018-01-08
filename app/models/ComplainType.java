@@ -30,10 +30,6 @@ public class ComplainType extends Model {
 	public static Finder<String, ComplainType> find = new Finder<String, ComplainType>(
 			String.class, ComplainType.class);
 	
-	public static List<ComplainType> getList() {
-        return find.where().eq("active", true).findList();
-	}
-	
 	public static List<ComplainType> getAllList() {
         return find.findList();
 	}
@@ -56,10 +52,6 @@ public class ComplainType extends Model {
 	
 	public static void deleteList(List<ComplainType> li){
 		Ebean.delete(li);
-	}
-
-	public static List<ComplainType> findAll() {
-		return find.all();
 	}
 
 	public static void save(ComplainType complainType) {

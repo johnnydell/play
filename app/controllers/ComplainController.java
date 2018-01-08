@@ -2,10 +2,12 @@ package controllers;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import com.alibaba.fastjson.JSON;
 
 import models.Complain;
+import models.ComplainType;
 import models.ProductLine;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -14,6 +16,14 @@ public class ComplainController extends Controller  {
 	
 	private final static DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
+	/**
+	 * 获得所有的投诉类型
+	 * @return
+	 */
+	public static Result getComplainType(){
+		List<ComplainType> typeLi  = ComplainType.getAllList();
+		return ok(JSON.toJSONString(typeLi));
+	}
 	/**
 	 * 
 	 * @param line_id

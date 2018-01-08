@@ -1,9 +1,8 @@
 var complainIn = function(){
 	var base = {};
-    var actual = [];
-    var target = {};
     var years = manager.years();
 	var months = manager.months;
+	var types = complain.types;
 	var limits = permission.load("complain");
 	var lines = complain.lines;
 	var lineId = manager.getPV("lineId");
@@ -24,9 +23,6 @@ var complainIn = function(){
 					var sys_date = manager.getSystemDate();
 					base.year = sys_date.split("-")[0];
 					base.month = sys_date.split("-")[1];
-					
-					//var attendee = {id:"0",checked:false,meeting_attendee:"",required:"R",frequency:"",dept:"",days:formDays(attendance.year,attendance.month),updated:"0"};
-					//var actual = [{type_id:"0",days:[{id:'0',d:'1',v:'10'},{},{}]},{}];
 					refreshComplain();
 					this.set("base",base);
 				},
@@ -65,13 +61,19 @@ var complainIn = function(){
 					refreshComplain();
 					this.set("base",base);
 				},
+				toShowColumnEditor:function(e){
+					$(e.node).hide().next().show().focus();
+				},
+				toHideColumnEditor:function(e){
+					$(e.node).hide().prev().show();
+				},
 				test:function(){
 					
 				}
 			})
 	    });
 	}
-	
+		
 	//根据产线和年月获得对应的投诉记录
 	function getComplainInfo(line_id,year,month){
 		var ret;
@@ -97,6 +99,32 @@ var complainIn = function(){
 		var daysCnt = cntDays(base.year,base.month);
 		base.daysCnt = daysCnt;
 		base.days = formDays(base.year,base.month,"0");	
+		var actual = [];
+		var accumu = {};
+		if(base.id != '0'){
+			
+		} else {
+			$(types).each(function(i,n){
+				actual.push({
+					type_id:n.id,
+					type_name:n.typeName,
+					days:formDays(base.year,base.month,n.id)
+				});
+			})
+			actual.push({
+				type_id:"-1",
+				type_name:$.i18n.prop("i18n_complainIn_actual_in_all"),
+				days:formDays(base.year,base.month,"-1")
+			});
+			actual.push({
+				type_id:"-2",
+				type_name:$.i18n.prop("i18n_complainIn_accumulation"),
+				days:formDays(base.year,base.month,"-2")
+			});
+			accumu = formDays(base.year,base.month,"-3");
+		}
+		base.actual = actual;
+		base.accumu = accumu;
 	}
 	
 	//根据年月返回天数
