@@ -107,6 +107,7 @@ GET  /edashboard/report/oeeloss/monthlyAllLossChart			controllers.report.OeeLoss
 
 # Safety
 GET /edashboard/safety/getSafetyInfo						controllers.SafetyController.getSafetyInfo(lineName : String, currYear : String, currMonth: String )
+POST /edashboard/safety/saveSafetyInfo						controllers.SafetyController.saveSafetyInfo()
 
 # Screen Display
 GET  /edashboard/scr/getProductInfo						controllers.screen.ScreenDisplayController.getProductInfo(lineName : String,  yearValue:String,  monthValue:String,  dayValue:String, hourValue:Integer, minValue:Integer)

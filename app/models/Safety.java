@@ -7,10 +7,13 @@ import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
 import com.avaje.ebean.Ebean;
+
 
 import play.db.ebean.Model;
 
@@ -24,7 +27,7 @@ public class Safety extends Model {
 	public String id = UUID.randomUUID().toString().replace("-", "");
 	
 	@ManyToOne
-	@Column(name = "line_id")
+	@JoinColumn(name = "line_id")
 	public ProductLine productLine;
 
 	@Column(name = "safety_date")
@@ -57,8 +60,8 @@ public class Safety extends Model {
 	}
 	
 	public static void updateList(List<Safety> lists){
-		for(Safety line : lists){
-			Ebean.update(line);
+		for(Safety safety : lists){
+			Ebean.update(safety);
 		}
 	}
 	
