@@ -1,0 +1,117 @@
+<div class="toolbar">
+    <button type="button" class="btn" on-click="test">测试</button>
+	<button type="button" class="btn" on-click="saveAttendee">{{i18n_complainIn_save}}</button>
+</div>
+<div class="header">
+	<div class="title"></div>
+	<div class="info">
+		 <div class="lb">
+		   <span>{{i18n_complainIn_line}}:</span>
+		   <span>{{i18n_complainIn_month}}:</span>
+		 </div>
+		 <div class="val">
+			 <span class="fst">
+				<label class="field" on-click="toShowLineSelect">{{base.line_name}}</label>                    
+				<select class="field" style="display:none;" on-change="changeLine" on-blur="toHideLineSelect" value="{{base.line_id}}">
+					{{#each lines}}
+				 <option value="{{id}}">{{lineName}}</option>
+		        {{/each}}
+            	</select>
+             </span>
+			 <span class="dt">
+                 <label on-click="toShowYearSelect">{{base.year}} {{i18n_meetAttd_year}}</label>                    
+				 <select style="display:none;" on-blur="toHideYearSelect" on-change="changeYear" value="{{base.year}}">
+					 {{#each years:index}}
+					 <option value="{{years[index]}}">{{years[index]}} {{i18n_meetAttd_year}}</option>
+			       	 {{/each}}
+             	 </select>
+                 <label on-click="toShowMonthSelect">{{base.month}} {{i18n_meetAttd_yue}}</label>
+                 <select style="display:none" on-blur="toHideMonthSelect" on-change="changeMonth" value="{{base.month}}">
+	                 {{#each months:index}}
+				     <option value="{{months[index]}}">{{months[index]}} {{i18n_meetAttd_yue}}</option>
+		             {{/each}}
+           		 </select>
+               </span>
+		 </div>
+		 <div></div>
+	</div>
+</div>
+<table>
+	<tr>
+		<th colspan="2"></th>
+	    {{#each base.days}}
+		<th width="3%">{{d}}</th>
+	    {{/each}}
+	</tr>
+    <tr lang="{{index}}">
+       <th width="2%" rowspan="5">实际</th>
+	   <th width="5%">来自总装</th>
+       {{#each base.days:flag}}
+	   <td>	
+		  <label class="field" on-click="toShowColumnEditor">0</label>
+    	  <input class="field" type="text" maxlength="15" on-blur="toHideColumnEditor" style="display:none" value="0" />		   
+	   </td>
+	   {{/each}}
+    </tr>
+    <tr lang="{{index}}">
+	   <th>来自GP12</th>
+       {{#each base.days:flag}}
+	   <td>	
+		  <label class="field" on-click="toShowColumnEditor">0</label>
+    	  <input class="field" type="text" maxlength="15" on-blur="toHideColumnEditor" style="display:none" value="0" />		   
+	   </td>
+	   {{/each}}
+    </tr>
+    <tr lang="{{index}}">
+	   <th>来自客户代表</th>
+       {{#each base.days:flag}}
+	   <td>	
+		  <label class="field" on-click="toShowColumnEditor">0</label>
+    	  <input class="field" type="text" maxlength="15" on-blur="toHideColumnEditor" style="display:none" value="0" />		   
+	   </td>
+	   {{/each}}
+    </tr>
+    <tr lang="{{index}}">
+	   <th>合计ppm</th>
+       {{#each base.days:flag}}
+	   <td>	
+		  <label class="field" on-click="toShowColumnEditor">0</label>
+    	  <input class="field" type="text" maxlength="15" on-blur="toHideColumnEditor" style="display:none" value="0" />		   
+	   </td>
+	   {{/each}}
+    </tr>
+    <tr lang="{{index}}">
+	   <th>累计ppm</th>
+       {{#each base.days:flag}}
+	   <td style="background:#bec2c3;">	
+		  <label class="field" on-click="toShowColumnEditor">0</label>
+    	  <input class="field" type="text" maxlength="15" on-blur="toHideColumnEditor" style="display:none" value="0" />		   
+	   </td>
+	   {{/each}}
+    </tr>
+    <tr>
+		<th colspan="2"></th>
+	    {{#each base.days}}
+		<th width="3%">{{d}}</th>
+	    {{/each}}
+	</tr>
+	<tr lang="{{index}}">
+	   <th colspan="2">目标</th>
+       {{#each base.days:flag}}
+	   <td>	
+		  <label class="field" on-click="toShowColumnEditor">0</label>
+    	  <input class="field" type="text" maxlength="15" on-blur="toHideColumnEditor" style="display:none" value="0" />		   
+	   </td>
+	   {{/each}}
+    </tr>
+</table>
+<div class="footer">
+	<div class="lf">
+		<p  class="title">Starter Motors and Generators</p>
+		<p>SG/BPS-CN | 2017. 11. 17 | V2.0</p>
+		<!--<p>Bearbeitung, Weitergabe sowie für den Fall von Schutzrechtsanmeldungen.</p>-->
+	</div>
+	<div class="rt">
+	   <img src="{{root}}/images/logo2.png" class="fr">
+	</div>
+</div>
