@@ -46,7 +46,7 @@
 				<font color="#ccc">></font>
 				<a href="../lines.html">{{i18n_hourlycount_nav2}}</a>
 				<font color="#ccc">></font>
-				<a href="../board1.html?lineName={{lineName}}&lineId={{lineId}}">{{lineName}}</a>
+				<a href="../boards.html?lineName={{lineName}}&lineId={{lineId}}">{{lineName}}</a>
 				<font color="#ccc">></font>
 				<span>{{i18n_hourlycount_title}}</span>
 			</p>
@@ -502,10 +502,10 @@
 						&nbsp;
 					</td>
 					<td colspan="3">
-						<label>{{i18n_hourlycount_plan_moe_output}} {{hourlyCountV0.planOutputCount}}</label>
+						<label>{{i18n_hourlycount_plan_moe_output}} {{format(hourlyCountV0.planOutputCount)}}</label>
 					</td>
 					<td colspan="3">
-						<label>{{i18n_hourlycount_actual_output}} {{hourlyCountV0.actualOutputCount}}</label>
+						<label>{{i18n_hourlycount_actual_output}} {{format(hourlyCountV0.actualOutputCount)}}</label>
 					</td>
 					<td colspan="2">
 						<label>{{i18n_hourlycount_actual_oee}} {{percentage(hourlyCountV0.actualOee)}}</label>
