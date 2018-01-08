@@ -7,6 +7,8 @@
 		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
 		<link rel="stylesheet" type="text/css" href="../css/login.css"/>
 		<link rel="stylesheet" type="text/css" href="../css/boards.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/board1.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/board2.css"/>
 	</head>
 	<body>
 		<div class="box">
@@ -29,9 +31,11 @@
 	<script src="../js/lib/jquery.i18n.properties-1.0.9.js"></script>
 	<script src="../js/lib/manager.js"></script>
 	<script src="../js/boards.js"></script>
+	<script src="../js/board1.js"></script>
+	<script src="../js/board2.js"></script>
 	<script id="main-template" type="text/active">
 	<div class="position _clear title">
-		<h3>{{i18n_boards_title}}</h3>
+		<h3>{{lineName}} - {{i18n_boards_title}}</h3>
 		<div class="fr">
 			<p>
 				<i class="icon icon-home"></i>
@@ -39,61 +43,20 @@
 				<font color="#ccc">></font>
 				<a href="lines.html">{{i18n_boards_nav2}}</a>
 				<font color="#ccc">></font>
-				<span>{{i18n_boards_title}}</span>
+				<span>{{lineName}} - {{i18n_boards_title}}</span>
 			</p>
 		</div>
 	</div>
 	<div class="content">
-	    <div class="check">
-			<label for="nb">内部</label><div class="check-box"><input type="radio" name="nwb" value="nb" id="nb" checked="checked" /><i></i></div>
-		</div>
-		<div class="check">
-			<label for="wb">外部</label><div class="check-box"><input type="radio" name="nwb" value="wb" id="wb" /><i></i></div>
-		</div>
+	    
 		<div class="content-box">
-			<ul>
-				<li>
-					<h4>Board NO.1板一：FAG2 SMC</h4>
-					<div class="board">
-						<div class="board-item">
-							<a href="board/meetAttd.html" class="twoLine bg-f4b183">Meeting attendance<br>到会记录</a>
-							<a href="board/oee.html" class="bg-ffc000">OEE</a>
-							<a href="board/oeeLoss.html" class="bg-ffc000">OEE pareto analysis</a>
-						</div>
-						<div class="board-item">
-							<a href="board/hourlyCount.html?lineName=FAG2" class="twoLine bg-ffc000">Hourly count<br>小时产量表</a>
-							<a href="board/opl.html" class="bg-f4b183">OPL</a>
-							<a href="board/staticpage.html?pageName=pss" class="bg-92d050">问题解决表</a>
-						</div>
-						<div class="board-item">
-							<a href="board/staticpage.html?pageName=layout" class="twoLine bg-92d050" >Line layout<br>产线布局</a>
-							<a href="board/staticpage.html?pageName=balance" class="twoLine bg-92d050">CT balance chart<br>节拍平衡</a>
-							<a href="board/staticpage.html?pageName=oeepdca" class="active bg-92d050">OEE PDCA</a>
-						</div>
-					</div>
-				</li>
-				<li>
-					<h4>Board NO.2板二：FAG2 Line info</h4>
-					<div class="board">
-						<div class="board-item">
-							<a href="#" class="bg-f4b183 small">14 Q OPL</a>
-							<a href="#" class="bg-ffc000 small">安全</a>
-							<a href="#" class="bg-f4b183 small">抱怨</a>
-							<a href="#" class="bg-ffc000 small">报废</a>
-						</div>
-						<div class="board-item">
-							<a href="#" class="bg-f4b183">14Q检查清单</a>
-							<a href="#" class="bg-f4b183">5M1E</a>
-							<a href="board/staticpage.html?pageName=5s" class="bg-92d050">5S评分</a>
-						</div>
-						<div class="board-item">
-							<a href="board/staticpage.html?pageName=trainmatrix" class="twoLine bg-92d050 small">员工技能矩阵<br>1</a>
-							<a href="#" class="twoLine bg-92d050 small">员工技能矩阵<br>2</a>
-							<a href="#" class="twoLine bg-92d050 small">员工技能矩阵<br>3</a>
-						</div>
-					</div>
-				</li>
+			<ul id="tabs">
+	  			<li id="current"><a href="#" title="board1" on-click="switchToBoard1">{{i18n_boards_board1}}</a><img></li>	 
+				<li id=""><a href="#" title="board2" on-click="switchToBoard2">{{i18n_boards_board2}}</a><img></li>	  
 			</ul>
+			<div class="maincontent" style="display: block;">
+	  		
+			</div>
 		</div>
 	</div>
 	</script>
