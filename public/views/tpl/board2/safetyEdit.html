@@ -1,0 +1,96 @@
+
+	<div class="content">
+		<div class="content-box">
+			<div class="toolbar">
+				<button type="button" class="btn" on-click="saveSafety">{{i18n_save}}</button>
+			</div>
+			<div class="header">
+				<div class="title"><span>{{i18n_safety_edit_tab_title}}</span></div>
+				<div class="info">
+					 <div class="lb">
+					 	<span>{{i18n_line_name}}:</span>
+					   <span>{{i18n_year_month}}:</span>
+					 </div>
+					 <div class="val">
+						 <span class="fst">
+							<label class="field" >{{lineName}}</label>                    
+                         </span>
+						 <span class="dt">
+                             <label on-click="toShowYearSelect">{{safetyObj.currYear}} {{i18n_year}}</label>                    
+							 <select style="display:none;" on-blur="toHideYearSelect" on-change="changeYear" value="{{safetyObj.currYear}}">
+		 					   {{#each years:index}}
+								 <option value="{{years[index]}}">{{years[index]}} {{i18n_year}}</option>
+						       {{/each}}
+			             	 </select>
+                             <label on-click="toShowMonthSelect">{{safetyObj.currMonth}} {{i18n_month}}</label>
+                             <select style="display:none" on-blur="toHideMonthSelect" on-change="changeMonth" value="{{safetyObj.currMonth}}">
+				               {{#each months:index}}
+							    <option value="{{months[index]}}">{{months[index]}} {{i18n_month}}</option>
+					           {{/each}}
+	             			</select>
+                         </span>
+					 </div>
+					 
+				</div>
+			</div>
+			<table>
+				<tr>
+					<th>{{i18n_day}}</th>
+					{{#each safetyObj.days}}
+						<th width="3%">{{d}}</th>
+	               	{{/each}}
+				</tr>
+				<tr>
+					<th>{{i18n_actual}}</th>
+					{{#each safetyObj.days:flag}}
+						{{#if s =='0'}}	
+					<td>			   
+					 	<label class="field" style="background: {{bg}}"  on-click="toShowColumnEditor">{{v}}</label>
+						
+             			<input type="text" style="display:none" value="{{v}}" on-blur="toHideColumnEditor">
+                    </td>
+                   {{else}}
+						<td style="background: #bec2c3;"><label class="field"></label></td>
+				   {{/if}}
+					{{/each}}
+				</tr>
+				<tr>
+					<th>{{i18n_target}}</th>
+					{{#each safetyObj.days:flag}}
+						{{#if s =='0'}}	
+					<td>			   
+					 	<label class="field" style="background: {{bg}}" >0</label>
+                    </td>
+                   {{else}}
+						<td style="background: #bec2c3;"><label class="field">0</label></td>
+				   {{/if}}
+					{{/each}}
+				</tr>
+				<tr>
+					<th>{{i18n_accumulation}}</th>
+					{{#each safetyObj.days:flag}}
+						{{#if s =='0'}}	
+					<td>			   
+					 	<label class="field" style="background: {{bg}}" >0</label>
+                    </td>
+                   {{else}}
+						<td style="background: #bec2c3;"><label class="field">0</label></td>
+				   {{/if}}
+					{{/each}}
+				</tr>
+				
+                
+			</table>
+			<div class="footer">
+				<div class="lf">
+					<p  class="title">Starter Motors and Generators</p>
+					<p>SG/BPS-CN | 2017. 11. 17 | V2.0</p>
+					<!--<p>Bearbeitung, Weitergabe sowie für den Fall von Schutzrechtsanmeldungen.</p>-->
+				</div>
+				<div class="rt">
+				   <img src="{{root}}/images/logo2.png" class="fr">
+				</div>
+			</div>
+		</div>
+	</div>	
+	
