@@ -53,6 +53,10 @@ public class Complain extends Model {
 		return find.where().eq("line_id", lineId).eq("year", year).eq("month", month).orderBy("").fetch("productLine").findUnique();
 	}
 	
+	public static Complain find(String id){
+		return Ebean.find(Complain.class, id);
+	}
+	
 	public static void save(Complain complain){
     	Ebean.save(complain);
     }
