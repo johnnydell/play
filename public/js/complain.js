@@ -3,6 +3,9 @@ var complain = function(){
 	var lineId = manager.getPV("lineId");
 	var lines = getAllLines();
 	var types = getComplainType();
+	var years = manager.years();
+	var months = manager.months;
+	var limits = permission.load("complain");
 	function init(){
 		var ractive = new Ractive({
 			el: ".container",
@@ -66,7 +69,10 @@ var complain = function(){
 	return {
 		init:init,
 		lines:lines,
-		types:types
+		types:types,
+		years:years,
+		months:months,
+		limits:limits
 	}
 }();
 $(document).ready(complain.init);

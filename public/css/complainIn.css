@@ -1,35 +1,35 @@
-.content-box .header {
+.complainIn .header {
 	text-align: left;
 	background-color: #003366;
 	height: 74px;
 }
 
-.content-box .header .title {
+.complainIn .header .title {
 	width: 40%;
 	height: 100%;
 	float: left;
 }
 
-.content-box .header .title  span {
+.complainIn .header .title  span {
 	font-size: 23px;
 	margin-left: 20px;
 	font-weight: 700;
 	color: white;
 }
 
-.content-box .header .info {
+.complainIn .header .info {
 	width: 60%;
 	height: 100%;
 	float: left;
 }
 
-.content-box .header .info .lb {
+.complainIn .header .info .lb {
 	width: 30%;
 	height: 100%;
 	float: left;
 }
 
-.content-box .header .info .lb span {
+.complainIn .header .info .lb span {
 	width: 100%;
 	height: 50%;
 	float: left;
@@ -39,13 +39,13 @@
 	text-align: right;
 }
 
-.content-box .header .info .val {
+.complainIn .header .info .val {
 	width: 30%;
 	height: 100%;
 	float: left;
 }
 
-.content-box .header .info .val span {
+.complainIn .header .info .val span {
 	width: 100%;
 	height: 50%;
 	float: left;
@@ -57,36 +57,36 @@
 	border-bottom: #000000 1px solid;
 }
 
-.content-box .header .info .val select {
+.complainIn .header .info .val select {
 	font-size: 19px;
 	font-weight: normal;
 }
 
-.content-box .header .info .fst {
+.complainIn .header .info .fst {
 	border-top: #000000 1px solid;
 }
 
-.content-box p {
+.complainIn p {
 	margin: 0;
 	padding: 0;
 	font-size: 14px;
 	font-weight: bold;
 }
 
-.content-box table {
+.complainIn table {
 	width: 100%;
 	border-collapse: collapse;
 	border: 1px solid #000;
 }
 
-.content-box table th {
+.complainIn table th {
 	color: white;
 	background: #003366;
 	border: 1px solid #000;
 	font-weight: normal;
 }
 
-.content-box table td {
+.complainIn table td {
 	height: 30px;
 	text-align: center;
 	border: 1px solid #000;
@@ -95,23 +95,23 @@
 	background:#CEFFCE;
 }
 
-.content-box table td span {
+.complainIn table td span {
 	margin-left: 20px;
 }
 
-.content-box .footer {
+.complainIn .footer {
 	text-align: left;
 	background-color: #c0c0c0;
 	vertical-align:middle;
     height: 70px;
 }
 
-.content-box .footer .lf {	
+.complainIn .footer .lf {	
     width: 80%;
     float: left;
 }
 
-.content-box .footer .rt {	
+.complainIn .footer .rt {	
     float: left;
     width: 20%;
     height: 100%;
@@ -119,54 +119,54 @@
     padding-top: 15px;
 }		
 
-.content-box .footer p {
+.complainIn .footer p {
 	margin-left: 20px;
 	color: #000;
 	font-weight: normal;
 	font-size: 12px;
 }
 
-.content-box .footer .title {
+.complainIn .footer .title {
 	font-weight: normal;
 	font-size: 16px;
 	margin-bottom: 3px;
 }
 
-.content-box .toolbar {
+.complainIn .toolbar {
 	height: 40px;
     text-align: right;
 }
 
-.content-box .btn {
+.complainIn .btn {
     padding: 6px 12px;
     line-height: 1.42857143;
     cursor: pointer;
     border-radius: 4px;
 }
 
-.fst select,.fst label{
+.complainIn .fst select,.complainIn .fst label{
 	width: 100%;	
 	text-align: center;
-	height: 36px;
+	height: 35px;
 	vertical-align: top;
 }
 
-.fst select{
+.complainIn .fst select{
 	border: 1px solid #0080ff;
 }
 
-.dt select,.dt label{
+.complainIn .dt select,.complainIn .dt label{
 	width: 50%;
 	float: left;	
 	text-align: center;
 }
 
-.dt select{
+.complainIn .dt select{
 	border: 1px solid #0080ff;	
 	height: 36px;
 }
 
-table td .field{
+.complainIn table td .field{
 	width: 100%;
 	height:100%;
 	display:inline-block;
@@ -174,6 +174,6 @@ table td .field{
 	line-height: 30px;
 }
 
-table td input[type='text'],table td select,table td textarea {
+.complainIn table td input[type='text'],.complainIn table td select,.complainIn table td textarea {
 	border: 1px solid #0080ff;	
 }

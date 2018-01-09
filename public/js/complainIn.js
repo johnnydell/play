@@ -1,9 +1,9 @@
 var complainIn = function(){
 	var base = {};
-    var years = manager.years();
-	var months = manager.months;
+    var years = complain.years ;
+	var months = complain.months;
+	var limits = complain.limits;
 	var types = complain.types;
-	var limits = permission.load("complain");
 	var lines = complain.lines;
 	var lineId = manager.getPV("lineId");
 	function init(){
