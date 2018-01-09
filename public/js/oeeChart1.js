@@ -23,9 +23,13 @@ var oeeChart1 = function(){
 	        				for(i = 0; i < listdata.length; i ++){
 	        					years.push(listdata[i].years);
 	        					//target OEE always 85%
-	        					targetTotal.push(listdata[i].target_oee_percent);
+	        					var oee_percent = (listdata[i].target_oee_percent * 1).toFixed(1);
+	        					targetTotal.push(parseFloat(oee_percent));
 	        					//calculate actual OEE percentage
-	        					actualTotal.push(Math.ceil((listdata[i].actual_oee_total / listdata[i].target_oee_total) * 100));
+	        					if (manager.isNull(listdata[i].target_oee_total) || listdata[i].target_oee_total == 0 )
+	        						actualTotal.push(0);
+	        					else
+	        						actualTotal.push(Math.ceil((listdata[i].actual_oee_total / listdata[i].target_oee_total) * 100));
 	        				}
 	        				bindChart();
 	        				ractive.set("targetTotal", targetTotal);

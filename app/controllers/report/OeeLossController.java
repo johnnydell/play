@@ -39,7 +39,7 @@ public class OeeLossController extends Controller {
 			//targetOeeTotal.add(85);
 			boolean isFoundLoss = false;
 			for (SqlRow row : rowsLoss){
-				if (row.getString("months").equals(String.valueOf(i))){
+				if (Integer.parseInt(row.getString("months")) == i){
 					isFoundLoss = true;
 					qualityLossTotal.add(row.getInteger("quality_loss_total") == null ? 0 : row.getInteger("quality_loss_total"));
 					technicalLossTotal.add(row.getInteger("technical_loss_total") == null ? 0 : row.getInteger("technical_loss_total"));
@@ -48,9 +48,9 @@ public class OeeLossController extends Controller {
 					float tempValue = row.getFloat("target_oee_percent");
 					float targetValue = (float)(Math.round(tempValue*10))/10;//保留1位小数
 					targetOeeTotal.add(targetValue);
-					int targetOeeTotalVal = row.getInteger("target_oee_total");
+					int targetOeeTotalVal = row.getInteger("target_oee_total") == null ? 0 : row.getInteger("target_oee_total");
 					if(targetOeeTotalVal == 0){
-						tempValue = 100f;
+						tempValue = 0f;
 					} else {
 						tempValue = (float)(row.getInteger("actual_oee_total") * 100 / row.getInteger("target_oee_total")) ;
 					}

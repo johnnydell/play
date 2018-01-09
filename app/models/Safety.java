@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 
 import com.avaje.ebean.Ebean;
-
+import com.avaje.ebean.SqlRow;
 
 import play.db.ebean.Model;
 
@@ -73,6 +73,29 @@ public class Safety extends Model {
 	
 	public static List<Safety> getSafetiesByLineAndDate(String lineName, Date startDate, Date endDate){
 		return find.where().eq("productLine.lineName", lineName).between("safetyDate", startDate, endDate).orderBy("safetyDate").findList();
+	}
+	
+	public static List<SqlRow> findYearlySafetyData(String name)  {
+		String sql = "select date_format(b.safety_date,'%Y') years, avg(b.safety_target_count) as target_count," 
+				+" sum(b.safety_actual_count) as actual_total "
+				+ " from edb_safety b, edb_line l "
+				+" where b.line_id = l.id "
+				+ " and l.line_name = :lineName "
+				+ " group by years order by years";
+		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("lineName", name).findList();
+		return rows;
+	}
+	
+	public static List<SqlRow> findMonthlySafetyData(String name, Date startDate, Date endDate)  {
+		String sql = "select date_format(b.safety_date,'%m') months, sum(b.safety_actual_count) as actual_total, avg(b.safety_target_count) as target_total "
+				
+				+ " from edb_safety b, edb_line l "
+				+ " where b.line_id = l.id"
+				+ " and l.line_name = :lineName"
+				+ " and b.safety_date between :startDate and :endDate "
+				+ " group by months";
+		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("lineName", name).setParameter("startDate", startDate).setParameter("endDate", endDate).findList();
+		return rows;
 	}
 
 }
