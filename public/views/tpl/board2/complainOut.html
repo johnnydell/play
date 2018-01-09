@@ -1,0 +1,54 @@
+<div class="complainOut">
+	<div class="header">
+		<div class="title"><span>OEE</span></div>
+		<div class="info">
+			 <div class="lb">
+			   <span>{{i18n_complainOut_line}}:</span>
+			   <span>{{i18n_complainOut_month}}:</span>
+			 </div>
+			 <div class="val">
+				 <span class="fst">
+                 	<label on-click="toShowLineSelect">{{base.line_name}}</label>                    
+					<select style="display:none;" on-blur="toHideLineSelect" on-change="changeLine"  value="{{base.line_id}}">
+						{{#each lines}}
+					 <option value="{{id}}">{{lineName}}</option>
+			        {{/each}}
+	            	</select>
+                 </span>
+				 <span class="dt">
+	                 <label on-click="toShowYearSelect">{{base.year}} {{i18n_complainOut_year}}</label>                    
+					 <select style="display:none;" on-blur="toHideYearSelect" on-change="changeYear" value="{{base.year}}">
+					 {{#each years:index}}
+					 <option value="{{years[index]}}">{{years[index]}} {{i18n_complainOut_year}}</option>
+				     {{/each}}
+	             	 </select>
+	                 <label on-click="toShowMonthSelect">{{base.month}} {{i18n_complainOut_yue}}</label>
+	                 <select style="display:none" on-blur="toHideMonthSelect" on-change="changeMonth" value="{{base.month}}">
+		             {{#each months:index}}
+					 <option value="{{months[index]}}">{{months[index]}} {{i18n_complainOut_yue}}</option>
+			         {{/each}}
+	           		</select>
+	              </span>
+			 </div>
+			 <div></div>
+		</div>
+	</div>	
+	<div class="cxt">
+	   <div class="top">
+	      <div class="lft">
+	      </div>
+	      <div class="rgt">
+	      </div>
+	   </div>
+	   <div class="bt"></div>
+	</div>	
+	<div class="footer">
+		<div class="lf">
+			<p  class="title">Starter Motors and Generators</p>
+			<p>SG/BPS-CN | 2017. 11. 17 | V2.0</p>
+		</div>
+		<div class="rt">
+		   <img src="{{root}}/images/logo2.png" class="fr">
+		</div>
+	</div>
+</div>
