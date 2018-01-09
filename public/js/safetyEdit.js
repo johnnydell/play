@@ -5,11 +5,11 @@ var safetyEdit = function(){
 	var months = manager.months;
 	var sys_date = manager.getSystemDate();
 	var safetyObj = {lineId:lineId,currYear:"", currMonth:"",days:[]};
-	var ractive = null;
+	var ractive1 = null;
 	function init(){
 	   
 	   $.get(manager.root+"/views/tpl/board2/safetyEdit.html", function (template) {
-	        ractive = new Ractive({
+	        ractive1 = new Ractive({
 	            el: '.content .maincontent',
 	            data:{root:manager.root,lineName:lineName, lineId:lineId},
 	            template: template,
@@ -27,7 +27,7 @@ var safetyEdit = function(){
 	            }
 	        }); 
 	        
-	        ractive.on({
+	        ractive1.on({
 	        	toShowYearSelect:function(e){
 					$(e.node).hide().next().show().focus();
 				},
@@ -113,7 +113,7 @@ var safetyEdit = function(){
 									for(i = 0; i < safetyObj.days.length; i ++){
 										safetyObj.days[i].updated = '0';
 									}
-									ractive.update();
+									ractive1.update();
 								}
 								else{
 									jAlert($.i18n.map['i18n_save_error'], $.i18n.map['i18n_error']);	
@@ -162,7 +162,7 @@ var safetyEdit = function(){
 						}
 						safetyObj.days[i].v3 = subTotal;
 					}
-					ractive.update();
+					ractive1.update();
 				}
 			}
 		});	

@@ -1,0 +1,52 @@
+
+	<div class="content">
+		<div class="content-box">
+			<div class="header">
+				<div class="title"><span>{{i18n_safety_edit_tab_title}}</span></div>
+				<div class="info">
+					 <div class="lb">
+					   <span>{{i18n_line_name}}:</span>
+					   <span>{{i18n_month}}:</span>
+					 </div>
+					 <div class="val">
+						 <span class="fst">{{lineName}}</span>
+						  <span class="dt">
+                             <label on-click="toShowYearSelect">{{safetyObj.currYear}} 年</label>                    
+							 <select style="display:none;" on-blur="toHideYearSelect" on-change="changeYear" value="{{safetyObj.currYear}}">
+		 					   {{#each years:index}}
+								 <option value="{{years[index]}}">{{years[index]}} 年</option>
+						       {{/each}}
+			             	 </select>
+                             <label on-click="toShowMonthSelect">{{safetyObj.currMonth}} 月</label>
+                             <select style="display:none" on-blur="toHideMonthSelect" on-change="changeMonth" value="{{safetyObj.currMonth}}">
+				               {{#each months:index}}
+							    <option value="{{months[index]}}">{{months[index]}} 月</option>
+					           {{/each}}
+	             			</select>
+                         </span>
+					 </div>
+					 <div></div>
+				</div>
+			</div>	
+			<div class="cxt">
+			   <div class="top">
+			      <div class="lft">
+			      </div>
+			      <div class="rgt">
+			      </div>
+			   </div>
+			   <div class="bt"></div>
+			</div>	
+			<div class="footer">
+				<div class="lf">
+					<p  class="title">Starter Motors and Generators</p>
+					<p>SG/BPS-CN | 2017. 11. 17 | V2.0</p>
+					<!--<p>Bearbeitung, Weitergabe sowie für den Fall von Schutzrechtsanmeldungen.</p>-->
+				</div>
+				<div class="rt">
+				   <img src="{{root}}/images/logo2.png" class="fr">
+				</div>
+			</div>
+		</div>
+	</div>
+    

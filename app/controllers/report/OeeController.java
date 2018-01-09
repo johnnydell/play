@@ -46,12 +46,13 @@ public class OeeController extends Controller {
 			
 			String fullDayValue = yearValue + "-" + monthValue + "-" + String.format("%02d", i);
 			boolean isFound = false;
+			
 			for (HourlyCountBase base : rows){
 				String historyDate = df.format(base.productDate);
 				if (fullDayValue.equals(historyDate)){
 					float tempValue;
-					if(base.targetOeeTotalOutput == 0){
-						tempValue = 100f;
+					if(null == base.targetOeeTotalOutput || base.targetOeeTotalOutput == 0){
+						tempValue = 0f;
 					} else {
 						tempValue = (float)(base.actualOeeTotalOutput * 100 / base.targetOeeTotalOutput) ;
 					}

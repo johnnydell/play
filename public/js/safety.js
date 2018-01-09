@@ -8,7 +8,7 @@ var safety = function(){
 			data: {root:manager.root,lineName:lineName, lineId:lineId},
 			onrender: function(){
 				manager.loadProperties(this, "safety", "../../");
-				
+				manager.loadProperties(this, "common", "../../");
 			},
 			oncomplete: function(){		
 				safetyEdit.init();
@@ -26,7 +26,7 @@ var safety = function(){
 			switchToReport:function(e){
 				$("#tabs li").attr("id","");
 				$(e.node).parent().attr("id", "current");
-				//board2.init();
+				safetyReport.init();
 			}
 		})
 	}

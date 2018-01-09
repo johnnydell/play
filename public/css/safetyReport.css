@@ -106,8 +106,8 @@
 }
 
 .content-box .cxt .bt {
-	height:480px;
-	padding: 32px;
+	height:400px;
+	padding: 20px;
 }
 
 .top .lft, .top .rgt {
@@ -116,6 +116,15 @@
 	padding: 20px;	
 }
 
+.top .lft .chart, .top .rgt .chart{
+	height : 80%;
+	width : 100%;
+	float : right;
+}
+.top .lft table, .top .rgt table{
+	height : 15%;
+	
+}
 .top .lft {
 	width:40%;
 }
@@ -128,4 +137,50 @@
     width: 50%;
     float: left;
     text-align: center;
+}
+.cxt .bt .chart{
+	height: 100%;
+	width : 100%;
+	
+}
+
+.cxt .bt .chart .chart{
+	height: 80%;
+	width : 95%;
+	float: right;
+}
+
+.cxt .bt .icon{
+	width : 5%;
+	height : 80%;
+	float : left;
+}
+
+.cxt .bt table{
+	width : 100%;
+	height : 20%;
+	
+}
+
+.chart table td .line1 {
+    margin-top: 4px;
+    margin-left: 5px;
+    height: 10px;
+    width: 80px;
+    float: left;
+}
+
+.chart table td .line2 {
+    margin-top: 8px;
+    margin-left: 5px;
+    height: 4px;
+    width: 80px;
+    float: left;
+}
+
+.cxt .chart table td label{
+	color: #000;
+    font-weight: bold;
+    font-size: 16px;
+    float: none;
 }
