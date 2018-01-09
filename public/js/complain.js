@@ -21,12 +21,12 @@ var complain = function(){
 			switchToIn:function(e){
 				$("#tabs li").attr("id","");
 				$(e.node).parent().attr("id", "current");				
-				//complainIn.init();
+				complainIn.init();
 			},
 			switchToOut:function(e){
 				$("#tabs li").attr("id","");
 				$(e.node).parent().attr("id", "current");
-				//complainOut.init();
+				complainOut.init();
 			}
 		})
 	}	
