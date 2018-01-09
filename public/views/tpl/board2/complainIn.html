@@ -1,6 +1,6 @@
 <div class="toolbar">
     <button type="button" class="btn" on-click="test">测试</button>
-	<button type="button" class="btn" on-click="saveAttendee">{{i18n_complainIn_save}}</button>
+	<button type="button" class="btn" on-click="saveComplain">{{i18n_complainIn_save}}</button>
 </div>
 <div class="header">
 	<div class="title"></div>
@@ -47,11 +47,21 @@
 	{{#each base.actual:index}}
     <tr>
 	   <th style="text-align:left;" width="6%">{{type_name}}</th>
-       {{#each days:flag}}
-	   <td>	
-		  <label class="field" on-click="toShowColumnEditor">{{v}}</label>
-    	  <input class="field" type="text" maxlength="15" on-blur="toHideColumnEditor" style="display:none" value="{{v}}" />		   
+	   {{#each days:flag}}
+       {{#if type_id == '-2'}}
+	   <td style="background:#bec2c3">
+		  <label class="field">{{v}}</label>	   
 	   </td>
+	   {{elseif type_id == '-1'}}
+	   <td>
+		  <label class="field">{{v}}</label>	   
+	   </td>
+	   {{else}}
+	    <td lang="actual">
+		  <label class="field" on-click="toShowColumnEditor">{{v}}</label>
+    	  <input class="field" type="text" maxlength="5" on-blur="toHideColumnEditor" onkeyup="manager.keyupInt(event)" style="display:none" value="{{v}}" />		   
+	   </td>
+	   {{/if}}
 	   {{/each}}
     </tr>
     {{/each}}    
@@ -62,10 +72,10 @@
 	    {{/each}}
 	</tr>
 	<tr>
-	   {{#each base.accumu:flag}}
-	   <td>	
+	   {{#each base.target:flag}}
+	   <td lang="target">	
 		  <label class="field" on-click="toShowColumnEditor">{{v}}</label>
-    	  <input class="field" type="text" maxlength="15" on-blur="toHideColumnEditor" style="display:none" value="{{v}}" />		   
+    	  <input class="field" type="text" maxlength="5" on-blur="toHideColumnEditor" onkeyup="manager.keyupInt(event)" style="display:none" value="{{v}}" />		   
 	   </td>
 	   {{/each}}
     </tr>
