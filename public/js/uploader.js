@@ -51,6 +51,14 @@ var uploader = function(){
 	                 $("#avatval_5s").val($(this).val());
 	             });
 	             
+	           //init click event - 5m1e
+	             $("#avatval_5m1e").click(function(){
+	                 $("#5m1e_upload").trigger('click');
+	             });
+	             $("#5m1e_upload").change(function(){
+	                 $("#avatval_5m1e").val($(this).val());
+	             });
+	             
 	           //init click event - Training_Matrix
 	             $("#avatval_train_matrix").click(function(){
 	                 $("#train_matrix_upload").trigger('click');
@@ -138,6 +146,22 @@ var uploader = function(){
                     },
                     error: function (error) {console.log(error); },
                     url: root + '/views/upload/uploadFile/5s', /*设置post提交到的页面*/
+                    type: "post", /*设置表单以post方法提交*/
+                    dataType: "json" /*设置返回值类型为文本*/
+                });
+				
+			},
+			
+			//upload 5S static page
+			upload5m1ePage : function () {
+				$("#form_5m1e_upload").ajaxSubmit({
+                    success: function (data) {
+                        $("#msg_info").html($.i18n.map[data.info]);
+                        $("#result_5m1e").html($.i18n.map[data.result]);
+                        $("#time_5m1e").html(data.last_update_time);
+                    },
+                    error: function (error) {console.log(error); },
+                    url: root + '/views/upload/uploadFile/5m1e', /*设置post提交到的页面*/
                     type: "post", /*设置表单以post方法提交*/
                     dataType: "json" /*设置返回值类型为文本*/
                 });

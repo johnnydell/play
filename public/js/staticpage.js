@@ -16,6 +16,7 @@ var staticpage = function(){
 				},
 			onrender: function(){
 				manager.loadProperties(this, "staticpage", "../../");
+				manager.loadProperties(this, "common", "../../");
 				console.log("pagename=" + pagename);
 			},
 			oncomplete: function(){
@@ -26,7 +27,7 @@ var staticpage = function(){
 					success: function(ret)
 					{
 						if (ret == "0"){
-							$("#msginfo").html(pagename + " was not uploaded before, please go to upload page.");
+							$("#msginfo").html(pagename + $.i18n.map['i18n_upload_needed']);
 							$("#uploadURL").css("display", "");
 						}else{
 							$("#pdfviewer").css("display", "").css("width", "100%").css("height", "800");

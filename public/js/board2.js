@@ -11,7 +11,9 @@ var board2 = function(){
 	            template: template,
 	            onrender: function(){
 					manager.loadProperties(this, "common", "../");
-					
+					manager.loadProperties(this, "safety", "../");
+					manager.loadProperties(this, "complain", "../");
+					manager.loadProperties(this, "hourlycount", "../");
 				},
 	            oncomplete: function(){}
 	        }); 

@@ -107,6 +107,10 @@ public class StaticPageController extends Controller {
 				// blance excel file
 				buffer.append(Constants.STATIC_FILE_SAVE_PATH_MATRIX);
 
+			} else if ("5m1e".equals(fileType)) {
+				// blance excel file
+				buffer.append(Constants.STATIC_FILE_SAVE_PATH_5M1E);
+
 			}
 			buffer.append(File.separator);
 			buffer.append(fileName);
@@ -146,6 +150,10 @@ public class StaticPageController extends Controller {
 			} else if ("trainmatrix".equals(fileType)) {
 				// blance excel file
 				buffer.append(Constants.STATIC_FILE_SAVE_PATH_MATRIX);
+
+			} else if ("5m1e".equals(fileType)) {
+				// blance excel file
+				buffer.append(Constants.STATIC_FILE_SAVE_PATH_5M1E);
 
 			}
 			buffer.append(File.separator);
