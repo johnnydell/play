@@ -7,7 +7,6 @@ var complainOut = function(){
 	var lines = complain.lines;
 	var lineId = manager.getPV("lineId");
 	var lineName = manager.getPV("lineName");
-	var oeeobj = {currYear:"", currMonth:""};
 	function init(){		
 		var sys_date = manager.getSystemDate();
 		var years = manager.years();
@@ -30,9 +29,9 @@ var complainOut = function(){
 					this.set("base",base);
 				},
 				oncomplete: function(){	
-					/*oeeChart1.init(lineName);
-					oeeChart2.init(lineName, oeeobj.currYear);
-					oeeChart3.init(lineName, oeeobj.currYear, oeeobj.currMonth);*/
+					complainChart1.init(lineName);
+					complainChart2.init(lineName, base.year);
+					complainChart3.init(lineName, base.year, base.month);
 				}
 			});
 			
@@ -47,7 +46,7 @@ var complainOut = function(){
 					$(e.node).hide().next().show().focus();
 				},
 				toHideYearSelect:function(e){
-					$(e.node).hide().prev().show();//.text($(e.node).find("option:selected").text());
+					$(e.node).hide().prev().show();
 					
 				},
 				toShowMonthSelect:function(e){
@@ -55,26 +54,22 @@ var complainOut = function(){
 				},
 				toHideMonthSelect:function(e){
 					var _$select = $(e.node);
-					_$select.hide().prev().show();//.text(_$select.find("option:selected").text());
+					_$select.hide().prev().show();
 				},
 				changeYear:function(){
-				/*	oeeChart1.init(lineName);
-					oeeChart2.init(lineName, oeeobj.currYear);
-					oeeChart3.init(lineName, oeeobj.currYear, oeeobj.currMonth);*/
+					complainChart1.init(lineName);
+					complainChart2.init(lineName, base.year);
+					complainChart3.init(lineName, base.year, base.month);
 				},
 				changeMonth:function(){
-					/*oeeChart1.init(lineName);
-					oeeChart3.init(lineName, oeeobj.currYear, oeeobj.currMonth);*/
+					complainChart1.init(lineName);
+					complainChart3.init(lineName, base.year, base.month);
 				},
 			})
 		});		
 	}
 	
-
-	
-	
 	return {
 		init:init
 	}
 }();
-//$(document).ready(complainOut.init);

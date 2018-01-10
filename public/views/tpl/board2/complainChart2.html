@@ -1,0 +1,61 @@
+<div class="chart2">
+    <div class="icon"></div>
+   <div class="chart"></div>
+   <table>
+		<tr>
+			<td width="22%">
+				<hr style="background-color:#17375e"/>
+				<label>实际</label>
+			</td>
+			{{#each actualTotal:index}}
+			<td>
+				<lable>{{actualTotal[index]}}</lable>
+			</td>
+			{{/each}}	
+		</tr>
+		<tr>
+			<td>
+				<hr style="background-color:#9abb59 "/>
+				<label>来自总装</label>
+			</td>			
+			{{#each actualTotal:index}}
+			<td>
+				<lable>{{actualTotal[index]}}</lable>
+			</td>
+			{{/each}}	
+		</tr>
+		<tr>
+			<td>
+				<hr style="background-color:#c00000"/>
+				<label>来自GP12</label>
+			</td>			
+			{{#each actualTotal:index}}
+			<td>
+				<lable>{{actualTotal[index]}}</lable>
+			</td>
+			{{/each}}	
+		</tr>
+		<tr>
+			<td>
+				<hr style="background-color:#1e497d"/>
+				<label>来自客户代表</label>
+			</td>			
+			{{#each actualTotal:index}}
+			<td>
+				<lable>{{actualTotal[index]}}</lable>
+			</td>
+			{{/each}}	
+		</tr>
+		<tr>
+			<td>
+				<hr class="line" style="background-color:red"/>
+				<label>Target</label>
+			</td>			
+			{{#each actualTotal:index}}
+			<td>
+				<lable>{{actualTotal[index]}}</lable>
+			</td>
+			{{/each}}	
+		</tr>
+	</table>
+</div>

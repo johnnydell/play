@@ -1,0 +1,57 @@
+.top .rgt .chart2{
+	height:220px;
+}
+
+.top .rgt .icon {
+    width: 7%;
+	float: left;
+	height:100%;
+    text-align: center;
+}
+
+.top .rgt .chart {
+	width: 93%;
+	float: left;
+	height:100%;
+}
+
+.chart2 table {
+	width: 100%;
+	border-collapse: collapse;
+	border: 1px solid #000;
+	float: right;
+}
+
+.chart2 table td {
+	line-height: 20px;
+	text-align: center;
+	border: 1px solid #000;
+	color: #000;
+	font-size: 10px;
+}
+
+.chart2 table td:first-child {
+	text-align: left;
+}
+
+.chart2 table td label {
+	margin-left:5px;
+	float: left;
+}
+
+.chart2 table td hr {
+	margin-top:3px;
+	margin-left:5px;
+    height: 10px;
+    width: 30px;
+    float: left;
+}
+
+.chart2 table td .line {
+	margin-top:6px;
+	margin-left:5px;
+    height: 4px;
+    width: 30px;
+    float: left;
+}
+

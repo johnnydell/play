@@ -15,7 +15,7 @@ var complain = function(){
 				manager.loadProperties(this, "complain", "../../");
 			},
 			oncomplete: function(){		
-				complainIn.init();
+				complainOut.init();
 			}
 		});
 		

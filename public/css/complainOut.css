@@ -36,6 +36,7 @@
 	font-size: 20px;
 	font-weight: bold;
 	color: white;
+	text-align:right;
 }
 
 .complainOut .header .info .val {
@@ -116,11 +117,11 @@
 }
 
 .complainOut .cxt .top {
-	height:300px;
+	height:350px;
 }
 
 .complainOut .cxt .bt {
-	height:480px;
+	height:560px;
 	padding: 20px;
 }
 
@@ -130,12 +131,8 @@
 	padding: 20px;	
 }
 
-.complainOut .top .lft {
-	width:40%;
-}
-
-.complainOut .top .rgt {
-	width:60%;
+.complainOut .top .lft,.complainOut .top .rgt {
+	width:50%;
 }
 
 .complainOut .dt select,.complainOut .dt label {
