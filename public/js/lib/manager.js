@@ -104,7 +104,7 @@ var manager = function() {
 	              location.href = root+"/views/board/opl.html";
 	          },
 	          toScreen:function(){
-	          	  location.href = root+"/views/scr.html?lineName=FAG2";
+	          	  location.href = root+"/views/scr.html?lineName=FAG5";
 	          },
 	          toLogin:triggerLogin
 	        })
@@ -261,6 +261,7 @@ var manager = function() {
 	
 	function getYearArrays(){
 		var date = getSystemDate();
+		years = [];
 		var year = parseInt(date.split("-")[0]);		
 		for(i = -5; i < 10; i ++){
 			years.push(year + i);

@@ -1,0 +1,25 @@
+<div class="chart">
+   <div class="icon"><img style="padding-top:50px;" src="{{root}}/images/updown.png"/></div>
+   <div class="chart"></div>
+   <table>
+		
+		<tr>
+			<td><hr class="line1" style="background-color:#3C3C4D "/><label>{{i18n_actual}}</label></td>
+			{{#each actualList:index}}
+				<td  width="3%">
+					<lable>{{actualList[index]}}</lable>
+				</td>
+			{{/each}}	
+			
+		</tr>
+		<tr>
+			<td><hr class="line2" style="background-color:red  "/><label>{{i18n_target}}</label></td>
+			
+			{{#each targetList:index}}
+				<td>
+					<lable>{{targetList[index]}}</lable>
+				</td>
+			{{/each}}	
+		</tr>
+	</table>
+</div>

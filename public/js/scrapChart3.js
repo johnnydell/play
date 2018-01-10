@@ -1,4 +1,4 @@
-var safetyChart3 = function(){
+var scrapChart3 = function(){
 	var dayList; 
 	var targetList; 
 	var actualList;
@@ -6,7 +6,7 @@ var safetyChart3 = function(){
 	var actualData = [];
 	function init(lineName, curYear, curMonth){
 	   //渲染chart3部分
-	   $.get(manager.root+"/views/tpl/board2/safetyChart3.html", function (template) {
+	   $.get(manager.root+"/views/tpl/board2/scrapChart3.html", function (template) {
 	        var ractive4 = new Ractive({
 	            el: '.cxt .bt',
 	            data:{root:manager.root},
@@ -18,7 +18,7 @@ var safetyChart3 = function(){
 	            oncomplete: function(){
 	            	var totalDays = cntDays(curYear, curMonth);
 	            	$.ajax({
-	        			url		: manager.root + '/report/safety/dailySafetyChart',
+	        			url		: manager.root + '/report/scrap/dailyScrapChart',
 	        			type	: 'GET',
 	        			dataType:"json",
 	        			data:{lineName:lineName,yearValue:curYear,monthValue:curMonth,dayCount:totalDays},
@@ -67,7 +67,7 @@ var safetyChart3 = function(){
 		        },
 		        yAxis: {
 		            title: {
-		                text: $.i18n.map['i18n_safety_daily_count'],
+		                text: $.i18n.map['i18n_ppm'],
 		                margin:65,
 		                style: {
 		                	fontSize: '15px',
@@ -76,7 +76,7 @@ var safetyChart3 = function(){
 		                }
 		                	
 		            },
-		            tickPositions: [0,20,40,60,80,100], // 指定竖轴坐标点的值
+		            tickPositions: [0,2000,4000,6000,8000,10000], // 指定竖轴坐标点的值
 		            labels: {
 		                formatter: function() {
 		                    return this.value;
