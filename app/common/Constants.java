@@ -19,5 +19,7 @@ public class Constants {
 	public static String STATIC_FILE_SAVE_PATH_5S = play.Play.application().configuration().getString("file.path.5s");
 
 	public static String STATIC_FILE_SAVE_PATH_MATRIX = play.Play.application().configuration().getString("file.path.trainmatrix");
+	
+	public static String STATIC_FILE_SAVE_PATH_5M1E = play.Play.application().configuration().getString("file.path.5m1e");
 
 }

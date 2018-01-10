@@ -43,6 +43,8 @@
 			<h3>{{i18n_staticpage_title_oeepdca}}</h3>
 		{{elseif pageName == '5s'}}
 			<h3>{{i18n_staticpage_title_5s}}</h3>
+		{{elseif pageName == '5m1e'}}
+			<h3>{{i18n_staticpage_title_5m1e}}</h3>
 		{{elseif pageName == 'trainmatrix'}}
 			<h3>{{i18n_staticpage_title_trainmatrix}}</h3>
 		{{/if}}
@@ -65,6 +67,8 @@
 					<span>{{i18n_staticpage_title_oeepdca}}</span>
 				{{elseif pageName == '5s'}}
 					<span>{{i18n_staticpage_title_5s}}</span>
+				{{elseif pageName == '5m1e'}}
+					<span>{{i18n_staticpage_title_5m1e}}</span>
 				{{elseif pageName == 'trainmatrix'}}
 					<span>{{i18n_staticpage_title_trainmatrix}}</span>
 				{{/if}}
@@ -84,7 +88,7 @@
 					<a href="{{root}}/views/board/staticpage.html?pageName=balance&oplLinkName=''" class="link">{{i18n_staticpage_title_balance}}</a>
 				{{/if}}
             </div>
-			<a id="uploadURL" href="{{root}}/views/settings/uploader.html" style="display : none;" class="link">Go to Upload Page</a>
+			<a id="uploadURL" href="{{root}}/views/settings/uploader.html" style="display : none;" class="link">{{i18n_switch_to_upload}}</a>
 			<iframe id="pdfviewer" style="display : none;border : 0"/>	
 			
 		</div>
