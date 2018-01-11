@@ -259,10 +259,13 @@ var manager = function() {
 		return today.getMonth() + 1;
 	}
 	
-	function getYearArrays(_offset){
-		var date = getSystemDate();
-		years = [];
-		var year = parseInt(date.split("-")[0]);
+	function getYearArrays(_baseYear,_offset){
+		var years = [];
+		var year = _baseYear;
+		if(_baseYear == undefined || _baseYear == null){
+			var date = getSystemDate();
+			year = parseInt(date.split("-")[0]);
+		}
 		if(_offset != undefined && _offset != null){
 			if(parseInt(_offset) >= 0){
 				for(i = 0; i <= parseInt(_offset); i ++){
