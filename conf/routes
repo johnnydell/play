@@ -129,16 +129,16 @@ GET  /edashboard/report/scrap/montlyScrapChart				controllers.report.ScrapContro
 GET  /edashboard/scr/getProductInfo						controllers.screen.ScreenDisplayController.getProductInfo(lineName : String,  yearValue:String,  monthValue:String,  dayValue:String, hourValue:Integer, minValue:Integer)
 
 # Complain
-GET  /edashboard/complain/getComplainInfo               controllers.ComplainController.getComplainInfo(line_id:String,year:String,month:String)
-GET  /edashboard/complain/getComplainType               controllers.ComplainController.getComplainType()
-POST /edashboard/complain/saveComplain          		controllers.ComplainController.saveComplain()
-GET  /edashboard/complain/getHCDaysActuals         		controllers.ComplainController.getHCDaysActuals(line_id:String,year:String,month:String,daysCnt:Integer)
-GET  /edashboard/complain/getHCYearsActuals         	controllers.ComplainController.getHCYearsActuals(line_id:String,year:String,yearsCnt:Integer)
-GET  /edashboard/complain/getYearlyTargets         		controllers.ComplainController.getYearlyTargets(line_id:String,year:String,yearsCnt:Integer)
-GET  /edashboard/complain/getYearlyTypes         		controllers.ComplainController.getYearlyTypes(line_id:String,year:String,yearsCnt:Integer)
-GET  /edashboard/complain/getHCMonthActuals         	controllers.ComplainController.getHCMonthActuals(line_id:String,year:String)
-GET  /edashboard/complain/getMonthlyTargets         	controllers.ComplainController.getMonthlyTargets(line_id:String,year:String)
-GET  /edashboard/complain/getMonthlyTypes         		controllers.ComplainController.getMonthlyTypes(line_id:String,year:String)
+GET  /edashboard/complain/getComplainInfo               controllers.board2.ComplainController.getComplainInfo(line_id:String,year:String,month:String)
+GET  /edashboard/complain/getComplainType               controllers.board2.ComplainController.getComplainType()
+POST /edashboard/complain/saveComplain          		controllers.board2.ComplainController.saveComplain()
+GET  /edashboard/complain/getHCDaysActuals         		controllers.board2.ComplainController.getHCDaysActuals(line_id:String,year:String,month:String,daysCnt:Integer)
+GET  /edashboard/complain/getHCYearsActuals         	controllers.board2.ComplainController.getHCYearsActuals(line_id:String,year:String,yearsCnt:Integer)
+GET  /edashboard/complain/getYearlyTargets         		controllers.board2.ComplainController.getYearlyTargets(line_id:String,year:String,yearsCnt:Integer)
+GET  /edashboard/complain/getYearlyTypes         		controllers.board2.ComplainController.getYearlyTypes(line_id:String,year:String,yearsCnt:Integer)
+GET  /edashboard/complain/getHCMonthActuals         	controllers.board2.ComplainController.getHCMonthActuals(line_id:String,year:String)
+GET  /edashboard/complain/getMonthlyTargets         	controllers.board2.ComplainController.getMonthlyTargets(line_id:String,year:String)
+GET  /edashboard/complain/getMonthlyTypes         		controllers.board2.ComplainController.getMonthlyTypes(line_id:String,year:String)
 
 
 # Map static resources from the /public folder to the /assets URL path

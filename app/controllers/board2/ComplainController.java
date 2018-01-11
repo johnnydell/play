@@ -1,4 +1,4 @@
-package controllers;
+package controllers.board2;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -12,10 +12,10 @@ import com.alibaba.fastjson.JSON;
 import com.avaje.ebean.SqlRow;
 import com.fasterxml.jackson.databind.JsonNode;
 
-import models.Complain;
-import models.ComplainActualDays;
-import models.ComplainTargetDays;
-import models.ComplainType;
+import models.board2.Complain;
+import models.board2.ComplainActualDays;
+import models.board2.ComplainTargetDays;
+import models.board2.ComplainType;
 import models.HourlyCountBase;
 import models.ProductLine;
 import play.mvc.Controller;

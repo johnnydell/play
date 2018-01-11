@@ -1,7 +1,8 @@
-package models;
+package models.board2;
 
 import java.util.List;
 import java.util.UUID;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,8 +12,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+import models.ProductLine;
+
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.SqlRow;
+
 import play.db.ebean.Model;
 
 @Entity
