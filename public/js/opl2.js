@@ -301,7 +301,7 @@ var opl2 = function(){
 						        // swf文件路径
 						        swf: manager.root + '/js/lib/webuploader-0.1.5/Uploader.swf',							
 						        // 文件接收服务端。
-						        server: manager.root + '/opl/addPSS',
+						        server: manager.root + '/opl2/addPSS',
 						        // 选择文件的按钮。可选。
 						        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
 						        pick: '#picker'//,
@@ -387,7 +387,7 @@ var opl2 = function(){
         	        ractive2.on({
         	        	gotoView:function (e) {
         	        		var fileName = $(e.node).attr("lang");
-	        	        	window.location.href='staticpage.html?pageName=pss2&oplLinkName=' + fileName;
+	        	        	window.location.href=manager.root+'/views/board/staticpage.html?pageName=pss2&oplLinkName=' + fileName;
 	        	        },
 	        	        close:function () {
 	        	            $(".pss_popup").hide().html("");
