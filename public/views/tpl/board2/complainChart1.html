@@ -5,11 +5,11 @@
 		<tr>
 			<td width="22%">
 				<hr class="line1" style="background-color:#17375e"/>
-				<label>实际</label>
+				<label>{{i18n_complainOut_actual}}</label>
 			</td>
-			{{#each actualTotal:index}}
+			{{#each actuals:index}}
 			<td>
-				<lable>{{actualTotal[index]}}</lable>
+				<lable>{{actuals[index]}}</lable>
 			</td>
 			{{/each}}	
 			
@@ -19,9 +19,9 @@
 				<hr class="line1" style="background-color:#9abb59 "/>
 				<label>来自总装</label>
 			</td>			
-			{{#each actualTotal:index}}
+			{{#each type1:index}}
 			<td>
-				<lable>{{actualTotal[index]}}</lable>
+				<lable>{{type1[index]}}</lable>
 			</td>
 			{{/each}}	
 		</tr>
@@ -30,9 +30,9 @@
 				<hr class="line1" style="background-color:#c00000"/>
 				<label>来自GP12</label>
 			</td>			
-			{{#each actualTotal:index}}
+			{{#each type2:index}}
 			<td>
-				<lable>{{actualTotal[index]}}</lable>
+				<lable>{{type2[index]}}</lable>
 			</td>
 			{{/each}}	
 		</tr>
@@ -41,20 +41,20 @@
 				<hr class="line1" style="background-color:#1e497d"/>
 				<label>来自客户代表</label>
 			</td>			
-			{{#each actualTotal:index}}
+			{{#each type3:index}}
 			<td>
-				<lable>{{actualTotal[index]}}</lable>
+				<lable>{{type3[index]}}</lable>
 			</td>
 			{{/each}}	
 		</tr>
 		<tr>
 			<td>
 				<hr class="line2" style="background-color:red"/>
-				<label>Target</label>
+				<label>{{i18n_complainOut_target}}</label>
 			</td>			
-			{{#each actualTotal:index}}
+			{{#each targets:index}}
 			<td>
-				<lable>{{actualTotal[index]}}</lable>
+				<lable>{{targets[index]}}</lable>
 			</td>
 			{{/each}}	
 		</tr>

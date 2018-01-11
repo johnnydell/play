@@ -85,6 +85,10 @@ public class HourlyCountBase extends Model {
 	public static List<HourlyCountBase> findDailyOeeData(String lineName, Date startDate, Date endDate){
 		return find.where().ieq("productLine.lineName", lineName).between("productDate", startDate, endDate).findList();
 	}
+	
+	public static List<HourlyCountBase> findOeeDataByDtScope(String lineId, Date startDate, Date endDate){
+		return find.where().ieq("productLine.id", lineId).between("productDate", startDate, endDate).findList();
+	} 
 
 	public static void save(HourlyCountBase base) {
 		Ebean.save(base);

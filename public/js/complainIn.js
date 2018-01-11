@@ -23,6 +23,7 @@ var complainIn = function(){
 					var sys_date = manager.getSystemDate();
 					base.year = sys_date.split("-")[0];
 					base.month = sys_date.split("-")[1];
+					base.ytarget = "180";
 					refreshComplain();
 					this.set("base",base);
 				},
@@ -30,6 +31,12 @@ var complainIn = function(){
 			});
 			
 			ractive.on({
+				toShowTargetTxt:function(e){
+					$(e.node).hide().next().show().focus();
+				},
+				toHideTargetTxt:function(e){
+					$(e.node).hide().prev().show();
+				},
 				toShowLineSelect:function(e){
 					$(e.node).hide().next().show().focus();
 				},
@@ -68,49 +75,80 @@ var complainIn = function(){
 					$(e.node).hide().prev().show();
 					var type = $(e.node).parent().attr("lang");
 					if(type == 'actual'){
-					  var row_index = e.index.index;
-					  var col_index = e.index.flag;
-					  //更新当前列合计
-					  var c_total = 0;
-					  for(i = 0; i<base.actual.length-2;i++){
-						  var v = base.actual[i].days[col_index].v;
-						  c_total += parseInt(v == '' ? '0':v);
+					  /*var row_index = e.index.index;
+					  var col_index = e.index.flag;*/
+					  //重新统计列
+					  var input_total = 0;
+					  var hc_total = 0;
+					  for(i = 0;i<=base.days.length-1;i++){
+					   	var c_total = 0;
+					   	for(k = 0;k<= base.actual.length-2;k++){
+					   		var v = base.actual[k].days[i].v;
+					   		c_total += parseInt(v == '' ? '0':v);
+					   	}
+					   	
+					   	var hc_v = base.hc[i];
+					   	base.actual[base.actual.length-2].days[i].v = (hc_v == '0' ? '0' : (c_total/hc_v).toFixed(2));
+					   	
+					   	input_total += c_total;
+					   	hc_total += hc_v;
+					   	base.actual[base.actual.length-1].days[i].v = (hc_total == '0' ? '0':(input_total/hc_total).toFixed(2));
 					  }
-					  base.actual[base.actual.length-2].days[col_index].v = c_total;					  
-					  //跟新当前列累计
-					  if(row_index == 0){
-						  var accumu_row_index = base.actual.length-1;
-						  for(i = col_index;i<=base.days.length-1;i++){
+					  
+					  
+					  
+					      //重新统计列
+					    /*var c_total = 0;
+						  for(i = 0; i<base.actual.length-2;i++){
+							  var v = base.actual[i].days[col_index].v;
+							  c_total += parseInt(v == '' ? '0':v);
+						  }
+						  var hc_v = base.hc[col_index];
+						  base.actual[base.actual.length-2].days[col_index].v = (hc_v == '0' ? '0' : (c_total/hc_v).toFixed(2));	*/
+					  
+					     //跟新当前列累计
+					    /* if(row_index == 0){
+						   var accumu_row_index = base.actual.length-1;
+						   for(i = col_index;i<=base.days.length-1;i++){
 							  var preC_accumu_v = (i == 0 ? 0 :base.actual[accumu_row_index].days[i-1].v);
 							  var curr_fst_v = base.actual[0].days[i].v;
 							  base.actual[base.actual.length-1].days[i].v = parseInt(preC_accumu_v == '' ? '0':preC_accumu_v) + parseInt(curr_fst_v == '' ? '0':curr_fst_v);
-						  }
-					  }					  
+						   }
+					      }	*/			  
 					}					
 					this.update("base");
 				},
-				saveComplain:function(){					
-					$.ajax({
-						url: manager.root + "/complain/saveComplain",
-						type: "POST",
-						dataType: "text",
-						data:JSON.stringify({base:base}),
-						contentType: "application/json",    
-						beforeSend: function() {
-							manager.block();
-						},
-						success: function(data) {
-							refreshComplain();
-							ractive.set("base",base);
-							jAlert($.i18n.prop("i18n_save_ok"), $.i18n.prop("i18n_info"));
-						},
-						complete: function() {
-							manager.unblock();
-						}
-					});	
+				saveComplain:function(){	
+					var error = false;
+					if(base.ytarget == ''){
+						jAlert($.i18n.prop("i18n_required"), $.i18n.prop("i18n_error"));
+						error = true;
+						return false;
+					}
+					if(!error){
+						base.ytarget = parseInt(base.ytarget);
+						$.ajax({
+							url: manager.root + "/complain/saveComplain",
+							type: "POST",
+							dataType: "text",
+							data:JSON.stringify({base:base}),
+							contentType: "application/json",    
+							beforeSend: function() {
+								manager.block();
+							},
+							success: function(data) {
+								refreshComplain();
+								ractive.set("base",base);
+								jAlert($.i18n.prop("i18n_save_ok"), $.i18n.prop("i18n_info"));
+							},
+							complete: function() {
+								manager.unblock();
+							}
+						});
+					}
 				},
 				test:function(){
-					console.log(base.id);
+					console.log(base.hc);
 				}
 			})
 	    });
@@ -133,16 +171,35 @@ var complainIn = function(){
 		return ret; 
 	}
 	
+	function getCurrentMonthDaysHC(line_id,year,month,daysCnt){
+		var ret;
+		$.ajax({
+			url: manager.root + "/complain/getCurrentMonthDaysHC",
+			type: "GET",
+			async:false,
+			dataType:"json",
+			data:{line_id:line_id,year:year,month:month,daysCnt:daysCnt},
+			contentType: "application/json",
+			success: function(data) {
+				ret = data;
+			}
+		});	
+		return ret; 
+	}
+	
 	function refreshComplain(){
 		var info = getComplainInfo(base.line_id,base.year,base.month);
 		base.id = info.id;
 		base.line_name = info.productLine.lineName;
 		base.line_id = info.productLine.id;
+		base.ytarget = (info.totalTarget == '' ? '180':info  .totalTarget);
 		var daysCnt = cntDays(base.year,base.month);
 		base.daysCnt = daysCnt;
 		base.days = formDays(base.year,base.month,"0");	
 		var actual = [];
 		var target = [];
+		var hc = getCurrentMonthDaysHC(base.line_id,base.year,base.month,daysCnt);
+		base.hc = hc;
 		if(base.id != '0'){
 			var type_id = "0";
 			var days = [];
@@ -168,20 +225,7 @@ var complainIn = function(){
 				type_id:"-2",
 				type_name:$.i18n.prop("i18n_complainIn_accumulation"),
 				days:formDays(base.year,base.month,"-2","0")
-			});
-			//对2行进行统计
-		    for(i = 0;i<=base.days.length-1;i++){
-		    	var c_total = 0;
-		    	for(k = 0;k<= actual.length-2;k++){
-		    		var v = actual[k].days[i].v;
-		    		c_total += parseInt(v == '' ? '0':v);
-		    	}
-		    	actual[actual.length-2].days[i].v = c_total;
-		    	
-			    var preC_accumu_v = (i == 0 ? 0 :actual[k].days[i-1].v);
-			    var curr_fst_v = actual[0].days[i].v;
-			    actual[actual.length-1].days[i].v = parseInt(preC_accumu_v == '' ? '0':preC_accumu_v) + parseInt(curr_fst_v == '' ? '0':curr_fst_v);
-		    }
+			});			
 			//封装目标行
 			$(info.complainTargetDays).each(function(i,n){
 				target.push({id:n.id,type_id:"-3",d:n.dayKey,v:n.dayVal});
@@ -191,7 +235,7 @@ var complainIn = function(){
 				actual.push({
 					type_id:n.id,
 					type_name:n.typeName,
-					days:formDays(base.year,base.month,n.id)
+					days:formDays(base.year,base.month,n.id,"180")
 				});
 			})
 			actual.push({
@@ -204,8 +248,25 @@ var complainIn = function(){
 				type_name:$.i18n.prop("i18n_complainIn_accumulation"),
 				days:formDays(base.year,base.month,"-2","0")
 			});
-			target = formDays(base.year,base.month,"-3","0");
+			target = formDays(base.year,base.month,"-3","180");
 		}
+		//对2行进行统计
+		var input_total = 0;
+		var hc_total = 0;
+	    for(i = 0;i<=base.days.length-1;i++){
+	    	var c_total = 0;
+	    	for(k = 0;k<= actual.length-2;k++){
+	    		var v = actual[k].days[i].v;
+	    		c_total += parseInt(v == '' ? '0':v);
+	    	}
+	    	
+	    	var hc_v = base.hc[i];
+	    	actual[actual.length-2].days[i].v = (hc_v == '0' ? '0' : (c_total/hc_v).toFixed(2));
+	    	
+	    	input_total += c_total;
+	    	hc_total += hc_v;
+	    	actual[actual.length-1].days[i].v = (hc_total == '0' ? '0':(input_total/hc_total).toFixed(2));
+	    }
 		base.actual = actual;
 		base.target = target;
 	}

@@ -259,12 +259,24 @@ var manager = function() {
 		return today.getMonth() + 1;
 	}
 	
-	function getYearArrays(){
+	function getYearArrays(_offset){
 		var date = getSystemDate();
 		years = [];
-		var year = parseInt(date.split("-")[0]);		
-		for(i = -5; i < 10; i ++){
-			years.push(year + i);
+		var year = parseInt(date.split("-")[0]);
+		if(_offset != undefined && _offset != null){
+			if(parseInt(_offset) >= 0){
+				for(i = 0; i <= parseInt(_offset); i ++){
+					years.push(year + i);
+				}
+			} else {
+				for(i = parseInt(_offset); i <= 0; i ++){
+					years.push(year + i);
+				}
+			}
+		} else {
+			for(i = -5; i < 10; i ++){
+				years.push(year + i);
+			}
 		}
 		return years;
 	}

@@ -34,6 +34,17 @@
 	           		 </select>
 	               </span>
 			 </div>
+			  <div class="lb2">
+			   <span></span>
+			   <span>{{i18n_complainIn_yue_target}}:</span>
+			 </div>
+			 <div class="val">
+			     <span style="background-color: #003366;border:none;"></span>
+				 <span class="fst">
+					<label class="field" style="display:inline-block;" on-click="toShowTargetTxt">{{base.ytarget}}</label> 
+					<input type="text" style="display:none;" maxlength="5" onkeyup="manager.keyupInt(event)" on-blur="toHideTargetTxt" value="{{base.ytarget}}" /> 
+	             </span>
+			 </div>
 			 <div></div>
 		</div>
 	</div>
@@ -49,30 +60,21 @@
 	    <tr>
 		   <th style="text-align:left;" width="6%">{{type_name}}</th>
 		   {{#each days:flag}}
-	       {{#if type_id == '-2'}}
+	       {{#if type_id == '-2' || type_id == '-1'}}
 		   <td style="background:#bec2c3">
 			  <label class="field">{{v}}</label>	   
 		   </td>
-		   {{elseif type_id == '-1'}}
-		   <td>
-			  <label class="field">{{v}}</label>	   
-		   </td>
 		   {{else}}
-		    <td lang="actual">
+		   <td lang="actual">
 			  <label class="field" on-click="toShowColumnEditor">{{v}}</label>
 	    	  <input class="field" type="text" maxlength="5" on-blur="toHideColumnEditor" onkeyup="manager.keyupInt(event)" style="display:none" value="{{v}}" />		   
 		   </td>
 		   {{/if}}
 		   {{/each}}
 	    </tr>
-	    {{/each}}    
-	    <tr>
-	   		<th colspan="2" rowspan="2">{{i18n_complainIn_target}}</th>
-		    {{#each base.days}}
-			<th width="3%">{{d}}</th>
-		    {{/each}}
-		</tr>
+	    {{/each}} 
 		<tr>
+		   <th  colspan="2" >{{i18n_complainIn_target}}</th>
 		   {{#each base.target:flag}}
 		   <td lang="target">	
 			  <label class="field" on-click="toShowColumnEditor">{{v}}</label>

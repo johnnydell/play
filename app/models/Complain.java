@@ -39,6 +39,9 @@ public class Complain extends Model {
 	@Column(name = "month")
 	public String month;
 	
+	@Column(name = "total_target")
+	public String totalTarget;
+	
 	@OneToMany(mappedBy="complain", cascade=CascadeType.ALL)
 	@OrderBy("type.index asc,dayKey ASC")
     public List<ComplainActualDays> complainActualDays; 

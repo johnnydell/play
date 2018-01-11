@@ -1,16 +1,21 @@
 package controllers;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.JsonNode;
+
 import models.Complain;
 import models.ComplainActualDays;
 import models.ComplainTargetDays;
 import models.ComplainType;
+import models.HourlyCountBase;
 import models.ProductLine;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -43,6 +48,7 @@ public class ComplainController extends Controller  {
 			complain.lineId = line_id;
 			complain.year = year;
 			complain.month = month;
+			complain.totalTarget = "";
 			ProductLine line = ProductLine.findById(line_id);
 			if(line != null){
 				complain.productLine = line;
@@ -51,6 +57,45 @@ public class ComplainController extends Controller  {
 		}
    	 	return ok(JSON.toJSONString(complain));
     }
+	
+	/**
+	 * 取得对应产线当前月份的所有HC OEE的中产出
+	 * @param line_id
+	 * @param year
+	 * @param month
+	 * @param daysCnt
+	 * @return
+	 * @throws ParseException
+	 */
+	public static Result getCurrentMonthDaysHC(String line_id,String year,String month,int daysCnt) throws ParseException{
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Date startDate = df.parse(year + "-" +month +"-01");
+		Date endDate = df.parse(year + "-" +month +"-" + daysCnt);
+		List<HourlyCountBase> li = HourlyCountBase.findOeeDataByDtScope(line_id, startDate, endDate);
+		List<Float> actualCountList = new ArrayList<Float>();
+		for(int i = 1; i<= daysCnt;i++){
+			String dt = year + "-" + month + "-" + String.format("%02d", i);
+			boolean flag = false;
+			for (HourlyCountBase base : li){
+				String historyDate = df.format(base.productDate);
+				if (dt.equals(historyDate)){
+					float tempValue;
+					if(null == base.actualOeeTotalOutput || base.actualOeeTotalOutput == 0){
+						tempValue = 0f;
+					} else {
+						tempValue = (float)(base.actualOeeTotalOutput);
+					}
+					actualCountList.add(tempValue);
+					flag = true;
+					break;
+				}
+			}
+			if (!flag){
+				actualCountList.add(0.0f);
+			}
+		}
+		return ok(JSON.toJSONString(actualCountList));
+	}
 	
 	/**
 	 * 保存当前投诉信息
@@ -64,6 +109,7 @@ public class ComplainController extends Controller  {
 		complain.lineId = base.get("line_id").asText().trim();
 		complain.year = base.get("year").asText().trim();
 		complain.month = base.get("month").asText().trim();
+		complain.totalTarget = base.get("ytarget").asText().trim();
 		if(id.equals("0")){
 			//封装实际明细
 			JsonNode actuals = base.get("actual");

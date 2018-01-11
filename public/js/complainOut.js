@@ -29,9 +29,9 @@ var complainOut = function(){
 					this.set("base",base);
 				},
 				oncomplete: function(){	
-					complainChart1.init(lineName);
-					complainChart2.init(lineName, base.year);
-					complainChart3.init(lineName, base.year, base.month);
+					complainChart1.init(base);
+					complainChart2.init(base);
+					complainChart3.init(base);
 				}
 			});
 			
@@ -57,13 +57,12 @@ var complainOut = function(){
 					_$select.hide().prev().show();
 				},
 				changeYear:function(){
-					complainChart1.init(lineName);
-					complainChart2.init(lineName, base.year);
-					complainChart3.init(lineName, base.year, base.month);
+					complainChart1.init(base);
+					complainChart2.init(base);
+					complainChart3.init(base);
 				},
 				changeMonth:function(){
-					complainChart1.init(lineName);
-					complainChart3.init(lineName, base.year, base.month);
+					complainChart3.init(base);
 				},
 			})
 		});		
