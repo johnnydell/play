@@ -13,6 +13,8 @@ public class Constants {
 	public static String STATIC_FILE_SAVE_PATH_BALANCE = play.Play.application().configuration().getString("file.path.balance");
 	
 	public static String STATIC_FILE_SAVE_PATH_PSS = play.Play.application().configuration().getString("file.path.pss");
+	
+	public static String STATIC_FILE_SAVE_PATH_PSS2 = play.Play.application().configuration().getString("file.path.pss2");
 
 	public static String STATIC_FILE_SAVE_PATH_OEEPDCA = play.Play.application().configuration().getString("file.path.oeepdca");
 	

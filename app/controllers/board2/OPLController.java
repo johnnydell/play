@@ -19,8 +19,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import common.Constants;
 import common.util.FileUtil;
-import models.OPL;
-import models.OPLPSS;
+import models.board2.OPL;
+import models.board2.OPLPSS;
 import models.ProductLine;
 import play.db.ebean.Transactional;
 import play.mvc.Controller;
@@ -53,7 +53,7 @@ public class OPLController extends Controller {
 			// try to save to server directory
 			StringBuffer buffer = new StringBuffer();
 			buffer.append(Constants.STATIC_FILE_SAVE_PATH);
-			buffer.append( Constants.STATIC_FILE_SAVE_PATH_PSS );
+			buffer.append( Constants.STATIC_FILE_SAVE_PATH_PSS2);
 			buffer.append(File.separator);
 			String newFileName = prepareFileName(now, fileName);
 			buffer.append(newFileName);
