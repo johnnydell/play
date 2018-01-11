@@ -19,7 +19,17 @@ var board2 = function(){
 	        }); 
 	        
 	        ractive.on({
-	        	
+	        	linkToChkList: function(){
+	        		console.log("test");
+	        		if (window.ActiveXObject){  
+	        		    var openDocObj = new ActiveXObject("SharePoint.OpenDocuments.1");  
+	        		    openDocObj.EditDocument(manager.root+"/excel/14qchklist/14Q_checklist.xlsx");
+	        		}  
+	        		else{
+	        			jAlert($.i18n.map['i18n_explorer_not_support'], $.i18n.map['i18n_error']);	
+	        			return;
+	        		}
+	        	}
 	        });
 	    });
 	}
