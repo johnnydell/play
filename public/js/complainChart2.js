@@ -1,11 +1,11 @@
 var complainChart2 = function(){
-	var years = ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月']; 
+	var years = []; 
 	var targets = []; //目标
 	var actuals = []; //合计
 	var type1 = [];//总装
 	var type2 = [];//GP12
 	var type3 = [];//客户代表
-	function init(base){
+	function init(_base){
 	   //渲染chart1部分
 	   $.get(manager.root+"/views/tpl/board2/complainChart2.html", function (template) {
 	        var ractive = new Ractive({
@@ -13,12 +13,22 @@ var complainChart2 = function(){
 	            data:{root:manager.root},
 	            template: template,
 	            oncomplete: function(){
+	            	base = _base;
 	            	manager.loadProperties(this, "complainOut", "../../");
-	            	targets = [150,50,50,50,150,50,50,50,150,50,50,50]; //目标
-	            	actuals = [150,50,50,50,150,50,50,50,150,50,50,50]; //合计
-	            	type1 = [150,50,50,50,150,50,50,50,150,50,50,50];//总装
-	            	type2 = [150,50,50,50,150,50,50,50,150,50,50,50];//GP12
-	            	type3 = [150,50,50,50,150,50,50,50,150,50,50,50];//客户代表
+	            	manager.loadProperties(this, "common", "../../");
+	            	years = [$.i18n.prop("i18n_month_Jan")
+	            	         ,$.i18n.prop("i18n_month_Feb")
+	            	         ,$.i18n.prop("i18n_month_Mar")
+	            	         ,$.i18n.prop("i18n_month_Apr")
+	            	         ,$.i18n.prop("i18n_month_May")
+	            	         ,$.i18n.prop("i18n_month_June")
+	            	         ,$.i18n.prop("i18n_month_July")
+	            	         ,$.i18n.prop("i18n_month_Aug")
+	            	         ,$.i18n.prop("i18n_month_Sept")
+	            	         ,$.i18n.prop("i18n_month_Oct")
+	            	         ,$.i18n.prop("i18n_month_Nov")
+	            	         ,$.i18n.prop("i18n_month_Dec")]; 
+	            	formData();
 	            	bindChart();
 	            	ractive.set("targets", targets);
     				ractive.set("actuals", actuals);
@@ -28,6 +38,72 @@ var complainChart2 = function(){
 	            }
 	        }); 
 	    });
+	}
+	
+	function getHCMonthActuals(line_id,year){
+		var ret;
+		$.ajax({
+			url: manager.root + "/complain/getHCMonthActuals",
+			type: "GET",
+			async:false,
+			dataType:"json",
+			data:{line_id:line_id,year:year},
+			contentType: "application/json",
+			success: function(data) {
+				ret = data;
+			}
+		});	
+		return ret; 
+	}
+	
+	function getMonthlyTargets(line_id,year){
+		var ret;
+		$.ajax({
+			url: manager.root + "/complain/getMonthlyTargets",
+			type: "GET",
+			async:false,
+			dataType:"json",
+			data:{line_id:line_id,year:year},
+			contentType: "application/json",
+			success: function(data) {
+				ret = data;
+			}
+		});	
+		return ret; 
+	}
+	
+	function getMonthlyTypes(line_id,year){
+		var ret;
+		$.ajax({
+			url: manager.root + "/complain/getMonthlyTypes",
+			type: "GET",
+			async:false,
+			dataType:"json",
+			data:{line_id:line_id,year:year},
+			contentType: "application/json",
+			success: function(data) {
+				ret = data;
+			}
+		});	
+		return ret; 
+	} 
+	
+	function formData(){
+		var hc = getHCMonthActuals(base.line_id,base.year);
+		targets = getMonthlyTargets(base.line_id,base.year); //目标
+		var typeData = getMonthlyTypes(base.line_id,base.year);
+		type1 = typeData[0];//总装
+		type2 = typeData[1];//GP12
+		type3 = typeData[2];//客户代表
+		//计算合计
+		for(i=0;i<=11;i++){
+			var type1_v = type1[i];
+			var type2_v = type2[i];
+			var type3_v = type3[i];
+			var c_total = (parseInt(type1_v == '' ? '0':type1_v) + parseInt(type2_v == '' ? '0':type2_v) + parseInt(type3_v == '' ? '0':type3_v));
+			var hc_v = hc[i];
+			actuals[i] = (hc_v == '0' ? '0' : (c_total/hc_v).toFixed(2));
+		}
 	}
 	
 	function bindChart(){

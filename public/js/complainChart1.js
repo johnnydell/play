@@ -1,12 +1,14 @@
 var complainChart1 = function(){
 	var y_tick = [0,50,100,150,200,250,300,350,400,450,500];
-	var years = [2015,2016,2017,2018]; 
+	var years = [];
 	var targets = []; //目标
 	var actuals = []; //合计
 	var type1 = [];//总装
 	var type2 = [];//GP12
 	var type3 = [];//客户代表
-	function init(base){
+	var yearOffset = 3;
+	var base;
+	function init(_base){
 	   //渲染chart1部分
 	   $.get(manager.root+"/views/tpl/board2/complainChart1.html", function (template) {
 	        var ractive = new Ractive({
@@ -14,12 +16,10 @@ var complainChart1 = function(){
 	            data:{root:manager.root},
 	            template: template,
 	            oncomplete: function(){
+	            	base = _base;
+	            	years = manager.years(base.year,-1*yearOffset); 	            	
 	            	manager.loadProperties(this, "complainOut", "../../");
-	            	targets = [150,50,50,50]; //目标
-	            	actuals = [150,50,50,50]; //合计
-	            	type1 = [150,50,50,50];//总装
-	            	type2 = [150,50,50,50];//GP12
-	            	type3 = [150,50,50,50];//客户代表
+	            	formData();
 	            	bindChart();
 	            	ractive.set("targets", targets);
     				ractive.set("actuals", actuals);
@@ -29,6 +29,72 @@ var complainChart1 = function(){
 	            }
 	        }); 
 	    });
+	}
+	
+	function getHCYearsActuals(line_id,year){
+		var ret;
+		$.ajax({
+			url: manager.root + "/complain/getHCYearsActuals",
+			type: "GET",
+			async:false,
+			dataType:"json",
+			data:{line_id:line_id,year:year,yearsCnt:yearOffset},
+			contentType: "application/json",
+			success: function(data) {
+				ret = data;
+			}
+		});	
+		return ret; 
+	}
+	
+	function getYearlyTargets(line_id,year){
+		var ret;
+		$.ajax({
+			url: manager.root + "/complain/getYearlyTargets",
+			type: "GET",
+			async:false,
+			dataType:"json",
+			data:{line_id:line_id,year:year,yearsCnt:yearOffset},
+			contentType: "application/json",
+			success: function(data) {
+				ret = data;
+			}
+		});	
+		return ret; 
+	}
+	
+	function getYearlyTypes(line_id,year){
+		var ret;
+		$.ajax({
+			url: manager.root + "/complain/getYearlyTypes",
+			type: "GET",
+			async:false,
+			dataType:"json",
+			data:{line_id:line_id,year:year,yearsCnt:yearOffset},
+			contentType: "application/json",
+			success: function(data) {
+				ret = data;
+			}
+		});	
+		return ret; 
+	} 
+	
+	function formData(){
+		var hc = getHCYearsActuals(base.line_id,base.year);
+		targets = getYearlyTargets(base.line_id,base.year); //目标
+		var typeData = getYearlyTypes(base.line_id,base.year);
+		type1 = typeData[0];//总装
+		type2 = typeData[1];//GP12
+		type3 = typeData[2];//客户代表
+		//计算合计
+		for(i=0;i<=yearOffset;i++){
+			var type1_v = type1[i];
+			var type2_v = type2[i];
+			var type3_v = type3[i];
+			var c_total = (parseInt(type1_v == '' ? '0':type1_v) + parseInt(type2_v == '' ? '0':type2_v) + parseInt(type3_v == '' ? '0':type3_v));
+			var hc_v = hc[i];
+			actuals[i] = (hc_v == '0' ? '0' : (c_total/hc_v).toFixed(2));
+		}
 	}
 	
 	function bindChart(){

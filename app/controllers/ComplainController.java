@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.alibaba.fastjson.JSON;
+import com.avaje.ebean.SqlRow;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import models.Complain;
@@ -17,13 +18,10 @@ import models.ComplainTargetDays;
 import models.ComplainType;
 import models.HourlyCountBase;
 import models.ProductLine;
-import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 
 public class ComplainController extends Controller  {
-	
-	private final static DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	/**
 	 * 获得所有的投诉类型
@@ -67,23 +65,23 @@ public class ComplainController extends Controller  {
 	 * @return
 	 * @throws ParseException
 	 */
-	public static Result getCurrentMonthDaysHC(String line_id,String year,String month,int daysCnt) throws ParseException{
+	public static Result getHCDaysActuals(String line_id,String year,String month,int daysCnt) throws ParseException{
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		Date startDate = df.parse(year + "-" +month +"-01");
 		Date endDate = df.parse(year + "-" +month +"-" + daysCnt);
 		List<HourlyCountBase> li = HourlyCountBase.findOeeDataByDtScope(line_id, startDate, endDate);
-		List<Float> actualCountList = new ArrayList<Float>();
+		List<Integer> actualCountList = new ArrayList<Integer>();
 		for(int i = 1; i<= daysCnt;i++){
 			String dt = year + "-" + month + "-" + String.format("%02d", i);
 			boolean flag = false;
 			for (HourlyCountBase base : li){
 				String historyDate = df.format(base.productDate);
 				if (dt.equals(historyDate)){
-					float tempValue;
+					Integer tempValue;
 					if(null == base.actualOeeTotalOutput || base.actualOeeTotalOutput == 0){
-						tempValue = 0f;
+						tempValue = 0;
 					} else {
-						tempValue = (float)(base.actualOeeTotalOutput);
+						tempValue = base.actualOeeTotalOutput;
 					}
 					actualCountList.add(tempValue);
 					flag = true;
@@ -91,11 +89,243 @@ public class ComplainController extends Controller  {
 				}
 			}
 			if (!flag){
-				actualCountList.add(0.0f);
+				actualCountList.add(0);
 			}
 		}
 		return ok(JSON.toJSONString(actualCountList));
 	}
+	
+	/**
+	 * 根据产线等信息获取年度抱怨统计
+	 * @param line_id
+	 * @param year
+	 * @param yearsCnt
+	 * @return
+	 * @throws NumberFormatException
+	 * @throws ParseException
+	 */
+	public static Result getHCYearsActuals(String line_id,String year,int yearsCnt) throws NumberFormatException, ParseException{
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Date startDate = df.parse((Integer.parseInt(year)- yearsCnt) + "-01-01");
+		Date endDate = df.parse(year + "-12-31");
+		List<SqlRow> li = HourlyCountBase.findYearlyActualData(line_id, startDate, endDate);
+		List<Integer> actualCountList = new ArrayList<Integer>();
+		for(int i = yearsCnt; i>= 0;i--){
+			Integer tYear = Integer.parseInt(year)-i;
+			boolean flag = false;
+			for (SqlRow row : li){
+				if (tYear.equals(row.getInteger("year"))){
+					Integer actual_total = row.getInteger("oee_actual_total");
+					Integer tempValue;
+					if(null == actual_total || actual_total == 0){
+						tempValue = 0;
+					} else {
+						tempValue = actual_total;
+					}
+					actualCountList.add(tempValue);
+					flag = true;
+					break;
+				}
+			}
+			if (!flag){
+				actualCountList.add(0);
+			}
+		}
+		return ok(JSON.toJSONString(actualCountList));
+	}
+	
+	/**
+	 * 获取年度的目标
+	 * @param line_id
+	 * @param year
+	 * @param yearsCnt
+	 * @return
+	 * @throws NumberFormatException
+	 * @throws ParseException
+	 */
+	public static Result getYearlyTargets(String line_id,String year,int yearsCnt) throws NumberFormatException, ParseException{
+		List<SqlRow> li = Complain.findYearlyTargetData(line_id, Integer.parseInt(year)-yearsCnt, Integer.parseInt(year));
+		List<Integer> targetCountList = new ArrayList<Integer>();
+		for(int i = yearsCnt; i>= 0;i--){
+			Integer tYear = Integer.parseInt(year)-i;
+			boolean flag = false;
+			for (SqlRow row : li){
+				if (tYear.equals(row.getInteger("year"))){
+					Integer target_total = row.getInteger("total_target");
+					Integer tempValue;
+					if(null == target_total || target_total == 0){
+						tempValue = 0;
+					} else {
+						tempValue = target_total;
+					}
+					targetCountList.add(tempValue);
+					flag = true;
+					break;
+				}
+			}
+			if (!flag){
+				targetCountList.add(0);
+			}
+		}
+		return ok(JSON.toJSONString(targetCountList));
+	}
+	
+	/**
+	 * 获取对应产线3中类型的数据
+	 * @param line_id
+	 * @param year
+	 * @param yearsCnt
+	 * @return
+	 * @throws NumberFormatException
+	 * @throws ParseException
+	 */
+	public static Result getYearlyTypes(String line_id,String year,int yearsCnt) throws NumberFormatException, ParseException{
+		List<SqlRow> li = Complain.getYearlyTypes(line_id, Integer.parseInt(year)-yearsCnt, Integer.parseInt(year));
+		List<ComplainType> types = ComplainType.getAllList();
+		List<List<Integer>> yearsData = new ArrayList<List<Integer>>();
+		for(ComplainType type: types){
+			String typeId = type.id;
+			List<Integer> data =  new ArrayList<Integer>();
+			for(int i = yearsCnt; i>= 0;i--){
+				Integer tYear = Integer.parseInt(year)-i;
+				boolean flag = false;
+				for (SqlRow row : li){
+					if (tYear.equals(row.getInteger("year")) && typeId.equals(row.getString("type_id"))){
+						Integer target_total = row.getInteger("cnt");
+						Integer tempValue;
+						if(null == target_total || target_total == 0){
+							tempValue = 0;
+						} else {
+							tempValue = target_total;
+						}
+						data.add(tempValue);
+						flag = true;
+						break;
+					}
+				}
+				if (!flag){
+					data.add(0);
+				}
+			}
+			yearsData.add(data);
+		}
+		return ok(JSON.toJSONString(yearsData));
+	}
+	
+	/**
+	 * 根据产线等信息获的月度抱怨统计
+	 * @param line_id
+	 * @param year
+	 * @param yearsCnt
+	 * @return
+	 * @throws NumberFormatException
+	 * @throws ParseException
+	 */
+	public static Result getHCMonthActuals(String line_id,String year) throws NumberFormatException, ParseException{
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Date startDate = df.parse(year + "-01-01");
+		Date endDate = df.parse(year + "-12-31");
+		List<SqlRow> li = HourlyCountBase.findMonthlyActualData(line_id, startDate, endDate);
+		List<Integer> actualCountList = new ArrayList<Integer>();
+		for(int i=1 ;i<=12; i++){
+			boolean flag = false;
+			for (SqlRow row : li){
+				if (row.getInteger("month").equals(i)){
+					Integer actual_total = row.getInteger("oee_actual_total");
+					Integer tempValue;
+					if(null == actual_total || actual_total == 0){
+						tempValue = 0;
+					} else {
+						tempValue = actual_total;
+					}
+					actualCountList.add(tempValue);
+					flag = true;
+					break;
+				}
+			}
+			if (!flag){
+				actualCountList.add(0);
+			}
+		}
+		return ok(JSON.toJSONString(actualCountList));
+	}
+	
+	/**
+	 * 获取月度的目标
+	 * @param line_id
+	 * @param year
+	 * @param yearsCnt
+	 * @return
+	 * @throws NumberFormatException
+	 * @throws ParseException
+	 */
+	public static Result getMonthlyTargets(String line_id,String year) throws NumberFormatException, ParseException{
+		List<SqlRow> li = Complain.findMonthlyTargetData(line_id, year);
+		List<Integer> targetCountList = new ArrayList<Integer>();
+		for(int i=1 ;i<=12; i++){
+			boolean flag = false;
+			for (SqlRow row : li){
+				if (row.getInteger("month").equals(i)){
+					Integer target_total = row.getInteger("total_target");
+					Integer tempValue;
+					if(null == target_total || target_total == 0){
+						tempValue = 0;
+					} else {
+						tempValue = target_total;
+					}
+					targetCountList.add(tempValue);
+					flag = true;
+					break;
+				}
+			}
+			if (!flag){
+				targetCountList.add(0);
+			}
+		}
+		return ok(JSON.toJSONString(targetCountList));
+	}
+	
+	/**
+	 * 3种类型的数据月度
+	 * @param line_id
+	 * @param year
+	 * @param yearsCnt
+	 * @return
+	 * @throws NumberFormatException
+	 * @throws ParseException
+	 */
+	public static Result getMonthlyTypes(String line_id,String year) throws NumberFormatException, ParseException{
+		List<SqlRow> li = Complain.getMonthlyTypes(line_id,year);
+		List<ComplainType> types = ComplainType.getAllList();
+		List<List<Integer>> monthsData = new ArrayList<List<Integer>>();
+		for(ComplainType type: types){
+			String typeId = type.id;
+			List<Integer> data =  new ArrayList<Integer>();
+			for(int i=1 ;i<=12; i++){
+				boolean flag = false;
+				for (SqlRow row : li){
+					if (row.getInteger("month").equals(i) && typeId.equals(row.getString("type_id"))){
+						Integer target_total = row.getInteger("cnt");
+						Integer tempValue;
+						if(null == target_total || target_total == 0){
+							tempValue = 0;
+						} else {
+							tempValue = target_total;
+						}
+						data.add(tempValue);
+						flag = true;
+						break;
+					}
+				}
+				if (!flag){
+					data.add(0);
+				}
+			}
+			monthsData.add(data);
+		}
+		return ok(JSON.toJSONString(monthsData));
+	}
+	
 	
 	/**
 	 * 保存当前投诉信息

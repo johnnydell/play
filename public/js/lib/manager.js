@@ -264,8 +264,9 @@ var manager = function() {
 		var year = _baseYear;
 		if(_baseYear == undefined || _baseYear == null){
 			var date = getSystemDate();
-			year = parseInt(date.split("-")[0]);
-		}
+			_baseYear = parseInt(date.split("-")[0]);
+		} 
+		year = parseInt(_baseYear);
 		if(_offset != undefined && _offset != null){
 			if(parseInt(_offset) >= 0){
 				for(i = 0; i <= parseInt(_offset); i ++){

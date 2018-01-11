@@ -62,7 +62,7 @@ var complainChart3 = function(){
 	function getCurrentMonthDaysHC(line_id,year,month,daysCnt){
 		var ret;
 		$.ajax({
-			url: manager.root + "/complain/getCurrentMonthDaysHC",
+			url: manager.root + "/complain/getHCDaysActuals",
 			type: "GET",
 			async:false,
 			dataType:"json",
@@ -84,6 +84,12 @@ var complainChart3 = function(){
 		var types = [];
 		var hc = getCurrentMonthDaysHC(base.line_id,base.year,base.month,daysCnt);
 		base.hc = hc;
+    	targets = []; //目标
+    	actuals = []; //合计
+    	accumus = []; //累计
+    	type1 = [];//总装
+    	type2 = [];//GP12
+    	type3 = [];//客户代表
 		if(base.id != '0'){
 			var type_id = "0";
 			var days = [];

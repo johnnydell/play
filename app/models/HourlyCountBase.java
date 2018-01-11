@@ -89,6 +89,26 @@ public class HourlyCountBase extends Model {
 	public static List<HourlyCountBase> findOeeDataByDtScope(String lineId, Date startDate, Date endDate){
 		return find.where().ieq("productLine.id", lineId).between("productDate", startDate, endDate).findList();
 	} 
+	
+	public static List<SqlRow> findYearlyActualData(String lineId,Date startDt, Date endDt)  {
+		String sql = "select year(base.product_date) as year,sum(base.actual_oee_total_output) as oee_actual_total "		
+				+" from edb_hourly_count_base base  "
+				+" where base.product_line_id = :lineId "  
+				+" and base.product_date between :startDt and :endDt "
+				+" GROUP BY year(base.product_date)";
+		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("lineId", lineId).setParameter("startDt", startDt).setParameter("endDt", endDt).findList();
+		return rows;
+	}
+	
+	public static List<SqlRow> findMonthlyActualData(String lineId,Date startDt, Date endDt)  {
+		String sql = "select month(base.product_date) as month,sum(base.actual_oee_total_output) as oee_actual_total "		
+				+" from edb_hourly_count_base base  "
+				+" where base.product_line_id = :lineId "  
+				+" and base.product_date between :startDt and :endDt "
+				+" GROUP BY month(base.product_date)";
+		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("lineId", lineId).setParameter("startDt", startDt).setParameter("endDt", endDt).findList();
+		return rows;
+	}
 
 	public static void save(HourlyCountBase base) {
 		Ebean.save(base);

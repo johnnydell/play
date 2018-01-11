@@ -174,7 +174,7 @@ var complainIn = function(){
 	function getCurrentMonthDaysHC(line_id,year,month,daysCnt){
 		var ret;
 		$.ajax({
-			url: manager.root + "/complain/getCurrentMonthDaysHC",
+			url: manager.root + "/complain/getHCDaysActuals",
 			type: "GET",
 			async:false,
 			dataType:"json",
