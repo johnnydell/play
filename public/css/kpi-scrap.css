@@ -1,0 +1,46 @@
+.content{
+	float : left;
+	width : 100%;
+}
+
+.content-box ul{
+	width: 25%;
+	text-align: center;
+	float : left;
+}
+.content-box li{
+	margin: 20px 10px;
+	display: inline-block;
+	padding: 0px 10px;
+	width:100%;
+	
+	font-size: 20px;
+	vertical-align: middle;
+	border:solid 3px #ececec;
+	text-align: center;
+}
+.content-box li:hover{
+	border-color: #ff0000;
+}
+.content-box li h4{
+	text-align: left;
+	line-height: 2.5;
+}
+.content-box li a{
+	display: inline-block;
+	margin-bottom: 10px;
+	width: 100%;
+	height: 100%;
+	line-height: 80px;
+	font-size: 38px;
+	background: #00b050;
+	text-align: center;
+	border: solid 1px #ccc;
+}
+.content-box li a:hover,
+.content-box li a.active{
+	background: #674288b3;
+	/* border-color: #00ffff;
+	border-width: 2px; */
+	color: #fff;
+}

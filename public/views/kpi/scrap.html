@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>KPI - Scrap</title>
+		<link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/login.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/kpi-scrap.css"/>
+	</head>
+	<body>
+		<div class="box">
+		    <!-- left menu -->
+			<div class="left fl"></div>
+			<div class="right">
+				<!-- right header -->
+				<header></header>
+				<div class="container">
+				    <!-- main template -->
+				</div>
+				<!-- right footer -->
+				<footer></footer>
+			</div>
+		</div>
+	</body>
+	<script src="../../js/lib/jquery-1.10.1.min.js"></script>
+	<script src="../../js/lib/jquery.cookie.js"></script>
+	<script src="../../js/lib/ractive-legacy.js"></script>
+	<script src="../../js/lib/jquery.i18n.properties-1.0.9.js"></script>
+	<script src="../../js/lib/manager.js"></script>
+	<script src="../../js/kpi-scrap.js"></script>
+	<script id="main-template" type="text/active">
+	<div class="position _clear title">
+		<h3>{{i18n_hourlycount_scrap}}</h3>
+		<div class="fr">
+			<p>			
+				<i class="icon icon-home"></i>
+				<a href="index.html">{{i18n_hourlycount_nav1}}</a>
+				<font color="#ccc">></font>
+				<span>{{i18n_kpi_title}}</span>
+			</p>
+		</div>
+	</div>
+	<div class="content">
+	   
+		<div class="content-box">
+			<ul>
+				{{#each lineSTGdata}}
+					<li><a href="#">{{uppercase(lineName)}}</a></li>
+				{{/each}}
+			</ul>
+			<ul >
+				{{#each lineROGdata}}
+					<li><a href="#">{{uppercase(lineName)}}</a></li>
+				{{/each}}
+				
+			</ul>
+			<ul >
+				{{#each lineRECdata}}
+					<li><a href="#">{{uppercase(lineName)}}</a></li>
+				{{/each}}
+				
+			</ul>
+			<ul >
+				{{#each lineFAGdata}}
+					<li><a href="#">{{uppercase(lineName)}}</a></li>
+				{{/each}}
+				
+			</ul>
+		</div>
+	</div>	
+	</script>
+</html>
