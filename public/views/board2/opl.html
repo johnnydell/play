@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Board- OPL2</title>
+		<link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/login.css"/>
+		<link rel="stylesheet" type="text/css" href="../../js/lib/alerts/jquery.alerts.css"/>
+		<link rel="stylesheet" type="text/css" href="../../js/lib/datetimepicker/jquery.datetimepicker.css"/>	
+		<link rel="stylesheet" type="text/css" href="../../css/opl2.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/addPSS2.css"/>
+		<link rel="stylesheet" type="text/css" href="../../js/lib/webuploader-0.1.5/webuploader.css"/>        
+	</head>
+	<body>
+		<div class="box">
+		    <!-- left menu -->
+			<div class="left fl"></div>
+			<div class="right">
+				<!-- right header -->
+				<header></header>
+				<div class="container">
+				    <!-- main template -->				    
+				</div>
+				<!-- right footer -->
+				<footer></footer>
+			</div>
+		</div>
+	</body>
+	<script src="../../js/lib/jquery-1.10.1.min.js"></script>
+	<script src="../../js/lib/jquery.cookie.js"></script>
+	<script src="../../js/lib/alerts/jquery.alerts.js"></script>
+	<script src="../../js/lib/jquery.blockui.js"></script>
+	<script src="../../js/lib/ractive-legacy.js"></script>
+	<script src="../../js/lib/jquery.i18n.properties-1.0.9.js"></script>
+	<script src="../../js/lib/datetimepicker/jquery.datetimepicker.full.js"></script>
+	<script src="../../js/lib/manager.js"></script>
+	<script src="../../js/opl2.js"></script>
+    <script src="../../js/lib/webuploader-0.1.5/webuploader.js"></script>
+	<script id="main-template" type="text/active">
+	<div class="position _clear title">
+		<h3>{{i18n_opl_title}}</h3>
+		<div class="fr">
+			<p>
+				<i class="icon icon-home"></i>
+				<a href="../index.html">{{i18n_opl_nav1}}</a>
+				<font color="#ccc">></font>
+				<a href="../lines.html">{{i18n_opl_nav2}}</a>
+				<font color="#ccc">></font>
+				<a href="../boards.html?lineName={{lineName}}&lineId={{lineId}}">{{lineName}}</a>
+				<font color="#ccc">></font>
+				<span>{{i18n_opl_title}}</span>
+			</p>
+		</div>
+	</div>
+	<div class="content">
+		<div class="content-box">
+            <div class="toolbar">
+                <!--<button type="button" class="btn" on-click="test">测试</button>-->
+				<button type="button" class="btn" on-click="addOP">{{i18n_opl_add}}</button>
+				<button type="button" class="btn" on-click="saveOP">{{i18n_opl_save}}</button>
+				<button type="button" class="btn" on-click="deleteOP">{{i18n_opl_delete}}</button>
+            </div>
+			<div>
+				<table>
+			    <tr>
+					<th class="title" rowspan="2" colspan="5">{{i18n_opl_title}}</th>
+					<th colspan="2" style="font-size: 20px;font-weight: bold;text-align:right;">{{i18n_opl_line}}：</th>
+					<th style="background-color:white;color: #000;border: 1px solid #000;">{{condition.line_name}}</th>
+					<th colspan="7"></th>
+				</tr>
+				<tr>
+					<th colspan="2" style="font-size: 20px;font-weight: bold;text-align:right;">{{i18n_opl_month}}：</th>
+					<th class="dt" width="11%" style="background-color:white;color: #000;border: 1px solid #000;text-align:left;">
+					<label on-click="toShowYearSelect">{{condition.year}} {{i18n_opl_year}}</label>                    
+						<select style="display:none;" on-blur="toHideYearSelect" value="{{condition.year}}">
+	 						{{#each years:index}}
+							 <option value="{{years[index]}}">{{years[index]}} {{i18n_opl_year}}</option>
+					         {{/each}}
+		             	</select>
+	                    <label on-click="toShowMonthSelect">{{condition.month}} {{i18n_opl_yue}}</label>
+	 					<select style="display:none;" on-blur="toHideMonthSelect" value="{{condition.month}}">
+							 {{#each months:index}}
+							 <option value="{{months[index]}}">{{months[index]}} {{i18n_opl_yue}}</option>
+					         {{/each}}
+		             	</select>
+                    </th>
+					<th class="page" style="background-color:white;color: #000;border: 1px solid #000;">
+						{{i18n_opl_no}}
+						<label on-click="toShowPageSelect">{{condition.page}}</label>
+	 					<select style="display:none;" on-blur="toHidePageSelect" value="{{condition.page}}">
+							 {{#each condition.pages:index}}
+							 <option value="{{condition.pages[index]}}">{{condition.pages[index]}}</option>
+					         {{/each}}
+		             	</select>
+	                    {{i18n_opl_page}}
+                    </th>
+					<th style="font-size: 20px;font-weight: bold;text-align:right;">{{i18n_opl_status}}：</th>
+					<th style="background-color:white;color: #000;border: 1px solid #000;text-align:left;">
+						<label style="display: inline-block;width:100%;text-align:center;" on-click="toShowStatusSelect">
+						{{#if condition.status}}
+                        <img style="width:30px;height:30px;margin-bottom: 1px;" src="{{root}}/images/pdca_{{condition.status}}.png">
+                        {{else}}
+                        {{i18n_opl_all}}
+                        {{/if}}
+                        </label>
+					   	<select style="display:none;width:100%" on-blur="toHideStatusSelect" value="{{condition.status}}">
+						 <option value=""></option>
+						 <option value="p">P</option>
+						 <option value="d">D</option>
+						 <option value="c">C</option>
+						 <option value="a">A</option>
+						 <option value="n">N</option>
+	             	    </select>
+                    </th>
+					<th colspan="2"></th>
+				</tr>
+			    <tr>
+				    <th width="2%" rowspan="2"><input on-click="checkAll" type="checkbox" /> <font>&nbsp;</font></th>
+			        <th width="5%" rowspan="2">{{i18n_opl_date}}</th>
+			        <th width="8%" rowspan="2">{{i18n_opl_refNo}}</th>
+			        <th width="5%" rowspan="2">{{i18n_opl_personFound}}</th>
+			        <th colspan="2">{{i18n_opl_deviation_problem}}</th>
+			        <th colspan="7">{{i18n_opl_corrective_action}}</th>
+			    </tr>
+			    <tr>
+			        <th width="12%">{{i18n_opl_description}}</th>
+			        <th width="15%">{{i18n_opl_root_cause}}</th>
+			        <th width="12%">{{i18n_opl_immediate}}</th>
+			        <th width="12%">{{i18n_opl_long_term}}</th><!--(在关闭阶段需要同步更新FMEA,CP,WI,PRR,SP、STAB、5M1E等相关工艺文件及标准)-->
+			        <th width="8%">{{i18n_opl_problem_solving_sheet}}</th>
+					<th width="8%">{{i18n_opl_pss_linkage}}</th>
+			        <th width="4%">{{i18n_opl_person_rep}}</th>
+			        <th width="5%">{{i18n_opl_deadline}}</th>
+			        <th width="4%">{{i18n_opl_status}}</th>        
+			    </tr>
+ 				{{#each opl:index}}
+			    <tr class="cxttr" lang="{{index}}">
+				    <td>
+				        <input type="checkbox" checked="{{checked}}" value="{{id}}"/>
+				        {{#if id == '0' || updated == '1'}}
+				        	<font color="red">*</font>
+				        {{else}}
+				        	<font>&nbsp;</font>
+				        {{/if}}
+				    </td>
+			        <td on-click="toShowColumnEditor">
+                       <label class="field">{{date}}</label>
+                        <input class="field date" on-keydown="disableKeydown" style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{date}}" on-click="stopPropagation"/>
+                    </td>
+			        <td on-click="toShowColumnEditor">
+                       <label class="field" >{{refNo}}</label>
+                       <input class="field" type="text" style="display:none;" maxlength="10" on-blur="toHideColumnEditor" value="{{refNo}}" on-click="stopPropagation"/>
+                    </td>
+			        <td on-click="toShowColumnEditor">
+                       <label class="field" >{{founder}}</label>
+                       <input class="field" type="text" style="display:none;" maxlength="10" on-blur="toHideColumnEditor" value="{{founder}}" on-click="stopPropagation"/>
+                    </td>
+			        <td on-click="toShowColumnEditor" >
+					   <label class="field" >{{description}}</label>
+                       <textarea class="field" style="display:none;" colName="description" maxlength="100" on-blur="toHideColumnEditor" cols="80" rows="2" on-click="stopPropagation">{{description}}</textarea>
+                    </td>
+					<td on-click="toShowColumnEditor" >
+					   <label class="field">{{rootCause}}</label>
+                       <textarea class="field" style="display:none;" maxlength="100" colName="rootCause" on-blur="toHideColumnEditor" cols="80" rows="2" on-click="stopPropagation">{{rootCause}}</textarea>
+                    </td>
+			        <td on-click="toShowColumnEditor" >
+					   <label class="field">{{immediate}}</label>
+                       <textarea class="field" style="display:none;" colName="immediate" maxlength="100" on-blur="toHideColumnEditor" cols="80" rows="2" on-click="stopPropagation">{{immediate}}</textarea>
+                    </td>
+			        <td on-click="toShowColumnEditor" >
+					   <label class="field">{{longTerm}}</label>
+                       <textarea class="field" style="display:none;" colName="longTerm" maxlength="100" on-blur="toHideColumnEditor" cols="80" rows="2" on-click="stopPropagation">{{longTerm}}</textarea>
+                    </td>
+			        <td on-click="toShowColumnEditor">
+                       <label class="field">{{problemSolvingSheet}}</label>
+					   <select class="field" style="display:none;" on-blur="toHideColumnEditor" value="{{problemSolvingSheet}}" on-click="stopPropagation">
+						 <option value="Y">Y</option>
+						 <option value="N">N</option>
+	             	   </select>
+                    </td>
+ 					<td lang="{{index}}">
+                       {{#if problemSolvingSheet == 'Y'}}
+							{{#if pss.has}}
+								<label class="field" ><a class="link" href="javascript:void(0);" on-click="showPss">{{pss.file_real_name}}</a></label>
+								<label class="field" style="display:none;"><a class="link" href="javascript:void(0);" on-click="showPss">{{i18n_opl_add_pass}}</a></label>
+								<label class="field" style="display:none;"></label>
+							{{else}}
+								<label class="field" style="display:none;"><a class="link" href="javascript:void(0);" on-click="showPss">{{pss.file_real_name}}</a></label>
+								<label class="field" ><a class="link" href="javascript:void(0);" on-click="showPss">{{i18n_opl_add_pass}}</a></label>
+								<label class="field" style="display:none;"></label>
+                      		{{/if}}
+                       {{else}}
+                    		<label class="field" style="display:none;"><a class="link" href="javascript:void(0);" on-click="showPss">{{pss.file_real_name}}</a></label>
+							<label class="field" style="display:none;"><a class="link" href="javascript:void(0);" on-click="showPss">{{i18n_opl_add_pass}}</a></label>
+							<label class="field" ></label>
+                       {{/if}}
+                    </td>
+			        <td on-click="toShowColumnEditor">
+                       <label class="field" >{{responsible}}</label>
+                       <input class="field" type="text" style="display:none;" maxlength="10" on-blur="toHideColumnEditor" value="{{responsible}}" on-click="stopPropagation"/>
+                    </td>
+			        <td  on-click="toShowColumnEditor">
+                       <label class="field">{{deadline}}</label>
+                       <input class="field deadline" style="display:none;" on-keydown="disableKeydown" maxlength="10" on-blur="toHideColumnEditor" type="text" value="{{deadline}}" on-click="stopPropagation"/>
+                    </td>
+			        <td  on-click="toShowColumnEditor">
+                       <label class="field"><img style="width:30px;height:30px;" src="{{root}}/images/pdca_{{status_img}}.png"></label>
+					   <select class="field" colName="status" style="display:none;" on-blur="toHideColumnEditor" value="{{status}}" on-click="stopPropagation">
+						 <option value="P">P</option>
+						 <option value="D">D</option>
+						 <option value="C">C</option>
+						 <option value="A">A</option>
+						 <option value="N">N</option>
+	             	   </select>
+                    </td>
+			    </tr>
+				{{/each}}
+			</table>
+			</div>
+			<div class="footer">
+				<div class="lf">
+                    <ul>
+                       <li><span style="font-weight:bold;line-height: 16px;">{{i18n_opl_status}}</span></li>
+					   <li><span><img src="{{root}}/images/opl-r.png">{{i18n_opl_rep_tgt_date_fixed}}</span></li>
+					   <li><span><img src="{{root}}/images/opl-a.png">{{i18n_opl_actions_init}}</span></li>
+					   <li><span><img src="{{root}}/images/opl-c.png">{{i18n_opl_cpl_of_action}}</span></li>
+					   <li><span><img src="{{root}}/images/opl-e.png">{{i18n_opl_eff_proved_problem_closed}}</span></li>
+                    </ul>
+					<p  class="title">Starter Motors and Generators</p>
+					<p>SG/BPS-CN | 2017. 11. 17 | V2.0</p>
+				</div>
+				<div class="rt">
+				   <img src="{{root}}/images/logo2.png" class="fr">
+				</div>
+			</div>			
+		</div>
+	</div>
+    <!-- 登录DIV -->
+	<div class="pss_popup"></div>
+    </script>
+</html>
