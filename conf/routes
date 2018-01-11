@@ -147,6 +147,15 @@ GET  /edashboard/opl2/getOPLByParamPagination           controllers.board2.OPLCo
 POST /edashboard/opl2/saveOPL                           controllers.board2.OPLController.saveOPL()
 POST /edashboard/opl2/deleteOPL                         controllers.board2.OPLController.deleteOPL()
 
+##############################
+############		##########
+############   KPI 	##########
+############		##########
+##############################
+# Productivity - Report
+GET  /edashboard/report/productivity/yearlyProductivityChart    controllers.report.ProductivityController.getYearlyProductivityReport(lineName : String,  yearValue:String)
+GET  /edashboard/report/productivity/dailyProductivityChart		controllers.report.ProductivityController.getDailyProductivityReport(lineName : String,  yearValue:String,  monthValue:String,  dayCount:String)
+GET  /edashboard/report/productivity/monthlyProductivityChart	controllers.report.ProductivityController.getMonthlyProductivityReport(lineName : String,  yearValue:String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /edashboard/*file               				controllers.Assets.at(path="/public", file)

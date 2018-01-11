@@ -4,7 +4,7 @@ var hourlycount = function(){
 	var lineName =  manager.getPV("lineName");;
 	var lineId = manager.getPV("lineId");
 	var dateTodayStr = null;
-	
+	var validation = true;
 	var ractive = null;
 	function init(){
 		//set today into date selector
@@ -68,6 +68,46 @@ var hourlycount = function(){
 			/*hide text, show label*/
 			toHideColumnEditor:function(e){
 				$(e.node).hide().prev().show().text($(e.node).val());
+			},
+			toValidateManHour1:function(e){
+				if (!manager.isNull($(e.node).val())){
+					if (manager.isNull(hourlycounts_base.manHourShift1)){
+						validation = false;
+						jAlert( $.i18n.map['i18n_hourlycount_manhour_shift_1'] + ' ' + $.i18n.map['i18n_required'], $.i18n.map['i18n_error']);	
+						return validation;
+					}
+					else{
+						validation = true;
+					}
+				}
+				$(e.node).hide().prev().show();
+					
+			},
+			toValidateManHour2:function(e){
+				if (!manager.isNull($(e.node).val())){
+					if (manager.isNull(hourlycounts_base.manHourShift2)){
+						validation = false;
+						jAlert( $.i18n.map['i18n_hourlycount_manhour_shift_2'] + ' ' + $.i18n.map['i18n_required'], $.i18n.map['i18n_error']);	
+						return validation;
+					}
+					else{
+						validation = true;
+					}
+				}
+				$(e.node).hide().prev().show();
+			},
+			toValidateManHour3:function(e){
+				if (!manager.isNull($(e.node).val())){
+					if (manager.isNull(hourlycounts_base.manHourShift3)){
+						validation = false;
+						jAlert( $.i18n.map['i18n_hourlycount_manhour_shift_3'] + ' ' + $.i18n.map['i18n_required'], $.i18n.map['i18n_error']);	
+						return validation;
+					}
+					else{
+						validation = true;
+					}
+				}
+				$(e.node).hide().prev().show();
 			},
 			/*used for team leader signature*/
 			toShowLogin:function(e){
@@ -481,36 +521,41 @@ var hourlycount = function(){
 			},
 			/*Save*/
 			saveHourlyCount:function(){
-				console.log("lineName = " + lineName + ",dateStr = " + dateTodayStr);
-				var params = {
-						lineName 		: lineName,
-						dateStr  		: dateTodayStr,
-						baseInfo		: hourlycounts_base,
-						dataGroup		: hourlycounts
-				};
-				$.ajax({
-					url		: manager.root + '/views/board/hourlycount/saveResult',
-					type	: 'post',
-					data	: JSON.stringify(params),
-					contentType: "application/json", 
-					beforeSend: function() {
-						manager.block();
-					},
-					success: function(ret)
-					{
-						if (ret == '1'){
-							$("#msgBox").html($.i18n.map['i18n_save_ok']);
+
+				if (!validation){
+					jAlert( $.i18n.map['i18n_hourlycount_manhour_shift_1'] + ' ' + $.i18n.map['i18n_hourlycount_manhour_shift_2'] + ' ' + $.i18n.map['i18n_hourlycount_manhour_shift_3'] + ' ' + $.i18n.map['i18n_required'], $.i18n.map['i18n_error']);	
+					return;
+				}
+				else{
+					var params = {
+							lineName 		: lineName,
+							dateStr  		: dateTodayStr,
+							baseInfo		: hourlycounts_base,
+							dataGroup		: hourlycounts
+					};
+					$.ajax({
+						url		: manager.root + '/views/board/hourlycount/saveResult',
+						type	: 'post',
+						data	: JSON.stringify(params),
+						contentType: "application/json", 
+						beforeSend: function() {
+							manager.block();
+						},
+						success: function(ret)
+						{
+							if (ret == '1'){
+								$("#msgBox").html($.i18n.map['i18n_save_ok']);
+							}
+							else{
+								$("#msgBox").html($.i18n.map['i18n_save_error']);
+							}
+							
+						},
+						complete: function() {
+							manager.unblock();
 						}
-						else{
-							$("#msgBox").html($.i18n.map['i18n_save_error']);
-						}
-						
-					},
-					complete: function() {
-						manager.unblock();
-					}
-				})
-			
+					})
+				}
 			}
 		})
 	}
@@ -518,7 +563,10 @@ var hourlycount = function(){
 	/*Initial all of data*/
 	function initDataTemplate(){
 		hourlycounts = [];
-		hourlycounts_base = {teamLeaderSign1:"", teamLeaderSign2:"", teamLeaderSign3:"", groupLeaderSign:"", planOplTotalOutput:"", planOutputCount:0, actualOutputCount:0, targetOee: 0, actualOee:0};
+		hourlycounts_base = {
+								manHourShift1:"", manHourShift2:"", manHourShift3:"", teamLeaderSign1:"", teamLeaderSign2:"", teamLeaderSign3:"", 
+								groupLeaderSign:"", planOplTotalOutput:"", planOutputCount:0, actualOutputCount:0, targetOee: 0, actualOee:0
+							};
 		for (i = 8; i < 24; i ++){
 			hourlycounts_item = {hourid: ((i - 1) + "-" + i),productHour: (i - 1),productHourIndex: (i - 7), lineName:"",productTypeName1:"",productCycle1:0,productTypeName2:"",
 					productCycle2:0,planCount:0,planTotalCount:0,actualCount:"",actualTotalCount:"",productHourCount:"",productHourPercent:0,
@@ -567,10 +615,16 @@ var hourlycount = function(){
 				if (listdata.length > 0){
 					hourlycounts_base.teamLeaderSign1 	= isNull(listdata[0].hourlyCountBase.teamLeaderSign1) ? "" : listdata[0].hourlyCountBase.teamLeaderSign1;
 					hourlycounts_base.teamLeaderSign2 	= isNull(listdata[0].hourlyCountBase.teamLeaderSign2) ? "" : listdata[0].hourlyCountBase.teamLeaderSign2;
-					hourlycounts_base.teamLeaderSign3 	= isNull(listdata[0].hourlyCountBase.teamLeaderSign3) ? "" : listdata[0].hourlyCountBase.teamLeaderSign3;
+					hourlycounts_base.manHourShift1 	= isNull(listdata[0].hourlyCountBase.manHourShift1) ? "" : listdata[0].hourlyCountBase.manHourShift1;
+					hourlycounts_base.manHourShift2 	= isNull(listdata[0].hourlyCountBase.manHourShift2) ? "" : listdata[0].hourlyCountBase.manHourShift2;
+					//hourlycounts_base.teamLeaderSign3 	= isNull(listdata[0].hourlyCountBase.teamLeaderSign3) ? "" : listdata[0].hourlyCountBase.teamLeaderSign3;
 					hourlycounts_base.groupLeaderSign 	= isNull(listdata[0].hourlyCountBase.groupLeaderSign) ? "" : listdata[0].hourlyCountBase.groupLeaderSign;
 					hourlycounts_base.planOplTotalOutput = listdata[0].hourlyCountBase.planOplTotalOutput;
 					hourlycounts_base.targetOeePercent	= listdata[0].hourlyCountBase.targetOeePercent;
+				}
+				if (listdata.length > 16){
+					hourlycounts_base.teamLeaderSign3 	= isNull(listdata[16].hourlyCountBase.teamLeaderSign3) ? "" : listdata[16].hourlyCountBase.teamLeaderSign3;
+					hourlycounts_base.manHourShift3 	= isNull(listdata[16].hourlyCountBase.manHourShift3) ? "" : listdata[16].hourlyCountBase.manHourShift3;
 				}
 				var planTotalCount = 0;
 				var actualTotalCount = 0;
