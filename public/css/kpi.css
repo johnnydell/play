@@ -1,12 +1,14 @@
 .content-box ul{
-	text-align: center;
+	/* text-align: center; */
+	text-align: left;
 }
 .content-box li{
 	margin: 20px;
 	display: inline-block;
 	padding: 40px 30px;
 	width: 45%;
-	height: 265px;
+	/* height: 265px; */
+	line-height: 160px;
 	font-size: 20px;
 	text-align: center;
 	vertical-align: middle;
@@ -23,5 +25,6 @@
 
 .kpi-box ul li{
 	padding-top: 50px;
-	width: 28%;
+	/* width: 28%; */
+	width: 30%;
 }
