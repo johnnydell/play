@@ -66,6 +66,8 @@ public class HourlyCountController extends Controller {
 		HourlyCountBase base_2 = HourlyCountBase.findByLineNameAndDate(lineName, nextDay);
 		boolean isExistBase_1 = true;
 		boolean isExistBase_2 = true;
+		HourlyCountBase base_1_1 = new HourlyCountBase();
+		HourlyCountBase base_2_2 = new HourlyCountBase();
 		
 		//create new hourly base info if it's totally new record
 		if (null == base_1){
@@ -86,37 +88,44 @@ public class HourlyCountController extends Controller {
 			ProductLine.save(line);
 		}
 		//set each properties
-		base_1.groupLeaderSign = baseInfoNode.get("groupLeaderSign").asText();
-		base_1.productDate = productDate;
-		base_1.productLine = line;
-		base_1.teamLeaderSign1 = baseInfoNode.get("teamLeaderSign1").asText();
-		base_1.teamLeaderSign2 = baseInfoNode.get("teamLeaderSign2").asText();
-		base_1.teamLeaderSign3 = baseInfoNode.get("teamLeaderSign3").asText();
-		base_1.targetOeePercent = baseInfoNode.get("targetOeePercent").asDouble();
-		base_1.planOplTotalOutput = baseInfoNode.get("planOplTotalOutput").asInt();
-		base_1.targetOeeTotalOutput = baseInfoNode.get("planOutputCount").asInt();
-		base_1.actualOeeTotalOutput = baseInfoNode.get("actualOutputCount").asInt();
+		base_1_1.groupLeaderSign = baseInfoNode.get("groupLeaderSign").asText();
+		base_1_1.productDate = productDate;
+		base_1_1.productLine = line;
+		base_1_1.teamLeaderSign1 = baseInfoNode.get("teamLeaderSign1").asText();
+		base_1_1.teamLeaderSign2 = baseInfoNode.get("teamLeaderSign2").asText();
+		base_1_1.manHourShift1 = baseInfoNode.get("manHourShift1").asInt(0);
+		base_1_1.manHourShift2 = baseInfoNode.get("manHourShift2").asInt(0);
+		//base_1.teamLeaderSign3 = baseInfoNode.get("teamLeaderSign3").asText();
+		base_1_1.targetOeePercent = baseInfoNode.get("targetOeePercent").asDouble();
+		base_1_1.planOplTotalOutput = baseInfoNode.get("planOplTotalOutput").asInt();
+		base_1_1.targetOeeTotalOutput = baseInfoNode.get("planOutputCount").asInt();
+		base_1_1.actualOeeTotalOutput = baseInfoNode.get("actualOutputCount").asInt();
 		
-		base_2.groupLeaderSign = baseInfoNode.get("groupLeaderSign").asText();
-		base_2.productDate = nextDay;
-		base_2.productLine = line;
-		base_2.teamLeaderSign1 = baseInfoNode.get("teamLeaderSign1").asText();
-		base_2.teamLeaderSign2 = baseInfoNode.get("teamLeaderSign2").asText();
-		base_2.teamLeaderSign3 = baseInfoNode.get("teamLeaderSign3").asText();
-		base_2.targetOeePercent = baseInfoNode.get("targetOeePercent").asDouble();
-		base_2.planOplTotalOutput = baseInfoNode.get("planOplTotalOutput").asInt();
-		base_2.targetOeeTotalOutput = baseInfoNode.get("planOutputCount").asInt();
-		base_2.actualOeeTotalOutput = baseInfoNode.get("actualOutputCount").asInt();
+		base_2_2.groupLeaderSign = baseInfoNode.get("groupLeaderSign").asText();
+		base_2_2.productDate = nextDay;
+		base_2_2.productLine = line;
+		//base_2.teamLeaderSign1 = baseInfoNode.get("teamLeaderSign1").asText();
+		//base_2.teamLeaderSign2 = baseInfoNode.get("teamLeaderSign2").asText();
+		base_2_2.teamLeaderSign3 = baseInfoNode.get("teamLeaderSign3").asText();
+		base_2_2.manHourShift3 = baseInfoNode.get("manHourShift3").asInt(0);
+		base_2_2.targetOeePercent = baseInfoNode.get("targetOeePercent").asDouble();
+		base_2_2.planOplTotalOutput = baseInfoNode.get("planOplTotalOutput").asInt();
+		base_2_2.targetOeeTotalOutput = baseInfoNode.get("planOutputCount").asInt();
+		base_2_2.actualOeeTotalOutput = baseInfoNode.get("actualOutputCount").asInt();
 		//save to DB
 		if(!isExistBase_1)
-			HourlyCountBase.save(base_1);
-		else
-			HourlyCountBase.update(base_1);
+			HourlyCountBase.save(base_1_1);
+		else{
+			base_1_1.id = base_1.id;
+			HourlyCountBase.update(base_1_1);
+		}
 		
 		if(!isExistBase_2)
-			HourlyCountBase.save(base_2);
-		else
-			HourlyCountBase.update(base_2);
+			HourlyCountBase.save(base_2_2);
+		else{
+			base_2_2.id = base_2.id;
+			HourlyCountBase.update(base_2_2);
+		}
 		
 		//start to parse detail info
 		JsonNode detailInfoNode = data.path("dataGroup");
@@ -173,9 +182,9 @@ public class HourlyCountController extends Controller {
 			
 			//set properties
 			if (i > 15)
-				detailObj.hourlyCountBase 			= base_2;
+				detailObj.hourlyCountBase 			= base_2_2;
 			else
-				detailObj.hourlyCountBase 			= base_1;
+				detailObj.hourlyCountBase 			= base_1_1;
 			detailObj.productType1 				= productType1;
 			detailObj.productCycle1 			= detailInfoNode.get(i).get("productCycle1").asInt();
 			detailObj.productType2 				= productType2;

@@ -513,10 +513,47 @@
 				</tr>
 				<tr>
 					
-					<td colspan="9">
+					<td colspan="9" rowspan="2">
 						<label>{{i18n_hourlycount_footer_desc}}</label>
 					</td>
+					<td colspan="7">
+						<label>{{i18n_hourlycount_manhour_shift_1}}</label>
+						
+					</td>
 					
+					<td colspan="3" on-click="toShowColumnEditor">
+						<label>{{hourlyCountV0.manHourShift1}}</label>
+						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV0.manHourShift1}}" on-keyup="toValidateEditorOnlyNum"/>
+					</td>
+					<td colspan="4">
+						<label>{{i18n_hourlycount_manhour_shift_2}}</label>
+					</td>
+					
+					<td colspan="4" on-click="toShowColumnEditor">
+						<label>{{hourlyCountV0.manHourShift2}}</label>
+						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV0.manHourShift2}}" on-keyup="toValidateEditorOnlyNum"/>
+					</td>
+					<td colspan="4">
+						<label>{{i18n_hourlycount_manhour_shift_3}}</label>
+					</td>
+					
+					<td colspan="4" on-click="toShowColumnEditor">
+						<label>{{hourlyCountV0.manHourShift3}}</label>
+						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV0.manHourShift3}}" on-keyup="toValidateEditorOnlyNum"/>
+					</td>
+					
+					<td colspan="3" rowspan="2">
+						<label>{{i18n_hourlycount_sign_group}}</label>
+					</td>
+					<td colspan="3" on-click="toShowColumnEditor" rowspan="2">
+						<label>{{hourlyCountV0.groupLeaderSign}}</label>
+						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV0.groupLeaderSign}}" />
+					</td>
+					<td colspan="2" rowspan="2">
+						<label>{{i18n_hourlycount_target_oee}} {{hourlyCountV0.targetOeePercent}} %</label>
+					</td>
+				</tr>
+				<tr>
 					<td colspan="7">
 						<label>{{i18n_hourlycount_sign_shift_1}}</label>
 						
@@ -524,7 +561,7 @@
 					
 					<td colspan="3" on-click="toShowColumnEditor">
 						<label>{{hourlyCountV0.teamLeaderSign1}}</label>
-						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV0.teamLeaderSign1}}" />
+						<input class="field " style="display:none;" on-blur="toValidateManHour1" type="text" value="{{hourlyCountV0.teamLeaderSign1}}" />
 					</td>
 					<td colspan="4">
 						<label>{{i18n_hourlycount_sign_shift_2}}</label>
@@ -532,7 +569,7 @@
 					
 					<td colspan="4" on-click="toShowColumnEditor">
 						<label>{{hourlyCountV0.teamLeaderSign2}}</label>
-						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV0.teamLeaderSign2}}" />
+						<input class="field " style="display:none;" on-blur="toValidateManHour2" type="text" value="{{hourlyCountV0.teamLeaderSign2}}" />
 					</td>
 					<td colspan="4">
 						<label>{{i18n_hourlycount_sign_shift_3}}</label>
@@ -540,17 +577,7 @@
 					
 					<td colspan="4" on-click="toShowColumnEditor">
 						<label>{{hourlyCountV0.teamLeaderSign3}}</label>
-						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV0.teamLeaderSign3}}" />
-					</td>
-					<td colspan="3">
-						<label>{{i18n_hourlycount_sign_group}}</label>
-					</td>
-					<td colspan="3" on-click="toShowColumnEditor">
-						<label>{{hourlyCountV0.groupLeaderSign}}</label>
-						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV0.groupLeaderSign}}" />
-					</td>
-					<td colspan="2">
-						<label>{{i18n_hourlycount_target_oee}} {{hourlyCountV0.targetOeePercent}} %</label>
+						<input class="field " style="display:none;" on-blur="toValidateManHour3" type="text" value="{{hourlyCountV0.teamLeaderSign3}}" />
 					</td>
 				</tr>
 			</table>
