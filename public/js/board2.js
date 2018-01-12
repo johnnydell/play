@@ -10,10 +10,7 @@ var board2 = function(){
 	            data:{root:manager.root,lineName:lineName, lineId:lineId},
 	            template: template,
 	            onrender: function(){
-					manager.loadProperties(this, "common", "../");
-					manager.loadProperties(this, "safety", "../");
-					manager.loadProperties(this, "complain", "../");
-					manager.loadProperties(this, "hourlycount", "../");
+	            	manager.loadProperties(this, "boards", "../");
 				},
 	            oncomplete: function(){}
 	        }); 

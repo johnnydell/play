@@ -9,11 +9,7 @@ var board1 = function(){
 	            el: '.content .maincontent',
 	            data:{root:manager.root,lineName:lineName, lineId:lineId},
 	            template: template,
-	            onrender: function(){
-					manager.loadProperties(this, "board1", "../");
-					manager.loadProperties(this, "common", "../");
-					
-				},
+	            onrender: function(){},
 	            oncomplete: function(){}
 	        }); 
 	        
