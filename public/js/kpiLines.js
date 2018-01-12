@@ -1,4 +1,6 @@
 var productivity = function(){
+	var type = manager.getPV("type");
+	type = (type == '' ? 'safety' : type);
 	var lineSTGdata = [];
 	var lineROGdata = [];
 	var lineRECdata = [];
@@ -22,8 +24,28 @@ var productivity = function(){
 		});
 		
 		ractive.on({
-		   kpiplEvt:function(){
-		     location.href = "kpi.html";
+			gotoKip:function(e){
+				var url = "";
+				var lineId = e.context.id;
+				var lineName = e.context.lineName;
+				switch(type){
+			       case 'safety':
+			    	  url = "";
+			       	  break;
+			       case 'complain':
+			    	   url = "";
+			          break;
+			       case 'scrap':
+			    	  url = "";
+			       	  break;
+			       case 'delivery':
+			    	  url = "";
+			          break; 
+			       case 'productivity':
+			    	  url = manager.root+"/views/tpl/kpi/productivityReport.html?lineName="+lineName;
+			          break; 
+			     }
+		         window.location.href = url;
 		   }
 		})
 	}
@@ -40,9 +62,7 @@ var productivity = function(){
 			data	: '',
 			async   : false,
 			success: function(listdata){
-				console.log(listdata);
 				var lineObj = {id : "", name : ""};
-				
 				for (i = 0; i < listdata.length; i ++){
 					if (listdata[i].lineName.toUpperCase().indexOf("STG") != -1){
 						lineSTGdata.push(listdata[i]);
@@ -56,7 +76,6 @@ var productivity = function(){
 					else {
 						lineFAGdata.push(listdata[i]);
 					}
-					
 				}
 				ractive.set("lineSTGdata", lineSTGdata);
 				ractive.set("lineROGdata", lineROGdata);

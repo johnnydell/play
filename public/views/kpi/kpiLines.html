@@ -35,38 +35,37 @@
 		<div class="fr">
 			<p>			
 				<i class="icon icon-home"></i>
-				<a href="index.html">{{i18n_hourlycount_nav1}}</a>
+				<a href="index.html">{{i18n_kpiLines_nav1}}</a>
 				<font color="#ccc">></font>
-				<a href="../lines.html">{{i18n_hourlycount_nav2}}</a>
+				<a href="../kpi.html">{{i18n_kpiLines_nav2}}</a>
 				<font color="#ccc">></font>
-				
 				<span>{{i18n_kpiLines_title}}</span>
 			</p>
 		</div>
 	</div>
 	<div class="content">
-	   
+	   <!--../tpl/kpi/productivityReport.html?lineName={{lineName}}-->
 		<div class="content-box">
 			<ul>
 				{{#each lineSTGdata}}
-					<li><span>{{uppercase(lineName)}}<a href="../tpl/kpi/productivityReport.html?lineName={{lineName}}"><img src="../../images/kpi.png"/></a></span></li>
+					<li><span>{{uppercase(lineName)}}<a href="javascript:void(0);" on-click="gotoKip"><img src="../../images/kpi.png"/></a></span></li>
 				{{/each}}
 			</ul>
 			<ul >
 				{{#each lineROGdata}}
-					<li><span>{{uppercase(lineName)}}<a href="../tpl/kpi/productivityReport.html?lineName={{lineName}}"><img src="../../images/kpi.png"/></a></span></li>
+					<li><span>{{uppercase(lineName)}}<a href="javascript:void(0);" on-click="gotoKip"><img src="../../images/kpi.png"/></a></span></li>
 				{{/each}}
 				
 			</ul>
 			<ul >
 				{{#each lineRECdata}}
-					<li><span>{{uppercase(lineName)}}<a href="../tpl/kpi/productivityReport.html?lineName={{lineName}}"><img src="../../images/kpi.png"/></a></span></li>
+					<li><span>{{uppercase(lineName)}}<a href="javascript:void(0);" on-click="gotoKip"><img src="../../images/kpi.png"/></a></span></li>
 				{{/each}}
 				
 			</ul>
 			<ul >
 				{{#each lineFAGdata}}
-					<li><span>{{uppercase(lineName)}}<a href="../tpl/kpi/productivityReport.html?lineName={{lineName}}"><img src="../../images/kpi.png"/></a></span></li>
+					<li><span>{{uppercase(lineName)}}<a href="javascript:void(0);" on-click="gotoKip"><img src="../../images/kpi.png"/></a></span></li>
 				{{/each}}
 				
 			</ul>
