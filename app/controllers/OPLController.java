@@ -37,8 +37,7 @@ public class OPLController extends Controller {
 
 	public static Result getListByOPLId(String opl_id){
 	   List<OPLPSS> pssLi = OPLPSS.getListByOPLId(opl_id);
-       String str = JSON.toJSONString(pssLi);
-       return ok(str);
+	   return ok(play.libs.Json.toJson(pssLi));
 	}
 	
 	public static Result addPSS() {

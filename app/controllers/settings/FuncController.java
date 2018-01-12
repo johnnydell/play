@@ -17,8 +17,7 @@ public class FuncController extends Controller {
  
     public static Result getList() {
         List<Func> funcs = Func.getList();
-        String str = JSON.toJSONString(funcs);
-        return ok(str);
+        return ok(play.libs.Json.toJson(funcs));
     }
     
     /**
@@ -28,8 +27,7 @@ public class FuncController extends Controller {
      */
     public static Result getListByModuleId(String moduleId){
     	List<Func> funcs = Func.getListByModuleId(moduleId);
-    	String str = JSON.toJSONString(funcs,SerializerFeature.DisableCircularReferenceDetect);
-        return ok(str);
+        return ok(play.libs.Json.toJson(funcs));
     }
     
     /**
@@ -39,11 +37,7 @@ public class FuncController extends Controller {
      */
     public static Result getListByModuleKey(String moduleKey){
     	List<Func> funcs = Func.getListByModuleKey(moduleKey);
-    	if(funcs == null){
-    		funcs = new ArrayList<Func>();
-    	}
-    	String str = JSON.toJSONString(funcs,SerializerFeature.DisableCircularReferenceDetect);
-        return ok(str);
+        return ok(play.libs.Json.toJson(funcs));
     }
    
     /**

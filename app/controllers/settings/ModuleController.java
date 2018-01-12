@@ -15,8 +15,7 @@ public class ModuleController extends Controller {
     
     public static Result getList(){
     	List<Module> modules = Module.getList();
-        String str = JSON.toJSONString(modules);
-        return ok(str);
+    	return ok(play.libs.Json.toJson(modules));
     }
     
     public static Result getListWithFuncs(){
@@ -26,7 +25,6 @@ public class ModuleController extends Controller {
     			md.funcs = Func.getListByModuleId(md.id);
     		}
     	}
-        String str = JSON.toJSONString(modules);
-        return ok(str);
+    	return ok(play.libs.Json.toJson(modules));
     }
 }
