@@ -15,7 +15,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.avaje.ebean.SqlRow;
 
 import models.HourlyCountBase;
-import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -32,10 +31,55 @@ public class ProductivityController extends Controller {
 		try {
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 			Date endDate = df.parse(yearValue + "-12-31");
+			
+			int endYear = Integer.parseInt(yearValue);
+			int startYear = endYear - 3;
 			//always query the data including 4 years ago.
-			Date startDate = df.parse( (Integer.parseInt(yearValue) - 4) + "-01-01");
+			Date startDate = df.parse( startYear + "-01-01");
+			
 			rows = HourlyCountBase.findYearlyProductivityData(lineName, startDate, endDate);
-			return ok(Json.toJson(rows));
+			
+			List<Integer> years = new ArrayList<Integer>();
+			
+			List<Float> targetTotalList = new ArrayList<Float>();
+			List<Float> actualTotalList = new ArrayList<Float>();
+			
+			for (int i = startYear; i < endYear + 1; i ++){
+				years.add(i);
+				boolean isFound = false;
+				for(SqlRow row : rows){
+					if (Integer.parseInt(row.getString("years")) == i){
+						isFound = true;
+						targetTotalList.add(11.0f);
+						String manHourTotal_1 = row.getString("man_hour_total_1");
+						String manHourTotal_2 = row.getString("man_hour_total_2");
+						String manHourTotal_3 = row.getString("man_hour_total_3");
+						String actualTotalStr = row.getString("actual_Total");
+						int manHourTotal1 = StringUtils.isEmpty(manHourTotal_1) ? 0 : Integer.parseInt(manHourTotal_1);
+						int manHourTotal2 = StringUtils.isEmpty(manHourTotal_2) ? 0 : Integer.parseInt(manHourTotal_2);
+						int manHourTotal3 = StringUtils.isEmpty(manHourTotal_3) ? 0 : Integer.parseInt(manHourTotal_3);
+						int actualTotal = StringUtils.isEmpty(actualTotalStr) ? 0 : Integer.parseInt(actualTotalStr);
+						if ((manHourTotal1 + manHourTotal2 + manHourTotal3) == 0)
+							actualTotalList.add(0.0f);
+						else{
+							float tempValue = (float) Math.round(  actualTotal * 100 / ( manHourTotal1 + manHourTotal2 + manHourTotal3 ) ) / 100; //保留2位小数
+							actualTotalList.add( tempValue );
+						}
+						break;
+					}
+				}
+				if (!isFound){
+					
+					targetTotalList.add(11.0f);
+					actualTotalList.add(0.0f);
+				}
+				
+			}
+			JSONObject json = new JSONObject();
+			json.put("yearList", years);
+			json.put("targetTotal", targetTotalList);
+			json.put("actualTotal", actualTotalList);
+			return ok(json.toJSONString());
 		} catch (ParseException e) {
 			logger.error("" + e);
 			return ok("");
@@ -72,14 +116,14 @@ public class ProductivityController extends Controller {
 					String manHourTotal_2 = row.getString("man_hour_total_2");
 					String manHourTotal_3 = row.getString("man_hour_total_3");
 					String actualTotalStr = row.getString("actual_Total");
+					int manHourTotal1 = StringUtils.isEmpty(manHourTotal_1) ? 0 : Integer.parseInt(manHourTotal_1);
+					int manHourTotal2 = StringUtils.isEmpty(manHourTotal_2) ? 0 : Integer.parseInt(manHourTotal_2);
+					int manHourTotal3 = StringUtils.isEmpty(manHourTotal_3) ? 0 : Integer.parseInt(manHourTotal_3);
 					int actualTotal = StringUtils.isEmpty(actualTotalStr) ? 0 : Integer.parseInt(actualTotalStr);
-					if (actualTotal == 0)
+					if ((manHourTotal1 + manHourTotal2 + manHourTotal3) == 0)
 						actualTotalList.add(0.0f);
 					else{
-						int manHourTotal1 = StringUtils.isEmpty(manHourTotal_1) ? 0 : Integer.parseInt(manHourTotal_1);
-						int manHourTotal2 = StringUtils.isEmpty(manHourTotal_2) ? 0 : Integer.parseInt(manHourTotal_2);
-						int manHourTotal3 = StringUtils.isEmpty(manHourTotal_3) ? 0 : Integer.parseInt(manHourTotal_3);
-						float tempValue = (float) Math.round( ( manHourTotal1 + manHourTotal2 + manHourTotal3 ) * 100 / actualTotal ) / 100; //保留2位小数
+						float tempValue = (float) Math.round(  actualTotal * 100 / ( manHourTotal1 + manHourTotal2 + manHourTotal3 ) ) / 100; //保留2位小数
 						actualTotalList.add( tempValue );
 					}
 					break;
@@ -131,14 +175,14 @@ public class ProductivityController extends Controller {
 					String manHourTotal_2 = row.getString("man_hour_total_2");
 					String manHourTotal_3 = row.getString("man_hour_total_3");
 					String actualTotalStr = row.getString("actual_Total");
+					int manHourTotal1 = StringUtils.isEmpty(manHourTotal_1) ? 0 : Integer.parseInt(manHourTotal_1);
+					int manHourTotal2 = StringUtils.isEmpty(manHourTotal_2) ? 0 : Integer.parseInt(manHourTotal_2);
+					int manHourTotal3 = StringUtils.isEmpty(manHourTotal_3) ? 0 : Integer.parseInt(manHourTotal_3);
 					int actualTotal = StringUtils.isEmpty(actualTotalStr) ? 0 : Integer.parseInt(actualTotalStr);
-					if (actualTotal == 0)
+					if ((manHourTotal1 + manHourTotal2 + manHourTotal3) == 0)
 						actualCountList.add(0.0f);
 					else{
-						int manHourTotal1 = StringUtils.isEmpty(manHourTotal_1) ? 0 : Integer.parseInt(manHourTotal_1);
-						int manHourTotal2 = StringUtils.isEmpty(manHourTotal_2) ? 0 : Integer.parseInt(manHourTotal_2);
-						int manHourTotal3 = StringUtils.isEmpty(manHourTotal_3) ? 0 : Integer.parseInt(manHourTotal_3);
-						float tempValue = (float) Math.round( ( manHourTotal1 + manHourTotal2 + manHourTotal3 ) * 100 / actualTotal ) / 100; //保留2位小数
+						float tempValue = (float) Math.round(  actualTotal * 100 / ( manHourTotal1 + manHourTotal2 + manHourTotal3 ) ) / 100; //保留2位小数
 						actualCountList.add( tempValue );
 					}
 					break;

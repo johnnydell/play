@@ -29,11 +29,22 @@ var productivityChart3 = function(){
 	        				targetList = null;
 	        				actualList = null;
 	        				actualData = [];
+	        				
 	        				dayList = listdata.dayList;
 	        				targetList = listdata.targetList;
 	        				actualList = listdata.actualList;
 	        				
-	        				
+	        				for(i = 0; i < actualList.length; i ++){
+	        					var tmpData = {};
+	        					tmpData.y = actualList[i];
+	        					var marker = {};
+	        					if (tmpData.y > targetList[i])
+	        						tmpData.color = 'green';
+	        					else
+	        						tmpData.color = 'red';
+	        					
+	        					actualData.push(tmpData);
+	        				}
 	        				
 	        				//plot to chart
 	        				bindChart();
@@ -88,25 +99,81 @@ var productivityChart3 = function(){
 		                stacking: 'normal'
 		            }
 		        },
-		        series: [ {
-		            type: 'column',
-		            name: $.i18n.map['i18n_actual'],
-		            data: actualList,
-		            color:'#3C3C4D'
-		        },{
-		            type: 'spline',
-		            name: $.i18n.map['i18n_target'],
-		            color:'red',
-		            data: targetList,
-		            marker: {
-		                enabled: false
-		            }
-		        }],
+		        series: [{
+			        type: 'column',
+			        name: $.i18n.map['i18n_actual'],
+			        data: actualData,
+			        color:'#3C3C4D'
+			    }, {
+			        type: 'spline',
+			        name: $.i18n.map['i18n_target'],
+			        color:'red',
+			        data: targetList,
+			        marker: {
+			            enabled: false
+			        }
+			    }],
 		        credits:{
 		            enabled:false
 		        }
 		    });	
 	}	
+	/*function bindChart(){
+		$('.bt .chart .chart').highcharts({
+			 title: {
+		            text: ''
+		        },
+		        legend: {
+		            enabled: false
+		        },
+		        xAxis: {
+		            categories: dayList
+		        },
+		        yAxis: {
+		            title: {
+		                text: $.i18n.map['i18n_productivity_daily'],
+		                margin:65,
+		                style: {
+		                	fontSize: '15px',
+		                	fontWeight:'bold',
+		                	color:'black'
+		                }
+		                	
+		            },
+		            tickPositions: [0,2,4,6,8,10,12], // 指定竖轴坐标点的值
+		            labels: {
+		                formatter: function() {
+		                    return (this.value * 1).toFixed(2);
+		                },
+		            }	
+		        },
+		        plotOptions: {
+		            series: {
+		                stacking: 'normal'
+		            }
+		        },
+		        series: [{
+			        type: 'column',
+			        name: 'OEE - actual',
+			        data: [{
+			        	y:10, color:'red'},
+			        	{y:11, color:'green'}],
+			        
+			       
+			    }, {
+			        type: 'spline',
+			        name: 'OEE - target',
+			        color:'red',
+			        data: targetList,
+			        marker: {
+			            enabled: false
+			        }
+			    }],
+		        credits:{
+		            enabled:false
+		        }
+		    });	
+	}*/
 		
 	return {
 		init:init
