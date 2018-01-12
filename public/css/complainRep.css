@@ -1,0 +1,142 @@
+.complainRep .header {
+	text-align: left;
+	background-color: #003366;
+	height: 74px;
+}
+
+.complainRep .header .title {
+	width: 50%;
+	height: 100%;
+	float: left;
+}
+
+.complainRep .header .title  span {
+	font-size: 23px;
+	margin-left: 20px;
+	font-weight: 700;
+	color: white;
+}
+
+.complainRep .header .info {
+	width: 50%;
+	height: 100%;
+	float: left;
+}
+
+.complainRep .header .info .lb {
+	width: 20%;
+	height: 100%;
+	float: left;
+}
+
+.complainRep .header .info .lb span {
+	width: 100%;
+	height: 50%;
+	float: left;
+	font-size: 20px;
+	font-weight: bold;
+	color: white;
+	text-align:right;
+}
+
+.complainRep .header .info .val {
+	width: 40%;
+	height: 100%;
+	float: left;
+}
+
+.complainRep .header .info .val span {
+	width: 100%;
+	height: 50%;
+	float: left;
+	background-color: white;
+	text-align: center;
+	font-size: 23px;
+	font-weight: 700;
+	color: #000000;
+	border-bottom: #000000 1px solid;
+}
+
+.complainRep .header .fst select,.complainRep .header .fst label{
+	width: 100%;	
+	text-align: center;
+	height: 35px;
+	vertical-align: top;
+}
+
+.complainRep .header .info .fst {
+	border-top: #000000 1px solid;
+}
+
+.complainRep .header .fst select{
+	border: 1px solid #0080ff;
+}
+
+.complainRep .header .dt select{
+	border: 1px solid #0080ff;	
+}
+
+.complainRep p {
+	margin: 0;
+	padding: 0;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.complainRep .footer {
+	text-align: left;
+	background-color: #c0c0c0;
+	vertical-align:middle;
+    height: 70px;
+}
+
+.complainRep .footer .lf {	
+    width: 80%;
+    float: left;
+}
+
+.complainRep .footer .rt {	
+    float: left;
+    width: 20%;
+    height: 100%;
+    padding-right:15px;
+    padding-top: 15px;
+}	
+
+.complainRep .footer p {
+	margin-left: 20px;
+	color: #000;
+	font-weight: normal;
+	font-size: 12px;
+}
+
+.complainRep .footer .title {
+	font-weight: normal;
+	font-size: 16px;
+	margin-bottom: 3px;
+}
+
+.complainRep .cxt .top {
+	height:350px;
+}
+
+.complainRep .cxt .bt {
+	height:560px;
+	padding: 20px;
+}
+
+.complainRep .top .lft,.complainRep .top .rgt {
+	float: left;
+	height:100%;
+	padding: 20px;	
+}
+
+.complainRep .top .lft,.complainRep .top .rgt {
+	width:50%;
+}
+
+.complainRep .dt select,.complainRep .dt label {
+    width: 50%;
+    float: left;
+    text-align: center;
+}
