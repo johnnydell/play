@@ -47,6 +47,7 @@
 	   <!--../tpl/kpi/productivityReport.html?lineName={{lineName}}-->
 		<div class="content-box">
 			<ul>
+				<li><span>{{i18n_kpi_summary}}<a href="javascript:void(0);" on-click="gotoKipSummary"><img src="../../images/kpi.png"/></a></span></li>
 				{{#each lineSTGdata}}
 					<li><span>{{uppercase(lineName)}}<a href="javascript:void(0);" on-click="gotoKip"><img src="../../images/kpi.png"/></a></span></li>
 				{{/each}}

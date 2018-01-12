@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>KPI - Productivity</title>
+		<title>KPI - Summary Of Productivity</title>
 		<link rel="stylesheet" type="text/css" href="../../../css/reset.css"/>
 		<link rel="stylesheet" type="text/css" href="../../../css/common.css"/>
 		<link rel="stylesheet" type="text/css" href="../../../css/login.css"/>
@@ -31,13 +31,13 @@
 	<script src="../../../js/lib/highcharts-more.js"></script>
 	<script src="../../../js/lib/grid-light.js"></script>
 	<script src="../../../js/lib/manager.js"></script>
-	<script src="../../../js/productivityReport.js"></script>
-	<script src="../../../js/productivityChart1.js"></script>
-	<script src="../../../js/productivityChart2.js"></script>
-	<script src="../../../js/productivityChart3.js"></script>
+	<script src="../../../js/prodSummaryReport.js"></script>
+	<script src="../../../js/prodSummaryChart1.js"></script>
+	<script src="../../../js/prodSummaryChart2.js"></script>
+	<script src="../../../js/prodSummaryChart3.js"></script>
 	<script id="main-template" type="text/active">
 	<div class="position _clear title">
-		<h3>{{i18n_productivity_title}}</h3>
+		<h3>{{i18n_productivity_summary_title}}</h3>
 		<div class="fr">
 			<p>
 				<i class="icon icon-home"></i>
@@ -45,9 +45,8 @@
 				<font color="#ccc">></font>
 				<a href="../../kpi.html">{{i18n_hourlycount_nav2}}</a>
 				<font color="#ccc">></font>
-				<a href="../../kpi/kpiLines.html?type=productivity">{{i18n_productivity_title}}</a>
-				<font color="#ccc">></font>
-				<span>{{lineName}}</span>
+				<a href="../../kpi/productivity.html">{{i18n_productivity_summary_title}}</a>
+				
 			</p>
 		</div>
 	</div>

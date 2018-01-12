@@ -46,8 +46,31 @@ var productivity = function(){
 			          break; 
 			     }
 		         window.location.href = url;
-		   }
-		})
+		   },
+		   gotoKipSummary:function(e){
+				var url = "";
+				var lineId = e.context.id;
+				var lineName = e.context.lineName;
+				switch(type){
+			       case 'safety':
+			    	  url = "";
+			       	  break;
+			       case 'complain':
+			    	  url = manager.root+"/views/kpi/complainRep.html?lineId="+lineId+"&lineName="+lineName;
+			          break;
+			       case 'scrap':
+			    	  url = "";
+			       	  break;
+			       case 'delivery':
+			    	  url = "";
+			          break; 
+			       case 'productivity':
+			    	  url = manager.root+"/views/tpl/kpi/prodSummaryReport.html";
+			          break; 
+			     }
+		         window.location.href = url;
+		   },
+		});
 	}
 	
 	//取得默认结构数据

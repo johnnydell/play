@@ -51,13 +51,13 @@ POST /edashboard/user/saveUser               			controllers.settings.UserControl
 POST /edashboard/user/deleteUser                        controllers.settings.UserController.deleteUser()
 POST /edashboard/user/saveUserRole               		controllers.settings.UserController.saveUserRole()
 POST /edashboard/user/pwdChange               		    controllers.settings.UserController.pwdChange()
-GET  /edashboard/user/getUserRoleFuncsByUserId              controllers.settings.UserController.getUserRoleFuncsByUserId(userId:String)
+GET  /edashboard/user/getUserRoleFuncsByUserId          controllers.settings.UserController.getUserRoleFuncsByUserId(userId:String)
 
 #Setting Product Type
 GET  /edashboard/productType/getList               		controllers.settings.ProductTypeController.getList()
 POST /edashboard/productType/saveType               	controllers.settings.ProductTypeController.saveType()
-POST /edashboard/productType/deleteType                controllers.settings.ProductTypeController.deleteType()
-GET  /edashboard/productType/getAllList               		controllers.settings.ProductTypeController.getAllList()
+POST /edashboard/productType/deleteType                	controllers.settings.ProductTypeController.deleteType()
+GET  /edashboard/productType/getAllList               	controllers.settings.ProductTypeController.getAllList()
 
 #Setting HC Config
 GET  /edashboard/hcConfig/getHCInfo              		controllers.settings.HCConfigController.getHCInfo(line_id:String,curr_date:String)
@@ -84,13 +84,13 @@ POST /edashboard/metAttd/saveMeetingAttendance          controllers.MetAttdContr
 POST /edashboard/metAttd/deleteMeetingAttendanceDetails controllers.MetAttdController.deleteMeetingAttendanceDetails()
 
 # UPLOADER
-POST /edashboard/views/upload/uploadFile/:fileType 		controllers.UploaderController.uploadFile(fileType : String)
+POST /edashboard/views/upload/uploadFile/:fileType 					controllers.UploaderController.uploadFile(fileType : String)
 POST /edashboard/views/staticpage/viewdoc/:fileName/:oplLinkName 	controllers.StaticPageController.viewFileByName(fileName : String, oplLinkName : String)
 
 # Hourly Count
 POST /edashboard/views/board/hourlycount/:LineName/:productDate		controllers.HourlyCountController.viewHourlyCountByLineName(LineName : String, productDate : String)
 GET  /edashboard/views/board/hourlycount/oeeLossChildChildName		controllers.HourlyCountController.getoeeLossChildChildName(oeeLossChildName:String)
-POST /edashboard/views/board/hourlycount/saveResult		controllers.HourlyCountController.saveHourlyCount()
+POST /edashboard/views/board/hourlycount/saveResult					controllers.HourlyCountController.saveHourlyCount()
 
 # Report - OEE
 POST /edashboard/report/oee/yearlyOeeChart/:lineName    controllers.report.OeeController.getYearlyOeeReport(lineName : String)
@@ -154,8 +154,13 @@ POST /edashboard/opl2/deleteOPL                         controllers.board2.OPLCo
 ##############################
 # Productivity - Report
 GET  /edashboard/report/productivity/yearlyProductivityChart    controllers.report.ProductivityController.getYearlyProductivityReport(lineName : String,  yearValue:String)
-GET  /edashboard/report/productivity/dailyProductivityChart		controllers.report.ProductivityController.getDailyProductivityReport(lineName : String,  yearValue:String,  monthValue:String,  dayCount:String)
 GET  /edashboard/report/productivity/monthlyProductivityChart	controllers.report.ProductivityController.getMonthlyProductivityReport(lineName : String,  yearValue:String)
+GET  /edashboard/report/productivity/dailyProductivityChart		controllers.report.ProductivityController.getDailyProductivityReport(lineName : String,  yearValue:String,  monthValue:String,  dayCount:String)
+
+# Productivity Summary - Report
+GET  /edashboard/report/productivity/yearlyProdSummaryChart    	controllers.report.ProductivityController.getYearlyProdSummaryReport(yearValue:String)
+GET  /edashboard/report/productivity/monthlyProdSummaryChart	controllers.report.ProductivityController.getMonthlyProdSummaryReport(yearValue:String)
+GET  /edashboard/report/productivity/dailyProdSummaryChart		controllers.report.ProductivityController.getDailyProdSummaryReport(yearValue:String,  monthValue:String,  dayCount:String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /edashboard/*file               				controllers.Assets.at(path="/public", file)

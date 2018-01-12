@@ -157,6 +157,54 @@ public class HourlyCountBase extends Model {
 		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("lineName", name).setParameter("startDt", startDt).setParameter("endDt", endDt).findList();
 		return rows;
 	}
+	/*
+	public static List<SqlRow> findYearlyProdSummaryData(Date startDt, Date endDt)  {
+		String sql = "select l.line_name, tmp.years, tmp.man_hour_total_1, tmp.man_hour_total_2, tmp.man_hour_total_3, tmp.actual_total "
+				+ " from edb_line l left join "
+				+ "(select date_format(b.product_date,'%Y') years,  sum(b.man_Hour_Shift_1) as man_hour_total_1, sum(b.man_Hour_Shift_2) as man_hour_total_2, sum(b.man_Hour_Shift_3) as man_hour_total_3, "
+				+ " sum(b.actual_oee_total_output) as actual_total , l.id from edb_hourly_count_base b left join edb_line l  on b.product_line_id = l.id  "
+				+ " where b.product_date between :startDt and :endDt  group by years, id  ) as tmp " 
+				+ " on l.id = tmp.id order by tmp.years, l.line_name;";
+		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("startDt", startDt).setParameter("endDt", endDt).findList();
+		return rows;
+	}
+	*/
+	/**/
+	public static List<SqlRow> findYearlyProdSummaryData(Date startDt, Date endDt)  {
+		String sql = "select date_format(b.product_date,'%Y') years, l.line_name, " 
+				+ " sum(b.man_Hour_Shift_1) as man_hour_total_1, sum(b.man_Hour_Shift_2) as man_hour_total_2, sum(b.man_Hour_Shift_3) as man_hour_total_3, "
+				+ " sum(b.actual_oee_total_output) as actual_total "
+				+ " from edb_hourly_count_base b, edb_line l "
+				+ " where b.product_line_id = l.id "
+				+"  and b.product_date between :startDt and :endDt "
+				+ " group by years,line_name order by years";
+		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("startDt", startDt).setParameter("endDt", endDt).findList();
+		return rows;
+	}
+	
+	public static List<SqlRow> findMonthlyProdSummaryData(Date startDt, Date endDt)  {
+		String sql = "select date_format(b.product_date,'%m') months, l.line_name, " 
+				+ " sum(b.man_Hour_Shift_1) as man_hour_total_1, sum(b.man_Hour_Shift_2) as man_hour_total_2, sum(b.man_Hour_Shift_3) as man_hour_total_3, "
+				+ " sum(b.actual_oee_total_output) as actual_total "
+				+ " from edb_hourly_count_base b, edb_line l "
+				+ " where b.product_line_id = l.id "
+				+"  and b.product_date between :startDt and :endDt "
+				+ " group by months,line_name order by months";
+		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("startDt", startDt).setParameter("endDt", endDt).findList();
+		return rows;
+	}
+	
+	public static List<SqlRow> findDailyProdSummaryData(Date startDt, Date endDt)  {
+		String sql = "select date_format(b.product_date,'%d') days, l.line_name, " 
+				+ " sum(b.man_Hour_Shift_1) as man_hour_total_1, sum(b.man_Hour_Shift_2) as man_hour_total_2, sum(b.man_Hour_Shift_3) as man_hour_total_3, "
+				+ " sum(b.actual_oee_total_output) as actual_total "
+				+ " from edb_hourly_count_base b, edb_line l "
+				+ " where b.product_line_id = l.id "
+				+"  and b.product_date between :startDt and :endDt "
+				+ " group by days,line_name order by days";
+		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("startDt", startDt).setParameter("endDt", endDt).findList();
+		return rows;
+	}
 
 	public static void save(HourlyCountBase base) {
 		Ebean.save(base);
