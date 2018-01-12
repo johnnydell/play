@@ -1,7 +1,8 @@
 var productivityChart1 = function(){
 	var years = []; 
-	var targetTotalList = []; 
-	var actualTotalList = [];
+	var targetList = []; 
+	var actualList = [];
+	var actualData = [];
 	function init(lineName, curYear){
 	   //渲染chart1部分
 	   $.get(manager.root+"/views/tpl/kpi/productivityChart1.html", function (template) {
@@ -22,31 +23,27 @@ var productivityChart1 = function(){
 	        			data:{lineName:lineName,yearValue:curYear},
 	        			success: function(listdata)
 	        			{
-	        				years = [];
-	        				targetTotalList = []; 
-	        				actualTotalList = [];
-	        				for(i = 0; i < listdata.length; i ++){
-	        					years.push(listdata[i].years);
+	        				actualData 		= [];
+        					years 			= listdata.yearList;
+	        				targetList 		= listdata.targetTotal;
+	        				actualList 		= listdata.actualTotal;
+	        				for(i = 0; i < actualList.length; i ++){
+	        					var tmpData = {};
+	        					tmpData.y = actualList[i];
+	        					var marker = {};
+	        					if (tmpData.y > targetList[i])
+	        						tmpData.color = 'green';
+	        					else
+	        						tmpData.color = 'red';
 	        					
-	        					//var oee_percent = (listdata[i].target_oee_percent * 1).toFixed(1);
-	        					targetTotalList.push(11.0);
-	        					//calculate actual OEE percentage
-	        					var manhourTotal_1 = listdata[i].man_hour_total_1;
-	        					var manhourTotal_2 = listdata[i].man_hour_total_2;
-	        					var manhourTotal_3 = listdata[i].man_hour_total_3;
-	        					var actualTotal = listdata[i].actual_total;
-	        					if ( manager.isNull(actualTotal) ||  parseInt(actualTotal) == 0 )
-	        						actualTotalList.push(0);
-	        					else{
-	        						var manhourTotal = ( manager.isNull(manhourTotal_1) ? 0 : parseInt(manhourTotal_1) ) 
-	        											+ ( manager.isNull(manhourTotal_2) ? 0 : parseInt(manhourTotal_2) )
-	        											+ ( manager.isNull(manhourTotal_3) ? 0 : parseInt(manhourTotal_3) );
-	        						actualTotalList.push( parseFloat( ( manhourTotal  / actualTotal * 1 ).toFixed(2) ) );
-	        					}
+	        					actualData.push(tmpData);
 	        				}
+	        				//plot to chart
 	        				bindChart();
-	        				ractive.set("targetTotal", targetTotalList);
-	        				ractive.set("actualTotal", actualTotalList);
+	        				
+	        				//plot to table
+	        				ractive.set("targetTotal", targetList);
+	        				ractive.set("actualTotal", actualList);
 	        			}
 	            	});
 	           		
@@ -91,13 +88,13 @@ var productivityChart1 = function(){
 	        series: [ {
 	            type: 'column',
 	            name: $.i18n.map['i18n_actual'],
-	            data: actualTotalList,
+	            data: actualData,
 	            color:'#3C3C4D'
 	        },{
 	            type: 'spline',
 	            name: $.i18n.map['i18n_target'],
 	            color:'red',
-	            data: targetTotalList,
+	            data: targetList,
 	            marker: {
 	                enabled: false
 	            }
