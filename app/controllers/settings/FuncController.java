@@ -39,6 +39,9 @@ public class FuncController extends Controller {
      */
     public static Result getListByModuleKey(String moduleKey){
     	List<Func> funcs = Func.getListByModuleKey(moduleKey);
+    	if(funcs == null){
+    		funcs = new ArrayList<Func>();
+    	}
     	String str = JSON.toJSONString(funcs,SerializerFeature.DisableCircularReferenceDetect);
         return ok(str);
     }

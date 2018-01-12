@@ -5,5 +5,6 @@ set PATH=%JAVA_HOME%/bin;%JAVA_HOME%/jre/bin;%PLAY_HOME%;
 set CLASSPATH=.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar; 
 echo %PATH%
 java -version
-play "run 8090"
+del RUNNING_PID
+play "start -Dhttp.port=8080"
 pause 

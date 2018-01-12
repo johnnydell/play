@@ -9,13 +9,12 @@ var productivity = function(){
 			el: ".container",
 			template: "#main-template",
 			data: {
-				uppercase		: function(val){
+				uppercase : function(val){
 					return val.toUpperCase();
 				}
 			},
 			onrender: function(){
-				manager.loadProperties(this, "productivity", "../../");
-				manager.loadProperties(this, "hourlycount", "../../");
+				manager.loadProperties(this, "kpiLines", "../../");
 			},
 			oncomplete: function(){
 				initLineData();
