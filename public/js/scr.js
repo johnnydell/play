@@ -68,9 +68,7 @@ var scr = function(){
 				$(e.node).hide().prev().show();
 			},
 			changeLine:function(e){
-				//console.log("linename = " + $(e.node).val());
 				lineName = $(e.node).val();
-				console.log("linename = " + lineName);
 				getProductInfo();
 				this.set("lineName", lineName);
 			},

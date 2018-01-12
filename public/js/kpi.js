@@ -8,7 +8,6 @@ var kpi = function(){
 				manager.loadProperties(this, "kpi", "../");
 			},
 			oncomplete: function(){
-				console.log("sdfsdf");
 			}
 		});
 		

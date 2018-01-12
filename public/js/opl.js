@@ -60,7 +60,6 @@ var opl = function(){
 				refreshOPL(ractive);
 			},
 			toShowStatusSelect:function(e){
-				console.log("asdfads");
 				$(e.node).hide().next().show().focus();
 			},
 			toHideStatusSelect:function(e){

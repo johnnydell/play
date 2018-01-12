@@ -48,7 +48,6 @@ var hourlycount = function(){
 				      
 				      //refresh hourly count data table
 				      onClose:function(dateText, inst){
-				    	  console.log("selected date:" + dateText);
 				    	  dateTodayStr = dateText;
 				    	  queryHourlyCount(lineName, dateText);
 				    	  

@@ -8,7 +8,6 @@ var scldetails = function(){
 				manager.loadProperties(this, "scldetails", "../");
 			},
 			oncomplete: function(){
-				console.log("sdfsdf");
 			}
 		});
 	}
