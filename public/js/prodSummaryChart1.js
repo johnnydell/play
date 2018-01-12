@@ -1,8 +1,6 @@
 var prodSummaryChart1 = function(){
 	var years = []; 
-	var targetList = []; 
-	var actualList = [];
-	var actualData = [];
+	var _dataSource = [];
 	function init(curYear){
 	   //渲染chart1部分
 	   $.get(manager.root+"/views/tpl/kpi/prodSummaryChart1.html", function (template) {
@@ -13,9 +11,11 @@ var prodSummaryChart1 = function(){
 	            onrender: function(){
 					manager.loadProperties(this, "productivity", "../../../");
 					manager.loadProperties(this, "common", "../../../");
+					bindChart();
 				},
 	            oncomplete: function(){
 	            	/**/
+	            	
 	            	$.ajax({
 	        			url		: manager.root + '/report/productivity/yearlyProdSummaryChart',
 	        			type	: 'GET',
@@ -23,40 +23,23 @@ var prodSummaryChart1 = function(){
 	        			data:{yearValue:curYear},
 	        			success: function(listdata)
 	        			{
-	        				
+	        				console.log(listdata);
+	        				var _dataSource = [];
+	        				years = listdata.yearList;
 	        				dataList = listdata.dataList;
-	        				console.log(dataList);
-	        				var serials;
+	        				var brand_chart = $('.top .lft .chart .chart').highcharts();
 	        				for(i = 0; i < dataList.length; i ++){
-	        					var dataTmp = [];
-	        					for (j = 0; j < dataList[i].length; j ++){
-	        						
-	        						var _tmp = {};
-	        						_tmp.type='column';
-	        						_tmp.name=dataList[i][j].lineName;
-	        						var data = {};
-	        						data.y = dataList[i][j].actualTotal;
-	        						_tmp.data = data;
-	        						dataTmp.push(_tmp);
+	        					var _tmp = {};
+	        					_tmp.type = 'column';
+	        					var _datas = [];
+	        					for(j = 0; j < dataList[i].actualdata.length; j ++){
+	        						_datas.push(parseFloat(dataList[i].actualdata[j]));
 	        					}
+	        					_tmp.data = _datas;
+	        					_tmp.name = dataList[i].lineName;
+	        					brand_chart.addSeries(_tmp);
 	        				}
-	        				/*actualData 		= [];
-        					years 			= listdata.yearList;
-	        				targetList 		= listdata.targetTotal;
-	        				actualList 		= listdata.actualTotal;
-	        				for(i = 0; i < actualList.length; i ++){
-	        					var tmpData = {};
-	        					tmpData.y = actualList[i];
-	        					var marker = {};
-	        					if (tmpData.y > targetList[i])
-	        						tmpData.color = 'green';
-	        					else
-	        						tmpData.color = 'red';
-	        					
-	        					actualData.push(tmpData);
-	        				}
-	        				//plot to chart
-	        				bindChart();*/
+	        				brand_chart.addSeries({name:'target',type:'spline',data:[0.5,0.5,0.5,0.5],color:'red'});
 	        				
 	        				//plot to table
 	        				ractive.set("dataList", dataList);
@@ -72,54 +55,39 @@ var prodSummaryChart1 = function(){
 	function bindChart(){
 		$('.top .lft .chart .chart').highcharts({
 			 title: {
-	            text: ''
-	        },
-	        legend: {
-	            enabled: false
-	        },
-	        xAxis: {
-	            categories: years
-	        },
-	        yAxis: {
-	            title: {
-	                text: $.i18n.map['i18n_productivity_yearly'],
-	                margin:65,
-	                style: {
-	                	fontSize: '15px',
-	                	fontWeight:'bold',
-	                	color:'black'
-	                }
-	            },
-	            tickPositions: [0, 2,  4,  6,  8,  10, 12], // 指定竖轴坐标点的值
-	            labels: {
-	                formatter: function() {
-	                    return (this.value * 1).toFixed(2);
-	                },
-	            }	
-	        },
-	        plotOptions: {
-	            series: {
-	                stacking: 'normal'
-	            }
-	        },
-	        series: [ {
-	            type: 'column',
-	            name: $.i18n.map['i18n_actual'],
-	            data: actualData,
-	            color:'#3C3C4D'
-	        },{
-	            type: 'spline',
-	            name: $.i18n.map['i18n_target'],
-	            color:'red',
-	            data: targetList,
-	            marker: {
-	                enabled: false
-	            }
-	        }],
-	        credits:{
-	            enabled:false
-	        }
-	    });	
+		            text: ''
+		        },
+		        legend: {
+		        	layout: 'vertical',
+		            align: 'right',
+		            verticalAlign: 'middle',
+		            floating: false,
+		            symbolRadius: 0
+		        },
+		        xAxis: {
+		            categories: years
+		        },
+		        yAxis: {
+		            title: {
+		                text: ''
+		            },
+		            tickPositions: [0,0.1,0.2,0.3,0.5,0.9], // 指定竖轴坐标点的值
+		            labels: {
+		                formatter: function() {
+		                    return (this.value * 1).toFixed(2);
+		                },
+		            }	
+		        },
+		        plotOptions: {
+		            series: {
+		                stacking: 'normal'
+		            }
+		        },
+		        series: [],
+		        credits:{
+		            enabled:false
+		        }
+		    });	
 	}
 	
 		

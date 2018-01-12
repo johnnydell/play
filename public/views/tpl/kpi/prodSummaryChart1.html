@@ -4,14 +4,20 @@
    <table>
   	
   		
-  			{{#each dataList[0]}}
+  			{{#each dataList}}
   			<tr>
   				<td>{{lineName}}</td>
-  				<td>{{actualTotal}}</td>
-  				<td>{{actualTotal}}</td>
+  				{{#each actualdata:idx}}
+  				<td>{{actualdata[idx]}}</td>
+  				{{/each}}
   			</tr>
   			{{/each}}
-  		
+  			<tr>
+  				<td>{{i18n_target}}</td>
+  				{{#each dataList[0].targetdata:idx}}
+  				<td>{{dataList[0].targetdata[idx]}}</td>
+  				{{/each}}
+  			</tr>
   	
 	</table>
 </div>

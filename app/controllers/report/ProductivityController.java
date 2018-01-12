@@ -225,17 +225,15 @@ public class ProductivityController extends Controller {
 			
 			List<Integer> years = new ArrayList<Integer>();
 			
-			List<List<JSONObject>> totalList = new ArrayList<List<JSONObject>>();
-			
 			List<JSONObject> objs = new ArrayList<JSONObject>();
 			for (int i = startYear; i < endYear + 1; i ++){
-				
+				years.add(i);
 				for(ProductLine line : lines){
 					JSONObject obj = new JSONObject();
 					obj.put("years", i);
 					obj.put("lineName", line.lineName);
-					obj.put("targetTotal", 11.0f);
-					obj.put("actualTotal", 0.0f);
+					obj.put("targetTotal", 11.0F);
+					obj.put("actualTotal", 0.0F);
 					objs.add(obj);
 				}
 			}
@@ -251,20 +249,19 @@ public class ProductivityController extends Controller {
 				int manHourTotal3 = StringUtils.isEmpty(manHourTotal_3) ? 0 : Integer.parseInt(manHourTotal_3);
 				int actualTotal = StringUtils.isEmpty(actualTotalStr) ? 0 : Integer.parseInt(actualTotalStr);
 				
-				float actualPercent = 0.0f;
+				float actualPercent = 0.0F;
 				if ((manHourTotal1 + manHourTotal2 + manHourTotal3) > 0)
 					actualPercent = (float) Math.round(  actualTotal * 100 / ( manHourTotal1 + manHourTotal2 + manHourTotal3 ) ) / 100; //保留2位小数
 				
 				for (JSONObject obj : objs){
 					if (obj.get("years").toString().equals(year) && obj.get("lineName").equals(curLineName)){
-						
 						obj.put("actualTotal", actualPercent);
 						break;
 					}
 				}
 			}
 			
-			for (int i = startYear; i < endYear + 1; i ++){
+			/*for (int i = startYear; i < endYear + 1; i ++){
 				years.add(i);
 				List<JSONObject> tmpList = new ArrayList<JSONObject>();
 				
@@ -275,10 +272,51 @@ public class ProductivityController extends Controller {
 				}
 				totalList.add(tmpList);
 			}
+			*/
+			
+			List<JSONObject> tmpList = new ArrayList<JSONObject>();
+			for (JSONObject obj : objs){
+				String lineName = obj.get("lineName").toString();
+				if (tmpList.size() == 0){
+					JSONObject tmp_1 = new JSONObject();
+					List<Float> listActual = new ArrayList<Float>();
+					List<Float> listTarget = new ArrayList<Float>();
+					listActual.add(obj.getFloat("actualTotal"));
+					listTarget.add(obj.getFloat("targetTotal"));
+					tmp_1.put("lineName", lineName);
+					tmp_1.put("actualdata", listActual);
+					tmp_1.put("targetdata", listTarget);
+					tmpList.add(tmp_1);
+				}
+				else
+				{
+					boolean isFound = false;
+					for(JSONObject tmp : tmpList){
+						if (lineName.equals(tmp.get("lineName").toString())){
+							((List<Float>)(tmp.get("actualdata"))).add(obj.getFloat("actualTotal"));
+							((List<Float>)(tmp.get("targetdata"))).add(obj.getFloat("targetTotal"));
+							isFound = true;
+							break;
+						}
+						
+					}
+					if(!isFound){
+						List<Float> listActual = new ArrayList<Float>();
+						List<Float> listTarget = new ArrayList<Float>();
+						JSONObject tmp_2 = new JSONObject();
+						listActual.add(obj.getFloat("actualTotal"));
+						listTarget.add(obj.getFloat("targetTotal"));
+						tmp_2.put("lineName", lineName);
+						tmp_2.put("actualdata", listActual);
+						tmp_2.put("targetdata", listTarget);
+						tmpList.add(tmp_2);
+					}
+				}
+			}
 			
 			JSONObject json = new JSONObject();
 			json.put("yearList", years);
-			json.put("dataList", totalList);
+			json.put("dataList", tmpList);
 			//json.put("actualTotal", actualTotalList);
 			
 			return ok(json.toJSONString());
@@ -402,4 +440,58 @@ public class ProductivityController extends Controller {
 		json.put("actualList", actualCountList);
 		return ok(json.toJSONString());
 	}
+	
+	/*public static void main(String[] args) {
+		List<JSONObject> objs = new ArrayList<JSONObject>();
+		for (int i = 0 ;i < 6; i ++){
+			JSONObject obj = new JSONObject();
+			obj.put("lineName", "FAG" + i);
+			obj.put("value", i);
+			objs.add(obj);
+		}
+		
+		for (int i = 0 ;i < 6; i ++){
+			JSONObject obj = new JSONObject();
+			obj.put("lineName", "FAG" + i);
+			obj.put("value", (i + 1) * 10);
+			objs.add(obj);
+		}
+		
+		List<JSONObject> tmpList = new ArrayList<JSONObject>();
+		for(JSONObject obj : objs){
+			String lineName = obj.get("lineName").toString();
+			if (tmpList.isEmpty()){
+				JSONObject tmp_1 = new JSONObject();
+				tmp_1.put("lineName", lineName);
+				List<Integer> dataList = new ArrayList<Integer>();
+				dataList.add(Integer.parseInt(obj.get("value").toString()));
+				tmp_1.put("dataList", dataList);
+				tmpList.add(tmp_1);
+			}
+			else{
+				boolean isFound = false;
+				for(JSONObject tmp : tmpList){
+					
+					if (tmp.get("lineName").toString().equals(lineName)){
+						((List<Integer>) (tmp.get("dataList"))).add(Integer.parseInt(obj.get("value").toString()));
+						isFound = true;
+						break;
+					}
+					
+					
+				}
+				if (!isFound){
+					JSONObject tmp_1 = new JSONObject();
+					tmp_1.put("lineName", lineName);
+					List<Integer> dataList = new ArrayList<Integer>();
+					dataList.add(Integer.parseInt(obj.get("value").toString()));
+					tmp_1.put("dataList", dataList);
+					tmpList.add(tmp_1);
+					
+				}
+			}
+		}
+		
+		System.out.println(tmpList);
+	}*/
 }
