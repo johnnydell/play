@@ -60,6 +60,9 @@ var hourlycount = function(){
 		});
 		
 		ractive.on({
+			gotoOPL:function(e){
+				window.location.href = manager.root + "/views/board/opl.html?lineName="+lineName+"&lineId="+lineId;
+			},
 			/*hide label, show text*/
 			toShowColumnEditor:function(e){
 				$(e.node).children(0).hide().next().show().focus().select();

@@ -28,7 +28,9 @@ var oee = function(){
 		});
 		
 		ractive.on({
-			
+			gotoHC:function(e){
+				window.location.href = manager.root + "/views/board/hourlyCount.html?lineName="+lineName+"&lineId="+lineId;
+			},
 			toShowYearSelect:function(e){
 				$(e.node).hide().next().show().focus();
 			},

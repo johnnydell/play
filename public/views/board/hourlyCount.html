@@ -59,6 +59,7 @@
             </div>
             <div class="toolbar">
 				<button type="button" class="btn" on-click="saveHourlyCount">保存</button>
+				<button type="button" class="btn" on-click="gotoOPL">OPL</button>
             </div>
 			<div class="header">
 				<div class="title"><span>{{i18n_hourlycount_title}}</span></div>
@@ -97,16 +98,16 @@
 					<td colspan="7">
                         {{i18n_hourlycount_hourly}}
                     </td>
-					<td colspan="3" >
+					<td colspan="3" style="background-color:red;">
                         {{i18n_hourlycount_quality_loss}}
                     </td>
-					<td colspan="3" >
+					<td colspan="3" style="background-color:#4169E1;">
                         {{i18n_hourlycount_tech_loss}}
                     </td>
-					<td colspan="4" >
+					<td colspan="4" style="background-color:#c5d79b;">
                         {{i18n_hourlycount_chgover_loss}}
                     </td>
-					<td colspan="9" >
+					<td colspan="9" style="background-color:#ff9999;">
                         {{i18n_hourlycount_org_loss}}
                     </td>
 					<td colspan="7" >
