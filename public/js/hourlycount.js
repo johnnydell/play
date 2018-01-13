@@ -705,7 +705,7 @@ var hourlycount = function(){
 					}
 					
 				}
-				hourlycounts_base.planOutputCount = Math.round( parseInt(planTotalCount) * (hourlycounts_base.targetOeePercent / 100));
+				hourlycounts_base.planOutputCount = Math.round( parseInt(planTotalCount) * ((hourlycounts_base.targetOeePercent == undefined ? 0 : hourlycounts_base.targetOeePercent) / 100));
 				hourlycounts_base.actualOutputCount = actualTotalCount;
 				if (planTotalCount !== 0){
 					hourlycounts_base.actualOee = actualTotalCount / planTotalCount;
