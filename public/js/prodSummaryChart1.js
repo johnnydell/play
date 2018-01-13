@@ -1,6 +1,6 @@
 var prodSummaryChart1 = function(){
 	var years = []; 
-	var _dataSource = [];
+	
 	function init(curYear){
 	   //渲染chart1部分
 	   $.get(manager.root+"/views/tpl/kpi/prodSummaryChart1.html", function (template) {
@@ -23,12 +23,14 @@ var prodSummaryChart1 = function(){
 	        			data:{yearValue:curYear},
 	        			success: function(listdata)
 	        			{
-	        				console.log(listdata);
-	        				var _dataSource = [];
+	        				
 	        				years = listdata.yearList;
 	        				dataList = listdata.dataList;
+	        				// Categories values
+        					var _cat = [];
 	        				var brand_chart = $('.top .lft .chart .chart').highcharts();
 	        				for(i = 0; i < dataList.length; i ++){
+	        					//set Series
 	        					var _tmp = {};
 	        					_tmp.type = 'column';
 	        					var _datas = [];
@@ -38,12 +40,22 @@ var prodSummaryChart1 = function(){
 	        					_tmp.data = _datas;
 	        					_tmp.name = dataList[i].lineName;
 	        					brand_chart.addSeries(_tmp);
+	        					
+	        					_cat.push(years[i]);
+	        					
+	        					
 	        				}
-	        				brand_chart.addSeries({name:'target',type:'spline',data:[0.5,0.5,0.5,0.5],color:'red'});
+	        				//set target
+	        				targetList = [20.5,20.5,20.5,20.5];
+	        				brand_chart.addSeries({name:'target',type:'spline',data:targetList,color:'red'});
+	        				
+	        				//set categories
+	        				brand_chart.xAxis[0].setCategories(_cat);
 	        				
 	        				//plot to table
 	        				ractive.set("dataList", dataList);
-	        				
+	        				ractive.set("yearList", years);
+	        				ractive.set("targetList", targetList);
 	        			}
 	            	});
 	           		
@@ -65,13 +77,13 @@ var prodSummaryChart1 = function(){
 		            symbolRadius: 0
 		        },
 		        xAxis: {
-		            categories: years
+		            categories: []
 		        },
 		        yAxis: {
 		            title: {
 		                text: ''
 		            },
-		            tickPositions: [0,0.1,0.2,0.3,0.5,0.9], // 指定竖轴坐标点的值
+		            tickPositions: [0,20,40,60,80,100], // 指定竖轴坐标点的值
 		            labels: {
 		                formatter: function() {
 		                    return (this.value * 1).toFixed(2);

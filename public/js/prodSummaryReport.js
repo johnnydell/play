@@ -23,8 +23,8 @@ var prodSummaryReport = function(){
 			},
 			oncomplete: function(){	
 				prodSummaryChart1.init(prodObj.currYear);
-				//prodSummaryChart2.init(prodObj.currYear);
-				//prodSummaryChart3.init(prodObj.currYear, prodObj.currMonth);
+				prodSummaryChart2.init(prodObj.currYear);
+				prodSummaryChart3.init(prodObj.currYear, prodObj.currMonth);
 			}
 		});
 		
