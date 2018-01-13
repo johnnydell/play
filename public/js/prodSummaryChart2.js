@@ -1,53 +1,64 @@
 var prodSummaryChart2 = function(){
-	var months;
-	var targetList; 
-	var actualList;
-	var actualData = [];
-	function init(currYear){
+	var months = []; 
+	
+	function init(curYear){
 	   //渲染chart1部分
 	   $.get(manager.root+"/views/tpl/kpi/prodSummaryChart2.html", function (template) {
-	        var ractive2 = new Ractive({
+	        var ractive = new Ractive({
 	            el: '.cxt .top .rgt',
 	            data:{root:manager.root},
 	            template: template,
 	            onrender: function(){
 					manager.loadProperties(this, "productivity", "../../../");
 					manager.loadProperties(this, "common", "../../../");
+					bindChart();
 				},
 	            oncomplete: function(){
-	           		
+	            	/**/
+	            	
 	            	$.ajax({
 	        			url		: manager.root + '/report/productivity/monthlyProdSummaryChart',
 	        			type	: 'GET',
 	        			dataType:"json",
-	        			data:{yearValue:currYear},
-	        			contentType: "application/json",
+	        			data:{yearValue:curYear},
 	        			success: function(listdata)
 	        			{
-	        				actualData 		= [];
-	        				months 			= listdata.monthList;
-	        				targetList 		= listdata.targetTotal;
-	        				actualList 		= listdata.actualTotal;
-	        				for(i = 0; i < actualList.length; i ++){
-	        					var tmpData = {};
-	        					tmpData.y = actualList[i];
-	        					var marker = {};
-	        					if (tmpData.y > targetList[i])
-	        						tmpData.color = 'green';
-	        					else
-	        						tmpData.color = 'red';
+	        				
+	        				months = listdata.monthList;
+	        				dataList = listdata.dataList;
+	        				// Categories values
+        					var _cat = [];
+	        				var brand_chart = $('.top .rgt .chart .chart').highcharts();
+	        				for(i = 0; i < dataList.length; i ++){
+	        					//set Series
+	        					var _tmp = {};
+	        					_tmp.type = 'column';
+	        					var _datas = [];
+	        					for(j = 0; j < dataList[i].actualdata.length; j ++){
+	        						_datas.push(parseFloat(dataList[i].actualdata[j]));
+	        					}
+	        					_tmp.data = _datas;
+	        					_tmp.name = dataList[i].lineName;
+	        					brand_chart.addSeries(_tmp);
 	        					
-	        					actualData.push(tmpData);
+	        					_cat.push(months[i]);
+	        					
+	        					
 	        				}
-	        				//plot to chart
-	        				bindChart();
+	        				//set target
+	        				targetList = [20.5,20.5,20.5,20.5,20.5,20.5,20.5,20.5,20.5,20.5,20.5,20.5];
+	        				brand_chart.addSeries({name:'target',type:'spline',data:targetList,color:'red'});
+	        				
+	        				//set categories
+	        				brand_chart.xAxis[0].setCategories(_cat);
 	        				
 	        				//plot to table
-	        				ractive2.set("months", months);
-	        				ractive2.set("targetTotal", targetList);
-	        				ractive2.set("actualTotal", actualList);
+	        				ractive.set("dataList", dataList);
+	        				ractive.set("monthList", months);
+	        				ractive.set("targetList", targetList);
 	        			}
 	            	});
+	           		
 	            }
 	        }); 
 	    });
@@ -56,55 +67,41 @@ var prodSummaryChart2 = function(){
 	function bindChart(){
 		$('.top .rgt .chart .chart').highcharts({
 			 title: {
-	            text: ''
-	        },
-	        legend: {
-	            enabled: false
-	        },
-	        xAxis: {
-	            categories: months
-	        },
-	        yAxis: {
-	            title: {
-	                text: $.i18n.map['i18n_productivity_monthly'],
-	                margin:65,
-	                style: {
-	                	fontSize: '15px',
-	                	fontWeight:'bold',
-	                	color:'black'
-	                }
-	            },
-	            tickPositions: [0,2,4,6,8,10,12], // 指定竖轴坐标点的值
-	            labels: {
-	                formatter: function() {
-	                    return (this.value * 1).toFixed(2);
-	                },
-	            }	
-	        },
-	        plotOptions: {
-	            series: {
-	                stacking: 'normal'
-	            }
-	        },
-	        series: [ {
-	            type: 'column',
-	            name: $.i18n.map['i18n_actual'],
-	            data: actualData,
-	            color:'#3C3C4D'
-	        },{
-	            type: 'spline',
-	            name: $.i18n.map['i18n_target'],
-	            color:'red',
-	            data: targetList,
-	            marker: {
-	                enabled: false
-	            }
-	        }],
-	        credits:{
-	            enabled:false
-	        }
-	    });	
-	}	
+		            text: ''
+		        },
+		        legend: {
+		        	layout: 'vertical',
+		            align: 'right',
+		            verticalAlign: 'middle',
+		            floating: false,
+		            symbolRadius: 0
+		        },
+		        xAxis: {
+		            categories: []
+		        },
+		        yAxis: {
+		            title: {
+		                text: ''
+		            },
+		            tickPositions: [0,20,40,60,80,100], // 指定竖轴坐标点的值
+		            labels: {
+		                formatter: function() {
+		                    return (this.value * 1).toFixed(2);
+		                },
+		            }	
+		        },
+		        plotOptions: {
+		            series: {
+		                stacking: 'normal'
+		            }
+		        },
+		        series: [],
+		        credits:{
+		            enabled:false
+		        }
+		    });	
+	}
+	
 		
 	return {
 		init:init

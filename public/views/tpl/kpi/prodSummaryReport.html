@@ -6,7 +6,7 @@
 		<link rel="stylesheet" type="text/css" href="../../../css/reset.css"/>
 		<link rel="stylesheet" type="text/css" href="../../../css/common.css"/>
 		<link rel="stylesheet" type="text/css" href="../../../css/login.css"/>
-		<link rel="stylesheet" type="text/css" href="../../../css/productivityReport.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../css/prodSummaryReport.css"/>
 	</head>
 	<body>
 		<div class="box">
@@ -53,14 +53,14 @@
 	<div class="content">
 		<div class="content-box">
 			<div class="header">
-				<div class="title"><span>{{i18n_productivity_title}}</span></div>
+				<div class="title"><span>{{i18n_productivity_summary_title}}</span></div>
 				<div class="info">
 					 <div class="lb">
-					   <span>{{i18n_line_name}}:</span>
+					   
 					   <span>{{i18n_month}}:</span>
 					 </div>
 					 <div class="val">
-						 <span class="fst">{{lineName}}</span>
+						 
 						  <span class="dt">
                              <label on-click="toShowYearSelect">{{prodObj.currYear}} {{i18n_year}}</label>                    
 							 <select style="display:none;" on-blur="toHideYearSelect" on-change="changeYear" value="{{prodObj.currYear}}">

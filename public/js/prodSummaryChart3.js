@@ -1,57 +1,64 @@
 var prodSummaryChart3 = function(){
-	var dayList; 
-	var targetList; 
-	var actualList;
+	var days = []; 
 	
-	var actualData = [];
 	function init(curYear, curMonth){
-	   //渲染chart3部分
+	   //渲染chart1部分
 	   $.get(manager.root+"/views/tpl/kpi/prodSummaryChart3.html", function (template) {
-	        var ractive4 = new Ractive({
+	        var ractive = new Ractive({
 	            el: '.cxt .bt',
 	            data:{root:manager.root},
 	            template: template,
 	            onrender: function(){
 					manager.loadProperties(this, "productivity", "../../../");
 					manager.loadProperties(this, "common", "../../../");
+					bindChart();
 				},
 	            oncomplete: function(){
-	            	var totalDays = cntDays(curYear, curMonth);
+	            	/**/
+	            	totalDays = cntDays(curYear, curMonth);
 	            	$.ajax({
 	        			url		: manager.root + '/report/productivity/dailyProdSummaryChart',
 	        			type	: 'GET',
 	        			dataType:"json",
 	        			data:{yearValue:curYear,monthValue:curMonth,dayCount:totalDays},
-	        			contentType: "application/json",
 	        			success: function(listdata)
 	        			{
-	        				dayList = null;
-	        				targetList = null;
-	        				actualList = null;
-	        				actualData = [];
 	        				
-	        				dayList = listdata.dayList;
-	        				targetList = listdata.targetList;
-	        				actualList = listdata.actualList;
-	        				
-	        				for(i = 0; i < actualList.length; i ++){
-	        					var tmpData = {};
-	        					tmpData.y = actualList[i];
-	        					var marker = {};
-	        					if (tmpData.y > targetList[i])
-	        						tmpData.color = 'green';
-	        					else
-	        						tmpData.color = 'red';
+	        				days = listdata.dayList;
+	        				dataList = listdata.dataList;
+	        				// Categories values
+        					var _cat = [];
+	        				var brand_chart = $('.bt .chart .chart').highcharts();
+	        				for(i = 0; i < dataList.length; i ++){
+	        					//set Series
+	        					var _tmp = {};
+	        					_tmp.type = 'column';
+	        					var _datas = [];
+	        					for(j = 0; j < dataList[i].actualdata.length; j ++){
+	        						_datas.push(parseFloat(dataList[i].actualdata[j]));
+	        					}
+	        					_tmp.data = _datas;
+	        					_tmp.name = dataList[i].lineName;
+	        					brand_chart.addSeries(_tmp);
 	        					
-	        					actualData.push(tmpData);
+	        					_cat.push(days[i]);
+	        					
+	        					
+	        				}
+	        				//set target
+	        				for(i = 0; i < totalDays; i ++){
+	        					targetList.push(20.5);
 	        				}
 	        				
-	        				//plot to chart
-	        				bindChart();
+	        				brand_chart.addSeries({name:'target',type:'spline',data:targetList,color:'red'});
+	        				
+	        				//set categories
+	        				brand_chart.xAxis[0].setCategories(_cat);
 	        				
 	        				//plot to table
-	        				ractive4.set("targetList", targetList);
-	        				ractive4.set("actualList", actualList);
+	        				ractive.set("dataList", dataList);
+	        				ractive.set("dayList", days);
+	        				ractive.set("targetList", targetList);
 	        			}
 	            	});
 	           		
@@ -71,23 +78,20 @@ var prodSummaryChart3 = function(){
 		            text: ''
 		        },
 		        legend: {
-		            enabled: false
+		        	layout: 'vertical',
+		            align: 'right',
+		            verticalAlign: 'middle',
+		            floating: false,
+		            symbolRadius: 0
 		        },
 		        xAxis: {
-		            categories: dayList
+		            categories: []
 		        },
 		        yAxis: {
 		            title: {
-		                text: $.i18n.map['i18n_productivity_daily'],
-		                margin:65,
-		                style: {
-		                	fontSize: '15px',
-		                	fontWeight:'bold',
-		                	color:'black'
-		                }
-		                	
+		                text: ''
 		            },
-		            tickPositions: [0,2,4,6,8,10,12], // 指定竖轴坐标点的值
+		            tickPositions: [0,10,20,30,40,50], // 指定竖轴坐标点的值
 		            labels: {
 		                formatter: function() {
 		                    return (this.value * 1).toFixed(2);
@@ -99,25 +103,12 @@ var prodSummaryChart3 = function(){
 		                stacking: 'normal'
 		            }
 		        },
-		        series: [{
-			        type: 'column',
-			        name: $.i18n.map['i18n_actual'],
-			        data: actualData,
-			        color:'#3C3C4D'
-			    }, {
-			        type: 'spline',
-			        name: $.i18n.map['i18n_target'],
-			        color:'red',
-			        data: targetList,
-			        marker: {
-			            enabled: false
-			        }
-			    }],
+		        series: [],
 		        credits:{
 		            enabled:false
 		        }
 		    });	
-	}	
+	}
 	
 		
 	return {
