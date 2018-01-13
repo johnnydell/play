@@ -15,7 +15,7 @@ var prodSummaryChart2 = function(){
 				},
 	            oncomplete: function(){
 	            	/**/
-	            	
+	            	var brand_chart = $('.rgt .chart .chart').highcharts();
 	            	$.ajax({
 	        			url		: manager.root + '/report/productivity/monthlyProdSummaryChart',
 	        			type	: 'GET',
@@ -28,7 +28,7 @@ var prodSummaryChart2 = function(){
 	        				dataList = listdata.dataList;
 	        				// Categories values
         					var _cat = [];
-	        				var brand_chart = $('.top .rgt .chart .chart').highcharts();
+	        				
 	        				for(i = 0; i < dataList.length; i ++){
 	        					//set Series
 	        					var _tmp = {};
