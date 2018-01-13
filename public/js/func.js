@@ -1,7 +1,7 @@
 var func = function(){
 	
 	var funcs = [];
-	var modules = getModuleList();
+	var modules = common.getModuleList();
 	function init(){	
 		var ractive = new Ractive({
 			el: ".container",
@@ -153,24 +153,8 @@ var func = function(){
 		})
 	}
 	
-	//取得有效的功能清单
-	function getFuncList(){
-		var ret;
-		$.ajax({
-			url: manager.root + "/func/getList",
-			type: "GET",
-			async:false,
-			dataType: "json",
-			contentType: "application/json", 
-			success: function(data) {
-				ret = data;
-			}
-		});
-		return ret;
-	}
-	
 	function refreshFunc(_ractive){
-		var data = getFuncList();
+		var data = common.getFuncList();
 		funcs = [];
 		if(data.length > 0){
 			$.each(data,function(i,n){
@@ -182,22 +166,6 @@ var func = function(){
 			});	
 		}		
 		_ractive.set("funcs",funcs);
-	}
-	
-	//取得所有有效的产品类型
-	function getModuleList(){
-		var ret;
-		$.ajax({
-			url: manager.root + "/module/getList",
-			type: "GET",
-			async:false,
-			dataType:"json",
-			contentType: "application/json",
-			success: function(data) {
-				ret = data;
-			}
-		});
-		return ret;
 	}
 	
 	//根据ID获得生产类型

@@ -2,7 +2,7 @@ var meetAttd = function(){
 	var attendanceDetails = [];	
 	var years = manager.years();
 	var months = manager.months;
-	var lines = getAllLines();
+	var lines = common.getAllLines();
 	var attendance = {id:"0",year:"",month:"",line_id:"",line_name:"",time_start:"10:00",time_end:"10:30",spot:"Team Board",host:"Team Leader",daysCnt:0,days:[],updated:"0"};
 	var limits = permission.load("meeting_attendance");
 	console.log(limits.view);
@@ -270,22 +270,6 @@ var meetAttd = function(){
 				ractive.update("attendanceDetails");
 			}
 		})
-	}
-	
-	//取得所有有效的lines
-	function getAllLines(){
-		var ret;
-		$.ajax({
-			url: manager.root + "/line/getActiveList",
-			type: "GET",
-			async:false,
-			dataType:"json",
-			contentType: "application/json",
-			success: function(data) {
-				ret = data;
-			}
-		});
-		return ret;
 	}
 	
 	//根据产线和年月获取对应会议头信息
