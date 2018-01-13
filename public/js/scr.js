@@ -11,7 +11,7 @@ var scr = function(){
 	var color_selected = 0;
 	var display_data = {currType:"",currJP:"",currRS:"",planCC:"",expectedCC:"",actualCC:"",diff:"",oee:"",nextType:"",nextJP:"",nextRS:""};
 	var ractive = null;
-	var lines = getAllLines();
+	var lines = common.getAllLines();
 	function init(){
 		var data;
 		ractive = new Ractive({
@@ -141,22 +141,6 @@ var scr = function(){
 				ractive.set("color_selected", color_selected);
 			}
     	});
-	}
-	
-	//取得所有有效的lines
-	function getAllLines(){
-		var ret;
-		$.ajax({
-			url: manager.root + "/line/getActiveList",
-			type: "GET",
-			async:false,
-			dataType:"json",
-			contentType: "application/json",
-			success: function(data) {
-				ret = data;
-			}
-		});
-		return ret;
 	}
 	
 	return {

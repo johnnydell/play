@@ -2,8 +2,8 @@ var hcConfig = function(){
 	var base1 = {};
 	var base2 = {};
 	var sys_date = manager.getSystemDate();
-	var lines = getAllLines();
-	var types = getAllProductType();
+	var lines = common.getAllLines();
+	var types = common.getAllProductType();
 	var active_types = getActiveProductType();
 	var years = manager.years();
 	var calc_val = [55,60,60,60,30,60,60,50,55,60,60,60,30,60,60,50,55,60,60,60,30,60,60,50];//based on hour sequence
@@ -248,38 +248,6 @@ var hcConfig = function(){
 			}
 		})
 		return obj;
-	}
-	
-	//取得所有有效的lines
-	function getAllLines(){
-		var ret;
-		$.ajax({
-			url: manager.root + "/line/getActiveList",
-			type: "GET",
-			async:false,
-			dataType:"json",
-			contentType: "application/json",
-			success: function(data) {
-				ret = data;
-			}
-		});
-		return ret;
-	}
-	
-	//取得所有产品类型
-	function getAllProductType(){
-		var ret;
-		$.ajax({
-			url: manager.root + "/productType/getAllList",
-			type: "GET",
-			async:false,
-			dataType:"json",
-			contentType: "application/json",
-			success: function(data) {
-				ret = data;
-			}
-		});
-		return ret;
 	}
 	
 	//取得所有有效的产品类型

@@ -1,6 +1,6 @@
 var user = function(){	
-	var lines = getAllLines();
-	var roles = getRolesList();
+	var lines = common.getAllLines();
+	var roles = common.getRolesList();
 	var users = [];
 	function init(){	
 		var ractive = new Ractive({
@@ -330,22 +330,6 @@ var user = function(){
 		_ractive.set("users",users);
 	}
 	
-	//取得有效的角色列表
-	function getRolesList(){
-		var ret;
-		$.ajax({
-			url: manager.root + "/role/getList",
-			type: "GET",
-			async:false,
-			dataType: "json",
-			contentType: "application/json", 
-			success: function(data) {
-				ret = data;
-			}
-		});
-		return ret;		
-	}
-	
 	//根据用户取得用户关联角色
 	function getUserRolesByUserId(userId){
 		var ret;
@@ -379,22 +363,6 @@ var user = function(){
 			m.checked = checked;
 			m.user_role_id = user_role_id;
 		})
-	}
-	
-	//取得所有有效的lines
-	function getAllLines(){
-		var ret;
-		$.ajax({
-			url: manager.root + "/line/getActiveList",
-			type: "GET",
-			async:false,
-			dataType:"json",
-			contentType: "application/json",
-			success: function(data) {
-				ret = data;
-			}
-		});
-		return ret;
 	}
 	
 	return {
