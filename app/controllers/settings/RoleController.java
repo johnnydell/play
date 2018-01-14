@@ -3,14 +3,11 @@ package controllers.settings;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import models.settings.Role;
 import models.settings.RoleFunc;
-
-import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.JsonNode;
-
 import play.db.ebean.Transactional;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -22,8 +19,9 @@ public class RoleController extends Controller {
 	 */
 	public static Result getList() {
 		List<Role> roles = Role.getList();
-		String str = JSON.toJSONString(roles);
-		return ok(str);
+		return ok(Json.toJson(roles));
+		/*String str = JSON.toJSONString(roles);
+		return ok(str);*/
 	}
 	
 	/**
@@ -37,8 +35,9 @@ public class RoleController extends Controller {
 				r.roleFuncs = RoleFunc.getListByRoleId(r.id);
 			}
 		}
-		String str = JSON.toJSONString(roles);
-		return ok(str);
+		return ok(Json.toJson(roles));
+		/*String str = JSON.toJSONString(roles);
+		return ok(str);*/
 	}
 	
 	/**
@@ -48,8 +47,9 @@ public class RoleController extends Controller {
 	 */
 	public static Result getRoleFuncsByRoleId(String roleId){
 		List<RoleFunc> li = RoleFunc.getListByRoleId(roleId);
-		String str = JSON.toJSONString(li);
-		return ok(str);
+		return ok(Json.toJson(li));
+		/*String str = JSON.toJSONString(li);
+		return ok(str);*/
 	}
 
 	 /**

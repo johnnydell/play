@@ -9,11 +9,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.avaje.ebean.Ebean;
+import com.avaje.ebean.annotation.ConcurrencyMode;
+import com.avaje.ebean.annotation.EntityConcurrencyMode;
 
 import play.db.ebean.Model;
 
 @Entity
 @Table(name = "edb_product_type")
+@EntityConcurrencyMode(ConcurrencyMode.NONE)
 public class ProductType extends Model {
 
 	private static final long serialVersionUID = 1L;
