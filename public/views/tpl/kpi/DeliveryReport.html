@@ -2,11 +2,11 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>KPI - Summary Of Productivity</title>
+		<title>KPI - Delivery</title>
 		<link rel="stylesheet" type="text/css" href="../../../css/reset.css"/>
 		<link rel="stylesheet" type="text/css" href="../../../css/common.css"/>
 		<link rel="stylesheet" type="text/css" href="../../../css/login.css"/>
-		<link rel="stylesheet" type="text/css" href="../../../css/prodSummaryReport.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../css/deliveryReport.css"/>
 	</head>
 	<body>
 		<div class="box">
@@ -31,13 +31,13 @@
 	<script src="../../../js/lib/highcharts-more.js"></script>
 	<script src="../../../js/lib/grid-light.js"></script>
 	<script src="../../../js/lib/manager.js"></script>
-	<script src="../../../js/prodSummaryReport.js"></script>
-	<script src="../../../js/prodSummaryChart1.js"></script>
-	<script src="../../../js/prodSummaryChart2.js"></script>
-	<script src="../../../js/prodSummaryChart3.js"></script>
+	<script src="../../../js/deliveryReport.js"></script>
+	<script src="../../../js/deliveryChart1.js"></script>
+	<script src="../../../js/deliveryChart2.js"></script>
+	<script src="../../../js/deliveryChart3.js"></script>
 	<script id="main-template" type="text/active">
 	<div class="position _clear title">
-		<h3>{{i18n_productivity_summary_title}}</h3>
+		<h3>{{i18n_delivery_title}}</h3>
 		<div class="fr">
 			<p>
 				<i class="icon icon-home"></i>
@@ -45,34 +45,32 @@
 				<font color="#ccc">></font>
 				<a href="../../kpi.html">{{i18n_hourlycount_nav2}}</a>
 				<font color="#ccc">></font>
-				<a href="../../kpi/kpiLines.html?type=productivity">{{i18n_productivity_title}}</a>
+				<a href="../../kpi/kpiLines.html?type=delivery">{{i18n_delivery_title}}</a>
 				<font color="#ccc">></font>
-				<span>{{i18n_productivity_summary_title}}</span>
-				
-				
+				<span>{{lineName}}</span>
 			</p>
 		</div>
 	</div>
 	<div class="content">
 		<div class="content-box">
 			<div class="header">
-				<div class="title"><span>{{i18n_productivity_summary_title}}</span></div>
+				<div class="title"><span>{{i18n_delivery_title}}</span></div>
 				<div class="info">
 					 <div class="lb">
-					   
+					   <span>{{i18n_line_name}}:</span>
 					   <span>{{i18n_month}}:</span>
 					 </div>
 					 <div class="val">
-						 
+						 <span class="fst">{{lineName}}</span>
 						  <span class="dt">
-                             <label on-click="toShowYearSelect">{{prodObj.currYear}} {{i18n_year}}</label>                    
-							 <select style="display:none;" on-blur="toHideYearSelect" on-change="changeYear" value="{{prodObj.currYear}}">
+                             <label on-click="toShowYearSelect">{{deliveryObj.currYear}} {{i18n_year}}</label>                    
+							 <select style="display:none;" on-blur="toHideYearSelect" on-change="changeYear" value="{{deliveryObj.currYear}}">
 		 					   {{#each years:index}}
 								 <option value="{{years[index]}}">{{years[index]}} {{i18n_year}}</option>
 						       {{/each}}
 			             	 </select>
-                             <label on-click="toShowMonthSelect">{{prodObj.currMonth}} {{i18n_month}}</label>
-                             <select style="display:none" on-blur="toHideMonthSelect" on-change="changeMonth" value="{{prodObj.currMonth}}">
+                             <label on-click="toShowMonthSelect">{{deliveryObj.currMonth}} {{i18n_month}}</label>
+                             <select style="display:none" on-blur="toHideMonthSelect" on-change="changeMonth" value="{{deliveryObj.currMonth}}">
 				               {{#each months:index}}
 							    <option value="{{months[index]}}">{{months[index]}} {{i18n_month}}</option>
 					           {{/each}}

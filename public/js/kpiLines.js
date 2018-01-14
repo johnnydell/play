@@ -39,7 +39,7 @@ var productivity = function(){
 			    	  url = "";
 			       	  break;
 			       case 'delivery':
-			    	  url = "";
+			    	   url = manager.root+"/views/tpl/kpi/deliveryReport.html?lineName="+lineName;
 			          break; 
 			       case 'productivity':
 			    	  url = manager.root+"/views/tpl/kpi/productivityReport.html?lineName="+lineName;

@@ -16,6 +16,7 @@ var prodSummaryChart3 = function(){
 	            oncomplete: function(){
 	            	/**/
 	            	totalDays = cntDays(curYear, curMonth);
+	            	var brand_chart = $('.bt .chart .chart').highcharts();
 	            	$.ajax({
 	        			url		: manager.root + '/report/productivity/dailyProdSummaryChart',
 	        			type	: 'GET',
@@ -28,7 +29,7 @@ var prodSummaryChart3 = function(){
 	        				dataList = listdata.dataList;
 	        				// Categories values
         					var _cat = [];
-	        				var brand_chart = $('.bt .chart .chart').highcharts();
+	        				
 	        				for(i = 0; i < dataList.length; i ++){
 	        					//set Series
 	        					var _tmp = {};
