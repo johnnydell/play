@@ -2,11 +2,11 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>KPI - Delivery</title>
+		<title>KPI - Summary Of Delivery</title>
 		<link rel="stylesheet" type="text/css" href="../../../css/reset.css"/>
 		<link rel="stylesheet" type="text/css" href="../../../css/common.css"/>
 		<link rel="stylesheet" type="text/css" href="../../../css/login.css"/>
-		<link rel="stylesheet" type="text/css" href="../../../css/deliveryReport.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../css/deliverySummaryReport.css"/>
 	</head>
 	<body>
 		<div class="box">
@@ -31,13 +31,13 @@
 	<script src="../../../js/lib/highcharts-more.js"></script>
 	<script src="../../../js/lib/grid-light.js"></script>
 	<script src="../../../js/lib/manager.js"></script>
-	<script src="../../../js/deliveryReport.js"></script>
-	<script src="../../../js/deliveryChart1.js"></script>
-	<script src="../../../js/deliveryChart2.js"></script>
-	<script src="../../../js/deliveryChart3.js"></script>
+	<script src="../../../js/deliverySummaryReport.js"></script>
+	<script src="../../../js/deliverySummaryChart1.js"></script>
+	<script src="../../../js/deliverySummaryChart2.js"></script>
+	<script src="../../../js/deliverySummaryChart3.js"></script>
 	<script id="main-template" type="text/active">
 	<div class="position _clear title">
-		<h3>{{i18n_delivery_title}}</h3>
+		<h3>{{i18n_delivery_summary_title}}</h3>
 		<div class="fr">
 			<p>
 				<i class="icon icon-home"></i>
@@ -47,24 +47,23 @@
 				<font color="#ccc">></font>
 				<a href="../../kpi/kpiLines.html?type=delivery">{{i18n_delivery_title}}</a>
 				<font color="#ccc">></font>
-				<span>{{lineName}}</span>
+				<span>{{i18n_delivery_summary_title}}</span>
+				
+				
 			</p>
 		</div>
 	</div>
 	<div class="content">
 		<div class="content-box">
-			<div class="toolbar">
-				<button type="button" class="btn" on-click="gotoOEE">{{i18n_oee_title}}</button>
-            </div>
 			<div class="header">
-				<div class="title"><span>{{i18n_delivery_title}}</span></div>
+				<div class="title"><span>{{i18n_delivery_summary_title}}</span></div>
 				<div class="info">
 					 <div class="lb">
-					   <span>{{i18n_line_name}}:</span>
+					   
 					   <span>{{i18n_month}}:</span>
 					 </div>
 					 <div class="val">
-						 <span class="fst">{{lineName}}</span>
+						 
 						  <span class="dt">
                              <label on-click="toShowYearSelect">{{deliveryObj.currYear}} {{i18n_year}}</label>                    
 							 <select style="display:none;" on-blur="toHideYearSelect" on-change="changeYear" value="{{deliveryObj.currYear}}">

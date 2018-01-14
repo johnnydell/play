@@ -182,48 +182,47 @@ public class DeliveryController extends Controller {
 			//always query the data including 4 years ago.
 			Date startDate = df.parse( startYear + "-01-01");
 			
-			rows = HourlyCountBase.findYearlyProdSummaryData(startDate, endDate);
+			rows = HourlyCountBase.findYearlyDeliverySummaryData(startDate, endDate);
 			
 			List<ProductLine> lines = ProductLine.getActiveList();
 			
 			List<Integer> years = new ArrayList<Integer>();
 			
 			List<JSONObject> objs = new ArrayList<JSONObject>();
+			//initial data struct
 			for (int i = startYear; i < endYear + 1; i ++){
 				years.add(i);
 				for(ProductLine line : lines){
 					JSONObject obj = new JSONObject();
 					obj.put("years", i);
 					obj.put("lineName", line.lineName);
-					obj.put("targetTotal", 11.0F);
-					obj.put("actualTotal", 0.0F);
+					obj.put("targetTotal", 0);
+					obj.put("actualTotal", 0);
 					objs.add(obj);
 				}
 			}
+			//compare database selected data with initial data
 			for(SqlRow row : rows){
-				String manHourTotal_1 = row.getString("man_hour_total_1");
-				String manHourTotal_2 = row.getString("man_hour_total_2");
-				String manHourTotal_3 = row.getString("man_hour_total_3");
-				String actualTotalStr = row.getString("actual_Total");
+				String targetData = row.getString("target_total");
+				String actualData = row.getString("actual_total");
+				
 				String curLineName = row.getString("line_name");
 				String year = row.getString("years");
-				int manHourTotal1 = StringUtils.isEmpty(manHourTotal_1) ? 0 : Integer.parseInt(manHourTotal_1);
-				int manHourTotal2 = StringUtils.isEmpty(manHourTotal_2) ? 0 : Integer.parseInt(manHourTotal_2);
-				int manHourTotal3 = StringUtils.isEmpty(manHourTotal_3) ? 0 : Integer.parseInt(manHourTotal_3);
-				int actualTotal = StringUtils.isEmpty(actualTotalStr) ? 0 : Integer.parseInt(actualTotalStr);
 				
-				float actualPercent = 0.0F;
-				if ((manHourTotal1 + manHourTotal2 + manHourTotal3) > 0)
-					actualPercent = (float) Math.round(  actualTotal * 100 / ( manHourTotal1 + manHourTotal2 + manHourTotal3 ) ) / 100; //保留2位小数
 				
 				for (JSONObject obj : objs){
 					if (obj.get("years").toString().equals(year) && obj.get("lineName").equals(curLineName)){
-						obj.put("actualTotal", actualPercent);
+						targetData = StringUtils.isEmpty(targetData) ? "0" : targetData;
+						actualData = StringUtils.isEmpty(actualData) ? "0" : actualData;
+						obj.put("actualTotal", actualData);
+						obj.put("targetTotal", targetData);
 						break;
 					}
 				}
 			}
 			
+			
+			//reconstruct data struct 
 			List<JSONObject> tmpList = new ArrayList<JSONObject>();
 			for (JSONObject obj : objs){
 				String lineName = obj.get("lineName").toString();
@@ -288,7 +287,7 @@ public class DeliveryController extends Controller {
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		Date startDate = df.parse(yearValue + "-01-01");
 		Date endDate = df.parse(yearValue + "-12-31");
-		List<SqlRow> rows = HourlyCountBase.findMonthlyProdSummaryData(startDate, endDate);
+		List<SqlRow> rows = HourlyCountBase.findMonthlyDeliverySummaryData(startDate, endDate);
 		List<ProductLine> lines = ProductLine.getActiveList();
 		List<Integer> months = new ArrayList<Integer>();
 		
@@ -300,30 +299,26 @@ public class DeliveryController extends Controller {
 				JSONObject obj = new JSONObject();
 				obj.put("months", i);
 				obj.put("lineName", line.lineName);
-				obj.put("targetTotal", 11.0F);
-				obj.put("actualTotal", 0.0F);
+				obj.put("targetTotal", 0);
+				obj.put("actualTotal", 0);
 				objs.add(obj);
 			}
 		}
 		for(SqlRow row : rows){
-			String manHourTotal_1 = row.getString("man_hour_total_1");
-			String manHourTotal_2 = row.getString("man_hour_total_2");
-			String manHourTotal_3 = row.getString("man_hour_total_3");
-			String actualTotalStr = row.getString("actual_Total");
-			String curLineName = row.getString("line_name");
-			String month = row.getString("months");
-			int manHourTotal1 = StringUtils.isEmpty(manHourTotal_1) ? 0 : Integer.parseInt(manHourTotal_1);
-			int manHourTotal2 = StringUtils.isEmpty(manHourTotal_2) ? 0 : Integer.parseInt(manHourTotal_2);
-			int manHourTotal3 = StringUtils.isEmpty(manHourTotal_3) ? 0 : Integer.parseInt(manHourTotal_3);
-			int actualTotal = StringUtils.isEmpty(actualTotalStr) ? 0 : Integer.parseInt(actualTotalStr);
+			String targetData = row.getString("target_total");
+			String actualData = row.getString("actual_total");
 			
-			float actualPercent = 0.0F;
-			if ((manHourTotal1 + manHourTotal2 + manHourTotal3) > 0)
-				actualPercent = (float) Math.round(  actualTotal * 100 / ( manHourTotal1 + manHourTotal2 + manHourTotal3 ) ) / 100; //保留2位小数
+			String curLineName = row.getString("line_name");
+			
+			String month = row.getString("months");
+			
 			
 			for (JSONObject obj : objs){
 				if (Integer.parseInt(obj.get("months").toString()) == (Integer.parseInt(month)) && obj.get("lineName").equals(curLineName)){
-					obj.put("actualTotal", actualPercent);
+					targetData = StringUtils.isEmpty(targetData) ? "0" : targetData;
+					actualData = StringUtils.isEmpty(actualData) ? "0" : actualData;
+					obj.put("actualTotal", actualData);
+					obj.put("targetTotal", targetData);
 					break;
 				}
 			}
@@ -348,8 +343,8 @@ public class DeliveryController extends Controller {
 				boolean isFound = false;
 				for(JSONObject tmp : tmpList){
 					if (lineName.equals(tmp.get("lineName").toString())){
-						((List<Float>)(tmp.get("actualdata"))).add(obj.getFloat("actualTotal"));
-						((List<Float>)(tmp.get("targetdata"))).add(obj.getFloat("targetTotal"));
+						((List<Integer>)(tmp.get("actualdata"))).add(obj.getInteger("actualTotal"));
+						((List<Integer>)(tmp.get("targetdata"))).add(obj.getInteger("targetTotal"));
 						isFound = true;
 						break;
 					}
@@ -390,52 +385,10 @@ public class DeliveryController extends Controller {
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		Date startDate = df.parse(yearValue + "-" + monthValue + "-1");
 		Date endDate = df.parse(yearValue + "-" + monthValue + "-" + dayCount);
-		List<SqlRow> rows = HourlyCountBase.findDailyProdSummaryData(startDate, endDate);
+		List<SqlRow> rows = HourlyCountBase.findDailyDeliverySummaryData(startDate, endDate);
 		List<Integer> dayList = new ArrayList<Integer>();
 		List<ProductLine> lines = ProductLine.getActiveList();
 		int totalDays = Integer.parseInt(dayCount);
-		/*List<Float> targetCountList = new ArrayList<Float>();
-		List<Float> actualCountList = new ArrayList<Float>();
-		
-		for (int i = 1; i < (totalDays + 1); i ++){
-			dayList.add(i);
-			
-			String dayValue = String.format("%02d", i);
-			boolean isFound = false;
-			for (SqlRow row : rows){
-				String historyDate = row.getString("days");
-				if (dayValue.equals(historyDate)){
-					isFound = true;
-					targetCountList.add(11.0f);
-					String manHourTotal_1 = row.getString("man_hour_total_1");
-					String manHourTotal_2 = row.getString("man_hour_total_2");
-					String manHourTotal_3 = row.getString("man_hour_total_3");
-					String actualTotalStr = row.getString("actual_Total");
-					int manHourTotal1 = StringUtils.isEmpty(manHourTotal_1) ? 0 : Integer.parseInt(manHourTotal_1);
-					int manHourTotal2 = StringUtils.isEmpty(manHourTotal_2) ? 0 : Integer.parseInt(manHourTotal_2);
-					int manHourTotal3 = StringUtils.isEmpty(manHourTotal_3) ? 0 : Integer.parseInt(manHourTotal_3);
-					int actualTotal = StringUtils.isEmpty(actualTotalStr) ? 0 : Integer.parseInt(actualTotalStr);
-					if ((manHourTotal1 + manHourTotal2 + manHourTotal3) == 0)
-						actualCountList.add(0.0f);
-					else{
-						float tempValue = (float) Math.round(  actualTotal * 100 / ( manHourTotal1 + manHourTotal2 + manHourTotal3 ) ) / 100; //保留2位小数
-						actualCountList.add( tempValue );
-					}
-					break;
-				}
-			}
-			//totally no data for this day
-			if (!isFound){
-				actualCountList.add(0.0f);
-				targetCountList.add(11.0f);
-			}
-		}
-		JSONObject json = new JSONObject();
-		json.put("dayList", dayList);
-		json.put("targetList", targetCountList);
-		json.put("actualList", actualCountList);*/
-		
-
 		
 		List<JSONObject> objs = new ArrayList<JSONObject>();
 		for (int i = 1; i < (totalDays + 1); i ++){
@@ -444,30 +397,25 @@ public class DeliveryController extends Controller {
 				JSONObject obj = new JSONObject();
 				obj.put("days", i);
 				obj.put("lineName", line.lineName);
-				obj.put("targetTotal", 11.0F);
-				obj.put("actualTotal", 0.0F);
+				obj.put("targetTotal", 0);
+				obj.put("actualTotal", 0);
 				objs.add(obj);
 			}
 		}
 		for(SqlRow row : rows){
-			String manHourTotal_1 = row.getString("man_hour_total_1");
-			String manHourTotal_2 = row.getString("man_hour_total_2");
-			String manHourTotal_3 = row.getString("man_hour_total_3");
-			String actualTotalStr = row.getString("actual_Total");
+			String targetData = row.getString("target_total");
+			String actualData = row.getString("actual_total");
+			
 			String curLineName = row.getString("line_name");
 			String days = row.getString("days");
-			int manHourTotal1 = StringUtils.isEmpty(manHourTotal_1) ? 0 : Integer.parseInt(manHourTotal_1);
-			int manHourTotal2 = StringUtils.isEmpty(manHourTotal_2) ? 0 : Integer.parseInt(manHourTotal_2);
-			int manHourTotal3 = StringUtils.isEmpty(manHourTotal_3) ? 0 : Integer.parseInt(manHourTotal_3);
-			int actualTotal = StringUtils.isEmpty(actualTotalStr) ? 0 : Integer.parseInt(actualTotalStr);
 			
-			float actualPercent = 0.0F;
-			if ((manHourTotal1 + manHourTotal2 + manHourTotal3) > 0)
-				actualPercent = (float) Math.round(  actualTotal * 100 / ( manHourTotal1 + manHourTotal2 + manHourTotal3 ) ) / 100; //保留2位小数
 			
 			for (JSONObject obj : objs){
 				if (Integer.parseInt(obj.get("days").toString()) == (Integer.parseInt(days)) && obj.get("lineName").equals(curLineName)){
-					obj.put("actualTotal", actualPercent);
+					targetData = StringUtils.isEmpty(targetData) ? "0" : targetData;
+					actualData = StringUtils.isEmpty(actualData) ? "0" : actualData;
+					obj.put("actualTotal", actualData);
+					obj.put("targetTotal", targetData);
 					break;
 				}
 			}
@@ -492,8 +440,8 @@ public class DeliveryController extends Controller {
 				boolean isFound = false;
 				for(JSONObject tmp : tmpList){
 					if (lineName.equals(tmp.get("lineName").toString())){
-						((List<Float>)(tmp.get("actualdata"))).add(obj.getFloat("actualTotal"));
-						((List<Float>)(tmp.get("targetdata"))).add(obj.getFloat("targetTotal"));
+						((List<Integer>)(tmp.get("actualdata"))).add(obj.getInteger("actualTotal"));
+						((List<Integer>)(tmp.get("targetdata"))).add(obj.getInteger("targetTotal"));
 						isFound = true;
 						break;
 					}

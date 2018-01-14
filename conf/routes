@@ -167,6 +167,11 @@ GET  /edashboard/report/delivery/yearlyDeliveryChart    		controllers.report.Del
 GET  /edashboard/report/delivery/monthlyDeliveryChart			controllers.report.DeliveryController.getMonthlyDeliveryReport(lineName : String,  yearValue:String)
 GET  /edashboard/report/delivery/dailyDeliveryChart				controllers.report.DeliveryController.getDailyDeliveryReport(lineName : String,  yearValue:String,  monthValue:String,  dayCount:String)
 
+# Delivery Summary - Report
+GET  /edashboard/report/delivery/yearlyDeliverySummaryChart    	controllers.report.DeliveryController.getYearlyDeliverySummaryReport(yearValue:String)
+GET  /edashboard/report/delivery/monthlyDeliverySummaryChart	controllers.report.DeliveryController.getMonthlyDeliverySummaryReport(yearValue:String)
+GET  /edashboard/report/delivery/dailyDeliverySummaryChart		controllers.report.DeliveryController.getDailyDeliverySummaryReport(yearValue:String,  monthValue:String,  dayCount:String)
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /edashboard/*file               				controllers.Assets.at(path="/public", file)
 

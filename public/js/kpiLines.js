@@ -39,10 +39,10 @@ var productivity = function(){
 			    	  url = "";
 			       	  break;
 			       case 'delivery':
-			    	   url = manager.root+"/views/tpl/kpi/deliveryReport.html?lineName="+lineName;
+			    	   url = manager.root+"/views/tpl/kpi/deliveryReport.html?lineName="+lineName + "&lineId=" + lineId;
 			          break; 
 			       case 'productivity':
-			    	  url = manager.root+"/views/tpl/kpi/productivityReport.html?lineName="+lineName;
+			    	  url = manager.root+"/views/tpl/kpi/productivityReport.html?lineName="+lineName + "&lineId=" + lineId;
 			          break; 
 			     }
 		         window.location.href = url;
@@ -56,13 +56,13 @@ var productivity = function(){
 			    	  url = "";
 			       	  break;
 			       case 'complain':
-			    	  url = manager.root+"/views/kpi/complainRep.html?lineId="+lineId+"&lineName="+lineName;
+			    	  url = manager.root+"/views/kpi/complainRep.html?lineId="+lineId+"&lineName="+lineName + "&lineId=" + lineId;
 			          break;
 			       case 'scrap':
 			    	  url = "";
 			       	  break;
 			       case 'delivery':
-			    	  url = "";
+			    	   url = manager.root+"/views/tpl/kpi/deliverySummaryReport.html";
 			          break; 
 			       case 'productivity':
 			    	  url = manager.root+"/views/tpl/kpi/prodSummaryReport.html";

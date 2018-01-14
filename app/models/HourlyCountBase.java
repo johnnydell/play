@@ -232,6 +232,42 @@ public class HourlyCountBase extends Model {
 		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("lineName", name).setParameter("startDt", startDt).setParameter("endDt", endDt).findList();
 		return rows;
 	}
+	
+	public static List<SqlRow> findYearlyDeliverySummaryData(Date startDt, Date endDt)  {
+		String sql = "select date_format(b.product_date,'%Y') years, l.line_name, " 
+				+ " sum(b.target_oee_total_output) as target_total, "
+				+ " sum(b.actual_oee_total_output) as actual_total "
+				+ " from edb_hourly_count_base b, edb_line l "
+				+ " where b.product_line_id = l.id "
+				+"  and b.product_date between :startDt and :endDt "
+				+ " group by years order by years";
+		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("startDt", startDt).setParameter("endDt", endDt).findList();
+		return rows;
+	}
+	
+	public static List<SqlRow> findMonthlyDeliverySummaryData(Date startDt, Date endDt)  {
+		String sql = "select date_format(b.product_date,'%m') months, l.line_name, " 
+				+ " sum(b.target_oee_total_output) as target_total, "
+				+ " sum(b.actual_oee_total_output) as actual_total "
+				+ " from edb_hourly_count_base b, edb_line l "
+				+ " where b.product_line_id = l.id "
+				+"  and b.product_date between :startDt and :endDt "
+				+ " group by months order by months";
+		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("startDt", startDt).setParameter("endDt", endDt).findList();
+		return rows;
+	}
+	
+	public static List<SqlRow> findDailyDeliverySummaryData(Date startDt, Date endDt)  {
+		String sql = "select date_format(b.product_date,'%d') days, l.line_name, " 
+				+ " b.target_oee_total_output as target_total, "
+				+ " sum(b.actual_oee_total_output) as actual_total "
+				+ " from edb_hourly_count_base b, edb_line l "
+				+ " where b.product_line_id = l.id "
+				+"  and b.product_date between :startDt and :endDt "
+				+ " group by days order by days";
+		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("startDt", startDt).setParameter("endDt", endDt).findList();
+		return rows;
+	}
 
 	public static void save(HourlyCountBase base) {
 		Ebean.save(base);

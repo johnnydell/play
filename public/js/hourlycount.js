@@ -242,7 +242,7 @@ var hourlycount = function(){
 				
 				//calculate hourly count percent
 				hourlycounts[rowIndex].productHourCount = val;
-				hourlycounts[rowIndex].productHourPercent = val / 240;
+				hourlycounts[rowIndex].productHourPercent = hourlycounts[rowIndex].planCount == 0 ? 0  : (val / hourlycounts[rowIndex].planCount);
 				hourlycounts_base.actualOutputCount = sub_total;
 				
 				if (hourlycounts_base.planOutputCount !== 0){
@@ -677,7 +677,7 @@ var hourlycount = function(){
 					hourlycounts[i].undefinedCount 			= isNull(listdata[i].undefinedCount) ? 0 : parseInt(listdata[i].undefinedCount);
 					hourlycounts[i].remark 					= isNull(listdata[i].remark) ? "" : listdata[i].remark;
 					hourlycounts[i].techDownCode 			= isNull(listdata[i].techDownCode) ? "" : listdata[i].techDownCode;
-					hourlycounts[i].productHourPercent		= hourlycounts[i].productHourCount / 240;
+					hourlycounts[i].productHourPercent		= hourlycounts[i].planCount == 0 ? 0 : (hourlycounts[i].productHourCount / hourlycounts[i].planCount);
 					hourlycounts[i].planTotalCount			= isNull(listdata[i].planTotalCount) ? "" : listdata[i].planTotalCount;
 					hourlycounts[i].actualTotalCount		= actualTotalCount;
 					planTotalCount 							+= hourlycounts[i].planCount;

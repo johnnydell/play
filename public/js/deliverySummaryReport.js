@@ -1,6 +1,5 @@
-var deliveryReport = function(){
-	var lineName = manager.getPV("lineName");
-	var lineId = manager.getPV("lineId");
+var deliverySummaryReport = function(){
+	
 	var deliveryObj = {currYear:"", currMonth:""};
 	function init(){
 		
@@ -10,12 +9,11 @@ var deliveryReport = function(){
 		var ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
-			data: {root:manager.root, lineName:lineName, lineId:lineId},
+			data: {root:manager.root},
 			onrender: function(){
 				manager.loadProperties(this, "common", "../../../");
 				manager.loadProperties(this, "delivery", "../../../");
 				manager.loadProperties(this, "hourlycount", "../../../");
-				manager.loadProperties(this, "oee", "../../../");
 				this.set("years",years);
 				this.set("months",months);
 				
@@ -24,9 +22,9 @@ var deliveryReport = function(){
 				this.set("deliveryObj",deliveryObj);
 			},
 			oncomplete: function(){	
-				deliveryChart1.init(lineName, deliveryObj.currYear);
-				deliveryChart2.init(lineName, deliveryObj.currYear);
-				deliveryChart3.init(lineName, deliveryObj.currYear, deliveryObj.currMonth);
+				deliverySummaryChart1.init(deliveryObj.currYear);
+				deliverySummaryChart2.init(deliveryObj.currYear);
+				deliverySummaryChart3.init(deliveryObj.currYear, deliveryObj.currMonth);
 			}
 		});
 		
@@ -47,16 +45,13 @@ var deliveryReport = function(){
 				_$select.hide().prev().show().text(_$select.find("option:selected").text());
 			},
 			changeYear:function(){
-				deliveryChart1.init(lineName, deliveryObj.currYear);
-				deliveryChart2.init(lineName, deliveryObj.currYear);
-				deliveryChart3.init(lineName, deliveryObj.currYear, deliveryObj.currMonth);
+				deliverySummaryChart1.init(deliveryObj.currYear);
+				deliverySummaryChart2.init(deliveryObj.currYear);
+				deliverySummaryChart3.init(deliveryObj.currYear, deliveryObj.currMonth);
 			},
 			changeMonth:function(){
-				deliveryChart1.init(lineName, deliveryObj.currYear);
-				deliveryChart3.init(lineName, deliveryObj.currYear, deliveryObj.currMonth);
-			},
-			gotoOEE:function(){
-				window.location.href = manager.root + "/views/board/oee.html?lineName="+lineName+"&lineId="+lineId;
+				deliverySummaryChart1.init(deliveryObj.currYear);
+				deliverySummaryChart3.init(deliveryObj.currYear, deliveryObj.currMonth);
 			},
 		})
 	}
@@ -68,4 +63,4 @@ var deliveryReport = function(){
 		init:init
 	}
 }();
-$(document).ready(deliveryReport.init);
+$(document).ready(deliverySummaryReport.init);

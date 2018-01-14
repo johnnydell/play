@@ -1,34 +1,34 @@
-var prodSummaryChart1 = function(){
-	var years = []; 
+var deliverySummaryChart2 = function(){
+	var months = []; 
 	
 	function init(curYear){
 	   //渲染chart1部分
-	   $.get(manager.root+"/views/tpl/kpi/prodSummaryChart1.html", function (template) {
+	   $.get(manager.root+"/views/tpl/kpi/deliverySummaryChart2.html", function (template) {
 	        var ractive = new Ractive({
-	            el: '.cxt .top .lft',
+	            el: '.cxt .top .rgt',
 	            data:{root:manager.root},
 	            template: template,
 	            onrender: function(){
-					manager.loadProperties(this, "productivity", "../../../");
+					manager.loadProperties(this, "delivery", "../../../");
 					manager.loadProperties(this, "common", "../../../");
 					bindChart();
 				},
 	            oncomplete: function(){
-	            	/**/
 	            	
 	            	$.ajax({
-	        			url		: manager.root + '/report/productivity/yearlyProdSummaryChart',
+	        			url		: manager.root + '/report/delivery/monthlyDeliverySummaryChart',
 	        			type	: 'GET',
 	        			dataType:"json",
 	        			data:{yearValue:curYear},
 	        			success: function(listdata)
 	        			{
-	        				console.log(listdata);
-	        				years = listdata.yearList;
+	        				var brand_chart_2 = $('.top .rgt .chart .chart').highcharts();
+	        				console.log("brand_chart_2 = " + brand_chart_2);
+	        				months = listdata.monthList;
 	        				dataList = listdata.dataList;
 	        				// Categories values
         					var _cat = [];
-	        				var brand_chart = $('.top .lft .chart .chart').highcharts();
+	        				
 	        				for(i = 0; i < dataList.length; i ++){
 	        					//set Series
 	        					var _tmp = {};
@@ -39,24 +39,29 @@ var prodSummaryChart1 = function(){
 	        					}
 	        					_tmp.data = _datas;
 	        					_tmp.name = dataList[i].lineName;
-	        					brand_chart.addSeries(_tmp);
+	        					brand_chart_2.addSeries(_tmp);
 	        				}
 	        				
-	        				for(i = 0; i < years.length; i ++){
-	        					_cat.push(years[i]);
+	        				var _targetList = [];
+	        				for(i = 0; i < months.length; i ++){
+	        					_cat.push(months[i]);
+	        					var _tmpTarget = 0;
+	        					for (j = 0; j < dataList.length; j ++){
+	        						_tmpTarget += parseInt(dataList[j].targetdata[i]);
+	        					}
+	        					_targetList.push(_tmpTarget);
 	        				}
-	        				
 	        				//set target
-	        				targetList = [20.5,20.5,20.5,20.5];
-	        				brand_chart.addSeries({name:'target',type:'spline',data:targetList,color:'red'});
+	        				//targetList = [20.5,20.5,20.5,20.5,20.5,20.5,20.5,20.5,20.5,20.5,20.5,20.5];
+	        				brand_chart_2.addSeries({name:'target',type:'spline',data:_targetList,color:'red'});
 	        				
 	        				//set categories
-	        				brand_chart.xAxis[0].setCategories(_cat);
+	        				brand_chart_2.xAxis[0].setCategories(_cat);
 	        				
 	        				//plot to table
 	        				ractive.set("dataList", dataList);
-	        				ractive.set("yearList", years);
-	        				ractive.set("targetList", targetList);
+	        				ractive.set("monthList", months);
+	        				ractive.set("targetList", _targetList);
 	        			}
 	            	});
 	           		
@@ -66,7 +71,7 @@ var prodSummaryChart1 = function(){
 	}
 	
 	function bindChart(){
-		$('.top .lft .chart .chart').highcharts({
+		$('.top .rgt .chart .chart').highcharts({
 			 title: {
 		            text: ''
 		        },
@@ -84,10 +89,10 @@ var prodSummaryChart1 = function(){
 		            title: {
 		                text: ''
 		            },
-		            tickPositions: [0,20,40,60,80,100], // 指定竖轴坐标点的值
+		            
 		            labels: {
 		                formatter: function() {
-		                    return (this.value * 1).toFixed(2);
+		                    return this.value;
 		                },
 		            }	
 		        },

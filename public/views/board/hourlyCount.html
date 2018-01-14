@@ -329,14 +329,9 @@
 					</td>
 					<td colspan="7" style="text-align:left">
 					{{#if hourlyCountV1[index].productHourCount > 0}}
-						{{#if hourlyCountV1[index].productHourPercent <= 0.5}}
-							
+						{{#if hourlyCountV1[index].productHourPercent <= 0.7}}
 							<progress value="{{hourlyCountV1[index].productHourPercent}}" class="progress_red"  />
-						{{elseif hourlyCountV1[index].productHourPercent <= 0.7 && hourlyCountV1[index].productHourPercent > 0.5}}
-							
-							<progress value="{{hourlyCountV1[index].productHourPercent}}"  class="progress_yellow" />
 						{{else}}
-							
 							<progress value="{{hourlyCountV1[index].productHourPercent}}" class="progress_green" />
 						{{/if}}
 					{{else}}

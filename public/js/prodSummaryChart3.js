@@ -24,7 +24,7 @@ var prodSummaryChart3 = function(){
 	        			data:{yearValue:curYear,monthValue:curMonth,dayCount:totalDays},
 	        			success: function(listdata)
 	        			{
-	        				
+	        				var targetList;
 	        				days = listdata.dayList;
 	        				dataList = listdata.dataList;
 	        				// Categories values

@@ -15,6 +15,7 @@ var productivityReport = function(){
 				manager.loadProperties(this, "common", "../../../");
 				manager.loadProperties(this, "productivity", "../../../");
 				manager.loadProperties(this, "hourlycount", "../../../");
+				manager.loadProperties(this, "delivery", "../../../");
 				this.set("years",years);
 				this.set("months",months);
 				
@@ -53,6 +54,9 @@ var productivityReport = function(){
 			changeMonth:function(){
 				productivityChart1.init(lineName, prodObj.currYear);
 				productivityChart3.init(lineName, prodObj.currYear, prodObj.currMonth);
+			},
+			gotoDelivery:function(){
+				window.location.href = manager.root + "/views/tpl/kpi/deliveryReport.html?lineName="+lineName+"&lineId="+lineId;
 			},
 		})
 	}
