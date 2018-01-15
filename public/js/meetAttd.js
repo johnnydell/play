@@ -244,7 +244,7 @@ var meetAttd = function(){
 						var bg = "white";
 						if(val == 'A'){
 							bg = "red";
-						} else if(val == 'E'){
+						} else if(val == 'E' || val == 'L'){
 							bg = "yellow";
 						}
 						attendanceDetails[index]["days"][flag].bg=bg;
