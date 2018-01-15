@@ -32,7 +32,7 @@ var complainIn = function(){
 			
 			ractive.on({
 				toShowTargetTxt:function(e){
-					$(e.node).hide().next().show().focus();
+					$(e.node).hide().next().show().focus().select();
 				},
 				toHideTargetTxt:function(e){
 					$(e.node).hide().prev().show();
@@ -69,7 +69,7 @@ var complainIn = function(){
 					this.set("base",base);
 				},
 				toShowColumnEditor:function(e){
-					$(e.node).hide().next().show().focus();
+					$(e.node).hide().next().show().focus().select();
 				},
 				toHideColumnEditor:function(e){
 					$(e.node).hide().prev().show();
