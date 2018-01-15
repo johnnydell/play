@@ -84,7 +84,7 @@ var prodSummaryChart1 = function(){
 		            title: {
 		                text: ''
 		            },
-		            tickPositions: [0,20,40,60,80,100], // 指定竖轴坐标点的值
+		            
 		            labels: {
 		                formatter: function() {
 		                    return (this.value * 1).toFixed(2);

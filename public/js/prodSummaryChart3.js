@@ -24,7 +24,7 @@ var prodSummaryChart3 = function(){
 	        			data:{yearValue:curYear,monthValue:curMonth,dayCount:totalDays},
 	        			success: function(listdata)
 	        			{
-	        				var targetList;
+	        				var targetList = [];
 	        				days = listdata.dayList;
 	        				dataList = listdata.dataList;
 	        				// Categories values
@@ -92,7 +92,7 @@ var prodSummaryChart3 = function(){
 		            title: {
 		                text: ''
 		            },
-		            tickPositions: [0,10,20,30,40,50], // 指定竖轴坐标点的值
+		            
 		            labels: {
 		                formatter: function() {
 		                    return (this.value * 1).toFixed(2);
