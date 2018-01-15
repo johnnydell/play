@@ -1,0 +1,30 @@
+<div class="chart">
+  
+   <div class="chart"></div>
+   <table>
+  	
+  			<tr>
+  				<td>
+  					{{i18n_line_name}}
+  				</td>
+  				{{#each yearList}}
+  				<td>{{.}}</td>
+  				{{/each}}
+  			</tr>
+  			{{#each dataList}}
+  			<tr>
+  				<td>{{lineName}}</td>
+  				{{#each actualdata:idx}}
+  				<td>{{actualdata[idx]}}</td>
+  				{{/each}}
+  			</tr>
+  			{{/each}}
+  			<tr>
+  				<td>{{i18n_target}}</td>
+  				{{#each targetList:idx}}
+  				<td>{{targetList[idx]}}</td>
+  				{{/each}}
+  			</tr>
+  	
+	</table>
+</div>

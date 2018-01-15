@@ -98,5 +98,35 @@ public class Safety extends Model {
 		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("lineName", name).setParameter("startDate", startDate).setParameter("endDate", endDate).findList();
 		return rows;
 	}
+	
+	public static List<SqlRow> findYearlySafetySummaryData(Date startDt, Date endDt)  {
+		String sql = "select date_format(b.safety_date,'%Y') years, l.line_name , sum(b.safety_actual_count) as actual_total, sum(b.safety_target_count) as target_total "
+				+ " from edb_safety b, edb_line l "
+				+ " where b.line_id = l.id"
+				+ " and b.safety_date between :startDate and :endDate "
+				+ " group by years, line_name order by years";
+		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("startDate", startDt).setParameter("endDate", endDt).findList();
+		return rows;
+	}
+	
+	public static List<SqlRow> findMonthlySafetySummaryData(Date startDt, Date endDt)  {
+		String sql = "select date_format(b.safety_date,'%m') months, l.line_name , sum(b.safety_actual_count) as actual_total, sum(b.safety_target_count) as target_total "
+				+ " from edb_safety b, edb_line l "
+				+ " where b.line_id = l.id"
+				+ " and b.safety_date between :startDate and :endDate "
+				+ " group by months, line_name order by months";
+		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("startDate", startDt).setParameter("endDate", endDt).findList();
+		return rows;
+	}
+	
+	public static List<SqlRow> findDailySafetySummaryData(Date startDt, Date endDt)  {
+		String sql = "select date_format(b.safety_date,'%d') days, l.line_name , sum(b.safety_actual_count) as actual_total, sum(b.safety_target_count) as target_total "
+				+ " from edb_safety b, edb_line l "
+				+ " where b.line_id = l.id"
+				+ " and b.safety_date between :startDate and :endDate "
+				+ " group by days, line_name order by days";
+		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("startDate", startDt).setParameter("endDate", endDt).findList();
+		return rows;
+	}
 
 }
