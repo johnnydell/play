@@ -17,6 +17,8 @@ var oeeLossChart6 = function(){
 	        			contentType: "application/json",
 	        			success: function(listdata)
 	        			{
+	        				allTypeLoss = {};
+	        				ttloss = [];
 	        				//QualityLoss
 	        				allTypeLoss.scrap_loss_total 					= listdata.scrap_loss_total;
 	        				allTypeLoss.rework_loss_total 					= listdata.rework_loss_total;

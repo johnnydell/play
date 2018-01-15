@@ -76,7 +76,7 @@ var safetyChart3 = function(){
 		                }
 		                	
 		            },
-		            tickPositions: [0,20,40,60,80,100], // 指定竖轴坐标点的值
+		            
 		            labels: {
 		                formatter: function() {
 		                    return this.value;

@@ -98,7 +98,7 @@ public class OeeLossController extends Controller {
 			
 			boolean isFound = false;
 			for (SqlRow row : rows){
-				if (row.getString("months").equals(String.valueOf(i))){
+				if (Integer.parseInt(row.getString("months")) == i){
 					isFound = true;
 					breakdownLossTotal.add(row.getInteger("breakdown_loss_total") == null ? 0 : row.getInteger("breakdown_loss_total"));
 					adjustmentLossTotal.add(row.getInteger("adjustment_loss_total") == null ? 0 : row.getInteger("adjustment_loss_total"));
@@ -138,7 +138,7 @@ public class OeeLossController extends Controller {
 			months.add(i);
 			boolean isFound = false;
 			for (SqlRow row : rows){
-				if (row.getString("months").equals(String.valueOf(i))){
+				if (Integer.parseInt(row.getString("months")) == i){
 					isFound = true;
 					lackPersonnelLossTotal.add(row.getInteger("lack_personnel_loss_total") == null ? 0 : row.getInteger("lack_personnel_loss_total"));
 					lackMaterialLossTotal.add(row.getInteger("lack_material_loss_total") == null ? 0 : row.getInteger("lack_material_loss_total"));
@@ -192,7 +192,7 @@ public class OeeLossController extends Controller {
 			
 			boolean isFound = false;
 			for (SqlRow row : rows){
-				if (row.getString("months").equals(String.valueOf(i))){
+				if (Integer.parseInt(row.getString("months")) == i){
 					isFound = true;
 					planSetupLossTotal.add(row.getInteger("plan_setup_loss_total") == null ? 0 : row.getInteger("plan_setup_loss_total"));
 					unplanSetupLossTotal.add(row.getInteger("unplan_setup_loss_total") == null ? 0 : row.getInteger("unplan_setup_loss_total"));
@@ -230,7 +230,7 @@ public class OeeLossController extends Controller {
 			
 			boolean isFound = false;
 			for (SqlRow row : rows){
-				if (row.getString("months").equals(String.valueOf(i))){
+				if (Integer.parseInt(row.getString("months")) == i){
 					isFound = true;
 					scrapLossTotal.add(row.getInteger("scrap_loss_total") == null ? 0 : row.getInteger("scrap_loss_total"));
 					reworkmentLossTotal.add(row.getInteger("rework_loss_total") == null ? 0 : row.getInteger("rework_loss_total"));
@@ -266,7 +266,7 @@ public class OeeLossController extends Controller {
 			
 			boolean isFound = false;
 			for (SqlRow row : rows){
-				if (row.getString("months").equals(String.valueOf(i))){
+				if (Integer.parseInt(row.getString("months")) == i){
 					isFound = true;
 					performanceLossTotal.add(row.getInteger("performance_loss_total") == null ? 0 : row.getInteger("performance_loss_total"));
 					undefinedLossTotal.add(row.getInteger("undefined_loss_total") == null ? 0 : row.getInteger("undefined_loss_total"));
@@ -321,7 +321,7 @@ public class OeeLossController extends Controller {
 			
 			boolean isFound = false;
 			for (SqlRow row : rows){
-				if (row.getString("months").equals(String.valueOf(i))){
+				if (Integer.parseInt(row.getString("months")) == i){
 					isFound = true;
 					//QualityLoss
 					scrapLossTotal.add(row.getInteger("scrap_loss_total") == null ? 0 : row.getInteger("scrap_loss_total"));

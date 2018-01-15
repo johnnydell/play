@@ -352,7 +352,7 @@ var meetAttd = function(){
 	    						var bg = "white";
 	    						if(day.dayVal == 'A'){
 	    							bg = "red";
-	    						} else if(day.dayVal == 'E'){
+	    						} else if(day.dayVal == 'L' || day.dayVal == 'E'){
 	    							bg = "yellow";
 	    						}
 	    						days.push({id:day.id,d:i,v:day.dayVal,s:day.dayWeekend,bg:bg,updated:"0"});//s标示是否为周末

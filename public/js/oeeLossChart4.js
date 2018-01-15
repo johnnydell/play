@@ -72,7 +72,7 @@ var oeeLossChart4 = function(){
 	                text: ''
 	            },
 	            min: 0,
-	            tickPositions: [0, 200, 400, 600,800,1000,1200]// 指定竖轴坐标点的值
+	            
 	        },
 	        legend: {
 	        	layout: 'vertical',
