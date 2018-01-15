@@ -116,9 +116,9 @@ GET /edashboard/safety/getSafetyInfo						controllers.SafetyController.getSafety
 POST /edashboard/safety/saveSafetyInfo						controllers.SafetyController.saveSafetyInfo()
 
 # Safety - Report
-GET  /edashboard/report/safety/yearlySafetyChart    		controllers.report.SafetyController.getYearlySafetyReport(lineName : String)
+GET  /edashboard/report/safety/yearlySafetyChart    		controllers.report.SafetyController.getYearlySafetyReport(lineName : String, yearValue : String)
 GET  /edashboard/report/safety/dailySafetyChart				controllers.report.SafetyController.getDailySafetyReport(lineName : String,  yearValue:String,  monthValue:String,  dayCount:String)
-GET  /edashboard/report/safety/montlySafetyChart			controllers.report.SafetyController.getMonthlySafetyReport(lineName : String,  yearValue:String)
+GET  /edashboard/report/safety/monthlySafetyChart			controllers.report.SafetyController.getMonthlySafetyReport(lineName : String,  yearValue:String)
 
 # Scrap - Report
 GET  /edashboard/report/scrap/yearlyScrapChart    			controllers.report.ScrapController.getYearlyScrapReport(lineName : String,  yearValue:String)

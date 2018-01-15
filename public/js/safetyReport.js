@@ -21,7 +21,7 @@ var safetyReport = function(){
 						this.set("safetyObj",safetyObj);
 					},
 		            oncomplete: function(){
-		            	safetyChart1.init(lineName);
+		            	safetyChart1.init(lineName, safetyObj.currYear);
 		            	safetyChart2.init(lineName, safetyObj.currYear);
 		            	safetyChart3.init(lineName, safetyObj.currYear, safetyObj.currMonth);
 		            }
@@ -43,12 +43,12 @@ var safetyReport = function(){
 						_$select.hide().prev().show().text(_$select.find("option:selected").text());
 					},
 					changeYear:function(){
-						safetyChart1.init(lineName);
+						safetyChart1.init(lineName, safetyObj.currYear);
 		            	safetyChart2.init(lineName, safetyObj.currYear);
 		            	safetyChart3.init(lineName, safetyObj.currYear, safetyObj.currMonth);
 					},
 					changeMonth:function(){
-						safetyChart1.init(lineName);
+						safetyChart1.init(lineName, safetyObj.currYear);
 		            	safetyChart3.init(lineName, safetyObj.currYear, safetyObj.currMonth);
 					},
 				})

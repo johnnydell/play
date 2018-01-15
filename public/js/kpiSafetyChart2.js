@@ -1,27 +1,38 @@
-var safetyChart2 = function(){
-	var months;
+var kpiSafetyChart2 = function(){
+	var months = []; 
+	var targetList = []; 
+	var actualList = [];
+	var actualData = [];
 	
-	var targetTotal;
-	var actualTotal;
-	function init(lineName, currYear){
+	function init(lineName, curYear){
 	   //渲染chart1部分
-	   $.get(manager.root+"/views/tpl/board2/safetyChart2.html", function (template) {
-	        var ractive2 = new Ractive({
+	   $.get(manager.root+"/views/tpl/kpi/kpiSafetyChart2.html", function (template) {
+	        var ractive = new Ractive({
 	            el: '.cxt .top .rgt',
-	            data:{root:manager.root},
+	            data:{
+    				lineName	: lineName,
+    				yearValue	: curYear,
+    				format		: function(num){
+    					return manager.formatNumberAsUS(num,0,',');
+    				},
+    				
+    			},
 	            template: template,
 	            onrender: function(){
-					manager.loadProperties(this, "safety", "../../");
-					manager.loadProperties(this, "common", "../../");
+					manager.loadProperties(this, "safety", "../../../");
+					manager.loadProperties(this, "common", "../../../");
 				},
 	            oncomplete: function(){
-	           		
+	            	/**/
+	            	targetPercent = [];
 	            	$.ajax({
 	        			url		: manager.root + '/report/safety/monthlySafetyChart',
 	        			type	: 'GET',
 	        			dataType:"json",
-	        			data:{lineName:lineName,yearValue:currYear},
-	        			contentType: "application/json",
+	        			data:{
+	        				lineName	: lineName,
+	        				yearValue	: curYear
+	        			},
 	        			success: function(listdata)
 	        			{
 	        				actualData 		= [];
@@ -47,10 +58,14 @@ var safetyChart2 = function(){
 	        				bindChart();
 	        				
 	        				//plot to table
-	        				ractive2.set("targetTotal", targetList);
-	        				ractive2.set("actualTotal", actualList);
+	        				ractive.set("targetTotal", targetList);
+	        				ractive.set("actualTotal", actualList);
+	        				
+	        				
+	        				
 	        			}
 	            	});
+	           		
 	            }
 	        }); 
 	    });
@@ -69,7 +84,7 @@ var safetyChart2 = function(){
 	        },
 	        yAxis: {
 	            title: {
-	                text: $.i18n.map['i18n_safety_monthly_count'],
+	                text: $.i18n.map['i18n_safety_yearly_count'],
 	                margin:65,
 	                style: {
 	                	fontSize: '15px',
@@ -77,7 +92,6 @@ var safetyChart2 = function(){
 	                	color:'black'
 	                }
 	            },
-	            
 	            labels: {
 	                formatter: function() {
 	                    return this.value;
@@ -107,7 +121,8 @@ var safetyChart2 = function(){
 	            enabled:false
 	        }
 	    });	
-	}	
+	}
+	
 		
 	return {
 		init:init

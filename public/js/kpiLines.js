@@ -30,7 +30,7 @@ var productivity = function(){
 				var lineName = e.context.lineName;
 				switch(type){
 			       case 'safety':
-			    	  url = "";
+			    	   url = manager.root+"/views/tpl/kpi/kpiSafetyReport.html?lineName="+lineName + "&lineId=" + lineId;
 			       	  break;
 			       case 'complain':
 			    	  url = manager.root+"/views/kpi/complainRep.html?lineId="+lineId+"&lineName="+lineName;

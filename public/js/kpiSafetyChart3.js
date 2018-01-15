@@ -1,63 +1,74 @@
-var safetyChart2 = function(){
-	var months;
-	
-	var targetTotal;
-	var actualTotal;
-	function init(lineName, currYear){
+var kpiSafetyChart3 = function(){
+	var days = []; 
+	var targetList = []; 
+	var actualList = [];
+	var actualData = [];
+	function init(lineName, curYear, curMonth){
 	   //渲染chart1部分
-	   $.get(manager.root+"/views/tpl/board2/safetyChart2.html", function (template) {
-	        var ractive2 = new Ractive({
-	            el: '.cxt .top .rgt',
-	            data:{root:manager.root},
+	   $.get(manager.root+"/views/tpl/kpi/kpiSafetyChart3.html", function (template) {
+	        var ractive = new Ractive({
+	            el: '.cxt .bt',
+	            data:{
+	            	root		: manager.root,
+    				lineName	: lineName,
+    				format		: function(num){
+    					return manager.formatNumberAsUS(num,0,',');
+    				},
+    				
+    			},
 	            template: template,
 	            onrender: function(){
-					manager.loadProperties(this, "safety", "../../");
-					manager.loadProperties(this, "common", "../../");
+					manager.loadProperties(this, "delivery", "../../../");
+					manager.loadProperties(this, "common", "../../../");
 				},
 	            oncomplete: function(){
-	           		
+	            	/**/
+	            	totalDays = cntDays(curYear, curMonth);
 	            	$.ajax({
-	        			url		: manager.root + '/report/safety/monthlySafetyChart',
+	        			url		: manager.root + '/report/safety/dailySafetyChart',
 	        			type	: 'GET',
 	        			dataType:"json",
-	        			data:{lineName:lineName,yearValue:currYear},
-	        			contentType: "application/json",
+	        			data:{lineName:lineName,yearValue:curYear,monthValue:curMonth,dayCount:totalDays},
 	        			success: function(listdata)
 	        			{
 	        				actualData 		= [];
-	        				
-        					months 			= listdata.monthList;
+	        				console.log(listdata);
+        					days 			= listdata.dayList;
 	        				targetList 		= listdata.targetTotal;
 	        				actualList 		= listdata.actualTotal;
 	        				for(i = 0; i < actualList.length; i ++){
 	        					//prepare series data - actual
 	        					var tmpData = {};
-	        					var _actual = actualList[i];
-	        					var _target = targetList[i];
-	        					tmpData.y = _actual;
+	        					_actual = actualList[i];
+	        					_target = targetList[i];
+        						tmpData.y = _actual;
 	        					if (_actual < _target)
 	        						tmpData.color = 'green';
 	        					else
 	        						tmpData.color = 'red';
-	        					
 	        					actualData.push(tmpData);
-	        					
 	        				}
 	        				//plot to chart
 	        				bindChart();
 	        				
 	        				//plot to table
-	        				ractive2.set("targetTotal", targetList);
-	        				ractive2.set("actualTotal", actualList);
+	        				ractive.set("targetTotal", targetList);
+	        				ractive.set("actualTotal", actualList);
 	        			}
 	            	});
+	           		
 	            }
 	        }); 
 	    });
 	}
 	
+	//根据年月返回天数
+	function cntDays(year,month){
+		return manager.getDaysCnt(year,month);
+	}
+	
 	function bindChart(){
-		$('.top .rgt .chart .chart').highcharts({
+		$('.bt .chart .chart').highcharts({
 			 title: {
 	            text: ''
 	        },
@@ -65,11 +76,11 @@ var safetyChart2 = function(){
 	            enabled: false
 	        },
 	        xAxis: {
-	            categories: months
+	            categories: days
 	        },
 	        yAxis: {
 	            title: {
-	                text: $.i18n.map['i18n_safety_monthly_count'],
+	                text: $.i18n.map['i18n_delivery_daily'],
 	                margin:65,
 	                style: {
 	                	fontSize: '15px',
@@ -107,7 +118,8 @@ var safetyChart2 = function(){
 	            enabled:false
 	        }
 	    });	
-	}	
+	}
+	
 		
 	return {
 		init:init

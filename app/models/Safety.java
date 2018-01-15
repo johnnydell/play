@@ -75,14 +75,15 @@ public class Safety extends Model {
 		return find.where().eq("productLine.lineName", lineName).between("safetyDate", startDate, endDate).orderBy("safetyDate").findList();
 	}
 	
-	public static List<SqlRow> findYearlySafetyData(String name)  {
-		String sql = "select date_format(b.safety_date,'%Y') years, avg(b.safety_target_count) as target_count," 
+	public static List<SqlRow> findYearlySafetyData(String name, Date startDate, Date endDate)  {
+		String sql = "select date_format(b.safety_date,'%Y') years, avg(b.safety_target_count) as target_total," 
 				+" sum(b.safety_actual_count) as actual_total "
 				+ " from edb_safety b, edb_line l "
 				+" where b.line_id = l.id "
+				+"  and b.safety_date between :startDt and :endDt "
 				+ " and l.line_name = :lineName "
 				+ " group by years order by years";
-		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("lineName", name).findList();
+		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("lineName", name).setParameter("startDt", startDate).setParameter("endDt", endDate).findList();
 		return rows;
 	}
 	

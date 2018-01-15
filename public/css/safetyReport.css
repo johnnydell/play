@@ -1,3 +1,20 @@
+.content-box table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #000;
+}
+
+.content-box table td {
+    color: #0a05e8;
+    /* line-height: 30px; */
+    height: 30px;
+    text-align: right;
+    border: 1px solid #000;
+    cursor: pointer;
+    font-size: smaller;
+    padding-right: 5px;
+}
+
 .content-box .header {
 	text-align: left;
 	background-color: #003366;
