@@ -16,8 +16,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import models.HourlyCountBase;
 import models.HourlyCountDetail;
 import models.OeeLossChildChildType;
-import models.ProductLine;
-import models.ProductType;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -80,17 +78,17 @@ public class HourlyCountController extends Controller {
 		}
 		
 		//check if product line existed
-		ProductLine line = ProductLine.findByName(lineName);
-		if (null == line){
-			line = new ProductLine();
-			line.lineName = lineName;
-			line.active = true;
-			ProductLine.save(line);
-		}
+//		ProductLine line = ProductLine.findByName(lineName);
+//		if (null == line){
+//			line = new ProductLine();
+//			line.lineName = lineName;
+//			line.active = true;
+//			ProductLine.save(line);
+//		}
 		//set each properties
 		base_1_1.groupLeaderSign = baseInfoNode.get("groupLeaderSign").asText();
-		base_1_1.productDate = productDate;
-		base_1_1.productLine = line;
+		//base_1_1.productDate = productDate;
+		//base_1_1.productLine = line;
 		base_1_1.teamLeaderSign1 = baseInfoNode.get("teamLeaderSign1").asText();
 		base_1_1.teamLeaderSign2 = baseInfoNode.get("teamLeaderSign2").asText();
 		base_1_1.manHourShift1 = baseInfoNode.get("manHourShift1").asInt(0);
@@ -102,8 +100,8 @@ public class HourlyCountController extends Controller {
 		base_1_1.actualOeeTotalOutput = baseInfoNode.get("actualOutputCount").asInt();
 		
 		base_2_2.groupLeaderSign = baseInfoNode.get("groupLeaderSign").asText();
-		base_2_2.productDate = nextDay;
-		base_2_2.productLine = line;
+		//base_2_2.productDate = nextDay;
+		//base_2_2.productLine = line;
 		//base_2.teamLeaderSign1 = baseInfoNode.get("teamLeaderSign1").asText();
 		//base_2.teamLeaderSign2 = baseInfoNode.get("teamLeaderSign2").asText();
 		base_2_2.teamLeaderSign3 = baseInfoNode.get("teamLeaderSign3").asText();
@@ -163,34 +161,34 @@ public class HourlyCountController extends Controller {
 				detailObj = new HourlyCountDetail();
 			
 			//get product type from DB
-			String productTypeName1 = detailInfoNode.get(i).get("productTypeName1").asText();
-			ProductType productType1 = ProductType.findByName(productTypeName1);
-			if (null == productType1 && !productTypeName1.isEmpty()){
-				productType1 = new ProductType();
-				productType1.productTypeName = productTypeName1;
-				productType1.active = true;
-				ProductType.save(productType1);
-			}
-			String productTypeName2 = detailInfoNode.get(i).get("productTypeName2").asText();
-			ProductType productType2 = ProductType.findByName(productTypeName2);
-			if (null == productType2 && !productTypeName2.isEmpty()){
-				productType2 = new ProductType();
-				productType2.productTypeName = productTypeName2;
-				productType2.active = true;
-				ProductType.save(productType2);
-			}
+			//String productTypeName1 = detailInfoNode.get(i).get("productTypeName1").asText();
+			//ProductType productType1 = ProductType.findByName(productTypeName1);
+//			if (null == productType1 && !productTypeName1.isEmpty()){
+//				productType1 = new ProductType();
+//				productType1.productTypeName = productTypeName1;
+//				productType1.active = true;
+//				ProductType.save(productType1);
+//			}
+			//String productTypeName2 = detailInfoNode.get(i).get("productTypeName2").asText();
+			//ProductType productType2 = ProductType.findByName(productTypeName2);
+//			if (null == productType2 && !productTypeName2.isEmpty()){
+//				productType2 = new ProductType();
+//				productType2.productTypeName = productTypeName2;
+//				productType2.active = true;
+//				ProductType.save(productType2);
+//			}
 			
 			//set properties
 			if (i > 15)
 				detailObj.hourlyCountBase 			= base_2_2;
 			else
 				detailObj.hourlyCountBase 			= base_1_1;
-			detailObj.productType1 				= productType1;
-			detailObj.productCycle1 			= detailInfoNode.get(i).get("productCycle1").asInt();
-			detailObj.productType2 				= productType2;
-			detailObj.productCycle2 			= detailInfoNode.get(i).get("productCycle2").asInt();
-			detailObj.productHour 				= detailInfoNode.get(i).get("productHour").asInt();
-			detailObj.productHourIndex 			= detailInfoNode.get(i).get("productHourIndex").asInt();
+			//detailObj.productType1 				= productType1;
+			//detailObj.productCycle1 			= detailInfoNode.get(i).get("productCycle1").asInt();
+			//detailObj.productType2 				= productType2;
+			//detailObj.productCycle2 			= detailInfoNode.get(i).get("productCycle2").asInt();
+			//detailObj.productHour 				= detailInfoNode.get(i).get("productHour").asInt();
+			//detailObj.productHourIndex 			= detailInfoNode.get(i).get("productHourIndex").asInt();
 			detailObj.productHourCount 			= detailInfoNode.get(i).get("productHourCount").asInt();
 			detailObj.planCount 				= detailInfoNode.get(i).get("planCount").asInt();
 			detailObj.actualCount 				= detailInfoNode.get(i).get("actualCount").asInt();
