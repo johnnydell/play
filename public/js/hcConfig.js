@@ -342,7 +342,7 @@ var hcConfig = function(){
 			base1.details = details;	
 		} else {
 			base1.id = "0";
-			base1.target_oee_percent = "85";
+			base1.target_oee_percent = "70";
 			base1.plan_opl_total_output = "";
 			base1.details = formHCDetailPre();
 		}
