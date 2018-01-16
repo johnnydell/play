@@ -564,5 +564,161 @@ public class HourlyCountDetail extends Model {
 		}
 		return jsons;
 	}
+	
+	public static List<JSONObject> findYearlyScrapSummaryData(Date startDate, Date endDate)  {
+		String sql = "select date_format(b.product_date,'%Y') years,l.line_name, sum(d.scrap_count) as scrap_total_count "
+				+ " from edb_hourly_count_base b, edb_line l, edb_hourly_count_detail d"
+				+ " where b.product_line_id = l.id"
+				+ " and b.id = d.hourly_count_base_id"
+				+ " and b.product_date between :startDate and :endDate "
+				+ " group by years,line_name order by years";
+		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("startDate", startDate).setParameter("endDate", endDate).findList();
+		
+		sql = "select date_format(b.product_date,'%Y') years,l.line_name, sum(b.actual_oee_total_output) as actual_total_count "
+				+ " from edb_hourly_count_base b, edb_line l"
+				+ " where b.product_line_id = l.id"
+				+ " and b.product_date between :startDate and :endDate "
+				+ " group by years,line_name order by years";
+		List<SqlRow> rows1 =	Ebean.createSqlQuery(sql).setParameter("startDate", startDate).setParameter("endDate", endDate).findList();
+		
+		List<JSONObject> jsons = new ArrayList<JSONObject>();
+		for(SqlRow row : rows){
+			JSONObject json = new JSONObject();
+			String year = row.getString("years");
+			String scrapTotal = row.getString("scrap_total_count");
+			String lineName1 = row.getString("line_name");
+			json.put("years", year);
+			json.put("line_name", lineName1);
+			if (null != scrapTotal && !StringUtils.isEmpty(scrapTotal))
+				json.put("scrapTotal", scrapTotal);
+			else
+				json.put("scrapTotal", 0);
+			
+			boolean isFound = false;
+			for (SqlRow row1 : rows1){
+				String year1 = row1.getString("years");
+				String actualTotal = row1.getString("actual_total_count");
+				String lineName2 = row1.getString("line_name");
+				if (year.equals(year1) && lineName1.equals(lineName2)){
+					isFound = true;
+					if (null != actualTotal && !StringUtils.isEmpty(actualTotal))
+						json.put("actualTotal", actualTotal);
+					else
+						json.put("actualTotal", 0);
+					break;
+				}
+			}
+			if (!isFound){
+				json.put("actualTotal", 0);
+			}
+			
+			jsons.add(json);
+		}
+		return jsons;
+	}
+	
+	public static List<JSONObject> findMonthlyScrapSummaryData(Date startDate, Date endDate)  {
+		String sql = "select date_format(b.product_date,'%m') months,l.line_name, sum(d.scrap_count) as scrap_total_count "
+				+ " from edb_hourly_count_base b, edb_line l, edb_hourly_count_detail d"
+				+ " where b.product_line_id = l.id"
+				+ " and b.id = d.hourly_count_base_id"
+				+ " and b.product_date between :startDate and :endDate "
+				+ " group by months,line_name order by months";
+		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("startDate", startDate).setParameter("endDate", endDate).findList();
+		
+		sql = "select date_format(b.product_date,'%m') months,l.line_name, sum(b.actual_oee_total_output) as actual_total_count "
+				+ " from edb_hourly_count_base b, edb_line l"
+				+ " where b.product_line_id = l.id"
+				+ " and b.product_date between :startDate and :endDate "
+				+ " group by months,line_name order by months";
+		List<SqlRow> rows1 =	Ebean.createSqlQuery(sql).setParameter("startDate", startDate).setParameter("endDate", endDate).findList();
+		
+		List<JSONObject> jsons = new ArrayList<JSONObject>();
+		for(SqlRow row : rows){
+			JSONObject json = new JSONObject();
+			String month = row.getString("months");
+			String scrapTotal = row.getString("scrap_total_count");
+			String lineName1 = row.getString("line_name");
+			json.put("line_name", lineName1);
+			json.put("months", month);
+			if (null != scrapTotal && !StringUtils.isEmpty(scrapTotal))
+				json.put("scrapTotal", scrapTotal);
+			else
+				json.put("scrapTotal", 0);
+			
+			boolean isFound = false;
+			for (SqlRow row1 : rows1){
+				String month1 = row1.getString("months");
+				String actualTotal = row1.getString("actual_total_count");
+				String lineName2 = row1.getString("line_name");
+				if (month.equals(month1) && lineName1.equals(lineName2)){
+					isFound = true;
+					if (null != actualTotal && !StringUtils.isEmpty(actualTotal))
+						json.put("actualTotal", actualTotal);
+					else
+						json.put("actualTotal", 0);
+					break;
+				}
+			}
+			if (!isFound){
+				json.put("actualTotal", 0);
+			}
+			
+			jsons.add(json);
+		}
+		return jsons;
+	}
+	
+	public static List<JSONObject> findDailyScrapSummaryData(Date startDate, Date endDate){
+		String sql = "select date_format(b.product_date,'%d') days,l.line_name, sum(d.scrap_count) as scrap_total_count "
+				+ " from edb_hourly_count_base b, edb_line l, edb_hourly_count_detail d"
+				+ " where b.product_line_id = l.id"
+				+ " and b.id = d.hourly_count_base_id"
+				+ " and b.product_date between :startDate and :endDate "
+				+ " group by days,line_name order by days";
+		List<SqlRow> rows =	Ebean.createSqlQuery(sql).setParameter("startDate", startDate).setParameter("endDate", endDate).findList();
+		
+		sql = "select date_format(b.product_date,'%d') days,l.line_name, sum(b.actual_oee_total_output) as actual_total_count "
+				+ " from edb_hourly_count_base b, edb_line l"
+				+ " where b.product_line_id = l.id"
+				+ " and b.product_date between :startDate and :endDate "
+				+ " group by days,line_name order by days";
+		List<SqlRow> rows1 =	Ebean.createSqlQuery(sql).setParameter("startDate", startDate).setParameter("endDate", endDate).findList();
+		
+		List<JSONObject> jsons = new ArrayList<JSONObject>();
+		for(SqlRow row : rows){
+			JSONObject json = new JSONObject();
+			String day = row.getString("days");
+			String scrapTotal = row.getString("scrap_total_count");
+			String lineName1 = row.getString("line_name");
+			json.put("line_name", lineName1);
+			json.put("days", day);
+			if (null != scrapTotal && !StringUtils.isEmpty(scrapTotal))
+				json.put("scrapTotal", scrapTotal);
+			else
+				json.put("scrapTotal", 0);
+			
+			boolean isFound = false;
+			for (SqlRow row1 : rows1){
+				String day1 = row1.getString("days");
+				String actualTotal = row1.getString("actual_total_count");
+				String lineName2 = row1.getString("line_name");
+				if (day.equals(day1) && lineName1.equals(lineName2)){
+					isFound = true;
+					if (null != actualTotal && !StringUtils.isEmpty(actualTotal))
+						json.put("actualTotal", actualTotal);
+					else
+						json.put("actualTotal", 0);
+					break;
+				}
+			}
+			if (!isFound){
+				json.put("actualTotal", 0);
+			}
+			
+			jsons.add(json);
+		}
+		return jsons;
+	}
 
 }

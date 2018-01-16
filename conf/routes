@@ -179,6 +179,11 @@ GET  /edashboard/report/safety/yearlySafetySummaryChart    		controllers.report.
 GET  /edashboard/report/safety/monthlySafetySummaryChart		controllers.report.SafetyController.getMonthlySafetySummaryReport(yearValue: String)
 GET  /edashboard/report/safety/dailySafetySummaryChart			controllers.report.SafetyController.getDailySafetySummaryReport(yearValue:String,  monthValue:String,  dayCount:String)
 
+# Scrap Summary - Report
+GET  /edashboard/report/scrap/yearlyScrapSummaryChart    		controllers.report.ScrapController.getYearlyScrapSummaryReport(yearValue : String)
+GET  /edashboard/report/scrap/monthlyScrapSummaryChart			controllers.report.ScrapController.getMonthlyScrapSummaryReport(yearValue: String)
+GET  /edashboard/report/scrap/dailyScrapSummaryChart			controllers.report.ScrapController.getDailyScrapSummaryReport(yearValue:String,  monthValue:String,  dayCount:String)
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /edashboard/*file               				controllers.Assets.at(path="/public", file)
