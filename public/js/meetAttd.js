@@ -258,7 +258,7 @@ var meetAttd = function(){
 				} else {
 					txt = $(e.node).val();
 				}
-				txt = txt.length>10?txt.substring(0,10)+"....":txt;
+				txt = txt.length>50?txt.substring(0,50)+"....":txt;
 				$(e.node).hide().prev().show().text(txt);
 				attendanceDetails[index].updated = "1";
 				ractive.update("attendanceDetails");
