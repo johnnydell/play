@@ -7,7 +7,29 @@
 		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
 		<link rel="stylesheet" type="text/css" href="../css/login.css"/>
 		<link rel="stylesheet" type="text/css" href="../css/scr.css"/>
+		<style type="text/css">
+		.content-box .toolbar {
+			height: 60px;
+		    text-align: right;
+		   
+		}
 		
+		.content-box .btn {
+		    padding: 6px 12px;
+		    line-height: 1.42857143;
+		    cursor: pointer;
+		    border-radius: 4px;
+		}
+		
+		.toolbar > div {
+		   float:left;
+		   width:95%;
+		   text-align:center;
+		   font-weight:700;
+		   font-size:34px;
+		}
+		
+		</style>
 	</head>
 	<body>
 		<div class="box">
@@ -44,14 +66,15 @@
 	<div class="content">
 		<div class="content-box">
             <div class="toolbar">
-               	<h4>{{i18n_scr_title}} - 
-							<label class="field" on-click="toShowLineSelect">FAG5</label>                    
-							<select class="field" style="display:none;" on-change="changeLine" on-blur="toHideLineSelect" >
-	 						{{#each lines:idx}}
-							 <option value="{{lines[idx].lineName}}">{{lines[idx].lineName}}</option>
-					        {{/each}}
-		             		</select>
-                         </h4>
+               	<div>{{i18n_scr_title}} - 
+					<label class="field" on-click="toShowLineSelect">FAG5</label>                    
+					<select id="lineSelect" class="field" style="display:none;" on-change="changeLine" on-blur="toHideLineSelect" >
+						{{#each lines:idx}}
+					 <option lang="{{lines[idx].id}}" value="{{lines[idx].lineName}}">{{lines[idx].lineName}}</option>
+			        {{/each}}
+             		</select>
+               </div>
+               <button type="button" class="btn" on-click="gotoHC">HC</button>
             </div>
             <div class="ctx">
                 <div class="curr">
