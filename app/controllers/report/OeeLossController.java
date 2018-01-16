@@ -65,7 +65,7 @@ public class OeeLossController extends Controller {
 				technicalLossTotal.add(0);
 				changeoverLossTotal.add(0);
 				orgnizationLossTotal.add(0);
-				targetOeeTotal.add(85.0f);
+				targetOeeTotal.add(70.0f);
 				actualOeeTotal.add(0.0f);
 			}
 			
