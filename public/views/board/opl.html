@@ -85,7 +85,7 @@
 					         {{/each}}
 		             	</select>
                     </th>
-					<th class="page" style="background-color:white;color: #000;border: 1px solid #000;">
+					<th colspan="2" class="page" style="background-color:white;color: #000;border: 1px solid #000;">
 						{{i18n_opl_no}}
 						<label on-click="toShowPageSelect">{{condition.page}}</label>
 	 					<select style="display:none;" on-blur="toHidePageSelect" value="{{condition.page}}">
@@ -113,26 +113,26 @@
 						 <option value="n">N</option>
 	             	    </select>
                     </th>
-					<th colspan="2"></th>
+					<th></th>
 				</tr>
 			    <tr>
 				    <th width="2%" rowspan="2"><input on-click="checkAll" type="checkbox" /> <font>&nbsp;</font></th>
 			        <th width="5%" rowspan="2">{{i18n_opl_date}}</th>
-			        <th width="8%" rowspan="2">{{i18n_opl_refNo}}</th>
-			        <th width="5%" rowspan="2">{{i18n_opl_personFound}}</th>
+			        <th width="4%" rowspan="2">{{i18n_opl_refNo}}</th>
+			        <th width="3%" rowspan="2">{{i18n_opl_personFound}}</th>
 			        <th colspan="2">{{i18n_opl_deviation_problem}}</th>
 			        <th colspan="7">{{i18n_opl_corrective_action}}</th>
 			    </tr>
 			    <tr>
-			        <th width="12%">{{i18n_opl_description}}</th>
-			        <th width="15%">{{i18n_opl_root_cause}}</th>
-			        <th width="12%">{{i18n_opl_immediate}}</th>
-			        <th width="12%">{{i18n_opl_long_term}}</th><!--(在关闭阶段需要同步更新FMEA,CP,WI,PRR,SP、STAB、5M1E等相关工艺文件及标准)-->
-			        <th width="8%">{{i18n_opl_problem_solving_sheet}}</th>
-					<th width="8%">{{i18n_opl_pss_linkage}}</th>
+			        <th width="16%">{{i18n_opl_description}}</th>
+			        <th width="16%">{{i18n_opl_root_cause}}</th>
+			        <th width="16%">{{i18n_opl_immediate}}</th>
+			        <th width="16%">{{i18n_opl_long_term}}</th><!--(在关闭阶段需要同步更新FMEA,CP,WI,PRR,SP、STAB、5M1E等相关工艺文件及标准)-->
+			        <th width="4%">{{i18n_opl_problem_solving_sheet}}</th>
+					<th width="7%">{{i18n_opl_pss_linkage}}</th>
 			        <th width="4%">{{i18n_opl_person_rep}}</th>
 			        <th width="5%">{{i18n_opl_deadline}}</th>
-			        <th width="4%">{{i18n_opl_status}}</th>        
+			        <th width="3%">{{i18n_opl_status}}</th>        
 			    </tr>
  				{{#each opl:index}}
 			    <tr class="cxttr" lang="{{index}}">
@@ -201,7 +201,11 @@
                        <input class="field" type="text" style="display:none;" maxlength="10" on-blur="toHideColumnEditor" value="{{responsible}}" on-click="stopPropagation"/>
                     </td>
 			        <td  on-click="toShowColumnEditor">
-                       <label class="field">{{deadline}}</label>
+                       {{#if compareDt(deadline) == -1}}
+                       <label class="field" style="color:red;">{{deadline}}</label>
+                       {{else}}
+					   <label class="field">{{deadline}}</label>
+                       {{/if}}
                        <input class="field deadline" style="display:none;" on-keydown="disableKeydown" maxlength="10" on-blur="toHideColumnEditor" type="text" value="{{deadline}}" on-click="stopPropagation"/>
                     </td>
 			        <td  on-click="toShowColumnEditor">

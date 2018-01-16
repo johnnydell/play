@@ -148,8 +148,8 @@ public class OPLController extends Controller {
 		    OPL opl = new OPL();
 		    opl.amount = amt;
 		    opl.createTime = df1.format(new Date());
-			opl.date = date;
-			opl.deadline = deadline;
+			opl.date = (date.isEmpty()?null:date);
+			opl.deadline = (deadline.isEmpty()?null:deadline);
 			opl.description = description;
 			opl.start = dtFrom;
 			opl.end = dtTo;
@@ -212,8 +212,8 @@ public class OPLController extends Controller {
 		    
 		    OPL opl = OPL.find(id);
 		    opl.amount = amt;
-			opl.date = date;
-			opl.deadline = deadline;
+			opl.date = (date.isEmpty()?null:date);
+			opl.deadline = (deadline.isEmpty()?null:deadline);
 			opl.description = description;
 			opl.start = dtFrom;
 			opl.end = dtTo;

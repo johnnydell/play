@@ -10,7 +10,19 @@ var opl = function(){
 		var ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
-			data: {root:manager.root, lineName:lineName,lineId:lineId},
+			data: {root:manager.root, lineName:lineName,lineId:lineId,
+					compareDt: function(dt){
+						var ret = 0;
+						if(dt !='' && dt!= undefined){
+							var startDt = new Date(dt.replace(/-/g,"/"));
+							var endDt = new Date(sys_date.replace(/-/g,"/"));
+							if(startDt < endDt){
+								ret  = -1;
+							}
+						}
+						return ret;
+				    }
+			},
 			onrender: function(){
 				manager.loadProperties(this, "opl", "../../");
 				manager.loadProperties(this, "common", "../../");
@@ -98,7 +110,7 @@ var opl = function(){
 					txt = $(e.node).val();
 				}
 				var old_txt = txt;
-				txt = txt.length>10?txt.substring(0,10)+"....":txt;
+				txt = txt.length>100?txt.substring(0,100)+"....":txt;
 				if(enable_txt_set){
 					$(e.node).hide().prev().show().text(txt).attr("title",old_txt);
 				} else {
@@ -126,7 +138,7 @@ var opl = function(){
 						problemSolvingSheet:'N',
 						pss:{id:'0',file_name:'',file_real_name:'',create_time:manager.getSystemDateTime(),has:false},
 						responsible:'',
-						deadline:condition.year+'-'+condition.month+'-01',
+						deadline:'',//condition.year+'-'+condition.month+'-01'
 						status:'N',
 						status_img:'n',
 						updated:'0'
@@ -220,7 +232,7 @@ var opl = function(){
 			saveOP:function(){
 				var error = false;
 				//判断opl详细有没为空的
-				$(opl).each(function(i,n){
+				/*$(opl).each(function(i,n){
 					if(n.date == '' || n.refNo == '' || n.founder == '' || 
 							n.station == '' || n.dtFrom == '' || n.dtTo == '' ||
 							n.timing == '' || n.amt == '' || n.immediate == '' || n.responsible == '' || n.deadline == ''){	
@@ -228,7 +240,7 @@ var opl = function(){
 						error = true;
 						return false;
 					}
-				})
+				})*/
 				
 				if(!error){
 					//整理出需要新增和更新的
@@ -386,7 +398,7 @@ var opl = function(){
         	        ractive2.on({
         	        	gotoView:function (e) {
         	        		var fileName = $(e.node).attr("lang");
-	        	        	window.location.href='staticpage.html?pageName=pss&oplLinkName=' + fileName;
+	        	        	window.location.href='staticpage.html?pageName=pss&oplLinkName=' + fileName + "&lineName=" + lineName + "&lineId=" + lineId;
 	        	        },
 	        	        close:function () {
 	        	            $(".pss_popup").hide().html("");
@@ -510,7 +522,7 @@ var opl = function(){
 				}
 				det.pss = pss;
 				det.responsible = n.owner;
-				det.deadline = n.deadline;
+				det.deadline = (n.deadline == undefined ? "" : n.deadline);
 				det.status = n.status;
 				det.status_img = n.status.toLowerCase();
 				det.updated = "0";
