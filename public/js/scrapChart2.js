@@ -1,14 +1,21 @@
 var scrapChart2 = function(){
-	var months;
-	
-	var targetTotal;
-	var actualTotal;
+	var months = []; 
+	var scrapList = []; 
+	var actualList = [];
+	var actualData = [];
+	var targetList = [];
+	var realScrapList = [];
 	function init(lineName, currYear){
 	   //渲染chart1部分
 	   $.get(manager.root+"/views/tpl/board2/scrapChart2.html", function (template) {
 	        var ractive2 = new Ractive({
 	            el: '.cxt .top .rgt',
-	            data:{root:manager.root},
+	            data:{
+	            	root:manager.root,
+    				format		: function(num){
+    					return manager.formatNumberAsUS(num,0,',');
+    				},
+    			},
 	            template: template,
 	            onrender: function(){
 					manager.loadProperties(this, "safety", "../../");
@@ -17,25 +24,50 @@ var scrapChart2 = function(){
 	            oncomplete: function(){
 	           		
 	            	$.ajax({
-	        			url		: manager.root + '/report/scrap/montlyScrapChart',
+	        			url		: manager.root + '/report/scrap/monthlyScrapChart',
 	        			type	: 'GET',
 	        			dataType:"json",
 	        			data:{lineName:lineName,yearValue:currYear},
 	        			contentType: "application/json",
 	        			success: function(listdata)
 	        			{
+	        				actualData 		= [];
+	        				targetList 		= [];
+	        				realScrapList 	= [];
 	        				console.log(listdata);
-	        				months 				= listdata.monthList;
-	        				targetTotal 		= listdata.targetTotal;
-	        				actualTotal 		= listdata.actualTotal;
+        					months 			= listdata.monthList;
+        					scrapList 		= listdata.scrapTotal;
+	        				actualList 		= listdata.actualTotal;
+	        				for(i = 0; i < actualList.length; i ++){
+	        					//prepare data - target
+	        					targetList.push(7000);
+	        					
+	        					//prepare series data - actual
+	        					var tmpData = {};
+	        					var _actual = actualList[i];
+	        					var _scrap = scrapList[i];
+	        					
+	        					if (parseInt(_actual) == 0)
+	        						tmpData.y = 0;
+	        					else{
+	        						tmpData.y = Math.round(_scrap * 1000000 / _actual);
+	        					}
+	        					realScrapList.push(tmpData.y);
+	        					if (_actual > tmpData.y)
+	        						tmpData.color = 'green';
+	        					else
+	        						tmpData.color = 'red';
+	        					
+	        					actualData.push(tmpData);
+	        				}
+	        				
 	        				
 	        				//plot to chart
 	        				bindChart();
 	        				
 	        				//plot to table
-	        				ractive2.set("months", months);
-	        				ractive2.set("targetTotal", targetTotal);
-	        				ractive2.set("actualTotal", actualTotal);
+	        				ractive2.set("targetTotal", targetList);
+	        				ractive2.set("actualTotal", realScrapList);
 	        			}
 	            	});
 	            }
@@ -79,13 +111,13 @@ var scrapChart2 = function(){
 	        series: [ {
 	            type: 'column',
 	            name: $.i18n.map['i18n_actual'],
-	            data: actualTotal,
+	            data: actualData,
 	            color:'#3C3C4D'
 	        },{
 	            type: 'spline',
 	            name: $.i18n.map['i18n_target'],
 	            color:'red',
-	            data: targetTotal,
+	            data: targetList,
 	            marker: {
 	                enabled: false
 	            }

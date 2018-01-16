@@ -36,7 +36,7 @@ var productivity = function(){
 			    	  url = manager.root+"/views/kpi/complainRep.html?lineId="+lineId+"&lineName="+lineName;
 			          break;
 			       case 'scrap':
-			    	  url = "";
+			    	   url = manager.root+"/views/tpl/kpi/kpiScrapReport.html?lineName="+lineName + "&lineId=" + lineId;
 			       	  break;
 			       case 'delivery':
 			    	   url = manager.root+"/views/tpl/kpi/deliveryReport.html?lineName="+lineName + "&lineId=" + lineId;

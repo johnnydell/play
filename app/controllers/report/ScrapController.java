@@ -13,7 +13,6 @@ import org.apache.commons.logging.LogFactory;
 import com.alibaba.fastjson.JSONObject;
 
 import models.HourlyCountDetail;
-import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -30,10 +29,40 @@ public class ScrapController extends Controller {
 		try {
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 			Date endDate = df.parse(yearValue + "-12-31");
+			int endYear = Integer.parseInt(yearValue);
+			int startYear = endYear - 3;
+			Date startDate = df.parse( startYear + "-01-01");
 			//always query the data including 4 years ago.
-			Date startDate = df.parse( (Integer.parseInt(yearValue) - 4) + "-01-01");
 			rows = HourlyCountDetail.findYearlyScrapData(lineName, startDate, endDate);
-			return ok(Json.toJson(rows));
+			
+			
+			List<Integer> years = new ArrayList<Integer>();
+			
+			List<Integer> targetTotalList = new ArrayList<Integer>();
+			List<Integer> actualTotalList = new ArrayList<Integer>();
+			
+			for (int i = startYear; i < endYear + 1; i ++){
+				years.add(i);
+				boolean isFound = false;
+				for(JSONObject row : rows){
+					if (Integer.parseInt(row.getString("years")) == i){
+						isFound = true;
+						targetTotalList.add(row.getInteger("scrapTotal"));
+						actualTotalList.add(row.getInteger("actualTotal"));
+						break;
+					}
+				}
+				if (!isFound){
+					
+					targetTotalList.add(0);
+					actualTotalList.add(0);
+				}
+			}
+			JSONObject json = new JSONObject();
+			json.put("yearList", years);
+			json.put("scrapTotal", targetTotalList);
+			json.put("actualTotal", actualTotalList);
+			return ok(json.toJSONString());
 		} catch (ParseException e) {
 			logger.error("" + e);
 			return ok("");
@@ -57,34 +86,29 @@ public class ScrapController extends Controller {
 		List<Integer> months = new ArrayList<Integer>();
 		
 		List<Integer> targetTotal = new ArrayList<Integer>();
-		List<Long> actualTotal = new ArrayList<Long>();
+		List<Integer> actualTotal = new ArrayList<Integer>();
 		
 		for (int i = 1; i < 13; i ++){
 			months.add(i);
-			//targetOeeTotal.add(85);
 			boolean isFound = false;
 			for (JSONObject row : rows){
 				if (Integer.parseInt(row.getString("months")) == i){
 					isFound = true;
-					targetTotal.add(5000);
-					int scrapTotal = row.getInteger("scrapTotal");
-					int goodTotal = row.getInteger("actualTotal");
-					if (goodTotal == 0)
-						actualTotal.add(0l);
-					else
-						actualTotal.add(Math.round( (double)( scrapTotal * 1000000 / goodTotal ) ));
+					targetTotal.add(row.getInteger("scrapTotal"));
+					actualTotal.add(row.getInteger("actualTotal"));
+					
 					break;
 				}
 			}
 			if (!isFound){
 				
-				targetTotal.add(5000);
-				actualTotal.add(0l);
+				targetTotal.add(0);
+				actualTotal.add(0);
 			}
 		}
 		JSONObject json = new JSONObject();
 		json.put("monthList", months);
-		json.put("targetTotal", targetTotal);
+		json.put("scrapTotal", targetTotal);
 		json.put("actualTotal", actualTotal);
 		return ok(json.toJSONString());
 	}
@@ -106,7 +130,7 @@ public class ScrapController extends Controller {
 		List<JSONObject> rows = HourlyCountDetail.findDailyScrapData(lineName, startDate, endDate);
 		List<Integer> dayList = new ArrayList<Integer>();
 		List<Integer> targetCountList = new ArrayList<Integer>();
-		List<Long> actualCountList = new ArrayList<Long>();
+		List<Integer> actualCountList = new ArrayList<Integer>();
 		int totalDays = Integer.parseInt(dayCount);
 		for (int i = 1; i < (totalDays + 1); i ++){
 			dayList.add(i);
@@ -117,26 +141,21 @@ public class ScrapController extends Controller {
 				String historyDate = row.getString("days");
 				if (dayValue.equals(historyDate)){
 					isFound = true;
-					targetCountList.add(5000);
-					int scrapTotal = row.getInteger("scrapTotal");
-					int goodTotal = row.getInteger("actualTotal");
-					if (goodTotal == 0)
-						actualCountList.add(0l);
-					else
-						actualCountList.add(Math.round( (double)( scrapTotal * 1000000 / goodTotal ) ));
+					targetCountList.add(row.getInteger("scrapTotal"));
+					actualCountList.add(row.getInteger("actualTotal"));
 					break;
 				}
 			}
 			//totally no data for this day
 			if (!isFound){
-				actualCountList.add(0l);
-				targetCountList.add(5000);
+				actualCountList.add(0);
+				targetCountList.add(0);
 			}
 		}
 		JSONObject json = new JSONObject();
 		json.put("dayList", dayList);
-		json.put("targetList", targetCountList);
-		json.put("actualList", actualCountList);
+		json.put("scrapTotal", targetCountList);
+		json.put("actualTotal", actualCountList);
 		return ok(json.toJSONString());
 	}
 	
