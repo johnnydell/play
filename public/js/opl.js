@@ -386,7 +386,7 @@ var opl = function(){
         	        ractive2.on({
         	        	gotoView:function (e) {
         	        		var fileName = $(e.node).attr("lang");
-	        	        	window.location.href='staticpage.html?pageName=pss&oplLinkName=' + fileName;
+	        	        	window.location.href='staticpage.html?pageName=pss&oplLinkName=' + fileName + "&lineName=" + lineName + "&lineId=" + lineId;
 	        	        },
 	        	        close:function () {
 	        	            $(".pss_popup").hide().html("");
