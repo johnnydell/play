@@ -1,6 +1,6 @@
 var prodSummaryChart1 = function(){
 	var years = []; 
-	
+	var chart_year;
 	function init(curYear){
 	   //渲染chart1部分
 	   $.get(manager.root+"/views/tpl/kpi/prodSummaryChart1.html", function (template) {
@@ -8,11 +8,15 @@ var prodSummaryChart1 = function(){
 	            el: '.cxt .top .lft',
 	            data:{root:manager.root},
 	            template: template,
-	            onrender: function(){
-					manager.loadProperties(this, "productivity", "../../../");
+	            oninit: function(){
+	            	manager.loadProperties(this, "productivity", "../../../");
 					manager.loadProperties(this, "common", "../../../");
+	            },	 		
+	            onrender: function(){
+					
 					bindChart();
 				},
+				
 	            oncomplete: function(){
 	            	/**/
 	            	
@@ -28,7 +32,6 @@ var prodSummaryChart1 = function(){
 	        				dataList = listdata.dataList;
 	        				// Categories values
         					var _cat = [];
-	        				var brand_chart = $('.top .lft .chart .chart').highcharts();
 	        				for(i = 0; i < dataList.length; i ++){
 	        					//set Series
 	        					var _tmp = {};
@@ -39,7 +42,7 @@ var prodSummaryChart1 = function(){
 	        					}
 	        					_tmp.data = _datas;
 	        					_tmp.name = dataList[i].lineName;
-	        					brand_chart.addSeries(_tmp);
+	        					chart_year.addSeries(_tmp);
 	        				}
 	        				
 	        				for(i = 0; i < years.length; i ++){
@@ -48,10 +51,10 @@ var prodSummaryChart1 = function(){
 	        				
 	        				//set target
 	        				targetList = [20.5,20.5,20.5,20.5];
-	        				brand_chart.addSeries({name:'target',type:'spline',data:targetList,color:'red'});
+	        				chart_year.addSeries({name:'target',type:'spline',data:targetList,color:'red'});
 	        				
 	        				//set categories
-	        				brand_chart.xAxis[0].setCategories(_cat);
+	        				chart_year.xAxis[0].setCategories(_cat);
 	        				
 	        				//plot to table
 	        				ractive.set("dataList", dataList);
@@ -66,43 +69,47 @@ var prodSummaryChart1 = function(){
 	}
 	
 	function bindChart(){
-		$('.top .lft .chart .chart').highcharts({
-			 title: {
-		            text: ''
-		        },
-		        legend: {
-		        	layout: 'vertical',
-		            align: 'right',
-		            verticalAlign: 'middle',
-		            floating: false,
-		            symbolRadius: 0
-		        },
-		        xAxis: {
-		            categories: []
-		        },
-		        yAxis: {
-		            title: {
-		                text: ''
-		            },
-		            
-		            labels: {
-		                formatter: function() {
-		                    return (this.value * 1).toFixed(2);
-		                },
-		            }	
-		        },
-		        plotOptions: {
-		            series: {
-		                stacking: 'normal'
-		            }
-		        },
-		        series: [],
-		        credits:{
-		            enabled:false
-		        }
-		    });	
+		console.log("chart1")
+		chart_year = new Highcharts.Chart({
+			title: {
+				text: ''
+			},
+			chart: { 
+				renderTo: 'yearly_chart', //设置显示的页面块
+			},
+			legend: {
+				layout: 'vertical',
+				align: 'right',
+				verticalAlign: 'middle',
+				floating: false,
+				symbolRadius: 0
+			},
+			xAxis: {
+				categories: []
+			},
+			yAxis: {
+				title: {
+					text: ''
+				},
+
+				labels: {
+					formatter: function() {
+						return (this.value * 1).toFixed(2);
+					},
+				}	
+			},
+			plotOptions: {
+				series: {
+					stacking: 'normal'
+				}
+			},
+			series: [],
+			credits:{
+				enabled:false
+			}
+		});	
 	}
-	
+
 		
 	return {
 		init:init

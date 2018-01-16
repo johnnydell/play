@@ -56,8 +56,6 @@ var prodSummaryReport = function(){
 		})
 	}
 	
-
-	
 	
 	return {
 		init:init

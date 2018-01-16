@@ -1,6 +1,6 @@
 var prodSummaryChart3 = function(){
 	var days = []; 
-	
+	var chart_daily;
 	function init(curYear, curMonth){
 	   //渲染chart1部分
 	   $.get(manager.root+"/views/tpl/kpi/prodSummaryChart3.html", function (template) {
@@ -8,15 +8,18 @@ var prodSummaryChart3 = function(){
 	            el: '.cxt .bt',
 	            data:{root:manager.root},
 	            template: template,
-	            onrender: function(){
-					manager.loadProperties(this, "productivity", "../../../");
+	            oninit: function(){
+	            	manager.loadProperties(this, "productivity", "../../../");
 					manager.loadProperties(this, "common", "../../../");
+	            },	 		
+	            onrender: function(){
+					
 					bindChart();
 				},
+	            
 	            oncomplete: function(){
 	            	/**/
 	            	totalDays = cntDays(curYear, curMonth);
-	            	var brand_chart = $('.bt .chart .chart').highcharts();
 	            	$.ajax({
 	        			url		: manager.root + '/report/productivity/dailyProdSummaryChart',
 	        			type	: 'GET',
@@ -40,7 +43,7 @@ var prodSummaryChart3 = function(){
 	        					}
 	        					_tmp.data = _datas;
 	        					_tmp.name = dataList[i].lineName;
-	        					brand_chart.addSeries(_tmp);
+	        					chart_daily.addSeries(_tmp);
 	        					
 	        					_cat.push(days[i]);
 	        					
@@ -51,10 +54,10 @@ var prodSummaryChart3 = function(){
 	        					targetList.push(20.5);
 	        				}
 	        				
-	        				brand_chart.addSeries({name:'target',type:'spline',data:targetList,color:'red'});
+	        				chart_daily.addSeries({name:'target',type:'spline',data:targetList,color:'red'});
 	        				
 	        				//set categories
-	        				brand_chart.xAxis[0].setCategories(_cat);
+	        				chart_daily.xAxis[0].setCategories(_cat);
 	        				
 	        				//plot to table
 	        				ractive.set("dataList", dataList);
@@ -74,43 +77,47 @@ var prodSummaryChart3 = function(){
 	}
 	
 	function bindChart(){
-		$('.bt .chart .chart').highcharts({
-			 title: {
-		            text: ''
-		        },
-		        legend: {
-		        	layout: 'vertical',
-		            align: 'right',
-		            verticalAlign: 'middle',
-		            floating: false,
-		            symbolRadius: 0
-		        },
-		        xAxis: {
-		            categories: []
-		        },
-		        yAxis: {
-		            title: {
-		                text: ''
-		            },
-		            
-		            labels: {
-		                formatter: function() {
-		                    return (this.value * 1).toFixed(2);
-		                },
-		            }	
-		        },
-		        plotOptions: {
-		            series: {
-		                stacking: 'normal'
-		            }
-		        },
-		        series: [],
-		        credits:{
-		            enabled:false
-		        }
-		    });	
+		console.log("chart3");
+		chart_daily = new Highcharts.Chart({
+			title: {
+				text: ''
+			},
+			chart: { 
+				renderTo: 'daily_chart', //设置显示的页面块
+			},
+			legend: {
+				layout: 'vertical',
+				align: 'right',
+				verticalAlign: 'middle',
+				floating: false,
+				symbolRadius: 0
+			},
+			xAxis: {
+				categories: []
+			},
+			yAxis: {
+				title: {
+					text: ''
+				},
+
+				labels: {
+					formatter: function() {
+						return (this.value * 1).toFixed(2);
+					},
+				}	
+			},
+			plotOptions: {
+				series: {
+					stacking: 'normal'
+				}
+			},
+			series: [],
+			credits:{
+				enabled:false
+			}
+		});	
 	}
-	
+
 		
 	return {
 		init:init
