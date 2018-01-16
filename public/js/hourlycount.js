@@ -243,10 +243,17 @@ var hourlycount = function(){
 				//calculate hourly count percent
 				hourlycounts[rowIndex].productHourCount = val;
 				hourlycounts[rowIndex].productHourPercent = hourlycounts[rowIndex].planCount == 0 ? 0  : (val / hourlycounts[rowIndex].planCount);
-				hourlycounts_base.actualOutputCount = sub_total;
+				//
+				//hourlycounts_base.actualOutputCount = sub_total;
+				var actual_total = 0, planTotalCount = 0 ;
+				for(i = 0; i < 24; i++){
+					actual_total 	+= parseInt(hourlycounts[i].actualCount);
+					planTotalCount 	+= parseInt(hourlycounts[i].planCount);
+				}
+				hourlycounts_base.actualOutputCount = actual_total;
 				
-				if (hourlycounts_base.planOutputCount !== 0){
-					hourlycounts_base.actualOee = hourlycounts_base.actualOutputCount / hourlycounts_base.planOutputCount;
+				if (planTotalCount !== 0){
+					hourlycounts_base.actualOee = hourlycounts_base.actualOutputCount / planTotalCount;
 				}
 				ractive.update();
 			},
