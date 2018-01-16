@@ -1,6 +1,6 @@
 var deliverySummaryChart3 = function(){
 	var days = []; 
-	
+	var chart_day;
 	function init(curYear, curMonth){
 	   //渲染chart1部分
 	   $.get(manager.root+"/views/tpl/kpi/deliverySummaryChart3.html", function (template) {
@@ -8,11 +8,13 @@ var deliverySummaryChart3 = function(){
 	            el: '.cxt .bt',
 	            data:{root:manager.root},
 	            template: template,
+	            oninit: function(){
+	            	manager.loadProperties(this, "delivery", "../../../");
+	            	manager.loadProperties(this, "common", "../../../");
+	            },	 		
 	            onrender: function(){
-					manager.loadProperties(this, "delivery", "../../../");
-					manager.loadProperties(this, "common", "../../../");
-					bindChart();
-				},
+	            	bindChart();
+	            },
 	            oncomplete: function(){
 	            	/**/
 	            	totalDays = cntDays(curYear, curMonth);
@@ -24,8 +26,7 @@ var deliverySummaryChart3 = function(){
 	        			data:{yearValue:curYear,monthValue:curMonth,dayCount:totalDays},
 	        			success: function(listdata)
 	        			{
-	        				var brand_chart_3 = $('.bt .chart .chart').highcharts();
-	        				console.log("brand_chart_3 = " + brand_chart_3);
+	        				
 	        				days = listdata.dayList;
 	        				dataList = listdata.dataList;
 	        				// Categories values
@@ -41,7 +42,7 @@ var deliverySummaryChart3 = function(){
 	        					}
 	        					_tmp.data = _datas;
 	        					_tmp.name = dataList[i].lineName;
-	        					brand_chart_3.addSeries(_tmp);
+	        					chart_day.addSeries(_tmp);
 	        				}
 	        				//set target
 	        				var _targetList = [];
@@ -55,10 +56,10 @@ var deliverySummaryChart3 = function(){
 	        					_targetList.push(_tmpTarget);
 	        				}
 	        				
-	        				brand_chart_3.addSeries({name:'target',type:'spline',data:_targetList,color:'red'});
+	        				chart_day.addSeries({name:'target',type:'spline',data:_targetList,color:'red'});
 	        				
 	        				//set categories
-	        				brand_chart_3.xAxis[0].setCategories(_cat);
+	        				chart_day.xAxis[0].setCategories(_cat);
 	        				
 	        				//plot to table
 	        				ractive.set("dataList", dataList);
@@ -78,43 +79,46 @@ var deliverySummaryChart3 = function(){
 	}
 	
 	function bindChart(){
-		$('.bt .chart .chart').highcharts({
-			 title: {
-		            text: ''
-		        },
-		        legend: {
-		        	layout: 'vertical',
-		            align: 'right',
-		            verticalAlign: 'middle',
-		            floating: false,
-		            symbolRadius: 0
-		        },
-		        xAxis: {
-		            categories: []
-		        },
-		        yAxis: {
-		            title: {
-		                text: ''
-		            },
-		           
-		            labels: {
-		                formatter: function() {
-		                    return this.value;
-		                },
-		            }	
-		        },
-		        plotOptions: {
-		            series: {
-		                stacking: 'normal'
-		            }
-		        },
-		        series: [],
-		        credits:{
-		            enabled:false
-		        }
-		    });	
+		chart_day = new Highcharts.Chart({
+			title: {
+				text: ''
+			},
+			chart: { 
+				renderTo: 'daily_chart', //设置显示的页面块
+			},
+			legend: {
+				layout: 'vertical',
+				align: 'right',
+				verticalAlign: 'middle',
+				floating: false,
+				symbolRadius: 0
+			},
+			xAxis: {
+				categories: []
+			},
+			yAxis: {
+				title: {
+					text: ''
+				},
+
+				labels: {
+					formatter: function() {
+						return this.value;
+					},
+				}	
+			},
+			plotOptions: {
+				series: {
+					stacking: 'normal'
+				}
+			},
+			series: [],
+			credits:{
+				enabled:false
+			}
+		});	
 	}
-	
+
 		
 	return {
 		init:init
