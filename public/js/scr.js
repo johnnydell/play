@@ -72,6 +72,10 @@ var scr = function(){
 				getProductInfo();
 				this.set("lineName", lineName);
 			},
+			gotoHC:function(){
+				var line_id = $("#lineSelect").find("option:selected").attr("lang");
+				location.href=manager.root+"/views/board/hourlyCount.html?lineName="+lineName+"&lineId="+line_id;
+			}
 		}),
 		intervalObj = setInterval(getProductInfo, time_interval);
 		

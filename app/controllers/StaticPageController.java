@@ -18,7 +18,7 @@ public class StaticPageController extends Controller {
 	public static Result viewFileByName(String fileName, String oplLinkName) {
 		String latestFileName = "";
 		boolean isExist = false;
-		if ("pss".equals(fileName)) {
+		if ("pss".equals(fileName) || "pss2".equals(fileName)) {
 			latestFileName = oplLinkName;
 			isExist = true;
 		} else {
@@ -95,11 +95,15 @@ public class StaticPageController extends Controller {
 				// blance excel file
 				buffer.append(Constants.STATIC_FILE_SAVE_PATH_PSS);
 
-			} else if ("oeepdca".equals(fileType)) {
+			}  else if ("pss2".equals(fileType)) {
+				// blance excel file
+				buffer.append(Constants.STATIC_FILE_SAVE_PATH_PSS2);
+
+			}  else if ("oeepdca".equals(fileType)) {
 				// blance excel file
 				buffer.append(Constants.STATIC_FILE_SAVE_PATH_OEEPDCA);
 
-			} else if ("5s".equals(fileType)) {
+			} else if ("5s".equals(fileType) ) {
 				// blance excel file
 				buffer.append(Constants.STATIC_FILE_SAVE_PATH_5S);
 
@@ -138,6 +142,10 @@ public class StaticPageController extends Controller {
 			} else if ("pss".equals(fileType)) {
 				// blance excel file
 				buffer.append(Constants.STATIC_FILE_SAVE_PATH_PSS);
+
+			} else if ("pss2".equals(fileType)) {
+				// blance excel file
+				buffer.append(Constants.STATIC_FILE_SAVE_PATH_PSS2);
 
 			} else if ("oeepdca".equals(fileType)) {
 				// blance excel file
