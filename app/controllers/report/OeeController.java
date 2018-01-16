@@ -66,7 +66,7 @@ public class OeeController extends Controller {
 			//totally no data for this day
 			if (!isFound){
 				actualCountList.add(0.0f);
-				targetCountList.add(85.0d);
+				targetCountList.add(70.0d);
 			}
 		}
 		JSONObject json = new JSONObject();
