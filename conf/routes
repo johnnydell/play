@@ -117,13 +117,15 @@ POST /edashboard/safety/saveSafetyInfo						controllers.SafetyController.saveSaf
 
 # Safety - Report
 GET  /edashboard/report/safety/yearlySafetyChart    		controllers.report.SafetyController.getYearlySafetyReport(lineName : String, yearValue : String)
-GET  /edashboard/report/safety/dailySafetyChart				controllers.report.SafetyController.getDailySafetyReport(lineName : String,  yearValue:String,  monthValue:String,  dayCount:String)
 GET  /edashboard/report/safety/monthlySafetyChart			controllers.report.SafetyController.getMonthlySafetyReport(lineName : String,  yearValue:String)
+GET  /edashboard/report/safety/dailySafetyChart				controllers.report.SafetyController.getDailySafetyReport(lineName : String,  yearValue:String,  monthValue:String,  dayCount:String)
+
 
 # Scrap - Report
 GET  /edashboard/report/scrap/yearlyScrapChart    			controllers.report.ScrapController.getYearlyScrapReport(lineName : String,  yearValue:String)
+GET  /edashboard/report/scrap/monthlyScrapChart				controllers.report.ScrapController.getMonthlyScrapReport(lineName : String,  yearValue:String)
 GET  /edashboard/report/scrap/dailyScrapChart				controllers.report.ScrapController.getDailyScrapReport(lineName : String,  yearValue:String,  monthValue:String,  dayCount:String)
-GET  /edashboard/report/scrap/montlyScrapChart				controllers.report.ScrapController.getMonthlyScrapReport(lineName : String,  yearValue:String)
+
 
 # Screen Display
 GET  /edashboard/scr/getProductInfo						controllers.screen.ScreenDisplayController.getProductInfo(lineName : String,  yearValue:String,  monthValue:String,  dayValue:String, hourValue:Integer, minValue:Integer)

@@ -1,5 +1,5 @@
-var scrapChart1 = function(){
-	var years = []; 
+var kpiScrapChart2 = function(){
+	var months = []; 
 	var scrapList = []; 
 	var actualList = [];
 	var actualData = [];
@@ -7,37 +7,43 @@ var scrapChart1 = function(){
 	var realScrapList = [];
 	function init(lineName, curYear){
 	   //渲染chart1部分
-	   $.get(manager.root+"/views/tpl/board2/scrapChart1.html", function (template) {
+	   $.get(manager.root+"/views/tpl/kpi/kpiScrapChart2.html", function (template) {
 	        var ractive = new Ractive({
-	            el: '.cxt .top .lft',
+	            el: '.cxt .top .rgt',
 	            data:{
-	            	root:manager.root,
+    				lineName	: lineName,
+    				yearValue	: curYear,
     				format		: function(num){
     					return manager.formatNumberAsUS(num,0,',');
     				},
+    				
     			},
 	            template: template,
 	            onrender: function(){
-					manager.loadProperties(this, "safety", "../../");
-					manager.loadProperties(this, "common", "../../");
+					manager.loadProperties(this, "hourlycount", "../../../");
+					manager.loadProperties(this, "common", "../../../");
 				},
 	            oncomplete: function(){
 	            	/**/
+	            	targetPercent = [];
 	            	$.ajax({
-	        			url		: manager.root + '/report/scrap/yearlyScrapChart',
+	        			url		: manager.root + '/report/scrap/monthlyScrapChart',
 	        			type	: 'GET',
 	        			dataType:"json",
-	        			data:{lineName:lineName,yearValue:curYear},
+	        			data:{
+	        				lineName	: lineName,
+	        				yearValue	: curYear
+	        			},
 	        			success: function(listdata)
 	        			{
 	        				actualData 		= [];
 	        				targetList 		= [];
 	        				realScrapList 	= [];
-        					years 			= listdata.yearList;
+	        				
+        					months 			= listdata.monthList;
         					scrapList 		= listdata.scrapTotal;
 	        				actualList 		= listdata.actualTotal;
 	        				for(i = 0; i < actualList.length; i ++){
-	        					
 	        					//prepare data - target
 	        					targetList.push(7000);
 	        					
@@ -59,6 +65,8 @@ var scrapChart1 = function(){
 	        					
 	        					actualData.push(tmpData);
 	        				}
+	        				
+	        				
 	        				//plot to chart
 	        				bindChart();
 	        				
@@ -74,19 +82,19 @@ var scrapChart1 = function(){
 	}
 	
 	function bindChart(){
-		$('.top .lft .chart .chart').highcharts({
-		    title: {
+		$('.top .rgt .chart .chart').highcharts({
+			 title: {
 	            text: ''
 	        },
 	        legend: {
 	            enabled: false
 	        },
 	        xAxis: {
-	            categories: years
+	            categories: months
 	        },
 	        yAxis: {
 	            title: {
-	            	text: $.i18n.map['i18n_ppm'],
+	                text: $.i18n.map['i18n_delivery_monthly'],
 	                margin:65,
 	                style: {
 	                	fontSize: '15px',
@@ -101,12 +109,17 @@ var scrapChart1 = function(){
 	                },
 	            }	
 	        },
-	        series: [{
+	        plotOptions: {
+	            series: {
+	                stacking: 'normal'
+	            }
+	        },
+	        series: [ {
 	            type: 'column',
 	            name: $.i18n.map['i18n_actual'],
 	            data: actualData,
 	            color:'#3C3C4D'
-	        }, {
+	        },{
 	            type: 'spline',
 	            name: $.i18n.map['i18n_target'],
 	            color:'red',

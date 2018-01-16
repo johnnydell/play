@@ -1,4 +1,4 @@
-var scrapChart1 = function(){
+var kpiScrapChart1 = function(){
 	var years = []; 
 	var scrapList = []; 
 	var actualList = [];
@@ -7,19 +7,21 @@ var scrapChart1 = function(){
 	var realScrapList = [];
 	function init(lineName, curYear){
 	   //渲染chart1部分
-	   $.get(manager.root+"/views/tpl/board2/scrapChart1.html", function (template) {
+	   $.get(manager.root+"/views/tpl/kpi/kpiScrapChart1.html", function (template) {
 	        var ractive = new Ractive({
 	            el: '.cxt .top .lft',
 	            data:{
-	            	root:manager.root,
+    				lineName	: lineName,
+    				yearValue	: curYear,
     				format		: function(num){
     					return manager.formatNumberAsUS(num,0,',');
     				},
+    				
     			},
 	            template: template,
 	            onrender: function(){
-					manager.loadProperties(this, "safety", "../../");
-					manager.loadProperties(this, "common", "../../");
+					manager.loadProperties(this, "hourlycount", "../../../");
+					manager.loadProperties(this, "common", "../../../");
 				},
 	            oncomplete: function(){
 	            	/**/
@@ -65,6 +67,7 @@ var scrapChart1 = function(){
 	        				//plot to table
 	        				ractive.set("targetTotal", targetList);
 	        				ractive.set("actualTotal", realScrapList);
+	        				
 	        			}
 	            	});
 	           		
@@ -75,7 +78,7 @@ var scrapChart1 = function(){
 	
 	function bindChart(){
 		$('.top .lft .chart .chart').highcharts({
-		    title: {
+			 title: {
 	            text: ''
 	        },
 	        legend: {
@@ -86,7 +89,7 @@ var scrapChart1 = function(){
 	        },
 	        yAxis: {
 	            title: {
-	            	text: $.i18n.map['i18n_ppm'],
+	                text: $.i18n.map['i18n_delivery_yearly'],
 	                margin:65,
 	                style: {
 	                	fontSize: '15px',
@@ -101,12 +104,17 @@ var scrapChart1 = function(){
 	                },
 	            }	
 	        },
-	        series: [{
+	        plotOptions: {
+	            series: {
+	                stacking: 'normal'
+	            }
+	        },
+	        series: [ {
 	            type: 'column',
 	            name: $.i18n.map['i18n_actual'],
 	            data: actualData,
 	            color:'#3C3C4D'
-	        }, {
+	        },{
 	            type: 'spline',
 	            name: $.i18n.map['i18n_target'],
 	            color:'red',

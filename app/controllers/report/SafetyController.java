@@ -14,7 +14,6 @@ import org.springframework.util.StringUtils;
 import com.alibaba.fastjson.JSONObject;
 import com.avaje.ebean.SqlRow;
 
-import models.HourlyCountBase;
 import models.ProductLine;
 import models.Safety;
 import play.mvc.Controller;
