@@ -1,9 +1,9 @@
 var safetyChart3 = function(){
-	var dayList; 
-	var targetList; 
-	var actualList;
-	
+	var days = []; 
+	var targetList = []; 
+	var actualList = [];
 	var actualData = [];
+	
 	function init(lineName, curYear, curMonth){
 	   //渲染chart3部分
 	   $.get(manager.root+"/views/tpl/board2/safetyChart3.html", function (template) {
@@ -25,22 +25,28 @@ var safetyChart3 = function(){
 	        			contentType: "application/json",
 	        			success: function(listdata)
 	        			{
-	        				dayList = null;
-	        				targetList = null;
-	        				actualList = null;
-	        				actualData = [];
-	        				dayList = listdata.dayList;
-	        				targetList = listdata.targetList;
-	        				actualList = listdata.actualList;
-	        				
-	        				
-	        				
+	        				actualData 		= [];
+        					days 			= listdata.dayList;
+	        				targetList 		= listdata.targetTotal;
+	        				actualList 		= listdata.actualTotal;
+	        				for(i = 0; i < actualList.length; i ++){
+	        					//prepare series data - actual
+	        					var tmpData = {};
+	        					_actual = actualList[i];
+	        					_target = targetList[i];
+        						tmpData.y = _actual;
+	        					if (_actual < _target)
+	        						tmpData.color = 'green';
+	        					else
+	        						tmpData.color = 'red';
+	        					actualData.push(tmpData);
+	        				}
 	        				//plot to chart
 	        				bindChart();
 	        				
 	        				//plot to table
-	        				ractive4.set("targetList", targetList);
-	        				ractive4.set("actualList", actualList);
+	        				ractive4.set("targetTotal", targetList);
+	        				ractive4.set("actualTotal", actualList);
 	        			}
 	            	});
 	           		
@@ -63,7 +69,7 @@ var safetyChart3 = function(){
 		            enabled: false
 		        },
 		        xAxis: {
-		            categories: dayList
+		            categories: days
 		        },
 		        yAxis: {
 		            title: {
@@ -91,7 +97,7 @@ var safetyChart3 = function(){
 		        series: [ {
 		            type: 'column',
 		            name: $.i18n.map['i18n_actual'],
-		            data: actualList,
+		            data: actualData,
 		            color:'#3C3C4D'
 		        },{
 		            type: 'spline',

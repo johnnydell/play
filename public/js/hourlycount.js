@@ -679,9 +679,10 @@ var hourlycount = function(){
 					hourlycounts[i].techDownCode 			= isNull(listdata[i].techDownCode) ? "" : listdata[i].techDownCode;
 					hourlycounts[i].productHourPercent		= hourlycounts[i].planCount == 0 ? 0 : (hourlycounts[i].productHourCount / hourlycounts[i].planCount);
 					hourlycounts[i].planTotalCount			= isNull(listdata[i].planTotalCount) ? "" : listdata[i].planTotalCount;
-					hourlycounts[i].actualTotalCount		= actualTotalCount;
+					
 					planTotalCount 							+= hourlycounts[i].planCount;
 					actualTotalCount 						+= hourlycounts[i].actualCount;
+					hourlycounts[i].actualTotalCount		= actualTotalCount;
 					
 					
 					//calculate sub total count for group 1

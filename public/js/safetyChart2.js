@@ -17,25 +17,38 @@ var safetyChart2 = function(){
 	            oncomplete: function(){
 	           		
 	            	$.ajax({
-	        			url		: manager.root + '/report/safety/montlySafetyChart',
+	        			url		: manager.root + '/report/safety/monthlySafetyChart',
 	        			type	: 'GET',
 	        			dataType:"json",
 	        			data:{lineName:lineName,yearValue:currYear},
 	        			contentType: "application/json",
 	        			success: function(listdata)
 	        			{
-	        				console.log(listdata);
-	        				months 				= listdata.monthList;
-	        				targetTotal 		= listdata.targetTotal;
-	        				actualTotal 		= listdata.actualTotal;
+	        				actualData 		= [];
 	        				
+        					months 			= listdata.monthList;
+	        				targetList 		= listdata.targetTotal;
+	        				actualList 		= listdata.actualTotal;
+	        				for(i = 0; i < actualList.length; i ++){
+	        					//prepare series data - actual
+	        					var tmpData = {};
+	        					var _actual = actualList[i];
+	        					var _target = targetList[i];
+	        					tmpData.y = _actual;
+	        					if (_actual < _target)
+	        						tmpData.color = 'green';
+	        					else
+	        						tmpData.color = 'red';
+	        					
+	        					actualData.push(tmpData);
+	        					
+	        				}
 	        				//plot to chart
 	        				bindChart();
 	        				
 	        				//plot to table
-	        				ractive2.set("months", months);
-	        				ractive2.set("targetTotal", targetTotal);
-	        				ractive2.set("actualTotal", actualTotal);
+	        				ractive2.set("targetTotal", targetList);
+	        				ractive2.set("actualTotal", actualList);
 	        			}
 	            	});
 	            }
@@ -79,13 +92,13 @@ var safetyChart2 = function(){
 	        series: [ {
 	            type: 'column',
 	            name: $.i18n.map['i18n_actual'],
-	            data: actualTotal,
+	            data: actualData,
 	            color:'#3C3C4D'
 	        },{
 	            type: 'spline',
 	            name: $.i18n.map['i18n_target'],
 	            color:'red',
-	            data: targetTotal,
+	            data: targetList,
 	            marker: {
 	                enabled: false
 	            }

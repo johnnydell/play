@@ -1,7 +1,8 @@
 var safetyChart1 = function(){
 	var years = []; 
-	var targetTotal = []; 
-	var actualTotal = [];
+	var targetList = []; 
+	var actualList = [];
+	var actualData = [];
 	function init(lineName, curYear){
 	   //渲染chart1部分
 	   $.get(manager.root+"/views/tpl/board2/safetyChart1.html", function (template) {
@@ -22,19 +23,33 @@ var safetyChart1 = function(){
 	        			contentType: "application/json",
 	        			success: function(listdata)
 	        			{
-	        				years = [];
-	        				targetTotal = []; 
-	        				actualTotal = [];
-	        				for(i = 0; i < listdata.length; i ++){
-	        					years.push(listdata[i].years);
+	        				actualData 		= [];
+	        				
+        					years 			= listdata.yearList;
+	        				targetList 		= listdata.targetTotal;
+	        				actualList 		= listdata.actualTotal;
+	        				for(i = 0; i < actualList.length; i ++){
+	        					//prepare series data - actual
+	        					var tmpData = {};
+	        					var _actual = actualList[i];
+	        					var _target = targetList[i];
+	        					tmpData.y = _actual;
+	        					if (_actual < _target)
+	        						tmpData.color = 'green';
+	        					else
+	        						tmpData.color = 'red';
 	        					
-	        					targetTotal.push(listdata[i].target_count);
+	        					actualData.push(tmpData);
 	        					
-	        					actualTotal.push(listdata[i].actual_total);
 	        				}
+	        				
+	        				
+	        				//plot to chart
 	        				bindChart();
-	        				ractive3.set("targetTotal", targetTotal);
-	        				ractive3.set("actualTotal", actualTotal);
+	        				
+	        				//plot to table
+	        				ractive3.set("targetTotal", targetList);
+	        				ractive3.set("actualTotal", actualList);
 	        			}
 	            	});/**/
 	            }
@@ -73,13 +88,13 @@ var safetyChart1 = function(){
 	        series: [{
 	            type: 'column',
 	            name: $.i18n.map['i18n_actual'],
-	            data: actualTotal,
+	            data: actualData,
 	            color:'#3C3C4D'
 	        }, {
 	            type: 'spline',
 	            name: $.i18n.map['i18n_target'],
 	            color:'red',
-	            data: targetTotal,
+	            data: targetList,
 	            marker: {
 	                enabled: false
 	            }

@@ -1,11 +1,11 @@
-var deliveryChart3 = function(){
+var kpiSafetyChart3 = function(){
 	var days = []; 
 	var targetList = []; 
 	var actualList = [];
 	var actualData = [];
 	function init(lineName, curYear, curMonth){
 	   //渲染chart1部分
-	   $.get(manager.root+"/views/tpl/kpi/deliveryChart3.html", function (template) {
+	   $.get(manager.root+"/views/tpl/kpi/kpiSafetyChart3.html", function (template) {
 	        var ractive = new Ractive({
 	            el: '.cxt .bt',
 	            data:{
@@ -25,7 +25,7 @@ var deliveryChart3 = function(){
 	            	/**/
 	            	totalDays = cntDays(curYear, curMonth);
 	            	$.ajax({
-	        			url		: manager.root + '/report/delivery/dailyDeliveryChart',
+	        			url		: manager.root + '/report/safety/dailySafetyChart',
 	        			type	: 'GET',
 	        			dataType:"json",
 	        			data:{lineName:lineName,yearValue:curYear,monthValue:curMonth,dayCount:totalDays},
@@ -42,8 +42,7 @@ var deliveryChart3 = function(){
 	        					_actual = actualList[i];
 	        					_target = targetList[i];
         						tmpData.y = _actual;
-	        					var marker = {};
-	        					if (_actual > _target)
+	        					if (_actual < _target)
 	        						tmpData.color = 'green';
 	        					else
 	        						tmpData.color = 'red';
@@ -55,9 +54,6 @@ var deliveryChart3 = function(){
 	        				//plot to table
 	        				ractive.set("targetTotal", targetList);
 	        				ractive.set("actualTotal", actualList);
-	        				
-	        				
-	        				
 	        			}
 	            	});
 	           		

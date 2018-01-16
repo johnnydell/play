@@ -190,7 +190,7 @@ public class HourlyCountController extends Controller {
 			//detailObj.productHour 				= detailInfoNode.get(i).get("productHour").asInt();
 			//detailObj.productHourIndex 			= detailInfoNode.get(i).get("productHourIndex").asInt();
 			detailObj.productHourCount 			= detailInfoNode.get(i).get("productHourCount").asInt();
-			detailObj.planCount 				= detailInfoNode.get(i).get("planCount").asInt();
+			//detailObj.planCount 				= detailInfoNode.get(i).get("planCount").asInt();
 			detailObj.actualCount 				= detailInfoNode.get(i).get("actualCount").asInt();
 			detailObj.scrapCount 				= detailInfoNode.get(i).get("scrapCount").asInt();
 			detailObj.reworkCount 				= detailInfoNode.get(i).get("reworkCount").asInt();

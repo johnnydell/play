@@ -225,7 +225,7 @@ public class HourlyCountDetail extends Model {
 	}
 	
 	public static List<HourlyCountDetail> findByBaseIdAndFilterHour(String baseId, int startHour, int endHour){
-		return find.where().eq("hourlyCountBase.id", baseId).ge("productHourIndex", startHour).le("productHourIndex", endHour).findList();
+		return find.where().eq("hourlyCountBase.id", baseId).ge("productHourIndex", startHour).le("productHourIndex", endHour).orderBy("productHourIndex").findList();
 	}
 
 	public static void save(HourlyCountDetail hourlyCountDetail) {

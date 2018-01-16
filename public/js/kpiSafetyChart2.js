@@ -1,16 +1,17 @@
-var deliveryChart3 = function(){
-	var days = []; 
+var kpiSafetyChart2 = function(){
+	var months = []; 
 	var targetList = []; 
 	var actualList = [];
 	var actualData = [];
-	function init(lineName, curYear, curMonth){
+	
+	function init(lineName, curYear){
 	   //渲染chart1部分
-	   $.get(manager.root+"/views/tpl/kpi/deliveryChart3.html", function (template) {
+	   $.get(manager.root+"/views/tpl/kpi/kpiSafetyChart2.html", function (template) {
 	        var ractive = new Ractive({
-	            el: '.cxt .bt',
+	            el: '.cxt .top .rgt',
 	            data:{
-	            	root		: manager.root,
     				lineName	: lineName,
+    				yearValue	: curYear,
     				format		: function(num){
     					return manager.formatNumberAsUS(num,0,',');
     				},
@@ -18,36 +19,40 @@ var deliveryChart3 = function(){
     			},
 	            template: template,
 	            onrender: function(){
-					manager.loadProperties(this, "delivery", "../../../");
+					manager.loadProperties(this, "safety", "../../../");
 					manager.loadProperties(this, "common", "../../../");
 				},
 	            oncomplete: function(){
 	            	/**/
-	            	totalDays = cntDays(curYear, curMonth);
+	            	targetPercent = [];
 	            	$.ajax({
-	        			url		: manager.root + '/report/delivery/dailyDeliveryChart',
+	        			url		: manager.root + '/report/safety/monthlySafetyChart',
 	        			type	: 'GET',
 	        			dataType:"json",
-	        			data:{lineName:lineName,yearValue:curYear,monthValue:curMonth,dayCount:totalDays},
+	        			data:{
+	        				lineName	: lineName,
+	        				yearValue	: curYear
+	        			},
 	        			success: function(listdata)
 	        			{
 	        				actualData 		= [];
-	        				console.log(listdata);
-        					days 			= listdata.dayList;
+	        				
+        					months 			= listdata.monthList;
 	        				targetList 		= listdata.targetTotal;
 	        				actualList 		= listdata.actualTotal;
 	        				for(i = 0; i < actualList.length; i ++){
 	        					//prepare series data - actual
 	        					var tmpData = {};
-	        					_actual = actualList[i];
-	        					_target = targetList[i];
-        						tmpData.y = _actual;
-	        					var marker = {};
-	        					if (_actual > _target)
+	        					var _actual = actualList[i];
+	        					var _target = targetList[i];
+	        					tmpData.y = _actual;
+	        					if (_actual < _target)
 	        						tmpData.color = 'green';
 	        					else
 	        						tmpData.color = 'red';
+	        					
 	        					actualData.push(tmpData);
+	        					
 	        				}
 	        				//plot to chart
 	        				bindChart();
@@ -66,13 +71,8 @@ var deliveryChart3 = function(){
 	    });
 	}
 	
-	//根据年月返回天数
-	function cntDays(year,month){
-		return manager.getDaysCnt(year,month);
-	}
-	
 	function bindChart(){
-		$('.bt .chart .chart').highcharts({
+		$('.top .rgt .chart .chart').highcharts({
 			 title: {
 	            text: ''
 	        },
@@ -80,11 +80,11 @@ var deliveryChart3 = function(){
 	            enabled: false
 	        },
 	        xAxis: {
-	            categories: days
+	            categories: months
 	        },
 	        yAxis: {
 	            title: {
-	                text: $.i18n.map['i18n_delivery_daily'],
+	                text: $.i18n.map['i18n_safety_yearly_count'],
 	                margin:65,
 	                style: {
 	                	fontSize: '15px',
@@ -92,7 +92,6 @@ var deliveryChart3 = function(){
 	                	color:'black'
 	                }
 	            },
-	            
 	            labels: {
 	                formatter: function() {
 	                    return this.value;

@@ -116,9 +116,9 @@ GET /edashboard/safety/getSafetyInfo						controllers.SafetyController.getSafety
 POST /edashboard/safety/saveSafetyInfo						controllers.SafetyController.saveSafetyInfo()
 
 # Safety - Report
-GET  /edashboard/report/safety/yearlySafetyChart    		controllers.report.SafetyController.getYearlySafetyReport(lineName : String)
+GET  /edashboard/report/safety/yearlySafetyChart    		controllers.report.SafetyController.getYearlySafetyReport(lineName : String, yearValue : String)
 GET  /edashboard/report/safety/dailySafetyChart				controllers.report.SafetyController.getDailySafetyReport(lineName : String,  yearValue:String,  monthValue:String,  dayCount:String)
-GET  /edashboard/report/safety/montlySafetyChart			controllers.report.SafetyController.getMonthlySafetyReport(lineName : String,  yearValue:String)
+GET  /edashboard/report/safety/monthlySafetyChart			controllers.report.SafetyController.getMonthlySafetyReport(lineName : String,  yearValue:String)
 
 # Scrap - Report
 GET  /edashboard/report/scrap/yearlyScrapChart    			controllers.report.ScrapController.getYearlyScrapReport(lineName : String,  yearValue:String)
@@ -171,6 +171,12 @@ GET  /edashboard/report/delivery/dailyDeliveryChart				controllers.report.Delive
 GET  /edashboard/report/delivery/yearlyDeliverySummaryChart    	controllers.report.DeliveryController.getYearlyDeliverySummaryReport(yearValue:String)
 GET  /edashboard/report/delivery/monthlyDeliverySummaryChart	controllers.report.DeliveryController.getMonthlyDeliverySummaryReport(yearValue:String)
 GET  /edashboard/report/delivery/dailyDeliverySummaryChart		controllers.report.DeliveryController.getDailyDeliverySummaryReport(yearValue:String,  monthValue:String,  dayCount:String)
+
+# Safety Summary - Report
+GET  /edashboard/report/safety/yearlySafetySummaryChart    		controllers.report.SafetyController.getYearlySafetySummaryReport(yearValue : String)
+GET  /edashboard/report/safety/monthlySafetySummaryChart		controllers.report.SafetyController.getMonthlySafetySummaryReport(yearValue: String)
+GET  /edashboard/report/safety/dailySafetySummaryChart			controllers.report.SafetyController.getDailySafetySummaryReport(yearValue:String,  monthValue:String,  dayCount:String)
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /edashboard/*file               				controllers.Assets.at(path="/public", file)
