@@ -320,7 +320,7 @@ public class ScrapController extends Controller {
 				}
 			}
 		}
-		logger.info("objs = " + objs);
+		
 		List<JSONObject> tmpList = new ArrayList<JSONObject>();
 		for (JSONObject obj : objs){
 			String lineName = obj.get("lineName").toString();

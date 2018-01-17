@@ -11,6 +11,9 @@ var oeeChart3 = function(){
 	            el: '.cxt .bt',
 	            data:{root:manager.root},
 	            template: template,
+	            onrender: function(){
+					manager.loadProperties(this, "common", "../../");
+				},
 	            oncomplete: function(){
 	            	var totalDays = cntDays(curYear, curMonth);
 	            	$.ajax({
@@ -28,17 +31,16 @@ var oeeChart3 = function(){
 	        				dayList = listdata.dayList;
 	        				targetList = listdata.targetList;
 	        				actualList = listdata.actualList;
-	        				
 	        				//try to make actual target series for chart
 	        				for(i = 0; i < actualList.length; i ++){
 	        					var tmpData = {};
 	        					tmpData.y = actualList[i];
-	        					var marker = {};
-	        					if (tmpData.y > 85)
-	        						marker.symbol = 'url('+manager.root+'/images/greenx.png)';
+	        					
+	        					if (tmpData.y > targetList[i])
+	        						tmpData.color = 'green';
 	        					else
-	        						marker.symbol = 'url('+manager.root+'/images/redx.png)';
-	        					tmpData.marker = marker;
+	        						tmpData.color = 'red';
+	        					
 	        					actualData.push(tmpData);
 	        				}
 	        				
@@ -48,6 +50,7 @@ var oeeChart3 = function(){
 	        				//plot to table
 	        				ractive.set("targetList", targetList);
 	        				ractive.set("actualList", actualList);
+	        				
 	        			}
 	            	});
 	           		
@@ -84,13 +87,13 @@ var oeeChart3 = function(){
 		        }	
 		    },
 		    series: [{
-		        type: 'line',
-		        name: 'OEE - actual',
+		        type: 'column',
+		        name: $.i18n.map['i18n_actual'],
 		        data: actualData,
 		        color:'#3C3C4D'
 		    }, {
 		        type: 'spline',
-		        name: 'OEE - target',
+		        name: $.i18n.map['i18n_target'],
 		        color:'red',
 		        data: targetList,
 		        marker: {

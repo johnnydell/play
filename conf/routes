@@ -93,7 +93,7 @@ GET  /edashboard/views/board/hourlycount/oeeLossChildChildName		controllers.Hour
 POST /edashboard/views/board/hourlycount/saveResult					controllers.HourlyCountController.saveHourlyCount()
 
 # Report - OEE
-POST /edashboard/report/oee/yearlyOeeChart/:lineName    controllers.report.OeeController.getYearlyOeeReport(lineName : String)
+GET  /edashboard/report/oee/yearlyOeeChart    			controllers.report.OeeController.getYearlyOeeReport(lineName : String,  yearValue:String)
 GET  /edashboard/report/oee/dailyOeeChart				controllers.report.OeeController.getDailyOeeReport(lineName : String,  yearValue:String,  monthValue:String,  dayCount:String)
 GET  /edashboard/report/oee/montlyOeeChart				controllers.report.OeeLossController.getMonthlyLossDataForOee(lineName : String,  yearValue:String)
 

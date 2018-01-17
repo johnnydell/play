@@ -4,16 +4,16 @@
    <table>
 		
 		<tr>
-			<td><hr class="line2" style="background-color:red "/><label>OEE-target</label></td>
+			<td width=""><hr class="line2" style="background-color:red "/><label>{{i18n_target}}</label></td>
 			{{#each targetTotal:index}}
-				<td>
+				<td width="15%">
 					<lable>{{targetTotal[index]}}</lable>
 				</td>
 			{{/each}}	
 			
 		</tr>
 		<tr>
-			<td width="30%"><hr class="line1" style="background-color:#3C3C4D "/><label>OEE-actual</label></td>
+			<td width="30%"><hr class="line1" style="background-color:#3C3C4D "/><label>{{i18n_actual}}</label></td>
 			
 			{{#each actualTotal:index}}
 				<td>

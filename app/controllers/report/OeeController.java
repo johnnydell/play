@@ -14,7 +14,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.avaje.ebean.SqlRow;
 
 import models.HourlyCountBase;
-import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -25,10 +24,52 @@ public class OeeController extends Controller {
 	 * 按年份查询OEE
 	 * @param lineName
 	 * @return
+	 * @throws ParseException 
 	 */
-	public static Result getYearlyOeeReport(String lineName){
-		List<SqlRow> rows = HourlyCountBase.findYearlyOeeData(lineName);
-		return ok(Json.toJson(rows));
+	public static Result getYearlyOeeReport(String lineName, String yearValue) throws ParseException{
+		
+		
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Date endDate = df.parse(yearValue + "-12-31");
+		
+		int endYear = Integer.parseInt(yearValue);
+		int startYear = endYear - 3;
+		//always query the data including 4 years ago.
+		Date startDate = df.parse( startYear + "-01-01");
+		List<SqlRow> rows = HourlyCountBase.findYearlyOeeData(lineName, startDate, endDate);
+		
+		List<Integer> years = new ArrayList<Integer>();
+		
+		List<Integer> targetTotalList = new ArrayList<Integer>();
+		List<Integer> actualTotalList = new ArrayList<Integer>();
+		List<Float> oeePercentlList = new ArrayList<Float>();
+		
+		for (int i = startYear; i < endYear + 1; i ++){
+			years.add(i);
+			boolean isFound = false;
+			for(SqlRow row : rows){
+				if (Integer.parseInt(row.getString("years")) == i){
+					isFound = true;
+					targetTotalList.add(row.getInteger("target_oee_total"));
+					actualTotalList.add(row.getInteger("actual_oee_total"));
+					oeePercentlList.add(row.getFloat("target_oee_percent"));
+					break;
+				}
+			}
+			if (!isFound){
+				
+				targetTotalList.add(0);
+				actualTotalList.add(0);
+				oeePercentlList.add(0.0f);
+			}
+		}
+		JSONObject json = new JSONObject();
+		json.put("yearList", years);
+		json.put("targetTotal", targetTotalList);
+		json.put("actualTotal", actualTotalList);
+		json.put("targetPercent", oeePercentlList);
+		
+		return ok(json.toJSONString());
 	}
 	
 	public static Result getDailyOeeReport(String lineName, String yearValue, String monthValue, String dayCount) throws ParseException{

@@ -3,7 +3,7 @@
    <div class="chart"></div>
    <table>
 		<tr>
-			<td width="14%"><hr class="line1" style="background-color:red "/><label>OEE-target</label></td>
+			<td width="14%"><hr class="line1" style="background-color:red "/><label>{{i18n_target}}</label></td>
 			{{#each targetList:index}}
 				<td>
 					<lable>{{targetList[index]}}%</lable>
@@ -12,7 +12,7 @@
 			
 		</tr>
 		<tr>
-			<td><hr class="line2" style="background-color:#3C3C4D "/><label>OEE-actual</label></td>
+			<td><hr class="line2" style="background-color:#3C3C4D "/><label>{{i18n_actual}}</label></td>
 			{{#each actualList:index}}
 				<td>
 					<lable>{{actualList[index]}}%</lable>

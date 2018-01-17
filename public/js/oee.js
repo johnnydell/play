@@ -21,7 +21,7 @@ var oee = function(){
 				this.set("oeeObj",oeeobj);
 			},
 			oncomplete: function(){	
-				oeeChart1.init(lineName);
+				oeeChart1.init(lineName, oeeobj.currYear);
 				oeeChart2.init(lineName, oeeobj.currYear);
 				oeeChart3.init(lineName, oeeobj.currYear, oeeobj.currMonth);
 			}
@@ -46,12 +46,12 @@ var oee = function(){
 				_$select.hide().prev().show().text(_$select.find("option:selected").text());
 			},
 			changeYear:function(){
-				oeeChart1.init(lineName);
+				oeeChart1.init(lineName, oeeobj.currYear);
 				oeeChart2.init(lineName, oeeobj.currYear);
 				oeeChart3.init(lineName, oeeobj.currYear, oeeobj.currMonth);
 			},
 			changeMonth:function(){
-				oeeChart1.init(lineName);
+				oeeChart1.init(lineName, oeeobj.currYear);
 				oeeChart3.init(lineName, oeeobj.currYear, oeeobj.currMonth);
 			},
 		})
