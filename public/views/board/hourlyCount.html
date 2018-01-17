@@ -113,48 +113,13 @@
 					<td colspan="7" >
                         {{i18n_hourlycount_remark}}
                     </td>
+<!--
 					<td colspan="1" width="7%">
                         {{i18n_hourlycount_downtime_code}}
                     </td>
+-->
 				</tr>
-				<tr>
-					<td colspan="1" >
-                        &nbsp;
-                    </td>
-					<td colspan="4">
-                         &nbsp;
-                    </td>
-					<td colspan="2" >
-                        &nbsp;
-                    </td>
-					<td colspan="2" >
-                       &nbsp;
-                    </td>
-					<td colspan="7">
-                       &nbsp;
-                    </td>
-					<td colspan="3" >
-                        &nbsp;
-                    </td>
-					<td colspan="3" >
-                        &nbsp;
-                    </td>
-					<td colspan="4" >
-                       &nbsp;
-                    </td>
-					<td colspan="9" >
-                        &nbsp;
-                    </td>
-					<td colspan="7" rowspan="3" style="text_align:center">
-                        <p>{{i18n_hourlycount_remark_desc_1}}</p>
-						<p>{{i18n_hourlycount_remark_desc_2}}</p>
-						<p>{{i18n_hourlycount_remark_desc_3}}</p>
-						<p>{{i18n_hourlycount_remark_desc_4}}</p>
-                    </td>
-					<td rowspan="3" >
-                        &nbsp;
-                    </td>
-				</tr>
+				
 
 				<tr>
 					<td rowspan="2" width="2%">
@@ -262,6 +227,12 @@
                     </td>
 					<td rowspan="2" width="1%" class="graycolor lossfont">
                         {{i18n_hourlycount_losses}}
+                    </td>
+					<td colspan="7" rowspan="2" style="text_align:center">
+                        <p>{{i18n_hourlycount_remark_desc_1}}</p>
+						<p>{{i18n_hourlycount_remark_desc_2}}</p>
+						<p>{{i18n_hourlycount_remark_desc_3}}</p>
+						<p>{{i18n_hourlycount_remark_desc_4}}</p>
                     </td>
 
 				</tr>
@@ -420,10 +391,12 @@
 					<td colspan="7">
 						<label>{{hourlyCountV1[index].remark}}</label>
 					</td>
+<!--
 					<td on-click="toShowColumnEditor">
 						<label>{{hourlyCountV1[index].techDownCode}}</label>
 						<input class="field " style="display:none;" on-blur="toHideColumnEditor" type="text" value="{{hourlyCountV1[index].techDownCode}}" />
 					</td>
+-->
 				</tr>
 				{{#if index == 7}}
 				<tr class="graycolor">

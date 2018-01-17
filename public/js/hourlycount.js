@@ -65,7 +65,11 @@ var hourlycount = function(){
 			},
 			/*hide label, show text*/
 			toShowColumnEditor:function(e){
+				var val = $(e.node).children(0).next().val();
 				$(e.node).children(0).hide().next().show().focus().select();
+				if (manager.isNull(val) || parseInt(val) == 0 ){
+					$(e.node).children(0).next().val("");
+				}
 			},
 			/*hide text, show label*/
 			toHideColumnEditor:function(e){
@@ -135,126 +139,16 @@ var hourlycount = function(){
 			/*Calculate plan count, plan total count*/
 			toHideColumnEditorWithCalculationForPlan:function(e){
 				var val = isNull($(e.node).val()) ? "" : parseInt($(e.node).val());
-				
-				var val1 = null;
-				var sub_total_g1 = 0;
-				var sub_total_g2 = 0;
-				var sub_total_g3 = 0;
-				var sub_total_g4 = 0;
-				var sub_total = 0;
-				$(".attendeeTr").each(function(index){
-					val1 = $($(this).children(0)[5]).children(0).text();
-					val1 = isNull(val1) ? 0 :  (isNaN(val1) ? 0 : parseInt(val1));
-					//calculate 7:00 AM ~ 3:00 PM
-					if (index < 8 ){
-						sub_total_g1 += val1;
-					}
-					//calculate 7:00 AM ~ 7:00 PM
-					if (index < 12 ){
-						sub_total_g2 += val1;
-					}
-					
-					//calculate 3:00 PM ~ 11:00 PM
-					if (7 < index && index < 16 ){
-						sub_total_g3 += val1;
-					}
-					
-					//calculate 3:00 PM ~ 11:00 PM
-					if (15 < index && index < 24 ){
-						sub_total_g4 += val1;
-					}
-					sub_total += val1;
-					
-					if (val1 !== 0){
-						hourlycounts[index].planTotalCount = sub_total;
-					}
-					else{
-						if (hourlycounts[index].planTotalCount !== "" ||  hourlycounts[index].planTotalCount > 0){
-							hourlycounts[index].planTotalCount = 0;
-						}
-					}
-						
-			    });
 				//set current plan label value
 				$(e.node).hide().prev().show().text(val);
-				
-				
-				hourlycounts_sub_total[0].group_plan = sub_total_g1;
-				hourlycounts_sub_total[1].group_plan = sub_total_g2;
-				hourlycounts_sub_total[2].group_plan = sub_total_g3;
-				hourlycounts_sub_total[3].group_plan = sub_total_g4;
-				hourlycounts_base.planOutputCount = sub_total;
-				if (hourlycounts_base.planOutputCount !== 0){
-					hourlycounts_base.actualOee = hourlycounts_base.actualOutputCount / hourlycounts_base.planOutputCount;
-				}
-				ractive.update();
 			},
 			/*calculate actual count, actual total count, hourly count*/
 			toHideColumnEditorWithCalculationForActual:function(e){
 				var val = isNull($(e.node).val()) ? "" : parseInt($(e.node).val());
-				var rowIndex = e.index.index;
-				var val1 = null;
-				var sub_total_g1 = 0;
-				var sub_total_g2 = 0;
-				var sub_total_g3 = 0;
-				var sub_total_g4 = 0;
-				var sub_total = 0;
-				$(".attendeeTr").each(function(index){
-					val1 = $($(this).children(0)[7]).children(0).text();
-					val1 = isNull(val1) ? 0 :  (isNaN(val1) ? 0 : parseInt(val1));
-					//calculate 7:00 AM ~ 3:00 PM
-					if (index < 8 ){
-						sub_total_g1 += val1;
-					}
-					//calculate 7:00 AM ~ 7:00 PM
-					if (index < 12 ){
-						sub_total_g2 += val1;
-					}
-					
-					//calculate 3:00 PM ~ 11:00 PM
-					if (7 < index && index < 16 ){
-						sub_total_g3 += val1;
-					}
-					
-					//calculate 3:00 PM ~ 11:00 PM
-					if (15 < index && index < 24 ){
-						sub_total_g4 += val1;
-					}
-					sub_total += val1;
-					if (val1 !== 0){
-						hourlycounts[index].actualTotalCount = sub_total;
-					}
-					else{
-						if (hourlycounts[index].actualTotalCount !== "" ||  hourlycounts[index].actualTotalCount > 0){
-							hourlycounts[index].actualTotalCount = 0;
-						}
-					}
-						
-			    });
 				//set current plan label value
 				$(e.node).hide().prev().show().text(val);
-				//set current actual total value
 				
-				hourlycounts_sub_total[0].group_actual = sub_total_g1;
-				hourlycounts_sub_total[1].group_actual = sub_total_g2;
-				hourlycounts_sub_total[2].group_actual = sub_total_g3;
-				hourlycounts_sub_total[3].group_actual = sub_total_g4;
-				
-				//calculate hourly count percent
-				hourlycounts[rowIndex].productHourCount = val;
-				hourlycounts[rowIndex].productHourPercent = hourlycounts[rowIndex].planCount == 0 ? 0  : (val / hourlycounts[rowIndex].planCount);
-				//
-				//hourlycounts_base.actualOutputCount = sub_total;
-				var actual_total = 0, planTotalCount = 0 ;
-				for(i = 0; i < 24; i++){
-					actual_total 	+= parseInt(hourlycounts[i].actualCount);
-					planTotalCount 	+= parseInt(hourlycounts[i].planCount);
-				}
-				hourlycounts_base.actualOutputCount = actual_total;
-				
-				if (planTotalCount !== 0){
-					hourlycounts_base.actualOee = hourlycounts_base.actualOutputCount / planTotalCount;
-				}
+				calculateActualTotal();
 				ractive.update();
 			},
 			/*popup remarks window*/
@@ -373,13 +267,13 @@ var hourlycount = function(){
 	        	        	}else{
 	        	        		$("#remark_count").css("border", "1px solid #ccc");
 	        	        	}
-	        	        	if (isNull(lossInfo.lossReasonV)){
+	        	        	/*if (isNull(lossInfo.lossReasonV)){
 	        	        		jAlert($.i18n.map['i18n_required'], $.i18n.map['i18n_error']);	
 	        	        		$("#remark_reason").css("border", "1px solid red");
 	        	        		return false;
 	        	        	}else{
 	        	        		$("#remark_reason").css("border", "1px solid #ccc");
-	        	        	}
+	        	        	}*/
 	        	        		
 	        	        	//update remarks
 	        	        	if (!isNull(remarks)){
@@ -684,7 +578,7 @@ var hourlycount = function(){
 					hourlycounts[i].undefinedCount 			= isNull(listdata[i].undefinedCount) ? 0 : parseInt(listdata[i].undefinedCount);
 					hourlycounts[i].remark 					= isNull(listdata[i].remark) ? "" : listdata[i].remark;
 					hourlycounts[i].techDownCode 			= isNull(listdata[i].techDownCode) ? "" : listdata[i].techDownCode;
-					hourlycounts[i].productHourPercent		= hourlycounts[i].planCount == 0 ? 0 : (hourlycounts[i].productHourCount / hourlycounts[i].planCount);
+					hourlycounts[i].productHourPercent		= hourlycounts[i].planCount == 0 ? 0 : (hourlycounts[i].actualCount / hourlycounts[i].planCount);
 					hourlycounts[i].planTotalCount			= isNull(listdata[i].planTotalCount) ? "" : listdata[i].planTotalCount;
 					
 					planTotalCount 							+= hourlycounts[i].planCount;
@@ -729,6 +623,50 @@ var hourlycount = function(){
 			}
 		
 		});
+	}
+	
+	function calculateActualTotal(){
+		hourlycounts_sub_total[0].group_actual = 0;
+		hourlycounts_sub_total[1].group_actual = 0;
+		hourlycounts_sub_total[2].group_actual = 0;
+		hourlycounts_sub_total[3].group_actual = 0;
+		var actualTotalCount = 0, planTotalCount = 0;
+		for (i = 0; i < 24; i ++){
+			hourlycounts[i].actualCount = manager.isNull(hourlycounts[i].actualCount) ? 0 : hourlycounts[i].actualCount;
+			actualTotalCount 					+= parseInt(hourlycounts[i].actualCount);
+			planTotalCount 						+= parseInt(hourlycounts[i].planCount);
+			hourlycounts[i].actualTotalCount	= actualTotalCount;
+			hourlycounts[i].productHourCount	= hourlycounts[i].actualCount;
+			
+			//calculate progress percent
+			hourlycounts[i].productHourPercent = hourlycounts[i].planCount == 0 ? 0  : (hourlycounts[i].actualCount / hourlycounts[i].planCount);
+			
+			//calculate sub total count for group 1
+			if (i < 8){
+				hourlycounts_sub_total[0].group_actual += parseInt(hourlycounts[i].actualCount);
+			}
+			
+			//calculate sub total count for group 2
+			if (i < 12){
+				hourlycounts_sub_total[1].group_actual += parseInt(hourlycounts[i].actualCount);
+			}
+			
+			//calculate sub total count for group 3
+			if (7 < i && i < 16){
+				hourlycounts_sub_total[2].group_actual += parseInt(hourlycounts[i].actualCount);
+			}
+			//calculate sub total count for group 4
+			if (15 < i && i < 24){
+				hourlycounts_sub_total[3].group_actual += parseInt(hourlycounts[i].actualCount);
+			}
+		}
+		
+		//calculate actual OEE
+		hourlycounts_base.actualOutputCount = actualTotalCount;
+		if (planTotalCount !== 0){
+			hourlycounts_base.actualOee = hourlycounts_base.actualOutputCount / planTotalCount;
+		}
+		
 	}
 	
 	function isNull(arg1)
