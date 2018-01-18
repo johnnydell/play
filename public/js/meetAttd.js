@@ -212,7 +212,7 @@ var meetAttd = function(){
 							},
 							success: function(data) {
 								refreshAttendance();
-								ractive.set("attendance",attendance);
+								ractive.set("attendance",attendance);	
 								refreshAttendanceDetails();
 								ractive.set("attendanceDetails",attendanceDetails);		
 								jAlert($.i18n.prop("i18n_save_ok"), $.i18n.prop("i18n_info"));
@@ -330,6 +330,7 @@ var meetAttd = function(){
 	    attendanceDetails = [];
 	    if(attendance_id != '0'){
 	    	var dets = getMetAtdanceDetails(attendance_id);
+	    	console.log(dets);
 	    	if(dets.length > 0){
 	    		$(dets).each(function(i,n){
 	    			var attendee = {};
@@ -366,6 +367,8 @@ var meetAttd = function(){
 	    		});
 	    	}
 	    }
+	    
+	    console.log(attendanceDetails);
 	}
 	
 	//根据年月返回天数

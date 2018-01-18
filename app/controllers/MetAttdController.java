@@ -76,6 +76,11 @@ public class MetAttdController extends Controller  {
 		String spot = attendance.get("spot").asText();
 		String host = attendance.get("host").asText();
 		MetAttd metAttd = new MetAttd();
+		//用于同步可能在新增情况已经存在其他端录入数据，转为更新状态
+		MetAttd  basic = MetAttd.getMetAtdanceInfo(line_id, year, month);
+		if(basic != null){
+			id = basic.id;
+		}
 		if(!id.equals("0")){
 			metAttd.id = id;
 		}

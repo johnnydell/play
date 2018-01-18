@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.alibaba.fastjson.JSON;
 import com.avaje.ebean.SqlRow;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -340,6 +342,11 @@ public class ComplainController extends Controller  {
 		complain.year = base.get("year").asText().trim();
 		complain.month = base.get("month").asText().trim();
 		complain.totalTarget = base.get("ytarget").asText().trim();
+		//用于同步可能在新增情况已经存在其他端录入数据，转为更新状态
+		Complain  basic = Complain.getComplainInfo(complain.lineId, complain.year, complain.month);
+		if(basic != null){
+			id = basic.id;
+		}
 		if(id.equals("0")){
 			//封装实际明细
 			JsonNode actuals = base.get("actual");
@@ -392,8 +399,14 @@ public class ComplainController extends Controller  {
 					Iterator<JsonNode> b = days.iterator();
 					while(b.hasNext()){
 						JsonNode day = b.next();
+						String dayId = day.get("id").asText().trim();
+						String dayKey = day.get("d").asText().trim();
 						ComplainActualDays actualDay = new ComplainActualDays();
-						actualDay.id = day.get("id").asText().trim();
+						if(StringUtils.isBlank(dayId) || dayId.equals("0")){
+							ComplainActualDays basicDay = ComplainActualDays.findByTypeDayKey(complain.id, typeId, dayKey);
+							dayId = (basicDay == null ? dayId:basicDay.id);
+						}
+						actualDay.id = dayId;
 						actualDay.complainId = complain.id;
 						actualDay.dayKey = day.get("d").asText().trim();
 						actualDay.dayVal = day.get("v").asText().trim();
@@ -410,8 +423,14 @@ public class ComplainController extends Controller  {
 			Iterator<JsonNode> c = target.iterator();
 			while(c.hasNext()){
 				JsonNode day = c.next();
+				String dayId = day.get("id").asText().trim();
+				String dayKey = day.get("d").asText().trim();
 				ComplainTargetDays targetDay = new ComplainTargetDays();
-				targetDay.id = day.get("id").asText().trim();
+				if(StringUtils.isBlank(dayId) || dayId.equals("0")){
+					ComplainTargetDays basicDay = ComplainTargetDays.findByDayKey(complain.id,dayKey);
+					dayId = (basicDay == null ? dayId:basicDay.id);
+				}
+				targetDay.id = dayId;
 				targetDay.complainId = complain.id;
 				targetDay.dayKey = day.get("d").asText().trim();
 				targetDay.dayVal = day.get("v").asText().trim();

@@ -31,4 +31,10 @@ public class ComplainTargetDays extends Model {
 	
 	@Column(name = "day_val")
 	public String dayVal;
+	
+	public static Finder<String, ComplainTargetDays> find = new Finder<String, ComplainTargetDays>(String.class, ComplainTargetDays.class);
+	
+	public static ComplainTargetDays findByDayKey(String complainId,String day_key){
+		return find.where().eq("complain_id", complainId).eq("day_key", day_key).findUnique();
+	}
 }

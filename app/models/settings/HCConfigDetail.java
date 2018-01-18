@@ -205,6 +205,10 @@ public class HCConfigDetail extends Model {
 		return Ebean.find(HCConfigDetail.class,id);
 	}
 	
+	public static HCConfigDetail findByHour(String baseId,String hour){
+		return find.where().eq("hourly_count_base_id", baseId).eq("productHour", hour).findUnique();
+	}
+	
 	public static void save(HCConfigDetail detail){
 		Ebean.save(detail);
 	}

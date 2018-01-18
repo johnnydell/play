@@ -125,9 +125,9 @@
 					<th width="2%">{{d}}</th>
 	               {{/each}}
 				</tr>
-                {{#each attendanceDetails:index}}
-                <tr class="attendeeTr" lang="{{index}}">
-                   <td>
+				{{#each attendanceDetails:index}}
+				<tr class="attendeeTr" lang="{{index}}">
+                    <td>
                    		<input class="opt" type="checkbox" checked="{{checked}}" />
                    		{{#if id == '0' || updated == '1'}}
 				        <font color="red">*</font>
@@ -139,7 +139,7 @@
 	               		<label class="field" on-click="toShowColumnEditor">{{meeting_attendee}}</label>
 	               		<input class="field" type="text" maxlength="20" on-blur="toHideColumnEditor" style="display:none" value="{{meeting_attendee}}" />
 	               </td>
-	               <td>
+ 				   <td>
 	                    <label class="field" on-click="toShowColumnEditor">{{required}}</label>
 	                    <select class="field" style="display:none" value="{{required}}" on-blur="toHideColumnEditor">
 			               <option value="R">R</option>
@@ -154,7 +154,7 @@
 	               		<label class="field" on-click="toShowColumnEditor">{{dept}}</label>
 	               		<input class="field" type="text" maxlength="20" on-blur="toHideColumnEditor" style="display:none" value="{{dept}}" />
 	               </td>
-	               {{#each days:flag}}
+				   {{#each days:flag}}
 				   {{#if s =='0'}}	
 					<td>			   
 					 	<label class="field" style="background: {{bg}}"  on-click="toShowColumnEditor">{{v}}</label>
@@ -172,8 +172,8 @@
 					<td style="background: #bec2c3;"><label class="field"></label></td>
 				   {{/if}}
 	               {{/each}}
-                </tr>
-                {{/each}}				
+				</tr>
+                {{/each}}			
 				<tr>
 					<td class="des" colspan="36" style="text-align: left;color: #000;font-weight: bold;font-size: 16px;">
 						<span style="margin-left: 0px;">[X] {{i18n_meetAttd_attend}}</span>

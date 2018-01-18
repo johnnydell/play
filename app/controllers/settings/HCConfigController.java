@@ -9,8 +9,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+
 import models.ProductLine;
 import models.ProductType;
+import models.board2.Complain;
 import models.settings.HCConfigBase;
 import models.settings.HCConfigDetail;
 
@@ -67,7 +69,13 @@ public class HCConfigController extends Controller {
     	String target_oee_percent = base1_json.get("target_oee_percent").asText().trim();
     	String plan_opl_total_output = base1_json.get("plan_opl_total_output").asText().trim();
     	
-    	HCConfigBase base1 = new HCConfigBase();
+    	HCConfigBase base1 = new HCConfigBase();	
+    	//用于同步可能在新增情况已经存在其他端录入数据，转为更新状态
+		HCConfigBase basic = HCConfigBase.getHCConfigBaseByParams(line_id, date);
+		if(basic != null){
+			base1Id = basic.id;
+		}
+    	
     	if(!base1Id.equals("0")){
     		base1 = HCConfigBase.find(base1Id);
     		base1.targetOeePercent = Double.parseDouble(target_oee_percent);
@@ -100,7 +108,12 @@ public class HCConfigController extends Controller {
 			if(StringUtils.isNotBlank(detailId) && !detailId.equals("0")){
 				detail = HCConfigDetail.find(detailId);
 			} else {
-				detail = new HCConfigDetail();
+				detail = HCConfigDetail.findByHour(base1.id, product_hour);
+				if(detail == null){
+					detail = new HCConfigDetail();
+				} else {
+					detailId = detail.id;
+				}
 				detail.base_id = base1.id;
 			}		
 			if(StringUtils.isNotBlank(product_type_id_1)){
@@ -155,16 +168,24 @@ public class HCConfigController extends Controller {
     	JsonNode base2_json = in.get("base2");
     	String base2Id = base2_json.get("id").asText();
     	HCConfigBase base2 = new HCConfigBase();
+    	
+    	Calendar calendar = new GregorianCalendar();
+    	calendar.setTime(df.parse(date));
+    	calendar.add(calendar.DATE,1);//整数往后推,负数往前移动
+    	String next_date = df.format(calendar.getTime());   
+    	
+    	//用于同步可能在新增情况已经存在其他端录入数据，转为更新状态
+		HCConfigBase basic2 = HCConfigBase.getHCConfigBaseByParams(line_id, next_date);
+		if(basic2 != null){
+			base2Id = basic2.id;
+		}
+    	
     	if(!base2Id.equals("0")){
     		base2 = HCConfigBase.find(base2Id);
     		base2.targetOeePercent = Double.parseDouble(target_oee_percent);
     		base2.planOplTotalOutput = Integer.parseInt(plan_opl_total_output);
         	HCConfigBase.update(base2);        	
     	} else {
-    		Calendar calendar = new GregorianCalendar();
-        	calendar.setTime(df.parse(date));
-        	calendar.add(calendar.DATE,1);//整数往后推,负数往前移动
-        	String next_date = df.format(calendar.getTime());   
     		base2.productDate = df.parse(next_date);
     		base2.line_id = line_id;
     		base2.targetOeePercent = Double.parseDouble(target_oee_percent);
@@ -191,7 +212,12 @@ public class HCConfigController extends Controller {
 			if(StringUtils.isNotBlank(detailId) && !detailId.equals("0")){
 				detail = HCConfigDetail.find(detailId);
 			} else {
-				detail = new HCConfigDetail();
+				detail = HCConfigDetail.findByHour(base2.id, product_hour);
+				if(detail == null){
+					detail = new HCConfigDetail();
+				} else {
+					detailId = detail.id;
+				}
 				detail.base_id = base2.id;
 			}		
 			if(StringUtils.isNotBlank(product_type_id_1)){
