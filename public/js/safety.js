@@ -11,7 +11,8 @@ var safety = function(){
 				manager.loadProperties(this, "common", "../../");
 			},
 			oncomplete: function(){		
-				safetyEdit.init();
+				//safetyEdit.init();
+				safetyReport.init();
 			}
 		});
 		

@@ -178,7 +178,8 @@ var safetyEdit = function(){
 		var days = [];
 		var daysCnt = cntDays(year,month);
 		for(i = 1;i <= daysCnt;i++){
-			days.push({id:"0",d:i,v0:"",v1:"", v2:"0",v3:0,s:verifyWeekend(year,month,i)+'',bg:"white",updated:"0"});//s标示是否为周末
+			//days.push({id:"0",d:i,v0:"",v1:"", v2:"0",v3:0,s:verifyWeekend(year,month,i)+'',bg:"white",updated:"0"});//s标示是否为周末
+			days.push({id:"0",d:i,v0:"",v1:"", v2:"0",v3:0,s:0,bg:"white",updated:"0"});//s标示是否为周末
 		}
 		return days;
 	}
