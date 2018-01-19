@@ -30,8 +30,9 @@ public class StaticPageController extends Controller {
 		}
 		if (isExist){
 			// try to find this file in local path
-			String filePath = prepareFilePath(fileName, latestFileName);
+			//String filePath = prepareFilePath(fileName, latestFileName);
 			String contextFilePath = prepareContextFilePath(fileName, latestFileName);
+			String filePath = Constants.STATIC_FILE_SAVE_PATH + contextFilePath;
 			String pdfFilePath = "";
 			// check if it's excel file or pdf file
 			if (!fileName.toLowerCase().contains("pdf")) {
@@ -41,22 +42,18 @@ public class StaticPageController extends Controller {
 					// need to convert it to pdf first
 					int index = filePath.lastIndexOf(".");
 					pdfFilePath = filePath.substring(0, index) + ".pdf";
-
-					index = contextFilePath.lastIndexOf(".");
-					contextFilePath = contextFilePath.substring(0, index) + ".pdf";
-
+					//index = contextFilePath.lastIndexOf(".");
+					//contextFilePath = contextFilePath.substring(0, index) + ".pdf";
 					logger.info("pdfPath : = " + pdfFilePath);
 					File file = new File(pdfFilePath);
 					if (!file.exists()) {
 						try {
-
 							OfficeConverter.excelToPdf(filePath, pdfFilePath);
-
 							return ok(contextFilePath);
 						} catch (Exception e) {
 							logger.error("" + e);
 							// prepare json format
-							return ok(contextFilePath);
+							return ok("0");
 						}
 					} else {
 						return ok(contextFilePath);
@@ -65,7 +62,6 @@ public class StaticPageController extends Controller {
 					return ok("0");
 				}
 			} else {
-
 				return ok(contextFilePath);
 			}
 		}
@@ -114,7 +110,10 @@ public class StaticPageController extends Controller {
 			} else if ("5m1e".equals(fileType)) {
 				// blance excel file
 				buffer.append(Constants.STATIC_FILE_SAVE_PATH_5M1E);
-
+			}
+			else if ("checklist".equals(fileType)) {
+				// blance excel file
+				buffer.append(Constants.STATIC_FILE_SAVE_PATH_14Q_CHKLIST);
 			}
 			buffer.append(File.separator);
 			buffer.append(fileName);
@@ -162,7 +161,10 @@ public class StaticPageController extends Controller {
 			} else if ("5m1e".equals(fileType)) {
 				// blance excel file
 				buffer.append(Constants.STATIC_FILE_SAVE_PATH_5M1E);
-
+			}
+			else if ("checklist".equals(fileType)) {
+				// blance excel file
+				buffer.append(Constants.STATIC_FILE_SAVE_PATH_14Q_CHKLIST);
 			}
 			buffer.append(File.separator);
 			buffer.append(fileName);
@@ -172,5 +174,7 @@ public class StaticPageController extends Controller {
 
 		return result;
 	}
+	
+	
 
 }

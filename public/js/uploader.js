@@ -66,6 +66,14 @@ var uploader = function(){
 	             $("#train_matrix_upload").change(function(){
 	                 $("#avatval_train_matrix").val($(this).val());
 	             });
+	           
+	           //init click event - Checklist
+	             $("#avatval_checklist").click(function(){
+	                 $("#checklist_upload").trigger('click');
+	             });
+	             $("#checklist_upload").change(function(){
+	                 $("#avatval_checklist").val($(this).val());
+	             });
 			}
 			
 		});
@@ -178,6 +186,21 @@ var uploader = function(){
                     },
                     error: function (error) {console.log(error); },
                     url: root + '/views/upload/uploadFile/trainmatrix', /*设置post提交到的页面*/
+                    type: "post", /*设置表单以post方法提交*/
+                    dataType: "json" /*设置返回值类型为文本*/
+                });
+			},
+			
+			//upload checklist static page
+			uploadChecklistPage : function () {
+				$("#form_checklist_upload").ajaxSubmit({
+                    success: function (data) {
+                        $("#msg_info").html($.i18n.map[data.info]);
+                        $("#result_checklist").html($.i18n.map[data.result]);
+                        $("#time_checklist").html(data.last_update_time);
+                    },
+                    error: function (error) {console.log(error); },
+                    url: root + '/views/upload/uploadFile/checklist', /*设置post提交到的页面*/
                     type: "post", /*设置表单以post方法提交*/
                     dataType: "json" /*设置返回值类型为文本*/
                 });

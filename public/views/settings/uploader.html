@@ -150,7 +150,7 @@
 				</tr>
 
 				<tr>
-					<td>4</td>
+					<td>5</td>
 					<td>{{i18n_uploader_name_5s}}</td>
 					<td >
 						
@@ -173,7 +173,7 @@
 				</tr>
 
 				<tr>
-					<td>5</td>
+					<td>6</td>
 					<td>{{i18n_uploader_name_trainmatrix}}</td>
 					<td >
 						
@@ -191,6 +191,29 @@
 					</td>
 					<td>
 						<span id="time_trainmatrix">
+						</span>
+					</td>
+				</tr>
+
+				<tr>
+					<td>7</td>
+					<td>{{i18n_uploader_name_checklist}}</td>
+					<td >
+						
+						<form id="form_checklist_upload" enctype="multipart/form-data"  method="POST">
+							<input type="text" id="avatval_checklist" placeholder="请选择文件···" readonly="readonly" style="vertical-align: middle; width:60%;height:30px;"/>
+							<a href="javascript:;" class="divupload" >选择文件<input type="file" name="checklist" value="" id="checklist_upload" class="btnBrowser"/></a>
+							<input type="button" name="btnUploadChecklist" value="{{i18n_uploader_name_upload}}" class="divupload" on-click="uploadChecklistPage"/>
+						</form>
+						
+					</td>
+					
+					<td>
+						<span id="result_checklist">
+						</span>
+					</td>
+					<td>
+						<span id="time_checklist">
 						</span>
 					</td>
 				</tr>

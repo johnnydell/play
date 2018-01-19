@@ -139,6 +139,11 @@ public class UploaderController extends Controller {
 				buffer.append( Constants.STATIC_FILE_SAVE_PATH_5M1E );
 				
 			}
+			else if ("checklist".equals(fileName)) {
+				// blance excel file
+				buffer.append( Constants.STATIC_FILE_SAVE_PATH_14Q_CHKLIST );
+				
+			}
 			
 			buffer.append(File.separator);
 			buffer.append(prepareFileName(now, fileName, extension));

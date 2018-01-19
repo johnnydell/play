@@ -28,10 +28,27 @@ var staticpage = function(){
 					{
 						if (ret == "0"){
 							$("#msginfo").html(pagename + $.i18n.map['i18n_upload_needed']);
-							$("#uploadURL").css("display", "");
+							//$("#uploadURL").css("display", "");
+							ractive.set("displayed", "none");
+							ractive.set("displayed_upload", "");
 						}else{
+							var suffixIndex = ret.lastIndexOf(".pdf");
+							var excelFileName = '', pdfFileName = '';
+							if (suffixIndex == -1){
+								suffixIndex = ret.lastIndexOf(".");
+								pdfFileName = ret.substr(0, suffixIndex) + ".pdf";
+								excelFileName = ret;
+							}
+							else{
+								pdfFileName = ret;
+							}
 							$("#pdfviewer").css("display", "").css("width", "100%").css("height", "800");
-							$("#pdfviewer").attr("src", root + "/" + ret);
+							$("#pdfviewer").attr("src", root + "/" + pdfFileName);
+							ractive.set("displayed", "");
+							ractive.set("displayed_upload", "none");
+							ractive.set("checklist_download_url", root + "/" + excelFileName);
+							
+							
 						}
 					}
 				});
@@ -41,8 +58,8 @@ var staticpage = function(){
 		
 		
 		ractive.on({
-			testtest : function () {
-				console.log("test");
+			downloadFile : function () {
+				
 				
 			}
 		});

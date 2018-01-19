@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Board - OEE</title>
+		<title>Board - Static Page</title>
 		<link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
 		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
 		<link rel="stylesheet" type="text/css" href="../../css/staticpage.css"/>
@@ -47,6 +47,8 @@
 			<h3>{{i18n_staticpage_title_5m1e}}</h3>
 		{{elseif pageName == 'trainmatrix'}}
 			<h3>{{i18n_staticpage_title_trainmatrix}}</h3>
+		{{elseif pageName == 'checklist'}}
+			<h3>{{i18n_staticpage_title_14q_checklist}}</h3>
 		{{/if}}
 		<div class="fr">
 			<p>
@@ -71,6 +73,8 @@
 					<span>{{i18n_staticpage_title_5m1e}}</span>
 				{{elseif pageName == 'trainmatrix'}}
 					<span>{{i18n_staticpage_title_trainmatrix}}</span>
+				{{elseif pageName == 'checklist'}}
+					<span>{{i18n_staticpage_title_14q_checklist}}</span>
 				{{/if}}
 			</p>
 		</div>
@@ -78,17 +82,25 @@
 	<div class="content">
 		<div class="content-box">
 			<span id="msginfo"></span>
+			{{#if pageName == 'checklist'}}
+				<a id="uploadURL" href="{{root}}/views/settings/uploader.html"  class="link">{{i18n_switch_to_upload}}</a>
+			{{else}}
+				<a id="uploadURL" href="{{root}}/views/settings/uploader.html" style="display : {{displayed_upload}};" class="link">{{i18n_switch_to_upload}}</a>
+			{{/if}}
 			<div class="toolbar">
 				
 				{{#if pageName == 'balance'}}
 					<span>{{i18n_staticpage_switch_to}} </span>
-					<a href="{{root}}/views/board/staticpage.html?pageName=layout&oplLinkName=''" class="link">{{i18n_staticpage_title_layout}}</a>
+					<a href="{{root}}/views/board/staticpage.html?pageName=layout&oplLinkName=''&lineName={{lineName}}&lineId={{lineId}}" class="link">{{i18n_staticpage_title_layout}}</a>
 				{{elseif pageName == 'layout'}}
 					<span>{{i18n_staticpage_switch_to}} </span>
-					<a href="{{root}}/views/board/staticpage.html?pageName=balance&oplLinkName=''" class="link">{{i18n_staticpage_title_balance}}</a>
+					<a href="{{root}}/views/board/staticpage.html?pageName=balance&oplLinkName=''&lineName={{lineName}}&lineId={{lineId}}" class="link">{{i18n_staticpage_title_balance}}</a>
+				{{elseif pageName == 'checklist'}}
+					<a href="{{checklist_download_url}}" class="link" on-click="downloadFile" style="display:{{displayed}};">{{i18n_edit}}</a>
 				{{/if}}
+				
             </div>
-			<a id="uploadURL" href="{{root}}/views/settings/uploader.html" style="display : none;" class="link">{{i18n_switch_to_upload}}</a>
+			
 			<iframe id="pdfviewer" style="display : none;border : 0"/>	
 			
 		</div>
