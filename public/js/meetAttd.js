@@ -5,12 +5,11 @@ var meetAttd = function(){
 	var lines = common.getAllLines();
 	var attendance = {id:"0",year:"",month:"",line_id:"",line_name:"",time_start:"10:00",time_end:"10:30",spot:"Team Board",host:"Team Leader",daysCnt:0,days:[],updated:"0"};
 	var limits = permission.load("meeting_attendance");
-	console.log(limits.view);
 	function init(){
 		var ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
-			data: {root:manager.root},
+			data: {root:manager.root,limits:limits},
 			onrender: function(){
 				manager.loadProperties(this, "meetAttd", "../../");
 				manager.loadProperties(this, "common", "../../");
@@ -330,7 +329,6 @@ var meetAttd = function(){
 	    attendanceDetails = [];
 	    if(attendance_id != '0'){
 	    	var dets = getMetAtdanceDetails(attendance_id);
-	    	console.log(dets);
 	    	if(dets.length > 0){
 	    		$(dets).each(function(i,n){
 	    			var attendee = {};
@@ -367,8 +365,6 @@ var meetAttd = function(){
 	    		});
 	    	}
 	    }
-	    
-	    console.log(attendanceDetails);
 	}
 	
 	//根据年月返回天数

@@ -51,10 +51,6 @@ public class User extends Model {
 
 	public static Finder<String, User> find = new Finder<String, User>(String.class, User.class);
 
-	public static User findByUserNameAndPassword(String name, String password)  {		
-		return find.where().eq("userName", name).eq("password", password).orderBy("").fetch("productLine").fetch("department").findUnique();
-	}
-
 	public static List<User> getList() {
         return find.where().eq("active", true).orderBy("").fetch("productLine").findList();
 	}
@@ -65,6 +61,10 @@ public class User extends Model {
 	
 	public static User find(String id){
 		return Ebean.find(User.class, id);
+	}
+	
+	public static User findByNamePwd(String userName,String pwd){
+		return find.where().eq("userName", userName).eq("password",pwd).findUnique();
 	}
 		
 	public static void save(User user){

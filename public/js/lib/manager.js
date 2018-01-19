@@ -68,7 +68,7 @@ var manager = function() {
 	function loadProperties(ractive, name,dir) {
 	    jQuery.i18n.properties({// 加载资浏览器语言对应的资源文件
 	        name: name, // 资源文件名称
-	        path: dir+'i18n/', // 资源文件路径
+	        path: root+'/i18n/', // 资源文件路径
 	        mode: 'map', // 用 Map 的方式使用资源文件中的值
 	        language: getCookie("language"),
 	        callback: function () {// 加载成功后设置显示内容
@@ -139,18 +139,49 @@ var manager = function() {
 	//触发弹出登录
 	function triggerLogin(){	     
     	  $(".login_popup").show(); 
+    	  var user = {userName:"",pwd:""};
     	  $.get(root+"/views/tpl/common/login.html", function (data) {
   	        var ractive2 = new Ractive({
   	            el: ".login_popup",
   	            template: data,
-  	            data:{root:root},
-  	            oncomplete: function () {
-
-  	            }
+  	            data:{root:root,user:user},
+	  	        onrender: function(){
+	  				loadProperties(this, "login");
+	  			},
+  	            oncomplete: function () {}
   	        });
 
   	        ractive2.on("login", function () {
-  	          $(".login_popup").hide().html("");
+  	          if($.trim(user.userName) == ''){
+  	        	  jAlert($.i18n.prop("i18n_login_username_required"), $.i18n.prop("i18n_error"));
+  	        	  return false;
+  	          }
+  	          if($.trim(user.pwd) == ''){
+	        	  jAlert($.i18n.prop("i18n_login_pwd_required"), $.i18n.prop("i18n_error"));
+	        	  return false;
+	          }
+  	          var userDt;
+  	          $.ajax({
+  	        	  	url: manager.root + "/user/validateUserInfo",
+  					type: "GET",
+  					async:false,
+  					dataType:"json",
+  					data:user,
+  					contentType: "application/json",
+  					success: function(data) {
+  						userDt = data;
+  					}
+  	          });
+  	          var userId = userDt[1];
+              var userName = userDt[0];
+  	          if(userId != '0'){  	        	
+  	        	  setCookie("user_info","{\"user_id\":\""+userId+"\",\"user_name\":\""+userName+"\"}"); 
+  	        	  jAlert($.i18n.prop("i18n_login_login_success"), $.i18n.prop("i18n_error"));
+  	        	  $(".login_popup").hide().html("");
+  	          } else {
+  	        	  jAlert($.i18n.prop("i18n_login_userpwd_not_match"), $.i18n.prop("i18n_error"));
+	        	  return false;
+  	          }
   	        });
   	        
   	        ractive2.on("close", function () {

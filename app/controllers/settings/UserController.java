@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import common.util.Md5Utils;
 import play.db.ebean.Transactional;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -193,6 +194,23 @@ public class UserController extends Controller {
 		user.password = Md5Utils.MD5(newPwd);
 		User.save(user);
 		return ok("saved");
+	}
+	
+	
+	/**
+	 * 根据用户名称和密码后的用户对象
+	 * @param userId
+	 * @return
+	 */
+	public static Result validateUserInfo(String userName,String pwd){
+		User user = User.findByNamePwd(userName, Md5Utils.MD5(pwd));
+		String[] userArr = new String[2];
+		userArr[0] = userName;
+		userArr[1] = "0";
+		if(user != null){
+			userArr[1] = user.id;
+		}
+		return ok(Json.toJson(userArr));
 	}
 	
 	

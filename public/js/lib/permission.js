@@ -37,7 +37,7 @@ var permission = function() {
 		initModuleFuncs(module_key);
 		var user = manager.getLoginUserInfo();
 		if(user.user_id != '0'){
-			initUserRolesFunc(user_id);
+			initUserRolesFunc(user.user_id);
 		}
 		var limits = {};
 		$(module_funcs).each(function(i,n){
