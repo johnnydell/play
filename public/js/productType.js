@@ -1,11 +1,11 @@
 var productType = function(){
-	
+	var limits = permission.load("product_type");
 	var types = [];
 	function init(){	
 		var ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
-			data: {root:manager.root},
+			data: {root:manager.root,limits:limits},
 			onrender: function(){
 				manager.loadProperties(this, "productType", "../../");
 				manager.loadProperties(this, "common", "../../");
@@ -15,13 +15,15 @@ var productType = function(){
 		
 		ractive.on({
 			checkAll:function(e){
-				$(attendanceDetails).each(function(i,n){
+				$(types).each(function(i,n){
 					n.checked = $(e.node).is(':checked');
 				});				
 				ractive.update("types");
 			},
-			toShowColumnEditor:function(e){				
-				$(e.node).hide().next().show().focus();
+			toShowColumnEditor:function(e){	
+				if(limits.add_save_delete){
+					$(e.node).hide().next().show().focus();
+				}
 			},
 			toHideColumnEditor:function(e){
 				var type = e.node.type;

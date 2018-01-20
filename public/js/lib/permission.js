@@ -14,7 +14,7 @@ var permission = function() {
 			data:{moduleKey:module_key},
 			contentType: "application/json",
 			success: function(data) {
-				module_funcs = data;
+				module_funcs = data;				
 			}
 		});
 	}
@@ -39,11 +39,11 @@ var permission = function() {
 		if(user.user_id != '0'){
 			initUserRolesFunc(user.user_id);
 		}
-		var limits = {};
+		var limits = {};		
 		$(module_funcs).each(function(i,n){
 			var has = false;
 			$(user_role_funcs).each(function(j,m){
-				if(n.id = m.id){
+				if(n.id == m.id){
 					has = true;
 					return false;
 				}

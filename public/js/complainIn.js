@@ -6,12 +6,13 @@ var complainIn = function(){
 	var types = complain.types;
 	var lines = complain.lines;
 	var lineId = manager.getPV("lineId");
+	var limits = permission.load("complain");
 	function init(){
 		$.get(manager.root+"/views/tpl/board2/complainIn.html", function (template) {
 			var ractive = new Ractive({
 				el: ".maincontent",
 				template: template,
-				data: {root:manager.root},
+				data: {root:manager.root,limits:limits},
 				onrender: function(){
 					manager.loadProperties(this, "complainIn", "../../");
 					manager.loadProperties(this, "common", "../../");
@@ -32,7 +33,9 @@ var complainIn = function(){
 			
 			ractive.on({
 				toShowTargetTxt:function(e){
-					$(e.node).hide().next().show().focus().select();
+					if(limits.add_save_delete){
+						$(e.node).hide().next().show().focus().select();
+					}
 				},
 				toHideTargetTxt:function(e){
 					$(e.node).hide().prev().show();
@@ -69,7 +72,9 @@ var complainIn = function(){
 					this.set("base",base);
 				},
 				toShowColumnEditor:function(e){
-					$(e.node).hide().next().show().focus().select();
+					if(limits.add_save_delete){
+						$(e.node).hide().next().show().focus().select();
+					}
 				},
 				toHideColumnEditor:function(e){
 					$(e.node).hide().prev().show();

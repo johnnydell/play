@@ -80,8 +80,10 @@ var meetAttd = function(){
 				refreshAttendanceDetails();
 				this.set("attendanceDetails",attendanceDetails);
 			},
-			toShowMeetingTimeText:function(e){				
-				$(e.node).hide().next().show().focus();		
+			toShowMeetingTimeText:function(e){	
+				if(limits.add_save_delete){
+					$(e.node).hide().next().show().focus();		
+				}
 			},
 			toHideMeetingTimeText:function(e){
 				$(e.node).hide().prev().show();
@@ -89,7 +91,9 @@ var meetAttd = function(){
 				this.set("attendance",attendance);
 			},
 			toShowMeetingSpotText:function(){
-				$("#meetingSpotTd label").hide().next().show().focus();
+				if(limits.add_save_delete){
+					$("#meetingSpotTd label").hide().next().show().focus();
+				}
 			},			
 			toHideMeetingSpotText:function(){
 				var _$txt = $("#meetingSpotTd input");
@@ -98,7 +102,9 @@ var meetAttd = function(){
 				this.set("attendance",attendance);
 			},
 			toShowMeetingHostText:function(){
-				$("#meetingHostTd label").hide().next().show().focus();
+				if(limits.add_save_delete){
+					$("#meetingHostTd label").hide().next().show().focus();
+				}
 			},
 			toHideMeetingHostText:function(){
 				var _$txt = $("#meetingHostTd input");
@@ -227,8 +233,10 @@ var meetAttd = function(){
 				console.log(attendanceDetails[0]);
 			},
 			toShowColumnEditor:function(e){
-				var index = $(e.node).parent().parent().attr("lang");
-				$(e.node).hide().next().show().focus();
+				if(limits.add_save_delete){
+					var index = $(e.node).parent().parent().attr("lang");
+					$(e.node).hide().next().show().focus();
+				}
 			},
 			toHideColumnEditor:function(e){
 				var type = e.node.type;

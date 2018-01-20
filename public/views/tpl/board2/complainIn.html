@@ -1,7 +1,9 @@
 <div class="complainIn">
 	<div class="toolbar">
 	    <!-- <button type="button" class="btn" on-click="test">测试</button> -->
+	    {{#if limits.add_save_delete}}
 		<button type="button" class="btn" on-click="saveComplain">{{i18n_complainIn_save}}</button>
+		{{/if}}
 	</div>
 	<div class="header">
 		<div class="title"></div>

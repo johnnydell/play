@@ -6,11 +6,12 @@ var opl = function(){
 	var condition = {};
 	var opl = [];
 	var sys_date = manager.getSystemDate();
+	var limits = permission.load("opl");
 	function init(){
 		var ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
-			data: {root:manager.root, lineName:lineName,lineId:lineId,
+			data: {root:manager.root,limits:limits,lineName:lineName,lineId:lineId,
 					compareDt: function(dt){
 						var ret = 0;
 						if(dt !='' && dt!= undefined){
@@ -80,9 +81,11 @@ var opl = function(){
 				refreshOPL(ractive);
 			},
 			toShowColumnEditor:function(e){
-				var event = e.original || window.event;
-				event.stopPropagation();
-				$(e.node).children(0).hide().next().show().focus();
+				if(limits.add_save_delete){
+					var event = e.original || window.event;
+					event.stopPropagation();
+					$(e.node).children(0).hide().next().show().focus();
+				}
 			},
 			stopPropagation: function(e){
 				var event = e.original || window.event;
