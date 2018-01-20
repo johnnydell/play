@@ -71,7 +71,14 @@ var hcConfig = function(){
 			},
 			toShowColumnEditor:function(e){	
 				if(limits.add_save_delete){
-					$(e.node).hide().next().show().focus();
+					var colName = $(e.node).parent().attr("colName");
+					if(colName != undefined && colName == 'plan_count'){
+						if(e.context.product_type_id_1 != '' && e.context.product_type_id_2 != ''){
+							$(e.node).hide().next().show().focus();	
+						}
+					} else {
+						$(e.node).hide().next().show().focus();	
+					}
 				}
 			},
 			validatePercentValue:function(e){
@@ -112,6 +119,7 @@ var hcConfig = function(){
 							var type1_Id = base1.details[index]["product_type_id_1"];
 							var type2_Id = base1.details[index]["product_type_id_2"];
 							var hour = base1.details[index]["product_hour"];
+							
 							if(type2_Id !='' && type2_Id != undefined && checkExistType(type2_Id)){
 								var type2 = getTypeObjById(type2_Id);
 								plan_output = Math.round(60*calc_val[hour]/type2.cycle);
@@ -125,6 +133,11 @@ var hcConfig = function(){
 								base1.details[index]["product_type_id_2"] = "";
 								base1.details[index]["product_type_name_2"] = "";
 							}
+							
+							if(type1_Id !='' && type1_Id != undefined && type2_Id !='' && type2_Id != undefined){
+								plan_output = "";
+							}
+							
 							base1.details[index]["plan_count"] = plan_output;
 								
 						} else if(base == "base2") {
@@ -153,6 +166,11 @@ var hcConfig = function(){
 								base2.details[index]["product_type_id_2"] = "";
 								base2.details[index]["product_type_name_2"] = "";
 							}
+							
+							if(type1_Id !='' && type1_Id != undefined && type2_Id !='' && type2_Id != undefined){
+								plan_output = "";
+							}
+							
 							base2.details[index]["plan_count"] = plan_output;	
 						}
 					}
@@ -181,13 +199,21 @@ var hcConfig = function(){
 					return;
 				}
 				//判断opl详细有没为空的
-				/*$(base1.details).each(function(i,n){
-					if(n.product_type_id_1 == '' && n.product_type_id_2 == ''){	
-						jAlert($.i18n.prop("i18n_required"), $.i18n.prop("i18n_error"));
+				$(base1.details).each(function(i,n){
+					if(n.product_type_id_1 != '' && n.product_type_id_2 != '' && n.plan_count == ''){	
+						jAlert($.i18n.prop("i18n_hcConfig_plan_output_empty"), $.i18n.prop("i18n_error"));
 						error = true;
 						return false;
 					}
-				})*/
+				})
+				
+				$(base2.details).each(function(i,n){
+					if(n.product_type_id_1 != '' && n.product_type_id_2 != '' && n.plan_count == ''){	
+						jAlert($.i18n.prop("i18n_hcConfig_plan_output_empty"), $.i18n.prop("i18n_error"));
+						error = true;
+						return false;
+					}
+				})
 				
 				if(!error){
 					//整理出BASE1需要新增和更新的
