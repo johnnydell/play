@@ -1,7 +1,7 @@
 <div class="model">
 	<div class="modal-header">
 		<button type="button" class="close" on-click="close">×</button>
-		<h4>PSS链接管理</h4>
+		<h4>PSS</h4>
 	</div>
 	<div class="modal-body">
 		<table class="table">
@@ -22,6 +22,7 @@
 				    </ul>
 			   </td>
 			</tr>
+			{{#if limits.add_save_delete}}
 			<tr>
 				<td>
 					<div id="uploader">
@@ -38,6 +39,7 @@
 					</div>
 			     </td>
 			</tr>
+			{{/if}}
 			</tbody>
 		</table>
 	</div>
