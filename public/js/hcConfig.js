@@ -7,11 +7,12 @@ var hcConfig = function(){
 	var active_types = getActiveProductType();
 	var years = manager.years();
 	var calc_val = [55,60,60,60,30,60,60,50,55,60,60,60,30,60,60,50,55,60,60,60,30,60,60,50];//based on hour sequence
+	var limits = permission.load("hcConfig");
 	function init(){	
 		var ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
-			data: {root:manager.root},
+			data: {root:manager.root,limits:limits},
 			onrender: function(){
 				manager.loadProperties(this, "hcConfig", "../../");
 				manager.loadProperties(this, "common", "../../");
@@ -53,19 +54,25 @@ var hcConfig = function(){
 				$(e.node).hide().prev().show();
 			},
 			toShowOEEPerctgText:function(e){
-				$(e.node).hide().next().show().focus();	
+				if(limits.add_save_delete){
+					$(e.node).hide().next().show().focus();	
+				}
 			},
 			toHideOEEPerctgText:function(e){
 				$(e.node).hide().prev().show();
 			},
 			toShowPlanCPLTOTText:function(e){
-				$(e.node).hide().next().show().focus();	
+				if(limits.add_save_delete){
+					$(e.node).hide().next().show().focus();	
+				}
 			},
 			toHidePlanCPLTOTText:function(e){
 				$(e.node).hide().prev().show();
 			},
 			toShowColumnEditor:function(e){	
-				$(e.node).hide().next().show().focus();
+				if(limits.add_save_delete){
+					$(e.node).hide().next().show().focus();
+				}
 			},
 			validatePercentValue:function(e){
 				var value = $(e.node).val();
