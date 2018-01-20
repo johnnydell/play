@@ -300,7 +300,7 @@ var opl = function(){
         	        var ractive2 = new Ractive({
         	            el: ".pss_popup",
         	            template: data,
-        	            data:{root:manager.root},
+        	            data:{root:manager.root,limits:limits},
         	            oncomplete: function () {
         	                var _ractive = this;
         	                _ractive.set("currPss",currPss);
