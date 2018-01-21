@@ -57,32 +57,57 @@
 	<div class="position _clear title">
 		<h3>&nbsp;</h3>
 		<div class="fr">
+			<!--
 			<p>
 				<i class="icon icon-home"></i>
 				<span>{{i18n_scr_title}}</span>
 			</p>
+			-->
+			 <button type="button" class="btn" on-click="gotoHC">HC</button>
 		</div>
 	</div>
 	<div class="content">
 		<div class="content-box">
             <div class="toolbar">
+				<!--
                	<div>{{i18n_scr_title}} - 
-					<label class="field" on-click="toShowLineSelect">FAG5</label>                    
+					<label class="field" on-click="toShowLineSelect">{{lineName}}</label>                    
 					<select id="lineSelect" class="field" style="display:none;" on-change="changeLine" on-blur="toHideLineSelect" >
-						{{#each lines:idx}}
-					 <option lang="{{lines[idx].id}}" value="{{lines[idx].lineName}}">{{lines[idx].lineName}}</option>
+					{{#each lines:idx}}
+					 	<option lang="{{lines[idx].id}}" value="{{lines[idx].lineName}}">{{lines[idx].lineName}}</option>
 			        {{/each}}
              		</select>
                </div>
+				
                <button type="button" class="btn" on-click="gotoHC">HC</button>
+				-->
+				<div class="inner_header" style="float:left">
+					<div class="inner_left" >
+						<label class="field" on-click="toShowLineSelect">{{lineName}}</label>                    
+						<select id="lineSelect" class="field" style="display:none;" on-change="changeLine" on-blur="toHideLineSelect" >
+						{{#each lines:idx}}
+					 		<option lang="{{lines[idx].id}}" value="{{lines[idx].lineName}}">{{lines[idx].lineName}}</option>
+			        	{{/each}}
+             			</select> {{i18n_screen_title}}
+						</div>
+						<div class="inner_right" >
+							<div>
+								<div><img src="{{root}}/images/logo2.png"></div>
+								<div style="padding-top: 5px;"><span>SEG Production System</span></div>
+							</div>
+						</div>
+						
+				</div>
+				
             </div>
             <div class="ctx">
                 <div class="curr">
                    <div class="info">
 					<table style="width: 100%; text-align:center;height:100%">
 						<tr>
-							<td colspan="3"> <h1>{{i18n_current_prod_name}}</h1></td>
+							<td colspan="1"> <h1>{{i18n_current_prod_name}}</h1></td>
 							<td> <h1>{{i18n_current_prod_cycle}}[S]</h1></td>
+							<td><h1>{{i18n_current_prod_target_oee}}</h1></td>
 							<td> <h1>{{i18n_current_prod_person}}</h1></td>
 							<td rowspan="4" style="border-left: 3px solid #1852BD;"> 
 								{{#if color_selected == 0}}
@@ -101,8 +126,9 @@
 							</td>
 						</tr>
 						<tr>
-							<td colspan="3"><a  href="javascript:void(0);" style="width:90%">{{displayData.currType}}</a></td>
+							<td colspan="1"><a  href="javascript:void(0);" style="width:90%">{{displayData.currType}}</a></td>
 							<td><a  href="javascript:void(0);">{{displayData.currJP}}</a></td>
+							<td><a   href="javascript:void(0);">{{percentage(displayData.oee)}}</a></td>
 							<td><a  href="javascript:void(0);">{{displayData.currRS}}</a></td>
 						</tr>
 						<tr>
@@ -110,34 +136,41 @@
 							<td><h1>{{i18n_current_prod_plan_expect_output}}</h1></td>
 							<td><h1>{{i18n_current_prod_plan_actual_output}}</h1></td>
 							<td><h1>{{i18n_current_prod_diff}}</h1></td>
-							<td><h1>{{i18n_current_prod_target_oee}}</h1></td>
+							
 						</tr>
 						<tr>
 							<td><a  href="javascript:void(0);">{{displayData.planCC}}</a></td>
 							<td><a  href="javascript:void(0);">{{displayData.expectedCC}}</a></td>
 							<td><a  href="javascript:void(0);">{{displayData.actualCC}}</a></td>
 							<td>
-							{{#if data.diff > 0}}
-	                        	<a  style="color:green" href="javascript:void(0);">{{format(displayData.diff)}}</a>
-                            {{else}}
-								<a  style="color:red" href="javascript:void(0);">{{format(displayData.diff)}}</a>
+							
+							{{#if color_selected == 0}}
+                    				<a  style="background-color:green" href="javascript:void(0);">{{format(displayData.diff)}}</a>
+							{{elseif color_selected == 1}}
+									<a  style="background-color:yellow" href="javascript:void(0);">{{format(displayData.diff)}}</a>
+							{{elseif color_selected == 2}}
+									<a  style="background-color:red" href="javascript:void(0);">{{format(displayData.diff)}}</a>
 							{{/if}}
 							</td>
-							<td><a   href="javascript:void(0);">{{percentage(displayData.oee)}}</a></td>
+							
 						</tr>
 						<tr>
 							<td style="width:100%; border-top: 3px solid #1852BD;" colspan="6">
 							</td>
 						</tr>
 						<tr >
-							<td colspan="3"><h1>{{i18n_next_prod_name}}</h1></td>
+							<td colspan="1"><h1>{{i18n_next_prod_name}}</h1></td>
 							<td> <h1>{{i18n_current_prod_cycle}}[S]</h1></td>
+							<td> <h1>{{i18n_current_prod_target_oee}}</h1></td>
 							<td> <h1>{{i18n_current_prod_person}}</h1></td>
+							<td> <h1>{{i18n_current_prod_plan_output}}</h1></td>
 						</tr>
 						<tr >
-							<td colspan="3"><a on-click="toShowEditor" href="javascript:void(0);" style="width:90%">{{displayData.nextType}}</a></td>
+							<td colspan="1"><a on-click="toShowEditor" href="javascript:void(0);" style="width:90%">{{displayData.nextType}}</a></td>
 							<td><a on-click="toShowEditor" href="javascript:void(0);">{{displayData.nextJP}}</a></td>
+							<td><a on-click="toShowEditor" href="javascript:void(0);">{{displayData.nextOee}}</a></td>
 							<td><a on-click="toShowEditor" href="javascript:void(0);">{{displayData.nextRS}}</a></td>
+							<td><a on-click="toShowEditor" href="javascript:void(0);">{{displayData.nextCC}}</a></td>
 						</tr>
 					</table>
 

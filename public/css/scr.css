@@ -86,5 +86,36 @@
 }
 
 
+.content-box .inner_header{
+	background-color: #1A3781;
+    color: #fff;
+    font-size: 55px;
+    width: 100%;
+}
 
+.content-box .inner_left{
+	width: 90%;
+    float: left;
+    height: 100%;
+    text-align: center;
+}
 
+.content-box .inner_right{
+	    width: 10%;
+    float: right;
+    font-size: 10px;
+    text-align: right;
+    padding: 10px;
+}
+
+.content-box select, .content-box option{
+	background-color: #1A3781;
+    color: #fff;
+}
+
+.fr .btn {
+    padding: 6px 12px;
+    line-height: 1.42857143;
+    cursor: pointer;
+    border-radius: 4px;
+}

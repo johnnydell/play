@@ -104,7 +104,7 @@ var manager = function() {
 	              location.href = root+"/views/board/opl.html";
 	          },
 	          toScreen:function(){
-	          	  location.href = root+"/views/scr.html?lineName=FAG5";
+	          	  location.href = root+"/views/scr.html";
 	          },
 	          toLogin:triggerLogin
 	        })

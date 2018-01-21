@@ -51,6 +51,8 @@ public class ScreenDisplayController extends Controller {
 					json.put("nextType", "");
 					json.put("nextJP", "");
 					json.put("nextRS", "");
+					json.put("nextOee", "");
+					json.put("nextCC", "");
 				}
 				else{
 					//next hour
@@ -74,8 +76,9 @@ public class ScreenDisplayController extends Controller {
 					nextRS = (StringUtils.isEmpty(nextRS) || "0".equals(nextRS)) ? rows.get(0).getString("product_persons_2") : nextRS;
 					int nextRSInt = (StringUtils.isEmpty(nextRS) || "0".equals(nextRS)) ? 0 : Integer.parseInt(nextRS);
 					json.put("nextRS", nextRSInt );
-					
-					
+					int planCC = rows.get(0).getInteger("plan_count");
+					json.put("nextOee", rows.get(0).getFloat("target_oee_percent"));
+					json.put("nextCC", planCC);
 				}
 				
 			}
@@ -122,6 +125,9 @@ public class ScreenDisplayController extends Controller {
 				int nextRSInt = (StringUtils.isEmpty(nextRS) || "0".equals(nextRS)) ? 0 : Integer.parseInt(nextRS);
 				json.put("nextRS", nextRSInt );
 				
+				json.put("nextOee", nextRow.getFloat("target_oee_percent"));
+				json.put("nextCC", nextRow.getInteger("plan_count"));
+				
 			}
 			else{
 				json.put("currType", "");
@@ -135,6 +141,8 @@ public class ScreenDisplayController extends Controller {
 				json.put("nextType", "");
 				json.put("nextJP", "");
 				json.put("nextRS", "");
+				json.put("nextOee", "");
+				json.put("nextCC", "");
 			}
 		}
 		

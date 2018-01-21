@@ -1,5 +1,5 @@
 var scr = function(){
-	var lineName = manager.getPV("lineName");
+	var lineName = 'FAG5';
 	var sys_date = manager.getSystemDate();
 	var sys_time = manager.getSystemTime();
 	var sysParam = manager.getSystemParams();
@@ -9,7 +9,7 @@ var scr = function(){
 	var color_green = {value:0};
 	var color_red = {value:0};
 	var color_selected = 0;
-	var display_data = {currType:"",currJP:"",currRS:"",planCC:"",expectedCC:"",actualCC:"",diff:"",oee:"",nextType:"",nextJP:"",nextRS:""};
+	var display_data = {currType:"",currJP:"",currRS:"",planCC:"",expectedCC:"",actualCC:"",diff:"",oee:"",nextType:"",nextJP:"",nextRS:"", nextOee:"",nextCC:""};
 	var ractive = null;
 	var lines = common.getAllLines();
 	function init(){
@@ -44,12 +44,11 @@ var scr = function(){
 				//check time interval if it's set or not
 				if (!manager.isNull(sysParam["SCREEN"])){
 					if (!manager.isNull(sysParam["SCREEN"]["TIME_INTERVAL"])){
-						time_interval = parseInt(sysParam["SCREEN"]["TIME_INTERVAL"].paramValue) * 1000;
-						clearInterval(intervalObj);
-						intervalObj = setInterval(getProductInfo, time_interval);
+						time_interval = parseInt(sysParam["SCREEN"]["TIME_INTERVAL"].paramValue) * 1000 == 0 ? time_interval : parseInt(sysParam["SCREEN"]["TIME_INTERVAL"].paramValue);
             		}
 				}
-				
+				clearInterval(intervalObj);
+				intervalObj = setInterval(getProductInfo, time_interval);
 				
 			}
 		});
@@ -70,7 +69,7 @@ var scr = function(){
 			changeLine:function(e){
 				lineName = $(e.node).val();
 				getProductInfo();
-				this.set("lineName", lineName);
+				ractive.set("lineName", lineName);
 			},
 			gotoHC:function(){
 				var line_id = $("#lineSelect").find("option:selected").attr("lang");
@@ -85,7 +84,7 @@ var scr = function(){
 		currYear 	= sys_date.split("-")[0];
 		currMonth 	= sys_date.split("-")[1];
 		currDay 	= sys_date.split("-")[2];
-		currHour 	= parseInt(sys_time.split(":")[0] ) - 1;
+		currHour 	= parseInt(sys_time.split(":")[0] );
 		currMin 	= sys_time.split(":")[1];
 		$.ajax({
 			url		: manager.root + '/scr/getProductInfo',
@@ -107,6 +106,8 @@ var scr = function(){
 				display_data.nextType 	= listdata.nextType;
 				display_data.nextJP 	= listdata.nextJP;
 				display_data.nextRS 	= listdata.nextRS;
+				display_data.nextOee 	= listdata.nextOee;
+				display_data.nextCC 	= listdata.nextCC;
 				
 				ractive.set("displayData", display_data);
 				
