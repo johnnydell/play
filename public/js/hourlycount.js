@@ -6,6 +6,7 @@ var hourlycount = function(){
 	var dateTodayStr = null;
 	var validation = true;
 	var ractive = null;
+	var limits = permission.load("hourly_count");
 	function init(){
 		//set today into date selector
 		var date_today = new Date();

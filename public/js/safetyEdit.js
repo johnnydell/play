@@ -6,6 +6,7 @@ var safetyEdit = function(){
 	var sys_date = manager.getSystemDate();
 	var safetyObj = {lineId:lineId,currYear:"", currMonth:"",days:[]};
 	var ractive1 = null;
+	var limits = permission.load("safety");
 	function init(){
 	   
 	   $.get(manager.root+"/views/tpl/board2/safetyEdit.html", function (template) {
@@ -55,8 +56,10 @@ var safetyEdit = function(){
 				},
 				/*hide label, show text*/
 				toShowColumnEditor:function(e){
-					e.context.v0 = $(e.node).children(0).html();
-					$(e.node).children(0).hide().next().show().focus().select();
+					if(limits.add_save_delete){
+						e.context.v0 = $(e.node).children(0).html();
+						$(e.node).children(0).hide().next().show().focus().select();
+					}
 				},
 				/*hide text, show label*/
 				toHideColumnEditor:function(e){

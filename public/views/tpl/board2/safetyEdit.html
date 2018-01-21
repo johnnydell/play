@@ -2,7 +2,9 @@
 	<div class="content">
 		<div class="content-box">
 			<div class="toolbar">
+				{{#if limits.add_save_delete}}
 				<button type="button" class="btn" on-click="saveSafety">{{i18n_save}}</button>
+				{{/if}}
 			</div>
 			<div class="header">
 				<div class="title"><span>{{i18n_safety_edit_tab_title}}</span></div>

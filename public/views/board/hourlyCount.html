@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Board- Meeting Attendance</title>
+		<title>Board-Hourly Count</title>
 		<link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
 		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
 		<link rel="stylesheet" type="text/css" href="../../css/login.css"/>
@@ -32,10 +32,12 @@
 	<script src="../../js/lib/ractive-legacy.js"></script>
 	<script src="../../js/lib/jquery.i18n.properties-1.0.9.js"></script>
 	<script src="../../js/lib/manager.js"></script>
+	<script src="../../js/lib/permission.js"></script>
 	<script src="../../js/hourlycount.js"></script>
 	<script src="../../js/lib/jquery-ui.min.js"></script>
 	<script src="../../js/lib/jquery.blockui.js"></script>
 	<script src="../../js/lib/alerts/jquery.alerts.js"></script>
+	
 	<script id="main-template" type="text/active">
 	<div class="position _clear title">
 		<h3>{{i18n_hourlycount_title}}</h3>
@@ -58,7 +60,9 @@
 				<span id="msgBox"></span>
             </div>
             <div class="toolbar">
-				<button type="button" class="btn" on-click="saveHourlyCount">保存</button>
+				{{#if limits.save}}
+					<button type="button" class="btn" on-click="saveHourlyCount">保存</button>
+				{{/if}}
 				<button type="button" class="btn" on-click="gotoOPL">OPL</button>
             </div>
 			<div class="header">
