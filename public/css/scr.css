@@ -1,12 +1,17 @@
 .content-box .ctx {
-  background-color:#BDD7EE;
+  background-color:#adb9ca;
 }
 
 .content-box .ctx h1{
 	padding-top: 15px;
-	font-size: 35px;
-	font-weight: 700;
-	color:#003366;
+	font-size: 25px;
+	font-weight: 400;
+	color:#000000;
+	margin-bottom:15px;
+}
+
+.content-box .ctx h2{
+	padding-top: 8px;
 }
 
 .content-box .toolbar h4 {
@@ -16,17 +21,17 @@
 }
 
 .content-box .curr {
-  height:800px;
-  border:3px solid #1852BD;
+  height:685px;
+  border:3px solid #1f4e79;
 }
 
 .content-box .curr .light{
-  border-left:3px solid #1852BD;
+  border-left:3px solid #1f4e79;
 }
 
 .content-box .next {
    height:200px;
-   border:3px solid #1852BD;
+   border:3px solid #1f4e79;
 }
 
 .content-box .info{
@@ -59,14 +64,15 @@
 
 .content-box td a,.content-box td input {
 	display: inline-block;
-	margin-bottom: 15px;
+	margin-bottom: 40px;
+	margin-top: 15px;
 	width: 60%;
-	height: 80px;
-	line-height: 80px;
+	height: 65px;
+	line-height: 65px;
 	background: white;
-	color:#003366;
-	font-size:35px;
-	font-weight: bold;
+	color:#000000;
+	font-size:30px;
+	font-weight: 400;
 }
 
 .content-box .f50 {   
@@ -87,21 +93,23 @@
 
 
 .content-box .inner_header{
-	background-color: #1A3781;
+	background-color: #2e75b6;
     color: #fff;
-    font-size: 55px;
+    font-size: 45px;
     width: 100%;
+    height: 125px;
 }
 
 .content-box .inner_left{
-	width: 90%;
+	width: 80%;
     float: left;
     height: 100%;
     text-align: center;
+    margin-top: 25px;
 }
 
 .content-box .inner_right{
-	    width: 10%;
+	width: 20%;
     float: right;
     font-size: 10px;
     text-align: right;
