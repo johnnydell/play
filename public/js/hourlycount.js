@@ -18,6 +18,7 @@ var hourlycount = function(){
 			template: "#main-template",
 			data: {
 				root		: manager.root,
+				limits      : limits,
 				lineName 	: lineName,
 				dateToday	: dateTodayStr,
 				lineId		: lineId,
