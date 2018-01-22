@@ -17,6 +17,7 @@ var lines = function(){
 				ractive.set("recList",recList);
 				ractive.set("rogList",rogList);
 				ractive.set("stgList",stgList);
+				console.log(fagList);
 				ractive.set("fagList",fagList);
 			}
 		});
