@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Line Review Dashboard</title>
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/index_bak.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/login.css"/>
+	</head>
+	<body>
+		<div class="box">
+		    <!-- left menu -->
+			<div class="left fl"></div>
+			<div class="right">
+				<!-- right header -->
+				<header></header>
+				<div class="container">
+				    <!-- main template -->
+				</div>
+				<!-- right footer -->
+				<footer></footer>
+			</div>
+		</div>
+	</body>
+	<script src="../js/lib/jquery-1.10.1.min.js"></script>
+	<script src="../js/lib/jquery.cookie.js"></script>
+	<script src="../js/lib/ractive-legacy.js"></script>
+	<script src="../js/lib/jquery.i18n.properties-1.0.9.js"></script>
+	<script src="../js/lib/manager.js"></script>
+	<script src="../js/index.js"></script>
+	<script id="main-template" type="text/active">
+	<div class="position _clear title">
+		<h3>{{i18n_index_title}}</h3>
+		<div class="fr">
+			<p>
+				<i class="icon icon-home"></i>
+				<span>{{i18n_index_nav1}}</span>
+			</p>
+		</div>
+	</div>
+	<div class="content">
+	    <div class="check">
+			<label for="zh">中文</label>
+            <div class="check-box">
+               {{#if language == 'zh'}}
+               <input type="radio" name="language" value="zh" id="zh" on-click="setLanguage" checked="checked" />
+               {{else}}
+			   <input type="radio" name="language" value="zh" id="zh" on-click="setLanguage" />
+               {{/if}}
+               <i></i>
+            </div>
+		</div>
+		<div class="check">
+			<label for="en">英文</label>
+			<div class="check-box">
+				{{#if language == 'en'}}
+				<input type="radio" name="language" value="en" id="en" on-click="setLanguage" checked="checked"  />
+				{{else}}
+			    <input type="radio" name="language" value="en" id="en" on-click="setLanguage" />
+                {{/if}}
+				<i></i>
+			</div>
+		</div>
+		<div class="content-box">
+			<ul>
+				<li class="bg-b8d9fb"><a href="#">{{i18n_index_moe1}}</a></li>
+				<li class="bg-72b3f6"><a href="lines.html">{{i18n_index_moe2}}</a></li>
+				<li class="bg-e1f8c9"><a href="#">{{i18n_index_tqs}}</a></li>
+				<li class="bg-c2f094"><a href="#">{{i18n_index_oes}}</a></li>
+			</ul>
+		</div>
+	</div>
+	</script>
+</html>
