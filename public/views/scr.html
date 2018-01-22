@@ -25,9 +25,19 @@
 		   float:left;
 		   width:95%;
 		   text-align:center;
-		   font-weight:700;
+		  /*  font-weight:700; */
 		   font-size:34px;
 		}
+		
+		.circle{
+			width: 100px;
+            height: 100px;
+            background-color:red;
+            border-radius: 50%;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+		}
+
 		
 		</style>
 	</head>
@@ -92,36 +102,40 @@
 						</div>
 						<div class="inner_right" >
 							<div>
-								<div><img src="{{root}}/images/logo2.png"></div>
-								<div style="padding-top: 5px;"><span>SEG Production System</span></div>
+								<div><img src="{{root}}/images/logo2.png" style="width:200px;"></div>
+								<div style="padding-top: 5px;"><span style="font-size:15px;">SEG Production System</span></div>
 							</div>
-						</div>
-						
-				</div>
-				
+						</div>						
+				</div>				
             </div>
             <div class="ctx">
                 <div class="curr">
                    <div class="info">
-					<table style="width: 100%; text-align:center;height:100%">
+					<table style="width: 100%; text-align:center;">
 						<tr>
 							<td colspan="1"> <h1>{{i18n_current_prod_name}}</h1></td>
 							<td> <h1>{{i18n_current_prod_cycle}}[S]</h1></td>
 							<td><h1>{{i18n_current_prod_target_oee}}</h1></td>
 							<td> <h1>{{i18n_current_prod_person}}</h1></td>
-							<td rowspan="4" style="border-left: 3px solid #1852BD;"> 
+							<td rowspan="4" style="border-left: 1px solid #1f4e79;"> 
 								{{#if color_selected == 0}}
-                    				<div id="light_green"><img width="80px" height="80px" src="{{root}}/images/grn_light.png"/></div>
-                     				<div id="light_yellow"><img width="80px" height="80px" src="{{root}}/images/ept_light.png"/></div>
-                     				<div id="light_red"><img width="80px" height="80px" src="{{root}}/images/ept_light.png"/></div>
+                    				<div id="light_green"><img width="100px" height="100px" src="{{root}}/images/grn_light.png"/></div>
+                    				<h2></h2>
+                     				<div id="light_yellow"><img width="100px" height="100px" src="{{root}}/images/ept_light.png"/></div>
+                     				<h2></h2>
+                     				<div id="light_red"><img width="100px" height="100px" src="{{root}}/images/ept_light.png"/></div>
 								{{elseif color_selected == 1}}
-									<div id="light_green"><img width="80px" height="80px" src="{{root}}/images/ept_light.png"/></div>
-                     				<div id="light_yellow"><img width="80px" height="80px" src="{{root}}/images/yellow_light.png"/></div>
-                     				<div id="light_red"><img width="80px" height="80px" src="{{root}}/images/ept_light.png"/></div>
+									<div id="light_green"><img width="100px" height="100px" src="{{root}}/images/ept_light.png"/></div>
+									<h2></h2>
+                     				<div id="light_yellow"><img width="100px" height="100px" src="{{root}}/images/yellow_light.png"/></div>
+                     				<h2></h2>
+                     				<div id="light_red"><img width="100px" height="100px" src="{{root}}/images/ept_light.png"/></div>
 								{{elseif color_selected == 2}}
-									<div id="light_green"><img width="80px" height="80px" src="{{root}}/images/ept_light.png"/></div>
-                     				<div id="light_yellow"><img width="80px" height="80px" src="{{root}}/images/ept_light.png"/></div>
-                     				<div id="light_red"><img width="80px" height="80px" src="{{root}}/images/red_light.png"/></div>
+									<div id="light_green"><img width="100px" height="100px" src="{{root}}/images/ept_light.png"/></div>
+									<h2></h2>
+                     				<div id="light_yellow"><img width="100px" height="100px" src="{{root}}/images/ept_light.png"/></div>
+                     				<h2></h2>
+                     				<div id="light_red"><img width="100px" height="100px" src="{{root}}/images/red_light.png"/></div>
 								{{/if}}
 							</td>
 						</tr>
@@ -155,7 +169,7 @@
 							
 						</tr>
 						<tr>
-							<td style="width:100%; border-top: 3px solid #1852BD;" colspan="6">
+							<td style="width:100%; border-top: 1px solid #1f4e79;" colspan="6">
 							</td>
 						</tr>
 						<tr >
@@ -166,14 +180,13 @@
 							<td> <h1>{{i18n_current_prod_plan_output}}</h1></td>
 						</tr>
 						<tr >
-							<td colspan="1"><a on-click="toShowEditor" href="javascript:void(0);" style="width:90%">{{displayData.nextType}}</a></td>
-							<td><a on-click="toShowEditor" href="javascript:void(0);">{{displayData.nextJP}}</a></td>
-							<td><a on-click="toShowEditor" href="javascript:void(0);">{{displayData.nextOee}}</a></td>
-							<td><a on-click="toShowEditor" href="javascript:void(0);">{{displayData.nextRS}}</a></td>
-							<td><a on-click="toShowEditor" href="javascript:void(0);">{{displayData.nextCC}}</a></td>
+							<td colspan="1"><a href="javascript:void(0);" style="width:90%">{{displayData.nextType}}</a></td>
+							<td><a href="javascript:void(0);">{{displayData.nextJP}}</a></td>
+							<td><a href="javascript:void(0);">{{displayData.nextOee}}</a></td>
+							<td><a href="javascript:void(0);">{{displayData.nextRS}}</a></td>
+							<td><a href="javascript:void(0);">{{displayData.nextCC}}</a></td>
 						</tr>
 					</table>
-
                    </div>
 
     </script>
