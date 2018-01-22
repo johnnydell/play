@@ -195,7 +195,8 @@ var complainChart3 = function(){
 	            name: $.i18n.prop("i18n_complainOut_actual"),
 	            data: actuals,
 	            color:'#17375e'
-	        }, {
+	        },
+	     /*   {
 	            type: 'column',
 	            name: '来自总装',
 	            data: type1,
@@ -210,7 +211,8 @@ var complainChart3 = function(){
 	            name: '来自客户代表',
 	            data: type3,
 	            color:'#1e497d'
-	        }, {
+	        }, */
+	        {
 	            type: 'spline',
 	            name: $.i18n.prop("i18n_complainOut_target"),
 	            color:'red',
@@ -218,12 +220,14 @@ var complainChart3 = function(){
 	            marker: {
 	                enabled: false
 	            }
-	        }, {
+	        }
+	       /* , {
 	            type: 'column',
 	            name: $.i18n.prop("i18n_complainOut_accumu"),
 	            color:'bule',
 	            data: accumus
-	        }],
+	        }*/
+	        ],
 		    credits:{
 		        enabled:false
 		    }

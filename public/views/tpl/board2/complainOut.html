@@ -8,7 +8,7 @@
 			 </div>
 			 <div class="val">
 				 <span class="fst">
-                 	<label on-click="toShowLineSelect">{{base.line_name}}</label>                    
+                 	<label>{{base.line_name}}</label>         <!--  on-click="toShowLineSelect" -->           
 					<select style="display:none;" on-blur="toHideLineSelect" on-change="changeLine"  value="{{base.line_id}}">
 						{{#each lines}}
 					 <option value="{{id}}">{{lineName}}</option>
