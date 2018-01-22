@@ -69,6 +69,43 @@ var lines = function(){
 		})
 	}
 	
+	function formList(){
+		var lineData = initLineData();
+		$.each(lineData,function(i,n){
+			var fag_type = n.lineName.toLowerCase().indexOf("fag");
+			var rec_type = n.lineName.toLowerCase().indexOf("rec");
+			var rog_type = n.lineName.toLowerCase().indexOf("rog");
+			var stg_type = n.lineName.toLowerCase().indexOf("stg");
+			if(fag_type != -1){
+				if(fagList.length == 4){
+					fagList.push({line_id:0,line_name:''});
+				}
+				fagList.push({line_id:n.id,line_name:n.lineName});
+			}
+			
+			if(rec_type != -1){
+				if(recList.length == 4){
+					recList.push({line_id:0,line_name:''});
+				}
+				recList.push({line_id:n.id,line_name:n.lineName});
+			}
+			
+			if(rog_type != -1){
+				if(rogList.length == 4){
+					rogList.push({line_id:0,line_name:''});
+				}
+				rogList.push({line_id:n.id,line_name:n.lineName});
+			}
+			
+			if(stg_type != -1){
+				if(stgList.length == 4){
+					stgList.push({line_id:0,line_name:''});
+				}
+				stgList.push({line_id:n.id,line_name:n.lineName});
+			}
+		})
+	}
+	
 	//取得默认结构数据
 	function initLineData(){
 		var ret;

@@ -60,6 +60,7 @@
 				<div class="moe-flex">
                     {{#each recList:idx}}
 					{{#if recList[idx].line_id != 0}}
+<<<<<<< HEAD
 						<span on-click="gotoBoards">{{recList[idx].line_name}}</span>
 					{{else}}
 						<span class="null"></span>
@@ -96,6 +97,44 @@
 					{{#each fagList:idx}}
 					{{#if fagList[idx].line_id != 0}}
 						<span on-click="gotoBoards" style="background-color:#3366ff">{{fagList[idx].line_name}}</span>
+=======
+						<span>{{recList[idx].line_name}}</span>
+					{{else}}
+						<span class="null"></span>
+                    {{/if}}
+					{{/each}}
+				</div>
+				<span class="tag"><img src="{{root}}/images/new/z_1.png"></span>
+			</div>
+			<div class="moe-item moe-item-two">
+				<div class="moe-flex">
+					{{#each rogList:idx}}
+					{{#if rogList[idx].line_id != 0}}
+						<span style="background-color:#ed7d31">{{rogList[idx].line_name}}</span>
+					{{else}}
+						<span class="null"></span>
+                    {{/if}}
+					{{/each}}
+				</div>
+				<span class="tag"><img src="{{root}}/images/new/z_2.png"></span>
+			</div>
+			<div class="moe-item moe-item-three">
+				<div class="moe-flex">
+					{{#each stgList:idx}}
+					{{#if stgList[idx].line_id != 0}}
+						<span style="background-color:#9933ff">{{stgList[idx].line_name}}</span>
+					{{else}}
+						<span class="null"></span>
+                    {{/if}}
+					{{/each}}
+				</div>
+			</div>
+			<div class="moe-item moe-item-fourd">
+				<div class="moe-flex">
+					{{#each fagList:idx}}
+					{{#if fagList[idx].line_id != 0}}
+						<span style="background-color:#3366ff">{{fagList[idx].line_name}}</span>
+>>>>>>> branch 'master' of https://github.com/johnnydell/play.git
 					{{else}}
 						<span class="null"></span>
                     {{/if}}
