@@ -41,7 +41,7 @@
 	</div>
 	<div class="content">
 		<div class="check">
-			<label for="zh">中文</label>
+			<label for="zh">{{i18n_index_chinese}}</label>
             <div class="check-box">
                {{#if language == 'zh'}}
                <input type="radio" name="language" value="zh" id="zh" on-click="setLanguage" checked="checked" />
@@ -50,9 +50,7 @@
                {{/if}}
                <i></i>
             </div>
-		</div>
-		<div class="check">
-			<label for="en">英文</label>
+            <label for="en">{{i18n_index_english}}</label>
 			<div class="check-box">
 				{{#if language == 'en'}}
 				<input type="radio" name="language" value="en" id="en" on-click="setLanguage" checked="checked"  />
