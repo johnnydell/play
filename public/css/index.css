@@ -1,48 +1,112 @@
-.content-box ul{
-	text-align: center;
-}
-.content-box li{
-	margin: 20px;
-	display: inline-block;
-	padding: 40px 30px;
-	width: 45%;
-	height: 265px;
-	font-size: 30px;
-	text-align: center;
-	vertical-align: middle;
-	border:solid 3px #ececec;
-}
-.content-box li.active,
-.content-box li:hover{
-	border-color: #ff0000;
-}
-.content-box li a{
-	display: block;
-	height: 100%;
-	line-height: 5;
+.content{
+	background: url(../images/new/bg.png) no-repeat;
+	background-size: cover;
+	color: #fff;
 }
 
-/*moe2-kpi*/
-.kpi-box ul li{
-	padding-top: 50px;
-	width: 28%;
+.scgn-top{
+	position: relative;
 }
-/*mblockquote-scl*/
-.kpi-scl-box ul{
-	padding: 3px;
-	font-size: 0px;
-	background: #b8d9fb;
-	text-align: left;
+.scgn-item{
+	margin-left: 100px;
+	display: inline-block;
+	vertical-align: middle;
+	text-align: right;
+	line-height: 2;
 }
-.kpi-scl-box ul li{
-	margin: 0px;
-	padding: 0px;
-	width: 25%;
-	height: 180px;
-	border-color: #B8D9FB;
-	
+.scgn-item img{
+	margin-bottom: 10px;
+	max-height: 120px;
 }
-.kpi-scl-box ul li img{
-	width: 100%;
+.scgn-top .scgn-logo img{
+	height: 80px;
+}
+.scgn-title{
+	text-align: center;
+	font-size: 40px;
+}
+.scgn-menu{
+	text-align: center;
+}
+.scgn-menu dl{
+	margin-top: 15px;
+}
+.scgn-menu dt{
+	padding: 5px 10px;
+	border: solid 2px #fff;
+	font-size: 24px;
+}
+.scgn-menu span{
+	display: inline-block;
+	padding: 5px 0px;
+	width: 120px;
+	font-size: 18px;
+}
+.scgn-menu dd{
+	position: relative;
+	padding: 10px 0px 0px 40px;
+}
+.scgn-menu dd:before{
+	position: absolute;
+	content: "";
+	top: 0px;
+	left: 0px;
+	width: 2px;
 	height: 100%;
+	background: #fff;
+}
+.scgn-menu dd:last-child:before{
+	position: absolute;
+	content: "";
+	top: 0px;
+	left: 0px;
+	width: 2px;
+	height: 62%;
+	background: #fff;
+}
+.scgn-menu dd:after{
+	position: absolute;
+	content: "";
+	top: 30px;
+	left: 0px;
+	width: 42px;
+	height: 2px;
+	background: #fff;
+}
+.scgn-menu dd span{
+	cursor: pointer;
+}
+
+.bg-green{
+	background: #92d050;
+}
+.bg-blue{
+	background: #3366ff;
+}
+.bg-orange{
+	background: #ed7d31;
+}
+.bg-pink{
+	background: #ff66cc
+}
+.bg-purple{
+	background: #cc00ff;
+}
+.bg-yellow{
+	background: #ffcc00;
+}
+.bg-purple2{
+	background: #9933ff;
+}
+.bg-blue2{
+	background: #00b0f0;
+}
+
+
+.scgn-show{
+	padding: 50px;
+	text-align: center;
+}
+.scgn-show-item{
+	margin-top: 30px;
 }

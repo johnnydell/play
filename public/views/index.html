@@ -5,8 +5,8 @@
 		<title>Line Review Dashboard</title>
 		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
 		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
-		<link rel="stylesheet" type="text/css" href="../css/index.css"/>
 		<link rel="stylesheet" type="text/css" href="../css/login.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/index.css"/>
 	</head>
 	<body>
 		<div class="box">
@@ -40,7 +40,7 @@
 		</div>
 	</div>
 	<div class="content">
-	    <div class="check">
+		<div class="check">
 			<label for="zh">中文</label>
             <div class="check-box">
                {{#if language == 'zh'}}
@@ -62,13 +62,73 @@
 				<i></i>
 			</div>
 		</div>
-		<div class="content-box">
-			<ul>
-				<li class="bg-b8d9fb"><a href="#">{{i18n_index_moe1}}</a></li>
-				<li class="bg-72b3f6"><a href="lines.html">{{i18n_index_moe2}}</a></li>
-				<li class="bg-e1f8c9"><a href="#">{{i18n_index_tqs}}</a></li>
-				<li class="bg-c2f094"><a href="#">{{i18n_index_oes}}</a></li>
-			</ul>
+	    <div class="scgn-top _clear">
+			<div class="scgn-item">
+				<img src="{{root}}/images/new/i_1.png" />
+			</div>
+			<div class="scgn-item">
+				<img src="{{root}}/images/new/i_2.png" />
+			</div>
+			<div class="scgn-item">
+				<img src="{{root}}/images/new/i_3.png" />
+			</div>
+			<div class="scgn-item scgn-logo fr">
+				<img src="{{root}}/images/new/i_4.png" />
+				<p>SEG Production System</p>
+				<p>Always . Doing . Better</p>
+			</div>
+		</div>
+		<h1 class="scgn-title">
+			SGCN Shopfloor Digital Dashboard
+		</h1>
+		<div class="scgn-box _clear">
+			<div class="scgn-menu fl">
+				<dl>
+					<dt class="bg-green">Department</dt>
+					<dd><span class="bg-blue">MOE1</span></dd>
+					<dd><span class="bg-orange" on-click="gotoMOE2">MOE2</span></dd>
+					<dd><span class="bg-pink">MOE3</span></dd>
+				</dl>
+				<dl>
+					<dt class="bg-purple">TQS</dt>
+					<dd><span class="bg-yellow">OES</span></dd>
+					<dd><span class="bg-blue2">E-Skill</span></dd>
+					<dd><span class="bg-purple2">CptM</span></dd>
+				</dl>
+			</div>
+			<div class="scgn-show">
+				<div class="scgn-show-item">
+					<div class="scgn-item">
+						<img src="{{root}}/images/new/i_5.png" />
+					</div>
+					<div class="scgn-item">
+						<img src="{{root}}/images/new/i_6.png" />
+					</div>
+					<div class="scgn-item">
+						<img src="{{root}}/images/new/i_7.png" />
+					</div>
+					<div class="scgn-item">
+						<img src="{{root}}/images/new/i_8.png" />
+					</div>
+					<div class="scgn-item">
+						<img src="{{root}}/images/new/i_9.png" />
+					</div>
+				</div>
+				<div class="scgn-show-item">
+					<div class="scgn-item">
+						<img src="{{root}}/images/new/i_10.png" />
+					</div>
+					<div class="scgn-item">
+						<img src="{{root}}/images/new/i_11.png" />
+					</div>
+					<div class="scgn-item">
+						<img src="{{root}}/images/new/i_12.png" />
+					</div>
+					<div class="scgn-item">
+						<img src="{{root}}/images/new/i_13.png" />
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	</script>

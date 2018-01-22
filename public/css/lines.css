@@ -1,40 +1,97 @@
-.content-box ul{
-	width: 100%;
+.content{
+	background: #fff;
+}
+.moe-top{
+	padding: 10px;
+	height: 100px;
+	background: #2e75b6;
 	text-align: center;
-}
-.content-box li{
-	margin: 20px 10px;
-	display: inline-block;
-	padding: 0px 10px;
-	width: 30%;
-	height: 265px;
-	font-size: 20px;
-	vertical-align: middle;
-	/* border:solid 3px #ececec; */
-	text-align: center;
-}
-.content-box li:hover{
-	border-color: #ff0000;
-}
-.content-box li h4{
-	text-align: left;
-	line-height: 2.5;
-}
-.content-box li a{
-	display: inline-block;
-	margin-bottom: 10px;
-	width: 100%;
-	height: 100%;
-	line-height:240px;/* 80px */
-	font-size: 38px;
-	background: #00b050;
-	text-align: center;
-	border: solid 1px #ccc;
-}
-.content-box li a:hover,
-.content-box li a.active{
-	background: #674288b3;
-	/* border-color: #00ffff;
-	border-width: 2px; */
 	color: #fff;
+}
+.moe-top h1{
+	display: inline-block;
+	font-size: 24px;
+	line-height: 80px;
+}
+.moe-top img{
+	margin-bottom: 5px;
+	height: 50px;
+}
+.moe-box{
+	border: solid 2px #1f4e79;
+	border-top: 0px;
+	font-size: 0px;
+	background: url(../images/new/i_13.png) no-repeat center;
+	background-size: 60px;
+}
+.moe-item{
+	position: relative;
+	display: inline-block;
+	padding: 60px 10px 0px;
+	width: 50%;
+	font-size: 16px;
+	height: 300px;
+	box-sizing: border-box;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.moe-item-one{
+	background-image: url(../images/new/m_1.png);
+	border-right: dashed 2px #1f4e79;
+	border-bottom: dashed 2px #1f4e79;
+}
+
+.moe-item-two{
+	background-image: url(../images/new/m_2.png);
+	border-bottom: dashed 2px #1f4e79;
+}
+
+.moe-item-three{
+	background-image: url(../images/new/m_3.png);
+	border-right: dashed 2px #1f4e79;
+}
+
+.moe-item-fourd{
+	background-image: url(../images/new/m_4.png);
+}
+.moe-item .tag{
+	position: absolute;
+	bottom: 0px;
+}
+.moe-item-one .tag{
+	transform: rotate(15deg);
+	right: 0px;
+}
+.moe-item-two .tag{
+	transform: rotate(-15deg);
+	right: 0px;
+}
+.moe-item-fourd .tag{
+	left: 0px;
+}
+.moe-flex{
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	padding: 0px 10px;
+}
+.moe-flex span{
+	margin-bottom: 10px;
+	width: 30%;
+	padding: 10px 0px;
+	background: #00aae8;
+	border-radius: 10px;
+	text-align: center;
+	border: solid 5px #fff;
+	box-shadow: 0px 0px 5px rgba(0,0,0,.5);
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+	cursor: pointer;
+	
+}
+.moe-flex span.null{
+	background: transparent;
+	border: none;
+	box-shadow: none;
 }
