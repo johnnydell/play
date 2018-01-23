@@ -432,6 +432,36 @@ var hourlycount = function(){
 			/*Save*/
 			saveHourlyCount:function(){
 
+				//validate man/hour if it's set or not
+				if (!manager.isNull(hourlycounts_base.teamLeaderSign1)){
+					if (!manager.isNull(hourlycounts_base.manHourShift1)){
+						validation = true;
+					}
+					else{
+						validation = false;
+					}
+				}
+					
+				if (!manager.isNull(hourlycounts_base.teamLeaderSign2)){
+					if (!manager.isNull(hourlycounts_base.manHourShift2)){
+						validation = true;
+					}
+					else{
+						validation = false;
+					}
+				}
+				
+				if (!manager.isNull(hourlycounts_base.teamLeaderSign3)){
+					if (!manager.isNull(hourlycounts_base.manHourShift3)){
+						validation = true;
+					}
+					else{
+						validation = false;
+					}
+				}
+						
+				
+				
 				if (!validation){
 					jAlert( $.i18n.map['i18n_hourlycount_manhour_shift_1'] + ' ' + $.i18n.map['i18n_hourlycount_manhour_shift_2'] + ' ' + $.i18n.map['i18n_hourlycount_manhour_shift_3'] + ' ' + $.i18n.map['i18n_required'], $.i18n.map['i18n_error']);	
 					return;
