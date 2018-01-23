@@ -34,7 +34,7 @@ var scrapChart2 = function(){
 	        				actualData 		= [];
 	        				targetList 		= [];
 	        				realScrapList 	= [];
-	        				console.log(listdata);
+	        				//console.log(listdata);
         					months 			= listdata.monthList;
         					scrapList 		= listdata.scrapTotal;
 	        				actualList 		= listdata.actualTotal;

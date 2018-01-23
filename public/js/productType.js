@@ -175,7 +175,7 @@ var productType = function(){
 				}
 			},
 			test:function(){
-				console.log("sadfdsf");
+				//console.log("sadfdsf");
 			}			
 		})
 	}

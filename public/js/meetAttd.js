@@ -231,7 +231,7 @@ var meetAttd = function(){
 				}
 			},
 			test:function(){
-				console.log(attendanceDetails[0]);
+				//console.log(attendanceDetails[0]);
 			},
 			toShowColumnEditor:function(e){
 				if(limits.add_save_delete){

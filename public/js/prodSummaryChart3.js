@@ -77,7 +77,6 @@ var prodSummaryChart3 = function(){
 	}
 	
 	function bindChart(){
-		console.log("chart3");
 		chart_daily = new Highcharts.Chart({
 			title: {
 				text: ''

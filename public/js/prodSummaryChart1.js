@@ -27,7 +27,7 @@ var prodSummaryChart1 = function(){
 	        			data:{yearValue:curYear},
 	        			success: function(listdata)
 	        			{
-	        				console.log(listdata);
+	        				//console.log(listdata);
 	        				years = listdata.yearList;
 	        				dataList = listdata.dataList;
 	        				// Categories values
@@ -69,7 +69,6 @@ var prodSummaryChart1 = function(){
 	}
 	
 	function bindChart(){
-		console.log("chart1")
 		chart_year = new Highcharts.Chart({
 			title: {
 				text: ''

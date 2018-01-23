@@ -32,7 +32,7 @@ var kpiSafetyChart3 = function(){
 	        			success: function(listdata)
 	        			{
 	        				actualData 		= [];
-	        				console.log(listdata);
+	        				//console.log(listdata);
         					days 			= listdata.dayList;
 	        				targetList 		= listdata.targetTotal;
 	        				actualList 		= listdata.actualTotal;

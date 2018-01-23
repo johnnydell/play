@@ -25,7 +25,7 @@ var kpiScrapSummaryChart1 = function(){
 						success: function(listdata)
 						{
 							var dataList = [];
-							console.log(listdata);
+							//console.log(listdata);
 							years = listdata.yearList;
 							dataList = listdata.dataList;
 

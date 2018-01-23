@@ -296,7 +296,7 @@ var user = function(){
 		  	    }); 
 			},
 			test:function(){
-				console.log(users);
+				/*console.log(users);*/
 			}			
 		})
 	}	

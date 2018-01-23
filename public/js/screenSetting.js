@@ -28,7 +28,7 @@ var screenSetting = function(){
 					//refreshLossSubType(0,this);	
 				},
 	            oncomplete: function(){
-	            	console.log(sysParam);
+	            	//console.log(sysParam);
 	            	if (!manager.isNull(sysParam["SCREEN"])){
 	            		if (!manager.isNull(sysParam["SCREEN"]["TIME_INTERVAL"])){
 	            			screenTimeInterval = {id:sysParam["SCREEN"]["TIME_INTERVAL"].id, value:sysParam["SCREEN"]["TIME_INTERVAL"].paramValue};

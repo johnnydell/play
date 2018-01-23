@@ -153,7 +153,7 @@ var complainIn = function(){
 					}
 				},
 				test:function(){
-					console.log(base.hc);
+					//console.log(base.hc);
 				}
 			})
 	    });

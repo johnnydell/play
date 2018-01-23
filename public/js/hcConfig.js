@@ -266,8 +266,8 @@ var hcConfig = function(){
 				location.href=manager.root+"/views/board/hourlyCount.html?lineName="+base1.line_name+"&lineId="+base1.line_id;
 			},
 			test:function(){
-				console.log(base1);
-				console.log(base2);
+				/*console.log(base1);
+				console.log(base2);*/
 			}			
 		})
 	}

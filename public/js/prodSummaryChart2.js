@@ -64,7 +64,6 @@ var prodSummaryChart2 = function(){
 	}
 	
 	function bindChart2(){
-		console.log("chart2");
 		chart_monthly = new Highcharts.Chart({
 			title: {
 				text: ''

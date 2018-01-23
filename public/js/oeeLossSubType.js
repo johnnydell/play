@@ -65,7 +65,7 @@ var oeeLossSubType = function(){
 					$(e.node).hide().prev().show();//.text($(e.node).val());
 				},
 				test:function(){
-					console.log(oeeSubLosses);
+					//console.log(oeeSubLosses);
 				}
 	        });
 	    });

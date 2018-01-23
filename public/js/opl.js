@@ -285,8 +285,8 @@ var opl = function(){
 				}
 			},
 			test:function(){
-				console.log(opl[0]);
-				console.log(opl[1]);
+				/*console.log(opl[0]);
+				console.log(opl[1]);*/
 			},
 			disableKeydown:function(){
 				return false;
