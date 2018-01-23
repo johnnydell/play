@@ -35,7 +35,7 @@ var oeeLossChart5 = function(){
 	            type: 'bar'
 	        },
 	        title: {
-	            text: '绩效损失'
+	            text: $.i18n.prop("i18n_oeeLoss_kpi_loss")
 	        },
 	        xAxis: {
 	            categories: ['Jan','Feb','Mar','Apr','May', 'Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
@@ -87,11 +87,11 @@ var oeeLossChart5 = function(){
 	            }
 	        },
 	        series: [{
-	            name: '绩效损失',
+	            name: $.i18n.prop("i18n_oeeLoss_kpi_loss"),
 	            data: performance_loss_total,
 	            color:'red'
 	        }, {
-	            name: '未定义损失',
+	            name: $.i18n.prop("i18n_oeeLoss_undefined_loss"),
 	            data: undefined_loss_total,
 	            color:'#132F52'
 	        }],

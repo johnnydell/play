@@ -35,7 +35,7 @@ var oeeLossChart4 = function(){
 	            type: 'bar'
 	        },
 	        title: {
-	            text: '质量损失'
+	            text: $.i18n.prop("i18n_oeeLoss_quality_loss")
 	        },
 	        xAxis: {
 	            categories: ['Jan','Feb','Mar','Apr','May', 'Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
@@ -87,11 +87,11 @@ var oeeLossChart4 = function(){
 	            }
 	        },
 	        series: [{
-	            name: '报废损失',
+	            name: $.i18n.prop("i18n_oeeLoss_scrap_loss"),
 	            data: scrap_loss_total,
 	            color:'red'
 	        }, {
-	            name: '返工损失',
+	            name: $.i18n.prop("i18n_oeeLoss_rework_loss"),
 	            data: rework_loss_total,
 	            color:'#132F52'
 	        }],

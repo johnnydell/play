@@ -36,7 +36,7 @@ var oeeLossChart3 = function(){
 	            type: 'bar'
 	        },
 	        title: {
-	            text: '换型损失'
+	            text: $.i18n.prop("i18n_oeeLoss_pattern_change_loss")
 	        },
 	        xAxis: {
 	            categories: ['Jan','Feb','Mar','Apr','May', 'Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
@@ -88,15 +88,15 @@ var oeeLossChart3 = function(){
 	            }
 	        },
 	        series: [{
-	            name: '非计划换型损失',
+	            name: $.i18n.prop("i18n_oeeLoss_unplan_pattern_change_loss"),
 	            data: unplan_setup_loss_total,
 	            color:'#7D9FC9'
 	        },{
-	            name: '电极刀片工具更换',
+	            name: $.i18n.prop("i18n_oeeLoss_electrode_blade_change_loss"),
 	            data: exchg_tool_loss_total,
 	            color:'red'
 	        }, {
-	            name: '计划换型损失',
+	            name: $.i18n.prop("i18n_oeeLoss_plan_pattern_change_loss"),
 	            data: plan_setup_loss_total,
 	            color:'#132F52'
 	        }],

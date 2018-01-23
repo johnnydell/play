@@ -9,6 +9,18 @@ var oeeLossChart1 = function(){
 	            data:{root:manager.root},
 	            template: template,
 	            oncomplete: function(){
+	            	months = [$.i18n.prop("i18n_month_Jan")
+	             	         ,$.i18n.prop("i18n_month_Feb")
+	             	         ,$.i18n.prop("i18n_month_Mar")
+	             	         ,$.i18n.prop("i18n_month_Apr")
+	             	         ,$.i18n.prop("i18n_month_May")
+	             	         ,$.i18n.prop("i18n_month_June")
+	             	         ,$.i18n.prop("i18n_month_July")
+	             	         ,$.i18n.prop("i18n_month_Aug")
+	             	         ,$.i18n.prop("i18n_month_Sept")
+	             	         ,$.i18n.prop("i18n_month_Oct")
+	             	         ,$.i18n.prop("i18n_month_Nov")
+	             	         ,$.i18n.prop("i18n_month_Dec")]; 
 	            	$.ajax({
 	        			url		: manager.root + '/report/oeeloss/monthlyTechinicalLossChart',
 	        			type	: 'GET',
@@ -34,7 +46,7 @@ var oeeLossChart1 = function(){
 	            type: 'bar'
 	        },
 	        title: {
-	            text: '技术损失'
+	            text: $.i18n.prop("i18n_oeeLoss_tech_loss")
 	        },
 	        xAxis: {
 	            categories: ['Jan','Feb','Mar','Apr','May', 'Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
@@ -86,11 +98,11 @@ var oeeLossChart1 = function(){
 	            }
 	        },
 	        series: [{
-	            name: '调试损失',
+	            name: $.i18n.prop("i18n_oeeLoss_debug_loss"),
 	            data: adjustment_loss_total,
 	            color:'blue'
 	        }, {
-	            name: '设备停机损失',
+	            name: $.i18n.prop("i18n_oeeLoss_equ_stop_loss"),
 	            data: breakdown_loss_total,
 	            color:'red'
 	        }],
