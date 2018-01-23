@@ -47,7 +47,7 @@ var oeeLossChart2 = function(){
 	            type: 'bar'
 	        },
 	        title: {
-	            text: '组织损失'
+	            text: $.i18n.prop("i18n_oeeLoss_org_loss")
 	        },
 	        xAxis: {
 	            categories: ['Jan','Feb','Mar','Apr','May', 'Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
@@ -99,35 +99,35 @@ var oeeLossChart2 = function(){
 	            }
 	        },
 	        series: [{
-	            name: '其他损失',
+	            name: $.i18n.prop("i18n_oeeLoss_other_loss"),
 	            data: others_loss_total,
 	            color:'#4A7DBC'
 	        },{
-	            name: '新员工培训',
+	            name: $.i18n.prop("i18n_oeeLoss_new_staff_loss"),
 	            data: new_operator_loss_total,
 	            color:'#132F52'
 	        },{
-	            name: '非计划样品',
+	            name: $.i18n.prop("i18n_oeeLoss_unplaned_sample_loss"),
 	            data: unplan_sample_loss_total,
 	            color:'#95B1DF'
 	        },{
-	            name: '非计划TPM损失',
+	            name: $.i18n.prop("i18n_oeeLoss_unplaned_tpm_loss"),
 	            data: unplan_tpm_loss_total,
 	            color:'#7030A0'
 	        },{
-	            name: '更换原材料',
+	            name: $.i18n.prop("i18n_oeeLoss_change_material"),
 	            data: exchg_material_loss_total,
 	            color:'#C0C0C0'
 	        },{
-	            name: '首末中间检查和放行',
+	            name: $.i18n.prop("i18n_oeeLoss_fst_last_check_release"),
 	            data: test_release_three_parts_loss_total,
 	            color:'#929292'
 	        }, {
-	            name: '缺料',
+	            name: $.i18n.prop("i18n_oeeLoss_lack_of_material"),
 	            data: lack_material_loss_total,
 	            color:'#AA0000'
 	        }, {
-	            name: '缺人',
+	            name: $.i18n.prop("i18n_oeeLoss_lack_of_person"),
 	            data: lack_personnel_loss_total,
 	            color:'#7D9FC9'
 	        }],

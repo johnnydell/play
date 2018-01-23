@@ -1,5 +1,5 @@
 var complainChart2 = function(){
-	var years = []; 
+	var months = []; 
 	var targets = []; //目标
 	var actuals = []; //合计
 	var type1 = [];//总装
@@ -16,7 +16,7 @@ var complainChart2 = function(){
 	            	base = _base;
 	            	manager.loadProperties(this, "complainOut", "../../");
 	            	manager.loadProperties(this, "common", "../../");
-	            	years = [$.i18n.prop("i18n_month_Jan")
+	            	months = [$.i18n.prop("i18n_month_Jan")
 	            	         ,$.i18n.prop("i18n_month_Feb")
 	            	         ,$.i18n.prop("i18n_month_Mar")
 	            	         ,$.i18n.prop("i18n_month_Apr")
@@ -115,7 +115,7 @@ var complainChart2 = function(){
 	            enabled: false
 	        },
 	        xAxis: {
-	            categories: years
+	            categories: months
 	        },
 	        yAxis: {
 	        	title: {

@@ -66,22 +66,22 @@
 				<div class="title"><span>{{i18n_oeeLoss_title}}</span></div>
 				<div class="info">
 					 <div class="lb">
-					   <span>Line生产线:</span>
-					   <span>Month月份:</span>
+					   <span>{{i18n_oeeLoss_line}}:</span>
+					   <span>{{i18n_oeeLoss_month}}:</span>
 					 </div>
 					 <div class="val">
 						 <span class="fst">{{lineName}}</span>
 						 <span class="dt">
-                             <label on-click="toShowYearSelect">{{oeeObj.currYear}} 年</label>                    
+                             <label on-click="toShowYearSelect">{{oeeObj.currYear}} {{i18n_oeeLoss_year}}</label>                    
 							 <select style="display:none;" on-blur="toHideYearSelect" on-change="changeYear" value="{{oeeObj.currYear}}">
 		 					   {{#each years:index}}
-								 <option value="{{years[index]}}">{{years[index]}} 年</option>
+								 <option value="{{years[index]}}">{{years[index]}} {{i18n_oeeLoss_year}}</option>
 						       {{/each}}
 			             	 </select>
-                             <label on-click="toShowMonthSelect">{{oeeObj.currMonth}} 月</label>
+                             <label on-click="toShowMonthSelect">{{oeeObj.currMonth}} {{i18n_oeeLoss_yue}}</label>
                              <select style="display:none" on-blur="toHideMonthSelect" on-change="changeMonth" value="{{oeeObj.currMonth}}">
 				               {{#each months:index}}
-							    <option value="{{months[index]}}">{{months[index]}} 月</option>
+							    <option value="{{months[index]}}">{{months[index]}} {{i18n_oeeLoss_yue}}</option>
 					           {{/each}}
 	             			</select>
                          </span>

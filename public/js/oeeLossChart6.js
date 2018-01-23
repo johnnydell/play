@@ -9,6 +9,7 @@ var oeeLossChart6 = function(){
 	            data:{root:manager.root},
 	            template: template,
 	            oncomplete: function(){
+	            	manager.loadProperties(this, "oeeLoss", "../../");
 	            	$.ajax({
 	        			url		: manager.root + '/report/oeeloss/monthlyAllLossChart',
 	        			type	: 'GET',
@@ -43,28 +44,28 @@ var oeeLossChart6 = function(){
 	        				allTypeLoss.undefined_loss_total 				= listdata.undefined_loss_total;
 	        				
 	        				//plot to table
-	        				var l1 = {type:'C',color:'#CCFFFF',desc:'计划换型损失',		months:allTypeLoss.plan_setup_loss_total};
-	        				var l2 = {type:'C',color:'#CCFFFF',desc:'非计划换型损失',		months:allTypeLoss.unplan_setup_loss_total};
-	        				var l3 = {type:'C',color:'#CCFFFF',desc:'电极刀片工具更换',	months:allTypeLoss.exchg_tool_loss_total};
+	        				var l1 = {type:'C',color:'#CCFFFF',desc:$.i18n.prop("i18n_oeeLoss_plan_pattern_change_loss"),		months:allTypeLoss.plan_setup_loss_total};
+	        				var l2 = {type:'C',color:'#CCFFFF',desc:$.i18n.prop("i18n_oeeLoss_unplan_pattern_change_loss"),		months:allTypeLoss.unplan_setup_loss_total};
+	        				var l3 = {type:'C',color:'#CCFFFF',desc:$.i18n.prop("i18n_oeeLoss_electrode_blade_change_loss"),	months:allTypeLoss.exchg_tool_loss_total};
 	        				
-	        				var l4 = {type:'O',color:'#993300',desc:'O1缺人',			months:allTypeLoss.lack_personnel_loss_total};
-	        				var l5 = {type:'O',color:'#993300',desc:'O2缺料',			months:allTypeLoss.lack_material_loss_total};
-	        				var l6 = {type:'O',color:'#993300',desc:'O3首末中间检查和放行',months:allTypeLoss.test_release_three_parts_loss_total};
-	        				var l7 = {type:'O',color:'#993300',desc:'O4更换原材料',		months:allTypeLoss.exchg_material_loss_total};
-	        				var l8 = {type:'O',color:'#993300',desc:'O5非计划TPM损失',	months:allTypeLoss.unplan_tpm_loss_total};
-	        				var l9 = {type:'O',color:'#993300',desc:'O6非计划样品',		months:allTypeLoss.unplan_sample_loss_total};
-	        				var l10 = {type:'O',color:'#993300',desc:'O7新员工培训',		months:allTypeLoss.new_operator_loss_total};
-	        				var l11 = {type:'O',color:'#993300',desc:'O8其他损失',		months:allTypeLoss.others_loss_total};
+	        				var l4 = {type:'O',color:'#993300',desc:'O1'+$.i18n.prop("i18n_oeeLoss_lack_of_person"),			months:allTypeLoss.lack_personnel_loss_total};
+	        				var l5 = {type:'O',color:'#993300',desc:'O2'+$.i18n.prop("i18n_oeeLoss_lack_of_material"),			months:allTypeLoss.lack_material_loss_total};
+	        				var l6 = {type:'O',color:'#993300',desc:'O3'+$.i18n.prop("i18n_oeeLoss_fst_last_check_release"),months:allTypeLoss.test_release_three_parts_loss_total};
+	        				var l7 = {type:'O',color:'#993300',desc:'O4'+$.i18n.prop("i18n_oeeLoss_change_material"),		months:allTypeLoss.exchg_material_loss_total};
+	        				var l8 = {type:'O',color:'#993300',desc:'O5'+$.i18n.prop("i18n_oeeLoss_unplaned_tpm_loss"),	months:allTypeLoss.unplan_tpm_loss_total};
+	        				var l9 = {type:'O',color:'#993300',desc:'O6'+$.i18n.prop("i18n_oeeLoss_unplaned_sample_loss"),		months:allTypeLoss.unplan_sample_loss_total};
+	        				var l10 = {type:'O',color:'#993300',desc:'O7'+$.i18n.prop("i18n_oeeLoss_new_staff_loss"),		months:allTypeLoss.new_operator_loss_total};
+	        				var l11 = {type:'O',color:'#993300',desc:'O8'+$.i18n.prop("i18n_oeeLoss_other_loss"),		months:allTypeLoss.others_loss_total};
 	        											
-	        				var l12 = {type:'T',color:'#3366FF',desc:'设备停机损失',		months:allTypeLoss.breakdown_loss_total};	
-	        				var l13 = {type:'T',color:'#3366FF',desc:'调试损失',			months:allTypeLoss.adjustment_loss_total};
+	        				var l12 = {type:'T',color:'#3366FF',desc:$.i18n.prop("i18n_oeeLoss_equ_stop_loss"),		months:allTypeLoss.breakdown_loss_total};	
+	        				var l13 = {type:'T',color:'#3366FF',desc:$.i18n.prop("i18n_oeeLoss_debug_loss"),			months:allTypeLoss.adjustment_loss_total};
 	        				
-	        				var l14 = {type:'P',color:'#C0C0C0',desc:'绩效损失',			months:allTypeLoss.performance_loss_total};	
-	        				var l15 = {type:'P',color:'#C0C0C0',desc:'未定义损失',		months:allTypeLoss.undefined_loss_total};
+	        				var l14 = {type:'P',color:'#C0C0C0',desc:$.i18n.prop("i18n_oeeLoss_kpi_loss"),			months:allTypeLoss.performance_loss_total};	
+	        				var l15 = {type:'P',color:'#C0C0C0',desc:$.i18n.prop("i18n_oeeLoss_undefined_loss"),		months:allTypeLoss.undefined_loss_total};
 	        				
 	        				
-	        				var l16 = {type:'Q',color:'#FAFA00',desc:'返工',				months:allTypeLoss.scrap_loss_total};	
-	        				var l17 = {type:'Q',color:'#FAFA00',desc:'报废',				months:allTypeLoss.rework_loss_total};	
+	        				var l16 = {type:'Q',color:'#FAFA00',desc:$.i18n.prop("i18n_oeeLoss_rework_loss"),				months:allTypeLoss.scrap_loss_total};	
+	        				var l17 = {type:'Q',color:'#FAFA00',desc:$.i18n.prop("i18n_oeeLoss_scrap_loss"),				months:allTypeLoss.rework_loss_total};	
 	        				
 	        				ttloss.push(l1,l2,l3,l4,l5,l6,l7,l8,l9,l11,l12,l13,l14,l15,l16,l17);
 	        				ractive.set("ttloss",ttloss);		
