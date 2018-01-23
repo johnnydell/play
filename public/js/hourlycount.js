@@ -121,23 +121,27 @@ var hourlycount = function(){
 			/*used for team leader signature*/
 			toShowLogin:function(e){
 				cellIndex = e.node.cellIndex;
-				manager.triggerLogin();
-				switch(cellIndex){
-				case 2:
-				default:
-					hourlycounts_base.teamLeaderSign1 = "Leader1";
-					break;
-				case 4:
-					hourlycounts_base.teamLeaderSign2 = "Leader2";
-					break;
-				case 6:
-					hourlycounts_base.teamLeaderSign3 = "Leader3";
-					break;
-				case 8:
-					hourlycounts_base.groupLeaderSign = "Leader4";
-					break;
-				}
-				ractive.update();
+				manager.triggerLogin(function(userInfo){
+					var userName = userInfo[0];
+					if(userInfo[1] != '0'){
+						switch(cellIndex){
+						case 1:
+						default:
+							hourlycounts_base.teamLeaderSign1 = userName;
+							break;
+						case 3:
+							hourlycounts_base.teamLeaderSign2 = userName;
+							break;
+						case 5:
+							hourlycounts_base.teamLeaderSign3 = userName;
+							break;
+						case 8:
+							hourlycounts_base.groupLeaderSign = userName;
+							break;
+						}
+						ractive.update();
+					}
+				});
 			},
 			/*Calculate plan count, plan total count*/
 			toHideColumnEditorWithCalculationForPlan:function(e){
