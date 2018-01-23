@@ -22,6 +22,7 @@ var prodSummaryReport = function(){
 				this.set("prodObj",prodObj);
 			},
 			oncomplete: function(){	
+				manager.setMenuBar("sy");
 				prodSummaryChart1.init(prodObj.currYear);
 				prodSummaryChart2.init(prodObj.currYear);
 				prodSummaryChart3.init(prodObj.currYear, prodObj.currMonth);

@@ -22,6 +22,7 @@ var scrap = function(){
 				this.set("scrapObj",scrapObj);
 			},
 			oncomplete: function(){	
+				manager.setMenuBar("sy");
 				scrapChart1.init(lineName, scrapObj.currYear);
 				scrapChart2.init(lineName, scrapObj.currYear);
 				scrapChart3.init(lineName, scrapObj.currYear, scrapObj.currMonth);

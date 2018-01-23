@@ -22,6 +22,7 @@ var kpiScrapSummaryReport = function(){
 				this.set("scrapObj",scrapObj);
 			},
 			oncomplete: function(){	
+				manager.setMenuBar("sy");
 				kpiScrapSummaryChart1.init(scrapObj.currYear);
 				kpiScrapSummaryChart2.init(scrapObj.currYear);
 				kpiScrapSummaryChart3.init(scrapObj.currYear, scrapObj.currMonth);

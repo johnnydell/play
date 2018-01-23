@@ -10,7 +10,8 @@ var boards = function(){
 				manager.loadProperties(this, "boards", "../");
 				
 			},
-			oncomplete: function(){		
+			oncomplete: function(){	
+				manager.setMenuBar("sy");
 				board1.init();
 			}
 		});

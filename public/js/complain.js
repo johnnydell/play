@@ -14,7 +14,8 @@ var complain = function(){
 			onrender: function(){
 				manager.loadProperties(this, "complain", "../../");
 			},
-			oncomplete: function(){		
+			oncomplete: function(){	
+				manager.setMenuBar("sy");
 				complainOut.init();
 			}
 		});

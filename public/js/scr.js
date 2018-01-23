@@ -34,13 +34,12 @@ var scr = function(){
 				},
 			
 			onrender: function(){
-				manager.loadProperties(this, "scr", "../");
-				manager.setMenuBar("scr");
+				manager.loadProperties(this, "scr", "../");				
 				this.set("lines",lines);
 			},
 			oncomplete: function(){	
-				getProductInfo();
-				
+				manager.setMenuBar("scr");
+				getProductInfo();				
 				//check time interval if it's set or not
 				if (!manager.isNull(sysParam["SCREEN"])){
 					if (!manager.isNull(sysParam["SCREEN"]["TIME_INTERVAL"])){

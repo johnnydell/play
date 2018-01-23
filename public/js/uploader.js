@@ -8,7 +8,7 @@ var uploader = function(){
 			onrender: function(){
 				manager.loadProperties(this, "uploader", "../../");
 			},
-			oncomplete: function(){
+			oncomplete: function(){				
 				//init click event - Layout
 				
 	             $("#avatval_layout").click(function(){

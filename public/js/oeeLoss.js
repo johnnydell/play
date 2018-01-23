@@ -19,6 +19,7 @@ var oeeLoss = function(){
 				this.set("oeeObj",oeeobj);
 			},
 			oncomplete: function(){	
+				manager.setMenuBar("sy");
 				oeeLossChart1.init(lineName, oeeobj.currYear);
 				oeeLossChart2.init(lineName, oeeobj.currYear);
 				oeeLossChart3.init(lineName, oeeobj.currYear);

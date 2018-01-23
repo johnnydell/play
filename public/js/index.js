@@ -7,7 +7,9 @@ var index = function(){
 			onrender: function(){
 				manager.loadProperties(this, "index", "../");
 			},
-			oncomplete: function(){}
+			oncomplete: function(){
+				manager.setMenuBar("cd");
+			}
 		});
 		
 		ractive.on({

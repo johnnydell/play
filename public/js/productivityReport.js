@@ -24,6 +24,7 @@ var productivityReport = function(){
 				this.set("prodObj",prodObj);
 			},
 			oncomplete: function(){	
+				manager.setMenuBar("sy");
 				productivityChart1.init(lineName, prodObj.currYear);
 				productivityChart2.init(lineName, prodObj.currYear);
 				productivityChart3.init(lineName, prodObj.currYear, prodObj.currMonth);

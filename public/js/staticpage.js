@@ -17,9 +17,9 @@ var staticpage = function(){
 			onrender: function(){
 				manager.loadProperties(this, "staticpage", "../../");
 				manager.loadProperties(this, "common", "../../");
-				console.log("pagename=" + pagename);
 			},
 			oncomplete: function(){
+				manager.setMenuBar("sy");
 				$.ajax({
 					url		: manager.root + '/views/staticpage/viewdoc/' + pagename + "/" + oplLink,
 					type	: 'post',

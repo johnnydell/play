@@ -12,7 +12,9 @@ var user = function(){
 				manager.loadProperties(this, "common", "../../");
 				this.set("lines",lines);
 				refreshUser(this);
-			},oncomplete: function(){}
+			},oncomplete: function(){
+				manager.setMenuBar("xtsz");
+			}
 		});
 		
 		ractive.on({

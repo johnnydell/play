@@ -12,6 +12,7 @@ var role = function(){
 				refreshRole(this);
 			},
 			oncomplete: function(){
+				manager.setMenuBar("xtsz");
 				modules = getModulesWithFuncs();
 			}
 		});

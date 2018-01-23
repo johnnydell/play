@@ -21,6 +21,7 @@ var oee = function(){
 				this.set("oeeObj",oeeobj);
 			},
 			oncomplete: function(){	
+				manager.setMenuBar("sy");
 				oeeChart1.init(lineName, oeeobj.currYear);
 				oeeChart2.init(lineName, oeeobj.currYear);
 				oeeChart3.init(lineName, oeeobj.currYear, oeeobj.currMonth);

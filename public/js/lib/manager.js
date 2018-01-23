@@ -49,18 +49,21 @@ var manager = function() {
 	//设定菜单按钮的选定，由具体页面来设定
 	function setMenuBar(icon){
 	     switch(icon){
-	       case 'scr':
-	         $(".box .left ul .icon-scr").parent().css("background","#ebeff4");
+	       case 'xsp':
+	         $(".box .left ul .icon-scr").parent().css("background","#ebeff4");     /*显示屏 */
 	       	  break;
-	       case 'cd':
-	          $(".box .left ul .icon-cd").children(2).css("background","#ebeff4");
+	       case 'sy':
+	          $(".box .left ul .icon-cd").parent().css("background","#ebeff4");     /*首页*/
 	          break;
-	       case 'gj':
-	          $(".box .left ul .icon-gj").children(3).css("background","#ebeff4");
+	       case 'xtsz':
+	          $(".box .left ul .icon-gj").parent().css("background","#ebeff4");       /* 系统设置 */
 	       	  break;
-	       case 'xf':
-	          $(".box .left ul .icon-xf").children(4).css("background","#ebeff4");
-	          break;   
+	       case 'mail':
+	          $(".box .left ul .icon-xf").parent().css("background","#ebeff4");			/*维护信息 */
+	          break; 
+	       case 'qd':
+		      $(".box .left ul .icon-ma").parent().css("background","#ebeff4");          /*签到*/    
+		      break;
 	     }
 	}
 	

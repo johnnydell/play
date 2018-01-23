@@ -13,7 +13,9 @@ var func = function(){
 				this.set("modules",modules);
 				refreshFunc(this);
 			},
-			oncomplete: function(){}
+			oncomplete: function(){
+				manager.setMenuBar("xtsz");
+			}
 		});
 		
 		ractive.on({

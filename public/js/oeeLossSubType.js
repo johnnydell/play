@@ -16,7 +16,9 @@ var oeeLossSubType = function(){
 					initLossData();
 					refreshLossSubType(0,this);	
 				},
-	            oncomplete: function(){}
+	            oncomplete: function(){
+	            	manager.setMenuBar("xtsz");
+	            }
 	        }); 
 	        
 	        ractive.on({

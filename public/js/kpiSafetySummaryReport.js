@@ -22,6 +22,7 @@ var kpiSafetySummaryReport = function(){
 				this.set("safetyObj",safetyObj);
 			},
 			oncomplete: function(){	
+				manager.setMenuBar("sy");
 				kpiSafetySummaryChart1.init(safetyObj.currYear);
 				kpiSafetySummaryChart2.init(safetyObj.currYear);
 				kpiSafetySummaryChart3.init(safetyObj.currYear, safetyObj.currMonth);

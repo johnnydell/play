@@ -4,13 +4,13 @@ var meetAttd = function(){
 	var months = manager.months;
 	var lines = common.getAllLines();
 	var attendance = {id:"0",year:"",month:"",line_id:"",line_name:"",time_start:"10:00",time_end:"10:30",spot:"Team Board",host:"Team Leader",daysCnt:0,days:[],updated:"0"};
-	var limits = permission.load("meeting_attendance");
+	var limits = permission.load("meeting_attendance");	
 	function init(){
 		var ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
 			data: {root:manager.root,limits:limits},
-			onrender: function(){
+			onrender: function(){				
 				manager.loadProperties(this, "meetAttd", "../../");
 				manager.loadProperties(this, "common", "../../");
 				this.set("years",years);
@@ -25,7 +25,8 @@ var meetAttd = function(){
 				refreshAttendanceDetails();
 				this.set("attendanceDetails",attendanceDetails);
 			},
-			oncomplete: function(){				
+			oncomplete: function(){	
+				manager.setMenuBar("ma");
 				$(".meettimeStart").datetimepicker({
 					datepicker:false,
 					format:'H:i',

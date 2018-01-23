@@ -16,6 +16,7 @@ var lineSetting = function(){
 
 				},
 	            oncomplete: function(){
+	            	manager.setMenuBar("xtsz");
 	            	initLineData();
 	            }
 	        }); 

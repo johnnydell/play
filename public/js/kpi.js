@@ -8,6 +8,7 @@ var kpi = function(){
 				manager.loadProperties(this, "kpi", "../");
 			},
 			oncomplete: function(){
+				manager.setMenuBar("sy");
 			}
 		});
 		

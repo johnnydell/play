@@ -8,6 +8,7 @@ var settings = function(){
 				manager.loadProperties(this, "settings", "../");
 			},
 			oncomplete: function(){
+				manager.setMenuBar("gj");
 			}
 		});
 		

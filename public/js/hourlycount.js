@@ -42,6 +42,7 @@ var hourlycount = function(){
 				manager.loadProperties(this, "common", "../../");
 			},
 			oncomplete: function(){
+				manager.setMenuBar("sy");
 				//active date picker control
 				$("#lblDateShow").datepicker({
 				      changeMonth: true,

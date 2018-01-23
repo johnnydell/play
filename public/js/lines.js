@@ -13,11 +13,11 @@ var lines = function(){
 				manager.loadProperties(this, "lines", "../");
 			},
 			oncomplete: function(){
+				manager.setMenuBar("sy");
 				formList();
 				ractive.set("recList",recList);
 				ractive.set("rogList",rogList);
 				ractive.set("stgList",stgList);
-				console.log(fagList);
 				ractive.set("fagList",fagList);
 			}
 		});
@@ -27,7 +27,6 @@ var lines = function(){
 		     location.href = "kpi.html";
 		   },
 		   gotoBoards:function(e){
-			   console.log(e.context);
 			   window.location.href=manager.root+"/views/boards.html?lineName="+e.context.line_name+"&lineId="+e.context.line_id;
 		   }
 		})

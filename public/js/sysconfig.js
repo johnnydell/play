@@ -14,6 +14,7 @@ var sysconfig = function(){
 				
 			},
 			oncomplete: function(){	
+				manager.setMenuBar("xtsz");
 				oeeLossSubType.init();
 			}
 		});

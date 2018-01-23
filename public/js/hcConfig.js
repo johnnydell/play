@@ -22,7 +22,8 @@ var hcConfig = function(){
 				base1.date = sys_date;
 				refreshHCInfo(this);
 			},
-			oncomplete: function(){				
+			oncomplete: function(){		
+				manager.setMenuBar("xtsz");
 				$('.date').datetimepicker({
 					yearOffset:0,
 					timepicker:false,

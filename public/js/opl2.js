@@ -38,7 +38,9 @@ var opl2 = function(){
 				condition.pages = [];//总共多少页
 				refreshOPL(this);
 			},
-			oncomplete: function(){}
+			oncomplete: function(){
+				manager.setMenuBar("sy");
+			}
 		});
 		
 		ractive.on({

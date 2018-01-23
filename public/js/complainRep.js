@@ -27,6 +27,7 @@ var complainRep = function(){
 				this.set("base",base);
 			},
 			oncomplete: function(){	
+				manager.setMenuBar("sy");
 				complainChart1.init(base);
 				complainChart2.init(base);
 				complainChart3.init(base);

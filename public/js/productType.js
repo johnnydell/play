@@ -10,7 +10,9 @@ var productType = function(){
 				manager.loadProperties(this, "productType", "../../");
 				manager.loadProperties(this, "common", "../../");
 				refreshType(this);
-			},oncomplete: function(){}
+			},oncomplete: function(){
+				manager.setMenuBar("xtsz");
+			}
 		});
 		
 		ractive.on({

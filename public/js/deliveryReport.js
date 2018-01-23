@@ -24,6 +24,7 @@ var deliveryReport = function(){
 				this.set("deliveryObj",deliveryObj);
 			},
 			oncomplete: function(){	
+				manager.setMenuBar("sy");
 				deliveryChart1.init(lineName, deliveryObj.currYear);
 				deliveryChart2.init(lineName, deliveryObj.currYear);
 				deliveryChart3.init(lineName, deliveryObj.currYear, deliveryObj.currMonth);

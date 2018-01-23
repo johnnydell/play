@@ -19,6 +19,7 @@ var productivity = function(){
 				manager.loadProperties(this, "kpiLines", "../../");
 			},
 			oncomplete: function(){
+				manager.setMenuBar("sy");
 				initLineData();
 			}
 		});
