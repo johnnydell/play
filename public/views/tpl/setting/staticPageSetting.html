@@ -1,0 +1,90 @@
+<div class="staticpagesetting">
+	<div class="staticpage">
+		<div class="header">
+			<p>
+				<label>{{i18n_sysconfig_staticpage_title}}</label>
+			</p>
+		</div>
+		<div class="toolbar">
+				<button type="button" class="btn" on-click="saveStaticPageConfig">{{i18n_save}}</button>
+        </div>
+		<div class="staticpageDetail">
+			<table style="width: 100%; text-align: center">
+				<tr>
+					<td style="width:20%">{{i18n_sysconfig_oee_subtype_index}}</td>
+					<td style="width:60%">{{i18n_sysconfig_oee_subtype_name}}</td>
+					<td style="width:20%">{{i18n_sysconfig_staticpage_expired}}</td>
+				</tr>
+				
+				<tr>
+					<td>1</td>
+					<td>
+						<span class="field">{{i18n_uploader_name_balance}}</span> 
+					</td>
+					<td on-click="toShowColumnEditor">
+						<span class="field">{{staticPageBalance.value}}</span> 
+						<input class="field" style="display:none;width:100%" type="text" on-blur="toHideColumnEditor" value="{{staticPageBalance.value}}" on-keyup="toValidateEditorOnlyNum"/>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>2</td>
+					<td>
+						<span class="field">{{i18n_uploader_name_layout}}</span> 
+					</td>
+					<td on-click="toShowColumnEditor">
+						<span class="field">{{staticPageLayout.value}}</span> 
+						<input class="field" style="display:none;width:100%" type="text" on-blur="toHideColumnEditor" value="{{staticPageLayout.value}}" on-keyup="toValidateEditorOnlyNum"/>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>3</td>
+					<td>
+						<span class="field">{{i18n_uploader_name_oeepdca}}</span> 
+					</td>
+					<td on-click="toShowColumnEditor">
+						<span class="field">{{staticPageOeepdca.value}}</span> 
+						<input class="field" style="display:none;width:100%" type="text" on-blur="toHideColumnEditor" value="{{staticPageOeepdca.value}}" on-keyup="toValidateEditorOnlyNum"/>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>4</td>
+					<td>
+						<span class="field">{{i18n_uploader_name_5s}}</span> 
+					</td>
+					<td on-click="toShowColumnEditor">
+						<span class="field">{{staticPage5s.value}}</span> 
+						<input class="field" style="display:none;width:100%" type="text" on-blur="toHideColumnEditor" value="{{staticPage5s.value}}" on-keyup="toValidateEditorOnlyNum"/>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>5</td>
+					<td>
+						<span class="field">{{i18n_uploader_name_trainmatrix}}</span> 
+					</td>
+					<td on-click="toShowColumnEditor">
+						<span class="field">{{staticPageTrainmatrix.value}}</span> 
+						<input class="field" style="display:none;width:100%" type="text" on-blur="toHideColumnEditor" value="{{staticPageTrainmatrix.value}}" on-keyup="toValidateEditorOnlyNum"/>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>6</td>
+					<td>
+						<span class="field">{{i18n_uploader_name_5m1e}}</span> 
+					</td>
+					<td on-click="toShowColumnEditor">
+						<span class="field">{{staticPage5m1e.value}}</span> 
+						<input class="field" style="display:none;width:100%" type="text" on-blur="toHideColumnEditor" value="{{staticPage5m1e.value}}" on-keyup="toValidateEditorOnlyNum"/>
+					</td>
+				</tr>
+				
+			</table>
+		</div>
+		
+
+	</div>
+</div>

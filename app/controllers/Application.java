@@ -10,6 +10,7 @@ import java.util.Map;
 
 import common.Constants;
 import models.SystemParam;
+import models.UploadFile;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -89,6 +90,11 @@ public class Application extends Controller {
     	
     	return ok(Json.toJson(paramsAll));
     }
-    
+	
+	
+	public static Result getUploadList(){
+		List<UploadFile> lists = UploadFile.findAll();
+		return ok(Json.toJson(lists));
+	}
     
 }

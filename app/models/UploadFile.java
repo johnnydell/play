@@ -1,6 +1,7 @@
 package models;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -40,6 +41,10 @@ public class UploadFile extends Model {
 
 	public static UploadFile findByName(String name) {
 		return find.where().ilike("fileName", "%" + name + "%").findUnique();
+	}
+	
+	public static List<UploadFile> findAll() {
+		return find.all();
 	}
 
 	public static void save(UploadFile uploadFile) {

@@ -36,6 +36,11 @@ var sysconfig = function(){
 				$(e.node).parent().attr("id", "current");
 				lineSetting.init();
 			},
+			switchToStaticPage:function(e){
+				$("#tabs li").attr("id","");
+				$(e.node).parent().attr("id", "current");
+				staticpageSetting.init();
+			},
 			
 		})
 	}

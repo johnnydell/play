@@ -84,7 +84,23 @@ var common = function(){
 	function getFuncList(){
 		var ret;
 		$.ajax({
-			url: manager.root + "/func/getList",
+			url: manager.root + "/common/getList",
+			type: "GET",
+			async:false,
+			dataType: "json",
+			contentType: "application/json", 
+			success: function(data) {
+				ret = data;
+			}
+		});
+		return ret;
+	}
+	
+	//取得有效的功能清单
+	function getLastUploadList(){
+		var ret;
+		$.ajax({
+			url: manager.root + "/common/getUploadList",
 			type: "GET",
 			async:false,
 			dataType: "json",
@@ -97,12 +113,13 @@ var common = function(){
 	}
 	
 	return {
-		getComplainType:getComplainType,
-		getAllLines:getAllLines,
-		getAllProductType:getAllProductType,
-		getRolesList:getRolesList,
-		getModuleList:getModuleList,
-		getFuncList:getFuncList
+		getComplainType		: getComplainType,
+		getAllLines			: getAllLines,
+		getAllProductType	: getAllProductType,
+		getRolesList		: getRolesList,
+		getModuleList		: getModuleList,
+		getFuncList			: getFuncList,
+		getLastUploadList	: getLastUploadList
 	}
 }();
 $(document).ready(common.init);

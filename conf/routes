@@ -11,6 +11,7 @@ GET     /edashboard/common/getCurrDateTime             	controllers.Application.
 GET     /edashboard/common/getDateByOffset/:offset      controllers.Application.getDateByOffset(offset:String)
 GET     /edashboard/common/getCurrTime             		controllers.Application.getCurrTime()
 GET     /edashboard/common/getSysParams          		controllers.Application.getSystemParameters()
+GET     /edashboard/common/getUploadList          		controllers.Application.getUploadList()
 
 # City page
 GET     /edashboard/city/show/:key      				controllers.CityController.show(key : String)
@@ -70,6 +71,7 @@ POST /edashboard/sysConfig/saveLoss 					controllers.settings.SysConfigControlle
 POST /edashboard/sysConfig/saveScreenConfig				controllers.settings.SysConfigController.saveScreenConfig()
 GET /edashboard/sysConfig/getProductLine				controllers.settings.SysConfigController.getProductLine()
 POST /edashboard/sysConfig/saveLineConfig				controllers.settings.SysConfigController.saveLineConfig()
+POST /edashboard/sysConfig/saveStaticPageConfig			controllers.settings.SysConfigController.saveStaticPageConfig()
 
 #OPL
 POST /edashboard/opl/addPSS 		            		controllers.OPLController.addPSS()

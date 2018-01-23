@@ -13,7 +13,11 @@
 			</div>
 			<div class="pdca-c">
 				<div class="pdca-item pdca">
-					<h3><i>6</i><span>PDCA chart</span></h3>
+					{{#if oeepdca_alarm == 1}}
+						<h3><i>6</i><span style="background:red">PDCA chart ({{i18n_boards_upload_expired}})</span></h3>
+					{{else}}
+						<h3><i>6</i><span>PDCA chart</span></h3>
+					{{/if}}
 					<a href="board/staticpage.html?pageName=oeepdca&oplLinkName=''&lineName={{lineName}}&lineId={{lineId}}"><img src="../images/board/pdca.jpg" alt="PDCA chart" /></a>
 				</div>
 				<div class="pdca-item pdca2">
@@ -26,7 +30,11 @@
 			</div>
 			<div class="pdca-lr">
 				<div class="pdca-item opc">
-					<h3><i>1</i><span>OPC and line layout</span></h3>
+					{{#if balance_alarm == 1 || layout_alarm == 1}}
+						<h3><i>1</i><span style="background:red">OPC and line layout ({{i18n_boards_upload_expired}})</span></h3>
+					{{else}}
+						<h3><i>1</i><span>OPC and line layout</span></h3>
+					{{/if}}
 					<a href="board/staticpage.html?pageName=layout&oplLinkName=''&lineName={{lineName}}&lineId={{lineId}}"><img src="../images/board/opc.jpg" alt="OPC and line layout" /></a>
 				</div>
 				<div class="pdca-item hourly">

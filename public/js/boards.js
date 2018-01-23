@@ -7,7 +7,7 @@ var boards = function(){
 			template: "#main-template",
 			data: {root:manager.root,lineName:lineName, lineId:lineId},
 			onrender: function(){
-				manager.loadProperties(this, "boards", "../");
+				manager.loadProperties(this, "boards", "../../");
 				
 			},
 			oncomplete: function(){	

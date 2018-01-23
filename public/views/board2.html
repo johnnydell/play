@@ -16,12 +16,24 @@
 							
 							<a href="board2/opl.html?lineName={{lineName}}&lineId={{lineId}}" class="bg-23a2cb ">{{i18n_boards_OPL2_title}}</a>
 							<a href="board/staticpage.html?pageName=checklist&oplLinkName=''&lineName={{lineName}}&lineId={{lineId}}" class="bg-23a2cb" >{{i18n_boards_checklist_title}}</a>
-							<a href="board/staticpage.html?pageName=5m1e&oplLinkName=''&lineName={{lineName}}&lineId={{lineId}}" class="bg-23a2cb">{{i18n_boards_5m1e_title}}</a>
-							
+							{{#if alarm_5m1e == 1}}
+								<a href="board/staticpage.html?pageName=5m1e&oplLinkName=''&lineName={{lineName}}&lineId={{lineId}}" class="bg-f4b183">{{i18n_boards_5m1e_title}} ({{i18n_boards_upload_expired}})</a>
+							{{else}}
+								<a href="board/staticpage.html?pageName=5m1e&oplLinkName=''&lineName={{lineName}}&lineId={{lineId}}" class="bg-23a2cb">{{i18n_boards_5m1e_title}}</a>
+							{{/if}}
 						</div>
 						<div class="board-item">
-							<a href="board/staticpage.html?pageName=5s&oplLinkName=''&lineName={{lineName}}&lineId={{lineId}}" class="bg-23a2cb">{{i18n_boards_5s_title}}</a>
-							<a href="board/staticpage.html?pageName=trainmatrix&oplLinkName=''&lineName={{lineName}}&lineId={{lineId}}" class="bg-23a2cb">{{i18n_boards_matrix_title}}</a>
+							{{#if alarm_5s == 1}}
+								<a href="board/staticpage.html?pageName=5s&oplLinkName=''&lineName={{lineName}}&lineId={{lineId}}" class="bg-f4b183">{{i18n_boards_5s_title}} ({{i18n_boards_upload_expired}})</a>
+							{{else}}
+								<a href="board/staticpage.html?pageName=5s&oplLinkName=''&lineName={{lineName}}&lineId={{lineId}}" class="bg-23a2cb">{{i18n_boards_5s_title}}</a>
+							{{/if}}
+							
+							{{#if alarm_trainmatrix == 1}}
+								<a href="board/staticpage.html?pageName=trainmatrix&oplLinkName=''&lineName={{lineName}}&lineId={{lineId}}" class="bg-f4b183">{{i18n_boards_matrix_title}} ({{i18n_boards_upload_expired}})</a>
+							{{else}}
+								<a href="board/staticpage.html?pageName=trainmatrix&oplLinkName=''&lineName={{lineName}}&lineId={{lineId}}" class="bg-23a2cb">{{i18n_boards_matrix_title}}</a>
+							{{/if}}
 							<a href="#" class="bg-23a2cb">&nbsp;</a>
 						</div>
 					</div>

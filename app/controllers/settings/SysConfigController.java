@@ -315,4 +315,89 @@ public class SysConfigController extends Controller {
 		
 		return ok("1");
 	}
+	
+	public static Result saveStaticPageConfig(){
+		try {
+			
+			JsonNode data = request().body().asJson();
+			logger.info("saveStaticPageConfig= " + data);
+			
+			JsonNode staticPageBalance 		= data.path("staticPageBalance");
+			JsonNode staticPageLayout 		= data.path("staticPageLayout");
+			JsonNode staticPageOeepdca 		= data.path("staticPageOeepdca");
+			JsonNode staticPage5s 			= data.path("staticPage5s");
+			JsonNode staticPageTrainmatrix	= data.path("staticPageTrainmatrix");
+			JsonNode staticPage5m1e 		= data.path("staticPage5m1e");
+			
+			List<SystemParam> existedObjs = new ArrayList<SystemParam>();
+			List<SystemParam> newObjs = new ArrayList<SystemParam>();
+			
+			//staticPageBalance
+			String staticPageBalanceId 	= staticPageBalance.get("id").asText();
+			String staticPageBalanceValue = staticPageBalance.get("value").asText();
+			SystemParam param = new SystemParam();
+			
+			param.paramValue = StringUtils.isEmpty(staticPageBalanceValue) ? "0" : staticPageBalanceValue;
+			param.id = staticPageBalanceId;
+			existedObjs.add(param);
+
+			//staticPageLayout
+			String staticPageLayoutId 	= staticPageLayout.get("id").asText();
+			String staticPageLayoutValue = staticPageLayout.get("value").asText();
+			SystemParam param1 = new SystemParam();
+			
+			param1.paramValue = StringUtils.isEmpty(staticPageLayoutValue) ? "0" : staticPageLayoutValue;
+			param1.id = staticPageLayoutId;
+			existedObjs.add(param1);
+			
+			//staticPageOeepdca
+			String staticPageOeepdcaId 	= staticPageOeepdca.get("id").asText();
+			String staticPageOeepdcaValue = staticPageOeepdca.get("value").asText();
+			SystemParam param2 = new SystemParam();
+			
+			param2.paramValue = StringUtils.isEmpty(staticPageOeepdcaValue) ? "0" : staticPageOeepdcaValue;
+			param2.id = staticPageOeepdcaId;
+			existedObjs.add(param2);
+			
+			//staticPage5s
+			String staticPage5sId 	= staticPage5s.get("id").asText();
+			String staticPage5sValue = staticPage5s.get("value").asText();
+			SystemParam param3 = new SystemParam();
+			
+			param3.paramValue = StringUtils.isEmpty(staticPage5sValue) ? "0" : staticPage5sValue;
+			param3.id = staticPage5sId;
+			existedObjs.add(param3);
+			
+			//staticPageTrainmatrix
+			String staticPageTrainmatrixId 	= staticPageTrainmatrix.get("id").asText();
+			String staticPageTrainmatrixValue = staticPageTrainmatrix.get("value").asText();
+			SystemParam param4 = new SystemParam();
+			
+			param4.paramValue = StringUtils.isEmpty(staticPageTrainmatrixValue) ? "0" : staticPageTrainmatrixValue;
+			param4.id = staticPageTrainmatrixId;
+			existedObjs.add(param4);
+			
+			//staticPage5m1e
+			String staticPage5m1eId 	= staticPage5m1e.get("id").asText();
+			String staticPage5m1eValue = staticPage5m1e.get("value").asText();
+			SystemParam param5 = new SystemParam();
+			
+			param5.paramValue = StringUtils.isEmpty(staticPage5m1eValue) ? "0" : staticPage5m1eValue;
+			param5.id = staticPage5m1eId;
+			existedObjs.add(param5);
+			
+			if (existedObjs.size() > 0){
+				SystemParam.updateList(existedObjs);
+			}
+			
+			if (newObjs.size() > 0){
+				SystemParam.saveList(newObjs);
+			}
+		} catch (Exception e) {
+			logger.error(" " + e);
+			return ok("0");
+		}
+		
+		return ok("1");
+	}
 }
