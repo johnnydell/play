@@ -65,16 +65,16 @@
 					 <div class="val">
 						 
 						  <span class="dt">
-                             <label on-click="toShowYearSelect">{{deliveryObj.currYear}} {{i18n_year}}</label>                    
+                             <label on-click="toShowYearSelect">{{deliveryObj.currYear}} {{i18n_year2}}</label>                    
 							 <select style="display:none;" on-blur="toHideYearSelect" on-change="changeYear" value="{{deliveryObj.currYear}}">
 		 					   {{#each years:index}}
-								 <option value="{{years[index]}}">{{years[index]}} {{i18n_year}}</option>
+								 <option value="{{years[index]}}">{{years[index]}} {{i18n_year2}}</option>
 						       {{/each}}
 			             	 </select>
-                             <label on-click="toShowMonthSelect">{{deliveryObj.currMonth}} {{i18n_month}}</label>
+                             <label on-click="toShowMonthSelect">{{deliveryObj.currMonth}} {{i18n_month2}}</label>
                              <select style="display:none" on-blur="toHideMonthSelect" on-change="changeMonth" value="{{deliveryObj.currMonth}}">
 				               {{#each months:index}}
-							    <option value="{{months[index]}}">{{months[index]}} {{i18n_month}}</option>
+							    <option value="{{months[index]}}">{{months[index]}} {{i18n_month2}}</option>
 					           {{/each}}
 	             			</select>
                          </span>

@@ -64,16 +64,16 @@
 					 <div class="val">
 						 <span class="fst">{{lineName}}</span>
 						  <span class="dt">
-                             <label on-click="toShowYearSelect">{{scrapObj.currYear}} 年</label>                    
+                             <label on-click="toShowYearSelect">{{scrapObj.currYear}} {{i18n_year2}}</label>                    
 							 <select style="display:none;" on-blur="toHideYearSelect" on-change="changeYear" value="{{scrapObj.currYear}}">
 		 					   {{#each years:index}}
-								 <option value="{{years[index]}}">{{years[index]}} 年</option>
+								 <option value="{{years[index]}}">{{years[index]}} {{i18n_year2}}</option>
 						       {{/each}}
 			             	 </select>
-                             <label on-click="toShowMonthSelect">{{scrapObj.currMonth}} 月</label>
+                             <label on-click="toShowMonthSelect">{{scrapObj.currMonth}} {{i18n_month2}}</label>
                              <select style="display:none" on-blur="toHideMonthSelect" on-change="changeMonth" value="{{scrapObj.currMonth}}">
 				               {{#each months:index}}
-							    <option value="{{months[index]}}">{{months[index]}} 月</option>
+							    <option value="{{months[index]}}">{{months[index]}} {{i18n_month2}}</option>
 					           {{/each}}
 	             			</select>
                          </span>

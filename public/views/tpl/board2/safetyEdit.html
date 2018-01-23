@@ -18,16 +18,16 @@
 							<label class="field" >{{lineName}}</label>                    
                          </span>
 						 <span class="dt">
-                             <label on-click="toShowYearSelect">{{safetyObj.currYear}} {{i18n_year}}</label>                    
+                             <label on-click="toShowYearSelect">{{safetyObj.currYear}} {{i18n_safety_year}}</label>                    
 							 <select style="display:none;" on-blur="toHideYearSelect" on-change="changeYear" value="{{safetyObj.currYear}}">
 		 					   {{#each years:index}}
-								 <option value="{{years[index]}}">{{years[index]}} {{i18n_year}}</option>
+								 <option value="{{years[index]}}">{{years[index]}} {{i18n_safety_year}}</option>
 						       {{/each}}
 			             	 </select>
-                             <label on-click="toShowMonthSelect">{{safetyObj.currMonth}} {{i18n_month}}</label>
+                             <label on-click="toShowMonthSelect">{{safetyObj.currMonth}} {{i18n_safety_month}}</label>
                              <select style="display:none" on-blur="toHideMonthSelect" on-change="changeMonth" value="{{safetyObj.currMonth}}">
 				               {{#each months:index}}
-							    <option value="{{months[index]}}">{{months[index]}} {{i18n_month}}</option>
+							    <option value="{{months[index]}}">{{months[index]}} {{i18n_safety_month}}</option>
 					           {{/each}}
 	             			</select>
                          </span>
