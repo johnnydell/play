@@ -90,7 +90,13 @@ var manager = function() {
 	        var ractive = new Ractive({
 	            el: '.left',
 	            data:{root:root},
-	            template: template
+	            template: template,
+	            onrender: function(){
+	            	var user = getLoginUserInfo();
+	            	if(user.user_id != '0'){
+	            		$(".box .left ul .icon-login img").attr("src",root+"/images/icon-tx2.png");
+	            	}
+				}
 	        });   
 	        
 	        ractive.on({	        	
@@ -385,6 +391,17 @@ var manager = function() {
 	    }
 	    return NaN;
 	}
+	
+	function getLoginUserInfo(){
+		var str = getCookie("user_info");
+		if(str == undefined){
+			return {
+				user_id:"0",
+				user_name:""
+			}
+		}
+		return $.parseJSON(str);
+	}
 
 	return {
 		init: renderLayout,
@@ -415,16 +432,7 @@ var manager = function() {
 		getLanguage:function(){
 			return getCookie("language");
 		},
-		getLoginUserInfo:function(){
-			var str = getCookie("user_info");
-			if(str == undefined){
-				return {
-					user_id:"0",
-					user_name:""
-				}
-			}
-			return $.parseJSON(str);
-		},
+		getLoginUserInfo:getLoginUserInfo,
 		block: function() {
         	$.blockUI({
                 message: '<div style="font-size: 14px;font-weight: bold;color: #f60;height: 40px;width: 250px;line-height: 40px;text-align: center;margin: 0 auto;"><img alt="" src="' + root + '/images/loading.gif"></div>',
