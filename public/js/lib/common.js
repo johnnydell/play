@@ -84,7 +84,7 @@ var common = function(){
 	function getFuncList(){
 		var ret;
 		$.ajax({
-			url: manager.root + "/common/getList",
+			url: manager.root + "/func/getList",
 			type: "GET",
 			async:false,
 			dataType: "json",
