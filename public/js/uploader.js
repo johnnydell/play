@@ -1,10 +1,14 @@
 var uploader = function(){
+	var limits = permission.load("upload");
 	function init(){
 		var root = manager.root;
 		var ractive = new Ractive({
 			el: ".container",
 			template: "#main-template",
-			data: {},
+			data: {
+				limits      : limits,
+				root		: manager.root
+			},
 			onrender: function(){
 				manager.loadProperties(this, "uploader", "../../");
 			},

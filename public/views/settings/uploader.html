@@ -32,6 +32,7 @@
 	<script src="../../js/lib/jquery.i18n.properties-1.0.9.js"></script>
 	<script src="../../js/lib/alerts/jquery.alerts.js"></script>
 	<script src="../../js/lib/manager.js"></script>
+	<script src="../../js/lib/permission.js"></script>
 	<script src="../../js/uploader.js"></script>
 	<script id="main-template" type="text/active">
 	<div class="position _clear title">
@@ -66,7 +67,9 @@
 						<form id="form_layout_upload" enctype="multipart/form-data"  method="POST">
 							<input type="text" id="avatval_layout" placeholder="请选择文件···" readonly="readonly" style="vertical-align: middle; width:60%;height:30px;"/>
 							<a href="javascript:;" class="divupload">选择文件<input type="file" name="layout" value="" id="layout_upload" class="btnBrowser"/></a>
-							<input type="button" name="btnUploadLayout" value="{{i18n_uploader_name_upload}}" class="divupload" on-click="uploadLayoutPage"/>
+							{{#if limits.add}}
+								<input type="button" name="btnUploadLayout" value="{{i18n_uploader_name_upload}}" class="divupload" on-click="uploadLayoutPage"/>
+							{{/if}}
 						</form>
 						
 					</td>
@@ -88,7 +91,9 @@
 						<form id="form_balance_upload" enctype="multipart/form-data"  method="POST">
 							<input type="text" id="avatval_balance" placeholder="请选择文件···" readonly="readonly" style="vertical-align: middle; width:60%;height:30px;"/>
 							<a href="javascript:;" class="divupload" >选择文件<input type="file" name="balance" value="" id="balance_upload" class="btnBrowser"/></a>
-							<input type="button" name="btnUploadBalance" value="{{i18n_uploader_name_upload}}" class="divupload" on-click="uploadBalancePage"/>
+							{{#if limits.add}}
+								<input type="button" name="btnUploadBalance" value="{{i18n_uploader_name_upload}}" class="divupload" on-click="uploadBalancePage"/>
+							{{/if}}
 						</form>
 						
 					</td>
@@ -113,7 +118,9 @@
 						<form id="form_oeepdca_upload" enctype="multipart/form-data"  method="POST">
 							<input type="text" id="avatval_oeepdca" placeholder="请选择文件···" readonly="readonly" style="vertical-align: middle; width:60%;height:30px;"/>
 							<a href="javascript:;" class="divupload" >选择文件<input type="file" name="oeepdca" value="" id="oeepdca_upload" class="btnBrowser"/></a>
-							<input type="button" name="btnUploadoeepdca" value="{{i18n_uploader_name_upload}}" class="divupload" on-click="uploadOeePdcaPage"/>
+							{{#if limits.add}}
+								<input type="button" name="btnUploadoeepdca" value="{{i18n_uploader_name_upload}}" class="divupload" on-click="uploadOeePdcaPage"/>
+							{{/if}}
 						</form>
 						
 					</td>
@@ -136,7 +143,9 @@
 						<form id="form_5m1e_upload" enctype="multipart/form-data"  method="POST">
 							<input type="text" id="avatval_5m1e" placeholder="请选择文件···" readonly="readonly" style="vertical-align: middle; width:60%;height:30px;"/>
 							<a href="javascript:;" class="divupload" >选择文件<input type="file" name="5m1e" value="" id="5m1e_upload" class="btnBrowser"/></a>
-							<input type="button" name="btnUpload5m1e" value="{{i18n_uploader_name_upload}}" class="divupload" on-click="upload5m1ePage"/>
+							{{#if limits.add}}
+								<input type="button" name="btnUpload5m1e" value="{{i18n_uploader_name_upload}}" class="divupload" on-click="upload5m1ePage"/>
+							{{/if}}
 						</form>
 						
 					</td>
@@ -159,7 +168,9 @@
 						<form id="form_5s_upload" enctype="multipart/form-data"  method="POST">
 							<input type="text" id="avatval_5s" placeholder="请选择文件···" readonly="readonly" style="vertical-align: middle; width:60%;height:30px;"/>
 							<a href="javascript:;" class="divupload" >选择文件<input type="file" name="5s" value="" id="5s_upload" class="btnBrowser"/></a>
-							<input type="button" name="btnUpload5s" value="{{i18n_uploader_name_upload}}" class="divupload" on-click="upload5sPage"/>
+							{{#if limits.add}}
+								<input type="button" name="btnUpload5s" value="{{i18n_uploader_name_upload}}" class="divupload" on-click="upload5sPage"/>
+							{{/if}}
 						</form>
 						
 					</td>
@@ -182,7 +193,9 @@
 						<form id="form_trainmatrix_upload" enctype="multipart/form-data"  method="POST">
 							<input type="text" id="avatval_train_matrix" placeholder="请选择文件···" readonly="readonly" style="vertical-align: middle; width:60%;height:30px;"/>
 							<a href="javascript:;" class="divupload" >选择文件<input type="file" name="trainmatrix" value="" id="train_matrix_upload" class="btnBrowser"/></a>
-							<input type="button" name="btnUploadTrainMatrix" value="{{i18n_uploader_name_upload}}" class="divupload" on-click="uploadTrainMatrixPage"/>
+							{{#if limits.add}}
+								<input type="button" name="btnUploadTrainMatrix" value="{{i18n_uploader_name_upload}}" class="divupload" on-click="uploadTrainMatrixPage"/>
+							{{/if}}
 						</form>
 						
 					</td>
@@ -205,7 +218,9 @@
 						<form id="form_checklist_upload" enctype="multipart/form-data"  method="POST">
 							<input type="text" id="avatval_checklist" placeholder="请选择文件···" readonly="readonly" style="vertical-align: middle; width:60%;height:30px;"/>
 							<a href="javascript:;" class="divupload" >选择文件<input type="file" name="checklist" value="" id="checklist_upload" class="btnBrowser"/></a>
-							<input type="button" name="btnUploadChecklist" value="{{i18n_uploader_name_upload}}" class="divupload" on-click="uploadChecklistPage"/>
+							{{#if limits.add}}
+								<input type="button" name="btnUploadChecklist" value="{{i18n_uploader_name_upload}}" class="divupload" on-click="uploadChecklistPage"/>
+							{{/if}}
 						</form>
 						
 					</td>
