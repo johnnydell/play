@@ -129,7 +129,7 @@ var manager = function() {
 	            onrender: function(){
 	            	var user = getLoginUserInfo();
 	            	loadProperties(this, "common");
-	            	ractive.set("user",user);
+	            	this.set("user",user);
 	            }
 	        }); 
 	        
