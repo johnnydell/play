@@ -145,7 +145,7 @@ var manager = function() {
 							dataType: "text",   
 							success: function(data) {
 								if(data == 'logout'){
-									jAlert($.i18n.prop("i18n_logout_success"), $.i18n.prop("i18n_info"));
+									//jAlert($.i18n.prop("i18n_logout_success"), $.i18n.prop("i18n_info"));
 									setCookie("user_info","{\"user_id\":\"0\",\"user_name\":\"\"}"); 
 						        	window.location.reload();
 								}
@@ -206,7 +206,7 @@ var manager = function() {
               var userName = userDt[0];
   	          if(userId != '0'){  	        	
   	        	  setCookie("user_info","{\"user_id\":\""+userId+"\",\"user_name\":\""+userName+"\"}"); 
-  	        	  jAlert($.i18n.prop("i18n_login_login_success"), $.i18n.prop("i18n_error"));
+  	        	  //jAlert($.i18n.prop("i18n_login_login_success"), $.i18n.prop("i18n_error"));
   	        	  $(".login_popup").hide().html("");
   	        	  typeof(callback) === 'function'&&callback(userDt);
   	        	  window.location.reload();
