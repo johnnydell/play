@@ -2,6 +2,7 @@
 	background: url(../images/new/bg.png) no-repeat;
 	background-size: cover;
 	color: #fff;
+	height:1200px;
 }
 
 .scgn-top{
@@ -32,14 +33,15 @@
 	margin-top: 15px;
 }
 .scgn-menu dt{
-	padding: 5px 10px;
+	/* padding: 5px 10px; */
+	padding: 10px 40px;
 	border: solid 2px #fff;
 	font-size: 24px;
 }
 .scgn-menu span{
 	display: inline-block;
-	padding: 5px 0px;
-	width: 120px;
+	padding: 8px 0px;
+	width: 177px;
 	font-size: 18px;
 }
 .scgn-menu dd{
