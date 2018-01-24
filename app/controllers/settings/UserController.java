@@ -209,8 +209,19 @@ public class UserController extends Controller {
 		userArr[1] = "0";
 		if(user != null){
 			userArr[1] = user.id;
+			session("userId",user.id);
 		}
 		return ok(Json.toJson(userArr));
+	}
+	
+	/**
+	 * 退出
+	 * @return
+	 */
+	@Transactional
+	public static Result logout(){
+		session().remove("userId");
+		return ok("logout");
 	}
 	
 	

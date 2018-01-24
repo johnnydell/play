@@ -54,6 +54,7 @@ POST /edashboard/user/saveUserRole               		controllers.settings.UserCont
 POST /edashboard/user/pwdChange               		    controllers.settings.UserController.pwdChange()
 GET  /edashboard/user/getUserRoleFuncsByUserId          controllers.settings.UserController.getUserRoleFuncsByUserId(userId:String)
 GET  /edashboard/user/validateUserInfo              	controllers.settings.UserController.validateUserInfo(userName:String,pwd:String)
+POST /edashboard/user/logout               		    	controllers.settings.UserController.logout()
 
 #Setting Product Type
 GET  /edashboard/productType/getList               		controllers.settings.ProductTypeController.getList()

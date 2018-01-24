@@ -78,7 +78,7 @@ public class CityController extends Controller {
     } 
     
     public static Result set() {    
-    	 return ok(session().get("connected") == null ? "":session().get("connected"));
+    	 return ok(session().get("userId") == null ? "":session().get("userId"));
     } 
 
 }

@@ -125,12 +125,33 @@ var manager = function() {
 	        var ractive = new Ractive({
 	            el: '.right header',
 	            data:{root:root},
-	            template: template
+	            template: template,
+	            onrender: function(){
+	            	var user = getLoginUserInfo();
+	            	loadProperties(this, "common");
+	            	ractive.set("user",user);
+	            }
 	        }); 
 	        
 	        ractive.on({
 	           toggleLeft:function(){
 	             $(".left").toggle(900);
+	           },
+	           logout:function(){
+	        	   jConfirm($.i18n.prop("i18n_logout_confirm"), $.i18n.prop("i18n_info"),function(){
+	        		   $.ajax({
+							url: manager.root + "/user/logout",
+							type: "POST",
+							dataType: "text",   
+							success: function(data) {
+								if(data == 'logout'){
+									jAlert($.i18n.prop("i18n_logout_success"), $.i18n.prop("i18n_info"));
+									setCookie("user_info","{\"user_id\":\"0\",\"user_name\":\"\"}"); 
+						        	window.location.reload();
+								}
+							}
+						});	
+	        	   })
 	           }
 	        })
 	    });
@@ -188,6 +209,7 @@ var manager = function() {
   	        	  jAlert($.i18n.prop("i18n_login_login_success"), $.i18n.prop("i18n_error"));
   	        	  $(".login_popup").hide().html("");
   	        	  typeof(callback) === 'function'&&callback(userDt);
+  	        	  window.location.reload();
   	          } else {
   	        	  jAlert($.i18n.prop("i18n_login_userpwd_not_match"), $.i18n.prop("i18n_error"));
 	        	  return false;

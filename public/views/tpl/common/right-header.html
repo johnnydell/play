@@ -1,5 +1,13 @@
 <div class="logo">
 	<i class="icon icon-menu mr-10" on-click="toggleLeft"></i>
 	<img src="{{root}}/images/logo.png" style="width:100px" />
+	{{#if user.user_id != '0'}}
+	<i style="margin-left:10px;">	    
+		<img src="{{root}}/images/user.png"/>
+		<label style="font-size: 15px;font-weight: 700;">{{i18n_login_id}}：</label>
+		<label>{{user.user_name}}</label>
+		<img on-click="logout" title="{{i18n_logout}}" style="margin-left:10px;cursor: pointer" src="{{root}}/images/tc.png"/>
+	</i>
+	{{/if}}
 	<img src="{{root}}/images/logo2.png" class="fr" />
 </div>
