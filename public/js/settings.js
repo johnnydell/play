@@ -22,12 +22,12 @@ var settings = function(){
 			toUserMgt:function(){
 				location.href=manager.root+"/views/settings/user.html";
 			},
-			/*
+			
 			toUpload:function(){
 				location.href=manager.root+"/views/settings/uploader.html";
 			}
 			,
-			*/
+			/**/
 			
 			toSysConfig:function(){
 				location.href=manager.root+"/views/settings/sysconfig.html";
