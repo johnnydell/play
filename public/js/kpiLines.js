@@ -17,6 +17,7 @@ var productivity = function(){
 			},
 			onrender: function(){
 				manager.loadProperties(this, "kpiLines", "../../");
+				manager.loadProperties(this, "kpi", "../../");
 			},
 			oncomplete: function(){
 				manager.setMenuBar("sy");
@@ -105,6 +106,26 @@ var productivity = function(){
 				ractive.set("lineROGdata", lineROGdata);
 				ractive.set("lineRECdata", lineRECdata);
 				ractive.set("lineFAGdata", lineFAGdata);
+				
+				var title = $.i18n.map['i18n_kpi_safety'];
+				switch(type){
+			       case 'safety':
+			    	   title = $.i18n.map['i18n_kpi_safety'];
+			       	  break;
+			       case 'complain':
+			    	   title = $.i18n.map['i18n_kpi_complain'];
+			          break;
+			       case 'scrap':
+			    	   title = $.i18n.map['i18n_kpi_scrap'];
+			       	  break;
+			       case 'delivery':
+			    	   title = $.i18n.map['i18n_kpi_outputs'];
+			          break; 
+			       case 'productivity':
+			    	   title = $.i18n.map['i18n_kpi_productivity'];
+			          break; 
+			     }
+				ractive.set("kpiLines_title", title);
 			}
     	});
 	}

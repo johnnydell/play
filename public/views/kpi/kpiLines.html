@@ -34,7 +34,7 @@
 	<script src="../../js/safetyReport.js"></script>
 	<script id="main-template" type="text/active">
 	<div class="position _clear title">
-		<h3>{{i18n_kpiLines_title}}</h3>
+		<h3>{{kpiLines_title}}</h3>
 		<div class="fr">
 			<p>			
 				<i class="icon icon-home"></i>
@@ -42,7 +42,7 @@
 				<font color="#ccc">></font>
 				<a href="../kpi.html">{{i18n_kpiLines_nav2}}</a>
 				<font color="#ccc">></font>
-				<span>{{i18n_kpiLines_title}}</span>
+				<span>{{kpiLines_title}}</span>
 			</p>
 		</div>
 	</div>
@@ -50,26 +50,26 @@
 	   <!--../tpl/kpi/productivityReport.html?lineName={{lineName}}-->
 		<div class="content-box">
 			<ul>
-				<li><span>{{i18n_kpi_summary}}<a href="javascript:void(0);" on-click="gotoKipSummary"><img src="../../images/kpi.png"/></a></span></li>
+				<li><span>{{kpiLines_title}} - {{i18n_kpi_summary}}<a href="javascript:void(0);" on-click="gotoKipSummary"><img src="../../images/kpi.png"/></a></span></li>
 				{{#each lineSTGdata}}
-					<li><span>{{uppercase(lineName)}}<a href="javascript:void(0);" on-click="gotoKip"><img src="../../images/kpi.png"/></a></span></li>
+					<li><span>{{kpiLines_title}} - {{uppercase(lineName)}}<a href="javascript:void(0);" on-click="gotoKip"><img src="../../images/kpi.png"/></a></span></li>
 				{{/each}}
 			</ul>
 			<ul >
 				{{#each lineROGdata}}
-					<li><span>{{uppercase(lineName)}}<a href="javascript:void(0);" on-click="gotoKip"><img src="../../images/kpi.png"/></a></span></li>
+					<li><span>{{kpiLines_title}} - {{uppercase(lineName)}}<a href="javascript:void(0);" on-click="gotoKip"><img src="../../images/kpi.png"/></a></span></li>
 				{{/each}}
 				
 			</ul>
 			<ul >
 				{{#each lineRECdata}}
-					<li><span>{{uppercase(lineName)}}<a href="javascript:void(0);" on-click="gotoKip"><img src="../../images/kpi.png"/></a></span></li>
+					<li><span>{{kpiLines_title}} - {{uppercase(lineName)}}<a href="javascript:void(0);" on-click="gotoKip"><img src="../../images/kpi.png"/></a></span></li>
 				{{/each}}
 				
 			</ul>
 			<ul >
 				{{#each lineFAGdata}}
-					<li><span>{{uppercase(lineName)}}<a href="javascript:void(0);" on-click="gotoKip"><img src="../../images/kpi.png"/></a></span></li>
+					<li><span>{{kpiLines_title}} - {{uppercase(lineName)}}<a href="javascript:void(0);" on-click="gotoKip"><img src="../../images/kpi.png"/></a></span></li>
 				{{/each}}
 				
 			</ul>
