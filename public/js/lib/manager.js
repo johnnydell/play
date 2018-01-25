@@ -115,7 +115,8 @@ var manager = function() {
 	          toScreen:function(){
 	          	  location.href = root+"/views/scr.html";
 	          },
-	          toLogin:triggerLogin
+	          toLogin: triggerLogin
+	        	 
 	        })
 	        
 	    });
@@ -208,8 +209,13 @@ var manager = function() {
   	        	  setCookie("user_info","{\"user_id\":\""+userId+"\",\"user_name\":\""+userName+"\"}"); 
   	        	  //jAlert($.i18n.prop("i18n_login_login_success"), $.i18n.prop("i18n_error"));
   	        	  $(".login_popup").hide().html("");
-  	        	  typeof(callback) === 'function'&&callback(userDt);
-  	        	  window.location.reload();
+  	        	  if(typeof(callback) === 'function')
+  	        	  {
+  	        		callback(userDt);
+  	        	  }else{
+  	        		window.location.reload();
+  	        	  }
+  	        		  
   	          } else {
   	        	  jAlert($.i18n.prop("i18n_login_userpwd_not_match"), $.i18n.prop("i18n_error"));
 	        	  return false;
