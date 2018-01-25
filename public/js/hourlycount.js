@@ -484,10 +484,12 @@ var hourlycount = function(){
 						success: function(ret)
 						{
 							if (ret == '1'){
-								$("#msgBox").html($.i18n.map['i18n_save_ok']);
+								
+								jAlert( $.i18n.map['i18n_save_ok'], $.i18n.map['i18n_info']);	
 							}
 							else{
-								$("#msgBox").html($.i18n.map['i18n_save_error']);
+								
+								jAlert( $.i18n.map['i18n_save_error'], $.i18n.map['i18n_error']);	
 							}
 							
 						},

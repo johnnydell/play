@@ -40,9 +40,9 @@
 	
 	<script id="main-template" type="text/active">
 	<div class="position _clear title">
-		<h3>{{i18n_hourlycount_title}}</h3>
-		<div class="fr">
-			<p>
+		
+		<div class="fr" style="float:left; width:100%">
+			<p style="float:left; width: 60%">
 				<i class="icon icon-home"></i>
 				<a href="../index.html">{{i18n_hourlycount_nav1}}</a>
 				<font color="#ccc">></font>
@@ -52,18 +52,32 @@
 				<font color="#ccc">></font>
 				<span>{{i18n_hourlycount_title}}</span>
 			</p>
+			
+			<div style="float:right">
+				 {{#if limits.save}}
+					<button type="button" class="btn" on-click="saveHourlyCount">{{i18n_save}}</button>
+				{{/if}}
+				<button type="button" class="btn" on-click="gotoOPL">OPL</button>
+			</div>
+
 		</div>
 	</div>
 	<div class="content">
 		<div class="content-box">
-			 <div class="" style="float:left">
-				<span id="msgBox"></span>
-            </div>
+			
             <div class="toolbar">
-				{{#if limits.save}}
-					<button type="button" class="btn" on-click="saveHourlyCount">{{i18n_save}}</button>
-				{{/if}}
-				<button type="button" class="btn" on-click="gotoOPL">OPL</button>
+				
+				<div class="inner_header" style="float:left">
+					<div class="inner_left" >
+						<label class="field" on-click="toShowLineSelect">{{lineName}} {{i18n_hourlycount_title}}</label> 
+						</div>
+						<div class="inner_right" >
+							<div>
+								<div><img src="{{root}}/images/logo2.png" style="width:200px;"></div>
+								<div style="padding-top: 5px;"><span style="font-size:15px;">SEG Production System</span></div>
+							</div>
+						</div>						
+				</div>	
             </div>
 			<div class="header">
 				<div class="title"><span>{{i18n_hourlycount_title}}</span></div>

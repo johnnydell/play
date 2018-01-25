@@ -43,7 +43,8 @@ var scr = function(){
 				//check time interval if it's set or not
 				if (!manager.isNull(sysParam["SCREEN"])){
 					if (!manager.isNull(sysParam["SCREEN"]["TIME_INTERVAL"])){
-						time_interval = parseInt(sysParam["SCREEN"]["TIME_INTERVAL"].paramValue) * 1000 == 0 ? time_interval : parseInt(sysParam["SCREEN"]["TIME_INTERVAL"].paramValue);
+						time_interval = parseInt(sysParam["SCREEN"]["TIME_INTERVAL"].paramValue)  == 0 ? time_interval : parseInt(sysParam["SCREEN"]["TIME_INTERVAL"].paramValue);
+						time_interval *= 1000;
             		}
 				}
 				clearInterval(intervalObj);
