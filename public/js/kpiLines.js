@@ -107,22 +107,22 @@ var productivity = function(){
 				ractive.set("lineRECdata", lineRECdata);
 				ractive.set("lineFAGdata", lineFAGdata);
 				
-				var title = $.i18n.map['i18n_kpi_safety'];
+				var title = $.i18n.map['i18n_kpi_safety_overview'];
 				switch(type){
 			       case 'safety':
-			    	   title = $.i18n.map['i18n_kpi_safety'];
+			    	   title = $.i18n.map['i18n_kpi_safety_overview'];
 			       	  break;
 			       case 'complain':
-			    	   title = $.i18n.map['i18n_kpi_complain'];
+			    	   title = $.i18n.map['i18n_kpi_complain_overview'];
 			          break;
 			       case 'scrap':
-			    	   title = $.i18n.map['i18n_kpi_scrap'];
+			    	   title = $.i18n.map['i18n_kpi_scrap_overview'];
 			       	  break;
 			       case 'delivery':
-			    	   title = $.i18n.map['i18n_kpi_outputs'];
+			    	   title = $.i18n.map['i18n_kpi_outputs_overview'];
 			          break; 
 			       case 'productivity':
-			    	   title = $.i18n.map['i18n_kpi_productivity'];
+			    	   title = $.i18n.map['i18n_kpi_productivity_overview'];
 			          break; 
 			     }
 				ractive.set("kpiLines_title", title);

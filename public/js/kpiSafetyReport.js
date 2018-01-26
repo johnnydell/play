@@ -16,6 +16,7 @@ var kpiSafetyReport = function(){
 				manager.loadProperties(this, "common", "../../../");
 				manager.loadProperties(this, "safety", "../../../");
 				manager.loadProperties(this, "hourlycount", "../../../");
+				manager.loadProperties(this, "kpiLines", "../../../");
 				this.set("years",years);
 				this.set("months",months);
 				safetyObj.currYear = sys_date.split("-")[0];
@@ -49,12 +50,12 @@ var kpiSafetyReport = function(){
 				_$select.hide().prev().show().text(_$select.find("option:selected").text());
 			},
 			changeYear:function(){
-				kpiSafetyChart1.init(lineName);
+				kpiSafetyChart1.init(lineName, safetyObj.currYear);
 				kpiSafetyChart2.init(lineName, safetyObj.currYear);
 				kpiSafetyChart3.init(lineName, safetyObj.currYear, safetyObj.currMonth);
 			},
 			changeMonth:function(){
-				kpiSafetyChart1.init(lineName);
+				kpiSafetyChart1.init(lineName, safetyObj.currYear);
 				kpiSafetyChart3.init(lineName, safetyObj.currYear, safetyObj.currMonth);
 			}
 		})
