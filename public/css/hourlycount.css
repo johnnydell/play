@@ -176,6 +176,18 @@
 }
 
 .content-box .toolbar {
+	height: 40px;
+    text-align: right;
+}
+
+.content-box .btn {
+    padding: 6px 12px;
+    line-height: 1.42857143;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.content-box .board {
 	height: 125px;
     text-align: right;
 }
