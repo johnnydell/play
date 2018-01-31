@@ -7,9 +7,11 @@ var board2 = function(){
 	var expired_days_5m1e = 0;
 	var expired_days_5s = 0;
 	var expired_days_trainmatrix = 0;
+	var expired_days_escalation = 0;
 	var date_gap_5m1e = 0;
 	var date_gap_5s = 0;
 	var date_gap_trainmatrix = 0;
+	var date_gap_escalation = 0;
 	function init(){
 	   
 	   $.get(manager.root+"/views/board2.html", function (template) {
@@ -31,6 +33,9 @@ var board2 = function(){
 	            		if (!manager.isNull(sysParam["STATICPAGE"]["MATRIX"])){
 	            			expired_days_trainmatrix = manager.isNull(sysParam["STATICPAGE"]["MATRIX"].paramValue) ? 0 : parseInt(sysParam["STATICPAGE"]["MATRIX"].paramValue);
 	            		}
+	            		if (!manager.isNull(sysParam["STATICPAGE"]["ESCALATION"])){
+	            			expired_days_escalation = manager.isNull(sysParam["STATICPAGE"]["ESCALATION"].paramValue) ? 0 : parseInt(sysParam["STATICPAGE"]["ESCALATION"].paramValue);
+	            		}
 	            	}
 	            	var now = new Date();
 	            	
@@ -47,11 +52,16 @@ var board2 = function(){
 	            			lastUpload = uploadList[i].lastUploadTime;
 	            			date_gap_5s = ( now.getTime() - parseInt(lastUpload) ) / (1000 * 60 * 60 * 24);
 	            		}
+	            		else if (uploadList[i].fileName == 'escalation'){
+	            			lastUpload = uploadList[i].lastUploadTime;
+	            			date_gap_escalation = ( now.getTime() - parseInt(lastUpload) ) / (1000 * 60 * 60 * 24);
+	            		}
 	            	}
 	            	
 	            	ractive.set("alarm_5m1e", 		( expired_days_5m1e > date_gap_5m1e ? 0 : 1 ) );
 	            	ractive.set("alarm_5s", 		( expired_days_5s > date_gap_5s ? 0 : 1 ) );
 	            	ractive.set("alarm_trainmatrix", ( expired_days_trainmatrix > date_gap_trainmatrix ? 0 : 1 ) );
+	            	ractive.set("alarm_escalation", ( expired_days_escalation > date_gap_escalation ? 0 : 1 ) );
 	            }
 	        }); 
 	        

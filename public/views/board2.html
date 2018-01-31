@@ -13,7 +13,6 @@
 							<a href="board2/scrap.html?lineName={{lineName}}&lineId={{lineId}}" class="bg-1f4e79">{{i18n_boards_scrap_title}}</a>
 						</div>
 						<div class="board-item">
-							
 							<a href="board2/opl.html?lineName={{lineName}}&lineId={{lineId}}" class="bg-1f4e79 ">{{i18n_boards_OPL2_title}}</a>
 							<a href="board/staticpage.html?pageName=checklist&oplLinkName=''&lineName={{lineName}}&lineId={{lineId}}" class="bg-1f4e79" >{{i18n_boards_checklist_title}}</a>
 							{{#if alarm_5m1e == 1}}
@@ -34,7 +33,11 @@
 							{{else}}
 								<a href="board/staticpage.html?pageName=trainmatrix&oplLinkName=''&lineName={{lineName}}&lineId={{lineId}}" class="bg-1f4e79">{{i18n_boards_matrix_title}}</a>
 							{{/if}}
-							<a href="#" class="bg-1f4e79">&nbsp;</a>
+							{{#if alarm_escalation == 1}}
+								<a href="board/staticpage.html?pageName=escalation&oplLinkName=''&lineName={{lineName}}&lineId={{lineId}}" class="bg-f4b183">{{i18n_boards_escalation_title}}<br>({{i18n_boards_upload_expired}})</a>
+							{{else}}
+								<a href="board/staticpage.html?pageName=escalation&oplLinkName=''&lineName={{lineName}}&lineId={{lineId}}" class="bg-1f4e79">{{i18n_boards_escalation_title}}</a>
+							{{/if}}
 						</div>
 					</div>
 				</li>

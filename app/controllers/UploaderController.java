@@ -143,6 +143,11 @@ public class UploaderController extends Controller {
 				// blance excel file
 				buffer.append( Constants.STATIC_FILE_SAVE_PATH_14Q_CHKLIST );
 				
+			} 
+			else if ("escalation".equals(fileName)) {
+				// escalation excel file
+				buffer.append( Constants.STATIC_FILE_SAVE_PATH_ESCALATION_PLAN );
+				
 			}
 			
 			buffer.append(File.separator);

@@ -115,6 +115,10 @@ public class StaticPageController extends Controller {
 				// blance excel file
 				buffer.append(Constants.STATIC_FILE_SAVE_PATH_14Q_CHKLIST);
 			}
+			else if ("escalation".equals(fileType)) {
+				// blance excel file
+				buffer.append(Constants.STATIC_FILE_SAVE_PATH_ESCALATION_PLAN);
+			}
 			buffer.append(File.separator);
 			buffer.append(fileName);
 
@@ -165,6 +169,10 @@ public class StaticPageController extends Controller {
 			else if ("checklist".equals(fileType)) {
 				// blance excel file
 				buffer.append(Constants.STATIC_FILE_SAVE_PATH_14Q_CHKLIST);
+			}
+			else if ("escalation".equals(fileType)) {
+				// blance excel file
+				buffer.append(Constants.STATIC_FILE_SAVE_PATH_ESCALATION_PLAN);
 			}
 			buffer.append(File.separator);
 			buffer.append(fileName);

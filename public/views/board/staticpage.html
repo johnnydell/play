@@ -76,6 +76,8 @@
 					<span>{{i18n_staticpage_title_trainmatrix}}</span>
 				{{elseif pageName == 'checklist'}}
 					<span>{{i18n_staticpage_title_14q_checklist}}</span>
+				{{elseif pageName == 'escalation'}}
+					<span>{{i18n_staticpage_title_escalation}}</span>
 				{{/if}}
 			</p>
 		</div>
@@ -89,7 +91,6 @@
 				<a id="uploadURL" href="{{root}}/views/settings/uploader.html" style="display : {{displayed_upload}};" class="link">{{i18n_switch_to_upload}}</a>
 			{{/if}}
 			<div class="toolbar">
-				
 				{{#if pageName == 'balance'}}
 					<span>{{i18n_staticpage_switch_to}} </span>
 					<a href="{{root}}/views/board/staticpage.html?pageName=layout&oplLinkName=''&lineName={{lineName}}&lineId={{lineId}}" class="link">{{i18n_staticpage_title_layout}}</a>
@@ -97,9 +98,8 @@
 					<span>{{i18n_staticpage_switch_to}} </span>
 					<a href="{{root}}/views/board/staticpage.html?pageName=balance&oplLinkName=''&lineName={{lineName}}&lineId={{lineId}}" class="link">{{i18n_staticpage_title_balance}}</a>
 				{{elseif pageName == 'checklist'}}
-					<a href="{{checklist_download_url}}" class="link" on-click="downloadFile" style="display:{{displayed}};">{{i18n_edit}}</a>
+					<a href="{{checklist_download_url}}" class="link" on-click="downloadFile" style="display:{{displayed}};">{{i18n_edit}}</a>	
 				{{/if}}
-				
             </div>
 			
 			<iframe id="pdfviewer" style="display : none;border : 0"/>	

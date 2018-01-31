@@ -78,6 +78,14 @@ var uploader = function(){
 	             $("#checklist_upload").change(function(){
 	                 $("#avatval_checklist").val($(this).val());
 	             });
+	             
+	             //init click event - Escalation
+	             $("#avatval_escalation").click(function(){
+	                 $("#escalation_upload").trigger('click');
+	             });
+	             $("#escalation_upload").change(function(){
+	                 $("#avatval_escalation").val($(this).val());
+	             });
 			}
 			
 		});
@@ -205,6 +213,21 @@ var uploader = function(){
                     },
                     error: function (error) {console.log(error); },
                     url: root + '/views/upload/uploadFile/checklist', /*设置post提交到的页面*/
+                    type: "post", /*设置表单以post方法提交*/
+                    dataType: "json" /*设置返回值类型为文本*/
+                });
+			},
+			
+			//upload escalation static page
+			uploadEscalationPage : function () {
+				$("#form_escalation_upload").ajaxSubmit({
+                    success: function (data) {
+                        $("#msg_info").html($.i18n.map[data.info]);
+                        $("#result_escalation").html($.i18n.map[data.result]);
+                        $("#time_escalation").html(data.last_update_time);
+                    },
+                    error: function (error) {console.log(error); },
+                    url: root + '/views/upload/uploadFile/escalation', /*设置post提交到的页面*/
                     type: "post", /*设置表单以post方法提交*/
                     dataType: "json" /*设置返回值类型为文本*/
                 });

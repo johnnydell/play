@@ -235,6 +235,28 @@
 					</td>
 				</tr>
 
+				<tr>
+					<td>8</td>
+					<td>{{i18n_uploader_name_escalation}}</td>
+					<td >
+						<form id="form_escalation_upload" enctype="multipart/form-data"  method="POST">
+							<input type="text" id="avatval_escalation" placeholder="请选择文件···" readonly="readonly" style="vertical-align: middle; width:60%;height:30px;"/>
+							<a href="javascript:;" class="divupload" >选择文件<input type="file" name="escalation" value="" id="escalation_upload" class="btnBrowser"/></a>
+							{{#if limits.add}}
+								<input type="button" name="btnUploadEscalation" value="{{i18n_uploader_name_upload}}" class="divupload" on-click="uploadEscalationPage"/>
+							{{/if}}
+						</form>
+					</td>
+					
+					<td>
+						<span id="result_escalation">
+						</span>
+					</td>
+					<td>
+						<span id="time_escalation">
+						</span>
+					</td>
+				</tr>
 			</table>
 			<ul>
 				<li>
